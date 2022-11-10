@@ -74,7 +74,6 @@ function App(props) {
   const [user, loading] = useAuthState(auth)
   const [role, setRole] = useState(null)
 
-  //TODO: Redirect user useEffect
   useEffect(() => {
     if (user) {
       const userRole = getRole(user.email)
@@ -84,11 +83,20 @@ function App(props) {
     }
   }, [user])
 
+  //TODO: Redirect user useEffect
+  useEffect(() => {
+
+  })
+
   if (loading) return <Authenticating />
 
   return (
     <div className="App">
-      {user && role ? (
+      {!user && !role &&
+        <Login />
+      }
+
+      {user && role &&
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
 
@@ -170,10 +178,8 @@ function App(props) {
           </div>
 
         </Box>
-      ) : (
-        <Login />
-      )
       }
+
     </div >
   )
 }
