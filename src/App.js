@@ -83,6 +83,16 @@ function App(props) {
     }
   }, [user])
 
+  //after sign in as stallUser
+
+  //check firestore if they are part of a stall
+  //if found as owner, set current stall and continue
+
+  //if found as staff, set current satll and continue, but send a prop to stallsettings page to hide content
+
+  //else show the new user screen
+
+
   if (loading) return <Authenticating />
 
   return (
