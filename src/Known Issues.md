@@ -1,0 +1,1 @@
+Right sidebar swipeable edge does not work on desktop.
