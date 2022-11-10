@@ -33,6 +33,7 @@ import { query, getDocs, collection, where } from "firebase/firestore"
 
 import Login from './login-page/Login'
 import Authenticating from './loading-pages/Authenticating'
+import { getRole } from './utils/tools'
 
 function App(props) {
   const { window } = props
@@ -71,21 +72,23 @@ function App(props) {
   }
 
   const [user, loading] = useAuthState(auth)
-  const [role, setRole] = useState('customer')
+  const [role, setRole] = useState(null)
 
   //TODO: Redirect user useEffect
   useEffect(() => {
-    // if (role === 'customer' && pathName === '/') {
-    //   navigate('/customer/myorders')
-    // }
-  }, [])
-
+    if (user) {
+      const userRole = getRole(user.email)
+      setRole(userRole)
+    } else {
+      setRole(null)
+    }
+  }, [user])
 
   if (loading) return <Authenticating />
 
   return (
     <div className="App">
-      {user ? (
+      {user && role ? (
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
 

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
@@ -11,7 +12,7 @@ import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Tooltip from '@mui/material/Tooltip'
-import Collapse from '@mui/material/Collapse';
+import Collapse from '@mui/material/Collapse'
 
 import FastfoodIcon from '@mui/icons-material/Fastfood'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
@@ -20,12 +21,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import PrintIcon from '@mui/icons-material/Print'
 import StorefrontIcon from '@mui/icons-material/Storefront'
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import LogoutIcon from '@mui/icons-material/Logout';
-
-
-import { Link } from 'react-router-dom'
+import ExpandLess from '@mui/icons-material/ExpandLess'
+import ExpandMore from '@mui/icons-material/ExpandMore'
+import LogoutIcon from '@mui/icons-material/Logout'
 
 import { auth, logout } from '../utils/firebase'
 
@@ -52,8 +50,12 @@ const NavigationDrawer = ({
     const displayName = auth.currentUser.displayName
     const email = auth.currentUser.email
 
-    //TODO: update navigation drawer based on type of user
-    var navOption = (role === 'customer') ? customer : stallUser
+    var navOption
+    if (role === 'customer') {
+        navOption = customer
+    } else if (role === 'stallUser') {
+        navOption = stallUser
+    }
 
     //logout collapse
     const [openCollapse, setOpenCollapse] = useState(false);
