@@ -75,7 +75,9 @@ function App(props) {
 
   //TODO: Redirect user useEffect
   useEffect(() => {
-    
+    // if (role === 'customer' && pathName === '/') {
+    //   navigate('/customer/myorders')
+    // }
   }, [])
 
 
@@ -103,14 +105,15 @@ function App(props) {
           <div className="main-content">
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
-              {role === 'customer' ?
+              {role === 'customer' &&
                 <Routes>
                   <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />
                   <Route path="/customer/browse" element={<Browse />} />
                   <Route path="/customer/usersettings" element={<CustomerUserSettings />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
-                :
+              }
+              {role === 'stallUser' &&
                 <Routes>
                   <Route path="/stall/queue" element={<Queue />} />
                   <Route path="/stall/menu" element={<Menu />} />
