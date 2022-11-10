@@ -36,12 +36,8 @@ const customer = {
     icons: [<FastfoodIcon />, <MenuBookIcon />, <SettingsIcon />],
     links: ['/customer/myorders', '/customer/browse', '/customer/usersettings']
 }
-const stallStaff = {
-    pages: ['Queue', 'Menu', 'Generate Summary', 'Settings'],
-    icons: [<ListAltIcon />, <MenuBookIcon />, <PrintIcon />, <SettingsIcon />],
-    links: ['/stall/queue', '/stall/menu', '/stall/generatesummary', '/stall/usersettings']
-}
-const stallOwner = {
+
+const stallUser = {
     pages: ['Queue', 'Menu', 'Stall', 'Generate Summary', 'Settings'],
     icons: [<ListAltIcon />, <MenuBookIcon />, <StorefrontIcon />, <PrintIcon />, <SettingsIcon />],
     links: ['/stall/queue', '/stall/menu', '/stall/stallsettings', '/stall/generatesummary', '/stall/usersettings']
@@ -56,20 +52,8 @@ const NavigationDrawer = ({
     const email = auth.currentUser.email
 
     //TODO: update navigation drawer based on type of user
-    var navOption
     let user = 'customer'
-    switch (user) {
-        default:
-        case 'customer':
-            navOption = customer
-            break
-        case 'stallStaff':
-            navOption = stallStaff
-            break
-        case 'stallOwner':
-            navOption = stallOwner
-            break
-    }
+    var navOption = (user === 'customer') ? customer : stallUser
 
     //logout collapse
     const [openCollapse, setOpenCollapse] = useState(false);

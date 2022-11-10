@@ -79,7 +79,8 @@ function App(props) {
 
   //TODO: Redirect user useEffect
 
-  //TODO Prettier loading screen or component
+
+  //TODO: Prettier loading screen or component
   if (loading) {
     return (
       <div>

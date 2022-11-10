@@ -1,9 +1,9 @@
 const NewStallUser = () => {
-    return ( 
-        <div className="net-stall-user">
-            
+    return (
+        <div className="new-stall-user">
+
         </div>
-     );
+    );
 }
- 
+
 export default NewStallUser;
