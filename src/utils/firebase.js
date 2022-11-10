@@ -36,9 +36,8 @@ const signInWithGoogle = async () => {
         isStallOwner: false
       })
     }
-
   } catch (err) {
-    alert(err.message)
+    alert("Google Login Cancelled")
   }
 }
 

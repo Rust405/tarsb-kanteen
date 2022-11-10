@@ -83,11 +83,6 @@ function App(props) {
     }
   }, [user])
 
-  //TODO: Redirect user useEffect
-  useEffect(() => {
-
-  })
-
   if (loading) return <Authenticating />
 
   return (
