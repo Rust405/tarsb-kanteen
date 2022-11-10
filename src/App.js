@@ -70,19 +70,12 @@ function App(props) {
     setCounter(counter + 1)
   }
 
-  const sidebarContent = {
-    '/customer/myorders': <OrderPreview counter={counter} />,
-    '/customer/browse': <OrderCreate />,
-    '/stall/queue': < OrderPreview />,
-    '/stall/menu': <MenuItemCUD />
-  }
-
   const [user, loading] = useAuthState(auth)
   const [role, setRole] = useState('customer')
 
   //TODO: Redirect user useEffect
   useEffect(() => {
-
+    
   }, [])
 
 
@@ -110,40 +103,72 @@ function App(props) {
           <div className="main-content">
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
-              <Routes>
-                {/* TODO: / route, consider the sidebar as well */}
-                <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />
-                <Route path="/customer/browse" element={<Browse />} />
-                <Route path="/customer/usersettings" element={<CustomerUserSettings />} />
-
-                <Route path="/stall/queue" element={<Queue />} />
-                <Route path="/stall/menu" element={<Menu />} />
-                <Route path="/stall/generatesummary" element={<GenerateSummary />} />
-                <Route path="/stall/usersettings" element={<StallUserSettings />} />
-                <Route path="/stall/stallsettings" element={<StallSettings />} />
-
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              {role === 'customer' ?
+                <Routes>
+                  <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />
+                  <Route path="/customer/browse" element={<Browse />} />
+                  <Route path="/customer/usersettings" element={<CustomerUserSettings />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+                :
+                <Routes>
+                  <Route path="/stall/queue" element={<Queue />} />
+                  <Route path="/stall/menu" element={<Menu />} />
+                  <Route path="/stall/generatesummary" element={<GenerateSummary />} />
+                  <Route path="/stall/usersettings" element={<StallUserSettings />} />
+                  <Route path="/stall/stallsettings" element={<StallSettings />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              }
             </Box>
           </div>
 
           <div className="multi-purpose-sidebar">
-            {pathName in sidebarContent &&
+            {role === 'customer' && pathName === '/customer/myorders' &&
               <MultiPurposeSidebar
                 sidebarOpen={sidebarOpen}
                 navOpen={navOpen}
                 handleSidebarToggle={handleSidebarToggle}
                 container={container}
-                drawerContent={sidebarContent[pathName]}
+                drawerContent={<OrderPreview counter={counter} />}
               />
             }
+            {role === 'customer' && pathName === '/customer/browse' &&
+              <MultiPurposeSidebar
+                sidebarOpen={sidebarOpen}
+                navOpen={navOpen}
+                handleSidebarToggle={handleSidebarToggle}
+                container={container}
+                drawerContent={<OrderCreate />}
+              />
+            }
+            {role === 'stallUser' && pathName === '/stall/queue' &&
+              <MultiPurposeSidebar
+                sidebarOpen={sidebarOpen}
+                navOpen={navOpen}
+                handleSidebarToggle={handleSidebarToggle}
+                container={container}
+                drawerContent={< OrderPreview />}
+              />
+            }
+            {role === 'stallUser' && pathName === '/stall/menu' &&
+              <MultiPurposeSidebar
+                sidebarOpen={sidebarOpen}
+                navOpen={navOpen}
+                handleSidebarToggle={handleSidebarToggle}
+                container={container}
+                drawerContent={<MenuItemCUD />}
+              />
+            }
+
           </div>
+
         </Box>
       ) : (
         <Login />
       )
       }
-    </div>
+    </div >
   )
 }
 
