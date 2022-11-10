@@ -46,14 +46,14 @@ const stallUser = {
 const NavigationDrawer = ({
     navOpen,
     handleDrawerToggle,
-    container
+    container,
+    role
 }) => {
     const displayName = auth.currentUser.displayName
     const email = auth.currentUser.email
 
     //TODO: update navigation drawer based on type of user
-    let user = 'customer'
-    var navOption = (user === 'customer') ? customer : stallUser
+    var navOption = (role === 'customer') ? customer : stallUser
 
     //logout collapse
     const [openCollapse, setOpenCollapse] = useState(false);

@@ -23,6 +23,19 @@ const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, provider)
     const user = res.user
+    const emailDomain = user.email.substring(user.email.indexOf('@') + 1)
+    const role = (emailDomain === 'student.tarc.edu.my' || emailDomain === 'tarc.edu.my') ? 'customer' : 'stallUser'
+
+    const q = query(collection(db, "users"), where("uid", "==", user.uid))
+    const docs = await getDocs(q)
+    if (docs.docs.length === 0) {
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        role: role,
+        isStallOwner: false
+      })
+    }
+
   } catch (err) {
     alert(err.message)
   }

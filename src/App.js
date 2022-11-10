@@ -27,10 +27,12 @@ import OrderPreview from './components/OrderPreview'
 import OrderCreate from './components/OrderCreate'
 import MenuItemCUD from './components/MenuItemCUD'
 
-import { auth } from './utils/firebase'
+import { auth, db } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
+import { query, getDocs, collection, where } from "firebase/firestore"
 
 import Login from './login-page/Login'
+import Authenticating from './loading-pages/Authenticating'
 
 function App(props) {
   const { window } = props
@@ -76,18 +78,15 @@ function App(props) {
   }
 
   const [user, loading] = useAuthState(auth)
+  const [role, setRole] = useState('customer')
 
   //TODO: Redirect user useEffect
+  useEffect(() => {
+
+  }, [])
 
 
-  //TODO: Prettier loading screen or component
-  if (loading) {
-    return (
-      <div>
-        Authenticating with Google...
-      </div>
-    )
-  }
+  if (loading) return <Authenticating />
 
   return (
     <div className="App">
@@ -104,6 +103,7 @@ function App(props) {
               navOpen={navOpen}
               handleDrawerToggle={handleDrawerToggle}
               container={container}
+              role={role}
             />
           </div>
 
