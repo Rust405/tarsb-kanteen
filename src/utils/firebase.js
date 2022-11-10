@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
+import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
 
 //TODO: Move variables to .env
@@ -23,14 +23,11 @@ const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, provider)
     const user = res.user
-
-    //TODO: Remove this console.log and add user to firestore if new
-    console.log(user)
   } catch (err) {
-    console.error(err)
     alert(err.message)
   }
 }
+
 const logout = () => {
   signOut(auth)
 }

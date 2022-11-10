@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import CssBaseline from '@mui/material/CssBaseline'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
 
-import ApplicationBar from './components/ApplicationBar';
-import NavigationDrawer from './components/NavigationDrawer';
+import ApplicationBar from './components/ApplicationBar'
+import NavigationDrawer from './components/NavigationDrawer'
 
 //user pages
-import MyOrders from './user-pages/customer/MyOrders';
-import Browse from './user-pages/customer/Browse';
-import CustomerUserSettings from './user-pages/customer/CustomerUserSettings';
+import MyOrders from './user-pages/customer/MyOrders'
+import Browse from './user-pages/customer/Browse'
+import CustomerUserSettings from './user-pages/customer/CustomerUserSettings'
 
 //stall pages
-import Queue from './user-pages/stall/Queue';
+import Queue from './user-pages/stall/Queue'
 import Menu from './user-pages/stall/Menu'
 import GenerateSummary from './user-pages/stall/GenerateSummary'
-import StallUserSettings from './user-pages/stall/StallUserSettings';
-import StallSettings from './user-pages/stall/StallSettings';
-import NotFound from './error-pages/NotFound';
+import StallUserSettings from './user-pages/stall/StallUserSettings'
+import StallSettings from './user-pages/stall/StallSettings'
+import NotFound from './error-pages/NotFound'
 
 //sidebar
-import MultiPurposeSidebar from './components/MultiPurposeSidebar';
-import OrderPreview from './components/OrderPreview';
-import OrderCreate from './components/OrderCreate';
-import MenuItemCUD from './components/MenuItemCUD';
+import MultiPurposeSidebar from './components/MultiPurposeSidebar'
+import OrderPreview from './components/OrderPreview'
+import OrderCreate from './components/OrderCreate'
+import MenuItemCUD from './components/MenuItemCUD'
 
 import { auth } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
@@ -37,7 +37,8 @@ function App(props) {
   const { pathname: pathName } = useLocation()
   const [navOpen, setNavOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = window !== undefined ? () => window().document.body : undefined
+  const navigate = useNavigate()
 
   const handleDrawerToggle = (e) => {
     if (
@@ -75,6 +76,7 @@ function App(props) {
   }
 
   const [user, loading] = useAuthState(auth)
+
   //TODO: Redirect user useEffect
 
   //TODO Prettier loading screen or component
