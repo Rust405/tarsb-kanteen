@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, query, getDocs, collection, where, setDoc, doc, getDoc } from "firebase/firestore"
+import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
-import { getRole } from "./tools";
 
 //TODO: Move variables to .env
 const firebaseConfig = {
@@ -25,7 +24,9 @@ const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, provider)
     const user = res.user
-    const role = getRole(user.email)
+    const email = user.email
+    const emailDomain = email.substring(email.indexOf('@') + 1)
+    const role = (emailDomain === 'student.tarc.edu.my' || emailDomain === 'tarc.edu.my') ? 'customer' : 'stallUser'
 
     const docRef = doc(db, "users", user.uid)
     const docSnap = await getDoc(docRef)
@@ -47,6 +48,14 @@ const logout = () => {
   signOut(auth)
 }
 
+const fetchUserRole = async (uid) => {
+  try {
+    const docRef = doc(db, "users", uid)
+    const docSnap = await getDoc(docRef)
+    return (docSnap.data().role)
+  } catch (err) {
+    alert("Unable to fetch user role")
+  }
+}
 
-
-export { db, auth, signInWithGoogle, logout }
+export { db, auth, signInWithGoogle, logout, fetchUserRole }

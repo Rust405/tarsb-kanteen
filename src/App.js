@@ -27,13 +27,11 @@ import OrderPreview from './components/OrderPreview'
 import OrderCreate from './components/OrderCreate'
 import MenuItemCUD from './components/MenuItemCUD'
 
-import { auth, db } from './utils/firebase'
+import { auth, fetchUserRole } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
-import { query, getDocs, collection, where } from "firebase/firestore"
 
 import Login from './login-page/Login'
 import Authenticating from './loading-pages/Authenticating'
-import { getRole } from './utils/tools'
 
 function App(props) {
   const { window } = props
@@ -71,20 +69,25 @@ function App(props) {
     setCounter(counter + 1)
   }
 
-  const [user, loading] = useAuthState(auth)
+  const [user] = useAuthState(auth)
   const [role, setRole] = useState(null)
+  const [isAuthenticating, setIsAuthenticating] = useState(false)
 
   useEffect(() => {
     if (user) {
-      const userRole = getRole(user.email)
-      setRole(userRole)
+      setIsAuthenticating(true)
+
+      fetchUserRole(user.uid).then(userRole => {
+        setRole(userRole)
+        setIsAuthenticating(false)
+      })
     } else {
       setRole(null)
     }
   }, [user])
 
   //after sign in as stallUser
-  if (role === 'stallUSer') {
+  if (role === 'stallUser') {
 
   }
 
@@ -96,8 +99,9 @@ function App(props) {
   //else show the new user screen, disable other routes
 
 
-  if (loading) return <Authenticating />
+  if (isAuthenticating) return <Authenticating />
 
+  //TODO: seperate into two return functions?
   return (
     <div className="App">
       {!user && !role &&
