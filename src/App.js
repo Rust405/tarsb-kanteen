@@ -31,7 +31,7 @@ import { auth, fetchUserRole } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
 
 import Login from './login-page/Login'
-import Authenticating from './loading-pages/Authenticating'
+import Loading from './Loading'
 
 function App(props) {
   const { window } = props
@@ -69,17 +69,16 @@ function App(props) {
     setCounter(counter + 1)
   }
 
-  const [user] = useAuthState(auth)
+  const [user, loading] = useAuthState(auth)
   const [role, setRole] = useState(null)
-  const [isAuthenticating, setIsAuthenticating] = useState(false)
+  const [isFetchingRole, setIsFetchingRole] = useState(false)
 
   useEffect(() => {
     if (user) {
-      setIsAuthenticating(true)
-
+      setIsFetchingRole(true)
       fetchUserRole(user.uid).then(userRole => {
         setRole(userRole)
-        setIsAuthenticating(false)
+        setIsFetchingRole(false)
       })
     } else {
       setRole(null)
@@ -92,18 +91,16 @@ function App(props) {
   }
 
   //check firestore if they are part of a stall
-  //if found as owner, set current stall and continue
+  //...if found as owner, set current stall and continue
+  //...if found as staff, set current stall and continue, but send a prop to stallsettings page to hide content
+  //...else show the new user screen, disable other routes
 
-  //if found as staff, set current stall and continue, but send a prop to stallsettings page to hide content
+  if (loading) return
+  if (isFetchingRole) return <Loading />
 
-  //else show the new user screen, disable other routes
-
-
-  if (isAuthenticating) return <Authenticating />
-
-  //TODO: seperate into two return functions?
   return (
     <div className="App">
+
       {!user && !role &&
         <Login />
       }
@@ -128,6 +125,7 @@ function App(props) {
           <div className="main-content">
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
+
               {role === 'customer' &&
                 <Routes>
                   <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />

@@ -40,7 +40,7 @@ const signInWithGoogle = async () => {
     }
 
   } catch (err) {
-    alert("Google Login Cancelled")
+    alert("Login with Google cancelled")
   }
 }
 
