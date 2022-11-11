@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore"
+import { getFirestore, query, getDocs, collection, where, setDoc, doc, getDoc } from "firebase/firestore"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
 import { getRole } from "./tools";
 
@@ -20,22 +20,24 @@ const db = getFirestore(app)
 //Authentication
 const provider = new GoogleAuthProvider()
 const auth = getAuth()
+
 const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, provider)
     const user = res.user
     const role = getRole(user.email)
 
-    const q = query(collection(db, "users"), where("uid", "==", user.uid))
-    const docs = await getDocs(q)
-    if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
+    const docRef = doc(db, "users", user.uid)
+    const docSnap = await getDoc(docRef)
+
+    if (!docSnap.exists()) {
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
         name: user.displayName,
-        role: role,
-        isStallOwner: false
+        role: role
       })
     }
+
   } catch (err) {
     alert("Google Login Cancelled")
   }
@@ -44,5 +46,7 @@ const signInWithGoogle = async () => {
 const logout = () => {
   signOut(auth)
 }
+
+
 
 export { db, auth, signInWithGoogle, logout }
