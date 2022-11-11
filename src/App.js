@@ -63,7 +63,7 @@ function App(props) {
     setSidebarOpen(!sidebarOpen)
   }
 
-  //props passing test
+  //props passing test, TODO: change to Redux
   const [counter, setCounter] = useState(1)
   const handleIncCounter = () => {
     setCounter(counter + 1)
