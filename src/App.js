@@ -76,21 +76,22 @@ function App(props) {
   useEffect(() => {
     if (user) {
       setIsFetchingRole(true)
-
-      auth.currentUser.getIdTokenResult(true)
-        .then((tokenResult) => {
-          console.log("Claims role: " + tokenResult.claims.role)
-          setRole(tokenResult.claims.role)
-
-          setIsFetchingRole(false)
-        })
+      fetchRole()
     } else {
       setRole(null)
     }
   }, [user])
 
+  const fetchRole = async () => {
+    var tokenResult = await auth.currentUser.getIdTokenResult(true)
+    while (tokenResult.claims.role === undefined) {
+      tokenResult = await auth.currentUser.getIdTokenResult(true)
+    }
+    setRole(tokenResult.claims.role)
+    setIsFetchingRole(false)
+  }
 
-  //after sign in as stallUser
+  //TODO: after sign in as stallUser
   if (role === 'stallUser') {
     //check firestore if they are part of a stall
     //...if found as owner, set current stall and continue
