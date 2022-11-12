@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app"
 import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
 
+import { getFunctions } from "firebase/functions"
+
 //TODO: Move variables to .env
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -15,18 +17,14 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
-
-//Authentication
 const provider = new GoogleAuthProvider()
 const auth = getAuth()
+const functions = getFunctions(app)
 
 const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, provider)
     const user = res.user
-    const email = user.email
-    const emailDomain = email.substring(email.indexOf('@') + 1)
-    const role = (emailDomain === 'student.tarc.edu.my' || emailDomain === 'tarc.edu.my') ? 'customer' : 'stallUser'
 
     const docRef = doc(db, "users", user.uid)
     const docSnap = await getDoc(docRef)
@@ -35,7 +33,6 @@ const signInWithGoogle = async () => {
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         name: user.displayName,
-        role: role
       })
     }
 
@@ -48,14 +45,4 @@ const logout = () => {
   signOut(auth)
 }
 
-const fetchUserRole = async (uid) => {
-  try {
-    const docRef = doc(db, "users", uid)
-    const docSnap = await getDoc(docRef)
-    return (docSnap.data().role)
-  } catch (err) {
-    alert("Unable to fetch user role")
-  }
-}
-
-export { db, auth, signInWithGoogle, logout, fetchUserRole }
+export { db, auth, signInWithGoogle, logout }

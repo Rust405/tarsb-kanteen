@@ -27,7 +27,7 @@ import OrderPreview from './components/OrderPreview'
 import OrderCreate from './components/OrderCreate'
 import MenuItemCUD from './components/MenuItemCUD'
 
-import { auth, fetchUserRole } from './utils/firebase'
+import { auth } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
 
 import Login from './login-page/Login'
@@ -76,27 +76,30 @@ function App(props) {
   useEffect(() => {
     if (user) {
       setIsFetchingRole(true)
-      fetchUserRole(user.uid).then(userRole => {
-        setRole(userRole)
-        setIsFetchingRole(false)
-      })
+
+      auth.currentUser.getIdTokenResult(true)
+        .then((tokenResult) => {
+          console.log("Claims role: " + tokenResult.claims.role)
+          setRole(tokenResult.claims.role)
+
+          setIsFetchingRole(false)
+        })
     } else {
       setRole(null)
     }
   }, [user])
 
+
   //after sign in as stallUser
   if (role === 'stallUser') {
-
+    //check firestore if they are part of a stall
+    //...if found as owner, set current stall and continue
+    //...if found as staff, set current stall and continue, but send a prop to stallsettings page to hide content
+    //...else show the new user screen, disable other routes
   }
 
-  //check firestore if they are part of a stall
-  //...if found as owner, set current stall and continue
-  //...if found as staff, set current stall and continue, but send a prop to stallsettings page to hide content
-  //...else show the new user screen, disable other routes
-
-  if (loading) return
-  if (isFetchingRole) return <Loading />
+  if (loading) return <div>Authenticating with Google...</div>
+  if (isFetchingRole) return <div>Setting user role...</div>
 
   return (
     <div className="App">
