@@ -100,7 +100,12 @@ function App(props) {
     //...else show the new user screen, disable other routes
   }
 
-  //TODO: redirect customer to /customer/myorders???
+  const Redirect = () => {
+    useEffect(() => {
+      role === 'customer' ? navigate('/customer/myorders') : navigate('/stall/queue')
+    }, [])
+    return
+  }
 
   if (loading) return <Authenticating />
   if (isFetchingRole) return <Authorizing />
@@ -135,6 +140,7 @@ function App(props) {
 
               {role === 'customer' &&
                 <Routes>
+                  <Route exact path="/" element={<Redirect />} />
                   <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />
                   <Route path="/customer/browse" element={<Browse />} />
                   <Route path="/customer/usersettings" element={<CustomerUserSettings />} />
@@ -143,6 +149,7 @@ function App(props) {
               }
               {role === 'stallUser' &&
                 <Routes>
+                  <Route exact path="/" element={<Redirect />} />
                   <Route path="/stall/queue" element={<Queue />} />
                   <Route path="/stall/menu" element={<Menu />} />
                   <Route path="/stall/generatesummary" element={<GenerateSummary />} />
