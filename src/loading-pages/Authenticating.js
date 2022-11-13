@@ -1,6 +1,10 @@
+import Typography from '@mui/material/Typography';
+
 const Authenticating = () => {
     return (
-        <div>Authenticating with Google...</div>
+        <Typography variant="paragraph">
+            Authenticating with Google...
+        </Typography>
     )
 }
 

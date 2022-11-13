@@ -1,6 +1,10 @@
+import Typography from '@mui/material/Typography';
+
 const Authorizing = () => {
     return (
-        <div>Setting user role...</div>
+        <Typography variant="paragraph">
+            Setting user role...
+        </Typography>
     )
 }
 
