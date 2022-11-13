@@ -31,7 +31,8 @@ import { auth } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
 
 import Login from './login-page/Login'
-import Loading from './Loading'
+import Authenticating from './loading-pages/Authenticating'
+import Authorizing from './loading-pages/Authorizing'
 
 function App(props) {
   const { window } = props
@@ -83,7 +84,7 @@ function App(props) {
   }, [user])
 
   const fetchRole = async () => {
-    var tokenResult = await auth.currentUser.getIdTokenResult(true)
+    var tokenResult = await auth.currentUser.getIdTokenResult()
     while (tokenResult.claims.role === undefined) {
       tokenResult = await auth.currentUser.getIdTokenResult(true)
     }
@@ -99,8 +100,10 @@ function App(props) {
     //...else show the new user screen, disable other routes
   }
 
-  if (loading) return <div>Authenticating with Google...</div>
-  if (isFetchingRole) return <div>Setting user role...</div>
+  //TODO: redirect customer to /customer/myorders???
+
+  if (loading) return <Authenticating />
+  if (isFetchingRole) return <Authorizing />
 
   return (
     <div className="App">
