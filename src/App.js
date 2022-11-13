@@ -162,42 +162,48 @@ function App(props) {
           </div>
 
           <div className="multi-purpose-sidebar">
-            {role === 'customer' && pathName === '/customer/myorders' &&
-              <MultiPurposeSidebar
-                sidebarOpen={sidebarOpen}
-                navOpen={navOpen}
-                handleSidebarToggle={handleSidebarToggle}
-                container={container}
-                drawerContent={<OrderPreview counter={counter} />}
-              />
-            }
-            {role === 'customer' && pathName === '/customer/browse' &&
-              <MultiPurposeSidebar
-                sidebarOpen={sidebarOpen}
-                navOpen={navOpen}
-                handleSidebarToggle={handleSidebarToggle}
-                container={container}
-                drawerContent={<OrderCreate />}
-              />
-            }
-            {role === 'stallUser' && pathName === '/stall/queue' &&
-              <MultiPurposeSidebar
-                sidebarOpen={sidebarOpen}
-                navOpen={navOpen}
-                handleSidebarToggle={handleSidebarToggle}
-                container={container}
-                drawerContent={< OrderPreview />}
-              />
-            }
-            {role === 'stallUser' && pathName === '/stall/menu' &&
-              <MultiPurposeSidebar
-                sidebarOpen={sidebarOpen}
-                navOpen={navOpen}
-                handleSidebarToggle={handleSidebarToggle}
-                container={container}
-                drawerContent={<MenuItemCUD />}
-              />
-            }
+            {role === 'customer' && (
+              (pathName === '/customer/myorders' &&
+                <MultiPurposeSidebar
+                  sidebarOpen={sidebarOpen}
+                  navOpen={navOpen}
+                  handleSidebarToggle={handleSidebarToggle}
+                  container={container}
+                  drawerContent={<OrderPreview counter={counter} />}
+                />
+              )
+              ||
+              (pathName === '/customer/browse' &&
+                <MultiPurposeSidebar
+                  sidebarOpen={sidebarOpen}
+                  navOpen={navOpen}
+                  handleSidebarToggle={handleSidebarToggle}
+                  container={container}
+                  drawerContent={<OrderCreate />} />
+              )
+            )}
+
+            {role === 'stallUser' && (
+              (pathName === '/stall/queue' &&
+                <MultiPurposeSidebar
+                  sidebarOpen={sidebarOpen}
+                  navOpen={navOpen}
+                  handleSidebarToggle={handleSidebarToggle}
+                  container={container}
+                  drawerContent={< OrderPreview />}
+                />
+              )
+              ||
+              (pathName === '/stall/menu' &&
+                <MultiPurposeSidebar
+                  sidebarOpen={sidebarOpen}
+                  navOpen={navOpen}
+                  handleSidebarToggle={handleSidebarToggle}
+                  container={container}
+                  drawerContent={<MenuItemCUD />}
+                />
+              )
+            )}
 
           </div>
 
