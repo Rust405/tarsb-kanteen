@@ -27,12 +27,12 @@ import OrderPreview from './components/OrderPreview'
 import OrderCreate from './components/OrderCreate'
 import MenuItemCUD from './components/MenuItemCUD'
 
-import { auth } from './utils/firebase'
-import { useAuthState } from "react-firebase-hooks/auth"
-
 import Login from './login-page/Login'
 import Authenticating from './loading-pages/Authenticating'
 import Authorizing from './loading-pages/Authorizing'
+
+import { auth } from './utils/firebase'
+import { useAuthState } from "react-firebase-hooks/auth"
 
 function App(props) {
   const { window } = props
@@ -101,8 +101,9 @@ function App(props) {
   }
 
   const Redirect = () => {
+    //redirect if user on '/' after login
     useEffect(() => {
-      role === 'customer' ? navigate('/customer/myorders') : navigate('/stall/queue')
+      role === 'customer' ? navigate('/customer/myorders', { replace: true }) : navigate('/stall/queue', { replace: true })
     }, [])
     return
   }
