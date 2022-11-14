@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore"
+import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs } from "firebase/firestore"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
 
 import { getFunctions } from "firebase/functions"
@@ -45,4 +45,23 @@ const logout = () => {
   signOut(auth)
 }
 
-export { db, auth, signInWithGoogle, logout }
+//returns stall ID if found
+const findStallUser = async (email) => {
+  const queryOwner = query(collection(db, "stalls"), where("ownerEmail", "==", email))
+  const queryStaff = query(collection(db, "stalls"), where("staffEmails", "array-contains", email))
+
+  const resultOwner = await getDocs(queryOwner)
+  if (resultOwner.docs.length === 1) {
+    return { stallID: resultOwner.docs[0].id, staffType: "owner" }
+  }
+
+  const resultStaff = await getDocs(queryStaff)
+  if (resultStaff.docs.length === 1) {
+    return { stallID: resultStaff.docs[0].id, staffType: "staff" }
+  }
+
+  return null
+}
+
+
+export { db, auth, signInWithGoogle, logout, findStallUser }

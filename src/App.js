@@ -31,7 +31,7 @@ import Login from './login-page/Login'
 import Authenticating from './loading-pages/Authenticating'
 import Authorizing from './loading-pages/Authorizing'
 
-import { auth } from './utils/firebase'
+import { auth, findStallUser } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
 
 function App(props) {
@@ -73,6 +73,7 @@ function App(props) {
   const [user, loading] = useAuthState(auth)
   const [role, setRole] = useState(null)
   const [isFetchingRole, setIsFetchingRole] = useState(false)
+  const [isStallOwner, setIsStallOwner] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -92,21 +93,27 @@ function App(props) {
     setIsFetchingRole(false)
   }
 
-  //TODO: after sign in as stallUser
-  if (role === 'stallUser') {
-    //check firestore if they are part of a stall
-    //...if found as owner, set current stall and continue
-    //...if found as staff, set current stall and continue, but send a prop to stallsettings page to hide content
-    //...else show the new user screen, disable other routes
-  }
-
   const Redirect = () => {
     //redirect if user on '/' after login
     useEffect(() => {
-      role === 'customer' ? navigate('/customer/myorders', { replace: true }) : navigate('/stall/queue', { replace: true })
+      if (role === 'customer') {
+        navigate('/customer/myorders', { replace: true })
+      }
+      else if (role === 'stallUser') {
+        navigate('/stall/queue', { replace: true })
+      }
     }, [])
-    return
+    return <div>Loading...</div>
   }
+
+  // findStallUser(user.email).then(({ stallID, staffType }) => {
+  //   console.log("ID: " + stallID)
+  //   console.log("Type: " + staffType)
+  // })
+
+  //...if found as owner, set current stall and continue
+  //...if found as staff, set current stall and continue, but send a prop to stallsettings page to hide content
+  //...else show the new user screen, disable other routes
 
   if (loading) return <Authenticating />
   if (isFetchingRole) return <Authorizing />
