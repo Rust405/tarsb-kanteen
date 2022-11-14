@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { redirect, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
@@ -64,7 +64,7 @@ function App(props) {
     setSidebarOpen(!sidebarOpen)
   }
 
-  //props passing test, TODO: change to Redux
+  //props passing test, TODO: change to Redux maybe
   const [counter, setCounter] = useState(1)
   const handleIncCounter = () => {
     setCounter(counter + 1)
@@ -88,12 +88,16 @@ function App(props) {
     }
   }, [user])
 
-    //TODO: currently not working
+  useEffect(() => {
+    redirectUser()
+  }, [userType])
+
   const redirectUser = () => {
     if (userType === 'customer') {
       navigate('/customer/myorders', { replace: true })
     }
     else if (userType === 'stallUser') {
+      // TODO:
       // findStallUser(user.email).then(({ stallID, staffType }) => {
       //   console.log("ID: " + stallID)
       //   console.log("Type: " + staffType)
@@ -114,19 +118,6 @@ function App(props) {
       tokenResult = await auth.currentUser.getIdTokenResult(true)
     }
     return tokenResult.claims.userType
-  }
-
-  const Redirect = () => {
-    //redirect out of / if user is already logged in
-    useEffect(() => {
-      if (userType === 'customer') {
-        navigate('/customer/myorders', { replace: true })
-      }
-      else if (userType === 'stallUser') {
-        navigate('/stall/queue', { replace: true })
-      }
-    }, [])
-    return
   }
 
   if (loading) return <Authenticating />
@@ -162,7 +153,7 @@ function App(props) {
 
               {userType === 'customer' &&
                 <Routes>
-                  <Route exact path="/" element={<Redirect />} />
+                  <Route exact path="/" element={<div>Loading...</div>} />
                   <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />
                   <Route path="/customer/browse" element={<Browse />} />
                   <Route path="/customer/usersettings" element={<CustomerUserSettings />} />
@@ -171,7 +162,7 @@ function App(props) {
               }
               {userType === 'stallUser' &&
                 <Routes>
-                  <Route exact path="/" element={<Redirect />} />
+                  <Route exact path="/" element={<div>Loading...</div>} />
                   <Route path="/stall/queue" element={<Queue />} />
                   <Route path="/stall/menu" element={<Menu />} />
                   <Route path="/stall/generatesummary" element={<GenerateSummary />} />
