@@ -45,15 +45,15 @@ const NavigationDrawer = ({
     navOpen,
     handleDrawerToggle,
     container,
-    role
+    userType
 }) => {
     const displayName = auth.currentUser.displayName
     const email = auth.currentUser.email
 
     var navOption
-    if (role === 'customer') {
+    if (userType === 'customer') {
         navOption = customer
-    } else if (role === 'stallUser') {
+    } else if (userType === 'stallUser') {
         navOption = stallUser
     }
 

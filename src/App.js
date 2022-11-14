@@ -71,38 +71,38 @@ function App(props) {
   }
 
   const [user, loading] = useAuthState(auth)
-  const [role, setRole] = useState(null)
-  const [isFetchingRole, setIsFetchingRole] = useState(false)
+  const [userType, setUserType] = useState(null)
+  const [isFetchingUserType, setIsFetchingUserType] = useState(false)
   const [isStallOwner, setIsStallOwner] = useState(false)
 
   useEffect(() => {
     if (user) {
-      setIsFetchingRole(true)
-      fetchRole()
-        .then(fetchedRole => {
-          setRole(fetchedRole)
-          setIsFetchingRole(false)
+      setIsFetchingUserType(true)
+      fetchUserType()
+        .then(fetchedUserType => {
+          setUserType(fetchedUserType)
+          setIsFetchingUserType(false)
         })
     } else {
-      setRole(null)
+      setUserType(null)
     }
   }, [user])
 
-  const fetchRole = async () => {
+  const fetchUserType = async () => {
     var tokenResult = await auth.currentUser.getIdTokenResult()
-    while (tokenResult.claims.role === undefined) {
+    while (tokenResult.claims.userType === undefined) {
       tokenResult = await auth.currentUser.getIdTokenResult(true)
     }
-    return tokenResult.claims.role
+    return tokenResult.claims.userType
   }
 
   const Redirect = () => {
     //redirect if user on '/' after login
     useEffect(() => {
-      if (role === 'customer') {
+      if (userType === 'customer') {
         navigate('/customer/myorders', { replace: true })
       }
-      else if (role === 'stallUser') {
+      else if (userType === 'stallUser') {
         navigate('/stall/queue', { replace: true })
       }
     }, [])
@@ -119,16 +119,16 @@ function App(props) {
   //...else show the new user screen, disable other routes
 
   if (loading) return <Authenticating />
-  if (isFetchingRole) return <Authorizing />
+  if (isFetchingUserType) return <Authorizing />
 
   return (
     <div className="App">
 
-      {!user && !role &&
+      {!user && !userType &&
         <Login />
       }
 
-      {user && role &&
+      {user && userType &&
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
 
@@ -141,7 +141,7 @@ function App(props) {
               navOpen={navOpen}
               handleDrawerToggle={handleDrawerToggle}
               container={container}
-              role={role}
+              userType={userType}
             />
           </div>
 
@@ -149,7 +149,7 @@ function App(props) {
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
 
-              {role === 'customer' &&
+              {userType === 'customer' &&
                 <Routes>
                   <Route exact path="/" element={<Redirect />} />
                   <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />
@@ -158,7 +158,7 @@ function App(props) {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               }
-              {role === 'stallUser' &&
+              {userType === 'stallUser' &&
                 <Routes>
                   <Route exact path="/" element={<Redirect />} />
                   <Route path="/stall/queue" element={<Queue />} />
@@ -173,7 +173,7 @@ function App(props) {
           </div>
 
           <div className="multi-purpose-sidebar">
-            {role === 'customer' && (
+            {userType === 'customer' && (
               (pathName === '/customer/myorders' &&
                 <MultiPurposeSidebar
                   sidebarOpen={sidebarOpen}
@@ -194,7 +194,7 @@ function App(props) {
               )
             )}
 
-            {role === 'stallUser' && (
+            {userType === 'stallUser' && (
               (pathName === '/stall/queue' &&
                 <MultiPurposeSidebar
                   sidebarOpen={sidebarOpen}
