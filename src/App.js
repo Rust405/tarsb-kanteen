@@ -79,6 +79,10 @@ function App(props) {
     if (user) {
       setIsFetchingRole(true)
       fetchRole()
+        .then(fetchedRole => {
+          setRole(fetchedRole)
+          setIsFetchingRole(false)
+        })
     } else {
       setRole(null)
     }
@@ -89,8 +93,7 @@ function App(props) {
     while (tokenResult.claims.role === undefined) {
       tokenResult = await auth.currentUser.getIdTokenResult(true)
     }
-    setRole(tokenResult.claims.role)
-    setIsFetchingRole(false)
+    return tokenResult.claims.role
   }
 
   const Redirect = () => {
