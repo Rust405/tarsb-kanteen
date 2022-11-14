@@ -88,6 +88,26 @@ function App(props) {
     }
   }, [user])
 
+    //TODO: currently not working
+  const redirectUser = () => {
+    if (userType === 'customer') {
+      navigate('/customer/myorders', { replace: true })
+    }
+    else if (userType === 'stallUser') {
+      // findStallUser(user.email).then(({ stallID, staffType }) => {
+      //   console.log("ID: " + stallID)
+      //   console.log("Type: " + staffType)
+      // })
+
+      //...if found as owner, set current stall and continue
+      //...if found as staff, set current stall and continue, but send a prop to stallsettings page to hide content
+
+      navigate('/stall/queue', { replace: true })
+
+      //...else show the new user screen, disable other routes
+    }
+  }
+
   const fetchUserType = async () => {
     var tokenResult = await auth.currentUser.getIdTokenResult()
     while (tokenResult.claims.userType === undefined) {
@@ -97,7 +117,7 @@ function App(props) {
   }
 
   const Redirect = () => {
-    //redirect if user on '/' after login
+    //redirect out of / if user is already logged in
     useEffect(() => {
       if (userType === 'customer') {
         navigate('/customer/myorders', { replace: true })
@@ -106,17 +126,8 @@ function App(props) {
         navigate('/stall/queue', { replace: true })
       }
     }, [])
-    return <div>Loading...</div>
+    return
   }
-
-  // findStallUser(user.email).then(({ stallID, staffType }) => {
-  //   console.log("ID: " + stallID)
-  //   console.log("Type: " + staffType)
-  // })
-
-  //...if found as owner, set current stall and continue
-  //...if found as staff, set current stall and continue, but send a prop to stallsettings page to hide content
-  //...else show the new user screen, disable other routes
 
   if (loading) return <Authenticating />
   if (isFetchingUserType) return <Authorizing />

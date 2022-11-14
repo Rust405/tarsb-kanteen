@@ -60,6 +60,7 @@ const findStallUser = async (email) => {
     return { stallID: resultStaff.docs[0].id, staffType: "staff" }
   }
 
+  //new stall user
   return null
 }
 
