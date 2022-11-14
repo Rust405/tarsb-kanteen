@@ -88,6 +88,14 @@ function App(props) {
     }
   }, [user])
 
+  const fetchUserType = async () => {
+    var tokenResult = await auth.currentUser.getIdTokenResult()
+    while (tokenResult.claims.userType === undefined) {
+      tokenResult = await auth.currentUser.getIdTokenResult(true)
+    }
+    return tokenResult.claims.userType
+  }
+
   useEffect(() => {
     redirectUser()
   }, [userType])
@@ -110,14 +118,6 @@ function App(props) {
 
       //...else show the new user screen, disable other routes
     }
-  }
-
-  const fetchUserType = async () => {
-    var tokenResult = await auth.currentUser.getIdTokenResult()
-    while (tokenResult.claims.userType === undefined) {
-      tokenResult = await auth.currentUser.getIdTokenResult(true)
-    }
-    return tokenResult.claims.userType
   }
 
   if (loading) return <Authenticating />
