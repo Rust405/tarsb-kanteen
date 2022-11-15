@@ -77,8 +77,8 @@ function App(props) {
   const [isFetchingUserType, setIsFetchingUserType] = useState(false)
 
   const [stallID, setStallID] = useState(false)
-  const [staffType, setStaffType] = useState(null)
-  const [isFetchingStaffType, setIsFetchingStaffType] = useState(false)
+  const [staffRole, setStaffRole] = useState(null)
+  const [isFetchingStaffRole, setIsFetchingStaffRole] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -110,21 +110,21 @@ function App(props) {
       navigate('/customer/myorders', { replace: true })
     }
     else if (userType === 'stallUser') {
-      setIsFetchingStaffType(true)
+      setIsFetchingStaffRole(true)
 
       findStallUser(user.email)
         .then((result) => {
           if (result === null) {
-            setIsFetchingStaffType(false)
+            setIsFetchingStaffRole(false)
             //...else show the new user screen, disable other routes
           } else {
             console.log("ID: " + result.stallID)
-            console.log("Type: " + result.staffType)
+            console.log("Type: " + result.staffRole)
 
             setStallID(result.stallID)
-            setStaffType(result.staffType)
+            setStaffRole(result.staffRole)
 
-            setIsFetchingStaffType(false)
+            setIsFetchingStaffRole(false)
 
             navigate('/stall/queue', { replace: true })
           }
@@ -134,7 +134,7 @@ function App(props) {
 
   if (loading) return <Typography variant="paragraph">Authenticating with Google..</Typography>
   if (isFetchingUserType) return <Typography variant="paragraph">Setting user...</Typography>
-  if (isFetchingStaffType) return <Typography variant="paragraph">Fetching staff type...</Typography>
+  if (isFetchingStaffRole) return <Typography variant="paragraph">Fetching staff type...</Typography>
 
   return (
     <div className="App">
@@ -200,7 +200,7 @@ function App(props) {
         </Box>
       }
 
-      {user && userType === 'stallUser' &&
+      {user && userType === 'stallUser' && staffRole &&
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
 
@@ -226,7 +226,7 @@ function App(props) {
                 <Route path="/stall/menu" element={<Menu />} />
                 <Route path="/stall/generatesummary" element={<GenerateSummary />} />
                 <Route path="/stall/usersettings" element={<StallUserSettings />} />
-                <Route path="/stall/stallsettings" element={<StallSettings staffType={staffType} />} />
+                <Route path="/stall/stallsettings" element={<StallSettings staffRole={staffRole} />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Box>

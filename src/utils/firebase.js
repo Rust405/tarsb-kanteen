@@ -52,12 +52,12 @@ const findStallUser = async (email) => {
 
   const resultOwner = await getDocs(queryOwner)
   if (resultOwner.docs.length === 1) {
-    return { stallID: resultOwner.docs[0].id, staffType: "owner" }
+    return { stallID: resultOwner.docs[0].id, staffRole: "owner" }
   }
 
   const resultStaff = await getDocs(queryStaff)
   if (resultStaff.docs.length === 1) {
-    return { stallID: resultStaff.docs[0].id, staffType: "staff" }
+    return { stallID: resultStaff.docs[0].id, staffRole: "staff" }
   }
 
   //new stall user

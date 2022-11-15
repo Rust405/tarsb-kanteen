@@ -1,9 +1,9 @@
 import Typography from '@mui/material/Typography';
 
 const StallSettings = (
-    { staffType }
+    { staffRole }
 ) => {
-    if (staffType === 'staff') return <div className="stall-settings">
+    if (staffRole === 'staff') return <div className="stall-settings">
         <Typography paragraph>
             Permission denied. Only stall owner can access/modify stall settings.
         </Typography>
