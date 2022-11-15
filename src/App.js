@@ -143,7 +143,7 @@ function App(props) {
         <Login />
       }
 
-      {user && userType &&
+      {user && userType === 'customer' &&
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
 
@@ -163,74 +163,97 @@ function App(props) {
           <div className="main-content">
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
-
-              {userType === 'customer' &&
-                <Routes>
-                  <Route exact path="/" element={<div>Loading...</div>} />
-                  <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />
-                  <Route path="/customer/browse" element={<Browse />} />
-                  <Route path="/customer/usersettings" element={<CustomerUserSettings />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              }
-              {userType === 'stallUser' &&
-                <Routes>
-                  <Route exact path="/" element={<div>Loading...</div>} />
-                  <Route path="/stall/queue" element={<Queue />} />
-                  <Route path="/stall/menu" element={<Menu />} />
-                  <Route path="/stall/generatesummary" element={<GenerateSummary />} />
-                  <Route path="/stall/usersettings" element={<StallUserSettings />} />
-                  <Route path="/stall/stallsettings" element={<StallSettings staffType={staffType} />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              }
+              <Routes>
+                <Route exact path="/" element={<div>Loading...</div>} />
+                <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />
+                <Route path="/customer/browse" element={<Browse />} />
+                <Route path="/customer/usersettings" element={<CustomerUserSettings />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
             </Box>
           </div>
 
           <div className="multi-purpose-sidebar">
-            {userType === 'customer' && (
-              (pathName === '/customer/myorders' &&
-                <MultiPurposeSidebar
-                  sidebarOpen={sidebarOpen}
-                  navOpen={navOpen}
-                  handleSidebarToggle={handleSidebarToggle}
-                  container={container}
-                  drawerContent={<OrderPreview counter={counter} />}
-                />
-              )
-              ||
-              (pathName === '/customer/browse' &&
-                <MultiPurposeSidebar
-                  sidebarOpen={sidebarOpen}
-                  navOpen={navOpen}
-                  handleSidebarToggle={handleSidebarToggle}
-                  container={container}
-                  drawerContent={<OrderCreate />} />
-              )
-            )}
+            <Routes>
+              <Route path='/customer/myorders'
+                element={
+                  <MultiPurposeSidebar
+                    sidebarOpen={sidebarOpen}
+                    navOpen={navOpen}
+                    handleSidebarToggle={handleSidebarToggle}
+                    container={container}
+                    drawerContent={<OrderPreview counter={counter} />} />}
+              />
+              <Route path='/customer/browse'
+                element={
+                  <MultiPurposeSidebar
+                    sidebarOpen={sidebarOpen}
+                    navOpen={navOpen}
+                    handleSidebarToggle={handleSidebarToggle}
+                    container={container}
+                    drawerContent={<OrderCreate />} />}
+              />
+              <Route path='*' element={<></>} />
+            </Routes>
+          </div>
 
-            {userType === 'stallUser' && (
-              (pathName === '/stall/queue' &&
-                <MultiPurposeSidebar
-                  sidebarOpen={sidebarOpen}
-                  navOpen={navOpen}
-                  handleSidebarToggle={handleSidebarToggle}
-                  container={container}
-                  drawerContent={< OrderPreview />}
-                />
-              )
-              ||
-              (pathName === '/stall/menu' &&
-                <MultiPurposeSidebar
-                  sidebarOpen={sidebarOpen}
-                  navOpen={navOpen}
-                  handleSidebarToggle={handleSidebarToggle}
-                  container={container}
-                  drawerContent={<MenuItemCUD />}
-                />
-              )
-            )}
+        </Box>
+      }
 
+      {user && userType === 'stallUser' &&
+        <Box sx={{ display: 'flex' }}>
+          <CssBaseline />
+
+          <div className="application-bar">
+            <ApplicationBar handleDrawerToggle={handleDrawerToggle} pathName={pathName} />
+          </div>
+
+          <div className="navigation-drawer">
+            <NavigationDrawer
+              navOpen={navOpen}
+              handleDrawerToggle={handleDrawerToggle}
+              container={container}
+              userType={userType}
+            />
+          </div>
+
+          <div className="main-content">
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+              <Toolbar />
+              <Routes>
+                <Route exact path="/" element={<div>Loading...</div>} />
+                <Route path="/stall/queue" element={<Queue />} />
+                <Route path="/stall/menu" element={<Menu />} />
+                <Route path="/stall/generatesummary" element={<GenerateSummary />} />
+                <Route path="/stall/usersettings" element={<StallUserSettings />} />
+                <Route path="/stall/stallsettings" element={<StallSettings staffType={staffType} />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Box>
+          </div>
+
+          <div className="multi-purpose-sidebar">
+            <Routes>
+              <Route path='/stall/queue'
+                element={
+                  <MultiPurposeSidebar
+                    sidebarOpen={sidebarOpen}
+                    navOpen={navOpen}
+                    handleSidebarToggle={handleSidebarToggle}
+                    container={container}
+                    drawerContent={< OrderPreview />} />}
+              />
+              <Route path='/stall/menu'
+                element={
+                  <MultiPurposeSidebar
+                    sidebarOpen={sidebarOpen}
+                    navOpen={navOpen}
+                    handleSidebarToggle={handleSidebarToggle}
+                    container={container}
+                    drawerContent={<MenuItemCUD />} />}
+              />
+              <Route path='*' element={<></>} />
+            </Routes>
           </div>
 
         </Box>
@@ -238,6 +261,7 @@ function App(props) {
 
     </div >
   )
+
 
 }
 
