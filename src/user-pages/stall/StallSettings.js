@@ -5,7 +5,7 @@ const StallSettings = (
 ) => {
     if (staffRole === 'staff') return <div className="stall-settings">
         <Typography paragraph>
-            Permission denied. Only stall owner can access/modify stall settings.
+            Permission denied. Only stall owner can access or modify stall settings.
         </Typography>
     </div>
     else

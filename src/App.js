@@ -79,6 +79,7 @@ function App(props) {
   const [stallID, setStallID] = useState(false)
   const [staffRole, setStaffRole] = useState(null)
   const [isSearchingStaff, setIsSearchingStaff] = useState(false)
+  const [isNewStallUser, setIsNewStallUser] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -116,19 +117,18 @@ function App(props) {
         .then((result) => {
           if (result === null) {
             setIsSearchingStaff(false)
-            //...else show the new user screen, disable other routes
+            setIsNewStallUser(true)
           } else {
             setStallID(result.stallID)
             setStaffRole(result.staffRole)
-
             setIsSearchingStaff(false)
-
             navigate('/stall/queue', { replace: true })
           }
         })
     }
   }
 
+  //Loading pages
   if (loading) return <Typography variant="paragraph">Authenticating with Google..</Typography>
   if (isFetchingUserType) return <Typography variant="paragraph">Setting user...</Typography>
   if (isSearchingStaff) return <Typography variant="paragraph">Seraching for staff in database...</Typography>
@@ -136,10 +136,14 @@ function App(props) {
   return (
     <div className="App">
 
-      {!user && !userType &&
-        <Login />
+      {/* Login Page */}
+      {!user && !userType && <Login />
       }
 
+      {/* New Stall User Landing Page */}
+      {isNewStallUser && <NewStallUser setIsNewStallUser={setIsNewStallUser} />}
+
+      {/* Customer App */}
       {user && userType === 'customer' &&
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
@@ -197,6 +201,7 @@ function App(props) {
         </Box>
       }
 
+      {/* StallUser App */}
       {user && userType === 'stallUser' && staffRole &&
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
@@ -258,8 +263,6 @@ function App(props) {
 
     </div >
   )
-
-
 }
 
 export default App;
