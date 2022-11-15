@@ -78,7 +78,7 @@ function App(props) {
 
   const [stallID, setStallID] = useState(false)
   const [staffRole, setStaffRole] = useState(null)
-  const [isFetchingStaffRole, setIsFetchingStaffRole] = useState(false)
+  const [isSearchingStaff, setIsSearchingStaff] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -110,21 +110,18 @@ function App(props) {
       navigate('/customer/myorders', { replace: true })
     }
     else if (userType === 'stallUser') {
-      setIsFetchingStaffRole(true)
+      setIsSearchingStaff(true)
 
       findStallUser(user.email)
         .then((result) => {
           if (result === null) {
-            setIsFetchingStaffRole(false)
+            setIsSearchingStaff(false)
             //...else show the new user screen, disable other routes
           } else {
-            console.log("ID: " + result.stallID)
-            console.log("Type: " + result.staffRole)
-
             setStallID(result.stallID)
             setStaffRole(result.staffRole)
 
-            setIsFetchingStaffRole(false)
+            setIsSearchingStaff(false)
 
             navigate('/stall/queue', { replace: true })
           }
@@ -134,7 +131,7 @@ function App(props) {
 
   if (loading) return <Typography variant="paragraph">Authenticating with Google..</Typography>
   if (isFetchingUserType) return <Typography variant="paragraph">Setting user...</Typography>
-  if (isFetchingStaffRole) return <Typography variant="paragraph">Fetching staff type...</Typography>
+  if (isSearchingStaff) return <Typography variant="paragraph">Seraching for staff in database...</Typography>
 
   return (
     <div className="App">
