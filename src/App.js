@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { redirect, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
@@ -28,11 +28,13 @@ import OrderCreate from './components/OrderCreate'
 import MenuItemCUD from './components/MenuItemCUD'
 
 import Login from './login-page/Login'
-import Authenticating from './loading-pages/Authenticating'
-import Authorizing from './loading-pages/Authorizing'
 
 import { auth, findStallUser } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
+
+import Typography from '@mui/material/Typography'
+
+import NewStallUser from './user-pages/stall/NewStallUser'
 
 function App(props) {
   const { window } = props
@@ -73,7 +75,10 @@ function App(props) {
   const [user, loading] = useAuthState(auth)
   const [userType, setUserType] = useState(null)
   const [isFetchingUserType, setIsFetchingUserType] = useState(false)
-  const [isStallOwner, setIsStallOwner] = useState(false)
+
+  const [stallID, setStallID] = useState(false)
+  const [staffType, setStaffType] = useState(null)
+  const [isFetchingStaffType, setIsFetchingStaffType] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -105,23 +110,31 @@ function App(props) {
       navigate('/customer/myorders', { replace: true })
     }
     else if (userType === 'stallUser') {
-      // TODO:
-      // findStallUser(user.email).then(({ stallID, staffType }) => {
-      //   console.log("ID: " + stallID)
-      //   console.log("Type: " + staffType)
-      // })
+      setIsFetchingStaffType(true)
 
-      //...if found as owner, set current stall and continue
-      //...if found as staff, set current stall and continue, but send a prop to stallsettings page to hide content
+      findStallUser(user.email)
+        .then((result) => {
+          if (result === null) {
+            setIsFetchingStaffType(false)
+            //...else show the new user screen, disable other routes
+          } else {
+            console.log("ID: " + result.stallID)
+            console.log("Type: " + result.staffType)
 
-      navigate('/stall/queue', { replace: true })
+            setStallID(result.stallID)
+            setStaffType(result.staffType)
 
-      //...else show the new user screen, disable other routes
+            setIsFetchingStaffType(false)
+
+            navigate('/stall/queue', { replace: true })
+          }
+        })
     }
   }
 
-  if (loading) return <Authenticating />
-  if (isFetchingUserType) return <Authorizing />
+  if (loading) return <Typography variant="paragraph">Authenticating with Google..</Typography>
+  if (isFetchingUserType) return <Typography variant="paragraph">Setting user...</Typography>
+  if (isFetchingStaffType) return <Typography variant="paragraph">Fetching staff type...</Typography>
 
   return (
     <div className="App">
@@ -167,7 +180,7 @@ function App(props) {
                   <Route path="/stall/menu" element={<Menu />} />
                   <Route path="/stall/generatesummary" element={<GenerateSummary />} />
                   <Route path="/stall/usersettings" element={<StallUserSettings />} />
-                  <Route path="/stall/stallsettings" element={<StallSettings />} />
+                  <Route path="/stall/stallsettings" element={<StallSettings staffType={staffType} />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               }
@@ -225,6 +238,7 @@ function App(props) {
 
     </div >
   )
+
 }
 
 export default App;

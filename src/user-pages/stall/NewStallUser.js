@@ -1,4 +1,4 @@
-import { logout } from '../utils/firebase'
+import { logout } from '../../utils/firebase'
 
 const NewStallUser = () => {
     return (
