@@ -4,6 +4,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
 
 import ApplicationBar from './components/ApplicationBar'
 import NavigationDrawer from './components/NavigationDrawer'
@@ -20,6 +21,7 @@ import GenerateSummary from './user-pages/stall/GenerateSummary'
 import StallUserSettings from './user-pages/stall/StallUserSettings'
 import StallSettings from './user-pages/stall/StallSettings'
 import NotFound from './error-pages/NotFound'
+import NewStallUser from './user-pages/stall/NewStallUser'
 
 //sidebar
 import MultiPurposeSidebar from './components/MultiPurposeSidebar'
@@ -31,10 +33,6 @@ import Login from './login-page/Login'
 
 import { auth, findStallUser } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
-
-import Typography from '@mui/material/Typography'
-
-import NewStallUser from './user-pages/stall/NewStallUser'
 
 function App(props) {
   const { window } = props
@@ -91,6 +89,7 @@ function App(props) {
         })
     } else {
       setUserType(null)
+      setStaffRole(null)
     }
   }, [user])
 
