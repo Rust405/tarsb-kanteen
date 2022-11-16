@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs } from "firebase/firestore"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
-
 import { getFunctions } from "firebase/functions"
 
 //TODO: Move variables to .env
@@ -13,7 +12,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
-};
+}
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
@@ -63,6 +62,5 @@ const findStallUser = async (email) => {
   //new stall user
   return null
 }
-
 
 export { db, auth, signInWithGoogle, logout, findStallUser }

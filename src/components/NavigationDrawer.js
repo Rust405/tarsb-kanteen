@@ -59,9 +59,7 @@ const NavigationDrawer = ({
 
     //logout collapse
     const [openCollapse, setOpenCollapse] = useState(false);
-    const handleOpenLogout = () => {
-        setOpenCollapse(!openCollapse);
-    }
+    const handleOpenLogout = () => setOpenCollapse(!openCollapse)
 
     const drawer = (
         <div>

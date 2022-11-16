@@ -12,9 +12,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 const Login = () => {
     const navigate = useNavigate()
 
-    useEffect(() => {
-        navigate('/')
-    }, [])
+    useEffect(() => navigate('/'), [])
 
     return (
         <div className="login">

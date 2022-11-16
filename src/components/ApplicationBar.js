@@ -4,27 +4,24 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
+
+const titles = {
+  '/customer/myorders': 'My Orders',
+  '/customer/browse': 'Browse',
+  '/customer/usersettings': 'Settings',
+  '/stall/queue': 'Queue',
+  '/stall/menu': 'Menu',
+  '/stall/generatesummary': 'Generate Summary',
+  '/stall/usersettings': 'Settings',
+  '/stall/stallsettings': 'Stall'
+}
+
 const ApplicationBar = ({
   handleDrawerToggle,
   pathName
 }) => {
-  const titles = {
-    '/customer/myorders': 'My Orders',
-    '/customer/browse': 'Browse',
-    '/customer/usersettings': 'Settings',
-    '/stall/queue': 'Queue',
-    '/stall/menu': 'Menu',
-    '/stall/generatesummary': 'Generate Summary',
-    '/stall/usersettings': 'Settings',
-    '/stall/stallsettings': 'Stall'
-  }
-
   return (
-    <AppBar position="fixed"
-      sx={{
-        zIndex: (theme) => theme.zIndex.drawer + 1
-      }}
-    >
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
         <IconButton
           color="inherit"

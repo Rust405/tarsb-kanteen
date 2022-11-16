@@ -1,6 +1,5 @@
 import Typography from '@mui/material/Typography';
 
-
 const GenerateSumamry = () => {
     return (
         <Typography paragraph>
