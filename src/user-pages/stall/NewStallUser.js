@@ -29,7 +29,10 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const NewStallUser = ({ setIsNewStallUser }) => {
     const navigate = useNavigate()
 
+    const stallRegCode = process.env.REACT_APP_STALL_REG_CODE
     const [openSnack, setOpenSnack] = useState(false)
+    const [disableReg, setDisableReg] = useState(true)
+    const [regCodeInput, setRegCodeInput] = useState('')
 
     useEffect(() => {
         navigate('/')
@@ -40,6 +43,12 @@ const NewStallUser = ({ setIsNewStallUser }) => {
         if (reason === 'clickaway') return
         setOpenSnack(false)
     }
+
+    const handleCodeInput = (e) => {
+        setRegCodeInput(e.target.value)
+    }
+
+    useEffect(() => { regCodeInput === stallRegCode ? setDisableReg(false) : setDisableReg(true) }, [regCodeInput])
 
     const handleLogout = () => {
         setIsNewStallUser(false)
@@ -65,8 +74,9 @@ const NewStallUser = ({ setIsNewStallUser }) => {
 
                         <Box sx={{ m: 2 }} display="flex" justifyContent="center">
                             <Stack direction="row" alignItems="center" spacing={2}>
-                                <TextField label="Stall Registration Code" variant="outlined" size="small" />
-                                <Button variant="contained" size="small" onClick={handleRegister} >Register Stall</Button>
+                                <TextField label="Stall Registration Code" variant="outlined" size="small"
+                                    value={regCodeInput} onChange={handleCodeInput} />
+                                <Button variant="contained" size="small" onClick={handleRegister} disabled={disableReg}>Register Stall</Button>
                             </Stack>
                         </Box>
                     </Item>
