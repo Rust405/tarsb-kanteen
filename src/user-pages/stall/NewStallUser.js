@@ -1,5 +1,5 @@
 import { logout } from '../../utils/firebase'
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Button from '@mui/material/Button'
@@ -9,8 +9,11 @@ import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
+import Snackbar from '@mui/material/Snackbar'
+import MuiAlert from '@mui/material/Alert'
 
 import InfoIcon from '@mui/icons-material/Info'
+
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,12 +23,18 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary
 }))
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+})
 
 const NewStallUser = ({ setIsNewStallUser }) => {
     const navigate = useNavigate()
 
+    const [openSnack, setOpenSnack] = useState(false)
+
     useEffect(() => {
         navigate('/')
+        setOpenSnack(true)
     }, [])
 
     const handleLogout = () => {
@@ -45,17 +54,19 @@ const NewStallUser = ({ setIsNewStallUser }) => {
                         <Typography variant="h5">Are you a stall staff?</Typography>
                         <Typography variant="body2" >Please inform your corresponding stall owner to add your Google account email address for access.</Typography>
                     </Item>
+
                     <Item>
                         <Typography variant="h5">Are you a stall owner?</Typography>
                         <Typography variant="body2" >Please input the <strong>Stall Registration Code</strong> you received from the <strong>Administration Office</strong> before proceeding to register your stall.</Typography>
-                        
-                        <Box sx={{m:2}} display="flex" justifyContent="center">
+
+                        <Box sx={{ m: 2 }} display="flex" justifyContent="center">
                             <Stack direction="row" alignItems="center" spacing={2}>
                                 <TextField label="Stall Registration Code" variant="outlined" size="small" />
                                 <Button variant="contained" onClick={handleRegister} >Register Stall</Button>
                             </Stack>
                         </Box>
                     </Item>
+
                     <Item>
                         <Stack direction="row" alignItems="center" spacing={1}>
                             <InfoIcon />
@@ -64,10 +75,14 @@ const NewStallUser = ({ setIsNewStallUser }) => {
                     </Item>
 
                     <Button variant="outlined" color="error" onClick={handleLogout} >Log Out</Button>
-
                 </Stack>
-
             </Box>
+
+            <Snackbar open={openSnack} autoHideDuration={6000} onClose={() => setOpenSnack(false)} >
+                <Alert onClose={() => setOpenSnack(false)} severity="info" sx={{ width: '100%' }}>
+                    New stall user detected
+                </Alert>
+            </Snackbar>
 
         </div >
     )
