@@ -49,24 +49,12 @@ function App(props) {
   const navigate = useNavigate()
 
   const handleDrawerToggle = (e) => {
-    if (
-      e &&
-      e.type === 'keydown' &&
-      (e.key === 'Tab' || e.key === 'Shift')
-    ) {
-      return;
-    }
+    if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
     setNavOpen(!navOpen)
   }
 
   const handleSidebarToggle = (e) => {
-    if (
-      e &&
-      e.type === 'keydown' &&
-      (e.key === 'Tab' || e.key === 'Shift')
-    ) {
-      return;
-    }
+    if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
     setSidebarOpen(!sidebarOpen)
   }
 
@@ -117,9 +105,7 @@ function App(props) {
     return tokenResult.claims.userType
   }
 
-  useEffect(() => {
-    redirectUser()
-  }, [userType])
+  useEffect(() => redirectUser(), [userType])
 
   const redirectUser = () => {
     if (userType === 'customer') {
@@ -156,7 +142,7 @@ function App(props) {
       }
 
       {/* New Stall User Landing Page */}
-      {isNewStallUser && <NewStallUser setIsNewStallUser={setIsNewStallUser} />}
+      {isNewStallUser && <NewStallUser setIsNewStallUser={setIsNewStallUser} email={user.email} />}
 
       {/* Customer App */}
       {user && userType === 'customer' &&
@@ -276,6 +262,7 @@ function App(props) {
         </Box>
       }
 
+      {/* Logged In Snackbar */}
       {user && userType && staffRole &&
         <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack} >
           <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
