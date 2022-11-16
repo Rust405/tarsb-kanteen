@@ -10,14 +10,7 @@ const OrderPreview = ({
         <div>
             <Toolbar />
             <Box sx={{ overflow: 'auto' }}>
-                <Typography
-                    variant="body"
-                    component="h3"
-                    align="center"
-                    style={{ whiteSpace: 'pre-line' }}
-                >
-                    {"Order\nPreview"}
-                </Typography>
+                <Typography variant="body" component="h3" align="center">Order<br />Preview</Typography>
                 <Divider />
                 <p>{counter}</p>
                 <Divider />

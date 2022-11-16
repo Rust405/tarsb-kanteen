@@ -9,14 +9,7 @@ const MenuItemCUD = () => {
             <div>
                 <Toolbar />
                 <Box sx={{ overflow: 'auto' }}>
-                    <Typography
-                        variant="body"
-                        component="h3"
-                        align="center"
-                        style={{ whiteSpace: 'pre-line' }}
-                    >
-                        {"Menu Item\nCUD"}
-                    </Typography>
+                    <Typography variant="body" component="h3" align="center"> Menu Item<br />CUD</Typography>
                     <Divider />
                     <p>Test</p>
                     <Divider />

@@ -6,24 +6,17 @@ import Typography from '@mui/material/Typography';
 const OrderCreate = () => {
     return (
         <div className="order-create">
-               <div>
-            <Toolbar />
-            <Box sx={{ overflow: 'auto' }}>
-                <Typography
-                    variant="body"
-                    component="h3"
-                    align="center"
-                    style={{ whiteSpace: 'pre-line' }}
-                >
-                    {"Order\nCreate"}
-                </Typography>
-                <Divider />
-                <p>Test</p>
-                <Divider />
-                <p>Test</p>
-                <Divider />
-            </Box>
-        </div>
+            <div>
+                <Toolbar />
+                <Box sx={{ overflow: 'auto' }}>
+                    <Typography variant="body" component="h3" align="center" >Order<br />Create</Typography>
+                    <Divider />
+                    <p>Test</p>
+                    <Divider />
+                    <p>Test</p>
+                    <Divider />
+                </Box>
+            </div>
         </div>
     );
 }

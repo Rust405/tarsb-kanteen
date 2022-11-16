@@ -104,6 +104,8 @@ function App(props) {
     } else {
       setUserType(null)
       setStaffRole(null)
+      setNavOpen(false)
+      setSidebarOpen(false)
     }
   }, [user])
 
@@ -144,7 +146,7 @@ function App(props) {
   //Loading pages
   if (loading) return <Typography variant="paragraph">Authenticating with Google..</Typography>
   if (isFetchingUserType) return <Typography variant="paragraph">Setting user...</Typography>
-  if (isSearchingStaff) return <Typography variant="paragraph">Seraching for staff in database...</Typography>
+  if (isSearchingStaff) return <Typography variant="paragraph">Seraching database for stall user...</Typography>
 
   return (
     <div className="App">
@@ -280,7 +282,7 @@ function App(props) {
             Logged in with {user.email}
           </Alert>
         </Snackbar>
-        }
+      }
 
     </div >
   )

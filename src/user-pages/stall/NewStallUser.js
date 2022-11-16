@@ -14,7 +14,6 @@ import MuiAlert from '@mui/material/Alert'
 
 import InfoIcon from '@mui/icons-material/Info'
 
-
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -54,20 +53,20 @@ const NewStallUser = ({ setIsNewStallUser }) => {
     return (
         <div className="new-stall-user">
             <Box sx={{ width: '100%' }} display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
-                <Stack spacing={4}>
+                <Stack sx={{ m: 2 }} spacing={4}>
                     <Item>
-                        <Typography variant="h5">Are you a stall staff?</Typography>
+                        <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Are you a stall staff?</Typography>
                         <Typography variant="body2" >Please inform your corresponding stall owner to add your Google account email address for access.</Typography>
                     </Item>
 
                     <Item>
-                        <Typography variant="h5">Are you a stall owner?</Typography>
+                        <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Are you a stall owner?</Typography>
                         <Typography variant="body2" >Please input the <strong>Stall Registration Code</strong> you received from the <strong>Administration Office</strong> before proceeding to register your stall.</Typography>
 
                         <Box sx={{ m: 2 }} display="flex" justifyContent="center">
                             <Stack direction="row" alignItems="center" spacing={2}>
                                 <TextField label="Stall Registration Code" variant="outlined" size="small" />
-                                <Button variant="contained" onClick={handleRegister} >Register Stall</Button>
+                                <Button variant="contained" size="small" onClick={handleRegister} >Register Stall</Button>
                             </Stack>
                         </Box>
                     </Item>
