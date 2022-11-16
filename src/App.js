@@ -37,7 +37,7 @@ import { auth, findStallUser } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
 
 const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
 function App(props) {
@@ -109,7 +109,7 @@ function App(props) {
 
   const redirectUser = () => {
     if (userType === 'customer') {
-      navigate('/customer/myorders', { replace: true })
+      if (pathName === '/') navigate('/customer/myorders', { replace: true })
     }
     else if (userType === 'stallUser') {
       setIsSearchingStaff(true)
@@ -123,7 +123,8 @@ function App(props) {
             setStallID(result.stallID)
             setStaffRole(result.staffRole)
             setIsSearchingStaff(false)
-            navigate('/stall/queue', { replace: true })
+
+            if (pathName === '/') navigate('/stall/queue', { replace: true })
           }
         })
     }
@@ -275,4 +276,4 @@ function App(props) {
   )
 }
 
-export default App;
+export default App
