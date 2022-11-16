@@ -37,6 +37,11 @@ const NewStallUser = ({ setIsNewStallUser }) => {
         setOpenSnack(true)
     }, [])
 
+    const handleCloseSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenSnack(false)
+    }
+
     const handleLogout = () => {
         setIsNewStallUser(false)
         logout()
@@ -78,8 +83,8 @@ const NewStallUser = ({ setIsNewStallUser }) => {
                 </Stack>
             </Box>
 
-            <Snackbar open={openSnack} autoHideDuration={6000} onClose={() => setOpenSnack(false)} >
-                <Alert onClose={() => setOpenSnack(false)} severity="info" sx={{ width: '100%' }}>
+            <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack} >
+                <Alert onClose={handleCloseSnack} severity="info" sx={{ width: '100%' }}>
                     New stall user detected
                 </Alert>
             </Snackbar>

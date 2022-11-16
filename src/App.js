@@ -5,6 +5,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import Snackbar from '@mui/material/Snackbar'
+import MuiAlert from '@mui/material/Alert'
 
 import ApplicationBar from './components/ApplicationBar'
 import NavigationDrawer from './components/NavigationDrawer'
@@ -33,6 +35,10 @@ import Login from './login-page/Login'
 
 import { auth, findStallUser } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+})
 
 function App(props) {
   const { window } = props
@@ -79,6 +85,13 @@ function App(props) {
   const [isSearchingStaff, setIsSearchingStaff] = useState(false)
   const [isNewStallUser, setIsNewStallUser] = useState(false)
 
+  //Snackbar log in success
+  const [openSnack, setOpenSnack] = useState(false)
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') return
+    setOpenSnack(false)
+  }
+
   useEffect(() => {
     if (user) {
       setIsFetchingUserType(true)
@@ -86,6 +99,7 @@ function App(props) {
         .then(fetchedUserType => {
           setUserType(fetchedUserType)
           setIsFetchingUserType(false)
+          setOpenSnack(true)
         })
     } else {
       setUserType(null)
@@ -259,6 +273,14 @@ function App(props) {
 
         </Box>
       }
+
+      {user && userType && staffRole &&
+        <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack} >
+          <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+            Logged in with {user.email}
+          </Alert>
+        </Snackbar>
+        }
 
     </div >
   )
