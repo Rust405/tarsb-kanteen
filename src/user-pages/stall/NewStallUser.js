@@ -77,8 +77,9 @@ const NewStallUser = ({ setIsNewStallUser }) => {
                             <Typography variant="body2">If you are a customer, unfortunately we currently do not support guest accounts, you may order at the stall physically.</Typography>
                         </Stack>
                     </Item>
-
-                    <Button variant="outlined" color="error" onClick={handleLogout} >Log Out</Button>
+                    <Box display="flex" justifyContent="center">
+                        <Button variant="outlined" color="error" onClick={handleLogout} >Log Out</Button>
+                    </Box>
                 </Stack>
             </Box>
 
