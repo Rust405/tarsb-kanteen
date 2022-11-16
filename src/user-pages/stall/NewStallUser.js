@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
 import { styled } from '@mui/material/styles'
 
 import { useEffect } from 'react'
@@ -15,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.secondary
 }))
 
 
@@ -37,24 +38,41 @@ const NewStallUser = ({ setIsNewStallUser }) => {
 
     return (
         <div className="new-stall-user">
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{ width: '100%' }} display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+
                 <Stack spacing={2}>
                     <Item>
-                        <Typography variant="paragraph">Are you a stall staff? Please inform your corresponding stall owner to add your Google account email address for access.</Typography>
+                        <Typography variant="h5">Are you a stall staff?</Typography>
+
+                        <Typography variant="paragraph" align="center" style={{ whiteSpace: 'pre-line' }}>
+                            Please inform your corresponding stall owner to add your Google account email address for access.
+                        </Typography>
+
+                        <br /><br />
+                        <Typography variant="paragraph">
+                            Note: If you are a customer, unfortunately we currently do not support guest accounts, you may order at the stall physically.
+                        </Typography>
+                        <br /><br />
+
+                        <Button variant="outlined" onClick={handleLogout} > Log Out </Button>
                     </Item>
                     <Item>
-                        <Button variant="contained" onClick={handleLogout} > Log Out </Button>
-                    </Item>
-                    <Item>
-                        <Typography variant="paragraph">Are you a stall owner?</Typography>
-                    </Item>
-                    <Item>
+                        <Typography variant="h5">Are you a stall owner?</Typography>
+
+                        <Typography variant="paragraph" align="center" style={{ whiteSpace: 'pre-line' }} >
+                            Help me
+                        </Typography>
+
+                        <br />
+                        <br />
+
                         <Button variant="contained" onClick={handleRegister} >Register Stall</Button>
                     </Item>
                 </Stack>
+
             </Box>
 
-        </div>
+        </div >
     )
 }
 
