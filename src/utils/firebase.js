@@ -3,7 +3,6 @@ import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs } 
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
 import { getFunctions } from "firebase/functions"
 
-//TODO: Move variables to .env
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -29,9 +28,10 @@ const signInWithGoogle = async () => {
     const docSnap = await getDoc(docRef)
 
     if (!docSnap.exists()) {
-      await setDoc(doc(db, "users", user.uid), {
+      await setDoc(docRef, {
         email: user.email,
         name: user.displayName,
+        reminderTiming: 10
       })
     }
 
@@ -40,11 +40,8 @@ const signInWithGoogle = async () => {
   }
 }
 
-const logout = () => {
-  signOut(auth)
-}
+const logout = () => signOut(auth)
 
-//returns stall ID if found
 const findStallUser = async (email) => {
   const queryOwner = query(collection(db, "stalls"), where("ownerEmail", "==", email))
   const queryStaff = query(collection(db, "stalls"), where("staffEmails", "array-contains", email))

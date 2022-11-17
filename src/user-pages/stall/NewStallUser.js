@@ -92,11 +92,18 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     }
 
     const [stallName, setStallName] = useState('')
-    const [staffEmails, setStaffEmails] = useState([])
+    const [staffEmails, setStaffEmails] = useState('')
 
+    //TODO:
     const handleRegister = () => {
-        //TODO:
-        console.log("Register")
+        const staffEmailsArray = staffEmails.split(',').map(item => item.trim()).filter(element => element)
+
+        const newStall = {
+            stallName: stallName,
+            staffEmails: staffEmailsArray
+        }
+
+        console.log(newStall)
     }
 
     return (
@@ -154,27 +161,21 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
 
                 <DialogContent dividers>
                     <Stack spacing={4}>
-                        <TextField label="Stall Name" variant="outlined" size="small"
+                        <TextField label="Stall Name" variant="outlined"
                             value={stallName} onChange={(e) => setStallName(e.target.value)} />
 
+                        <TextField label="Staff Email(s)" multiline maxRows={3}
+                            helperText="Note: Separate multiple emails by comma (,)"
+                            value={staffEmails} onChange={(e) => setStaffEmails(e.target.value)} />
+
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <InfoIcon /><Typography>You can change these settings later.</Typography>
+                        </Stack>
                     </Stack>
-
-                    <Typography gutterBottom>
-                        Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-                        magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-                        ullamcorper nulla non metus auctor fringilla.
-                    </Typography>
-
-                    <Stack direction="row" alignItems="center" spacing={1}>
-                        <InfoIcon /><Typography>You can change these settings later.</Typography>
-                    </Stack>
-
                 </DialogContent>
 
                 <DialogActions>
-                    <Button autoFocus onClick={handleRegister}>
-                        Save & Continue
-                    </Button>
+                    <Button autoFocus onClick={handleRegister}>Save & Continue</Button>
                 </DialogActions>
 
             </RegisterStallDialog>

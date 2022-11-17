@@ -12,4 +12,16 @@ exports.processSignUp = functions.auth.user().onCreate(async (user) => {
     } catch (error) {
         console.log(error)
     }
-});
+})
+
+exports.registerStall = functions.https.onCall((data, context) => {
+    var newStall = data
+    newStall.ownerEmail = context.context.auth.token.email
+    newStall.status = "close"
+
+    //cannot use registered stall name
+    //cannot add other owner
+    //cannot add registered staff
+    //cannot add own (owner) email
+
+})
