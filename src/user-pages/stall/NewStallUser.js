@@ -70,9 +70,6 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     const [disableReg, setDisableReg] = useState(true)
     const [regCodeInput, setRegCodeInput] = useState('')
 
-    const [stallName, setStallName] = useState('')
-    const [staffEmails, setStaffEmails] = useState([])
-
     const [openDialog, setOpenDialog] = useState(false)
     const handleOpenDialog = () => setOpenDialog(true)
     const handleCloseDialog = () => setOpenDialog(false)
@@ -93,6 +90,9 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
         setIsNewStallUser(false)
         logout()
     }
+
+    const [stallName, setStallName] = useState('')
+    const [staffEmails, setStaffEmails] = useState([])
 
     const handleRegister = () => {
         //TODO:
@@ -154,7 +154,9 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
 
                 <DialogContent dividers>
                     <Stack spacing={4}>
-                        <TextField label="Stall Name" variant="outlined" size="small" />
+                        <TextField label="Stall Name" variant="outlined" size="small"
+                            value={stallName} onChange={(e) => setStallName(e.target.value)} />
+
                     </Stack>
 
                     <Typography gutterBottom>
