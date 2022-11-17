@@ -70,8 +70,10 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     const [disableReg, setDisableReg] = useState(true)
     const [regCodeInput, setRegCodeInput] = useState('')
 
-    const [openDialog, setOpenDialog] = useState(false)
+    const [stallName, setStallName] = useState('')
+    const [staffEmails, setStaffEmails] = useState([])
 
+    const [openDialog, setOpenDialog] = useState(false)
     const handleOpenDialog = () => setOpenDialog(true)
     const handleCloseDialog = () => setOpenDialog(false)
 
@@ -84,8 +86,6 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
         if (reason === 'clickaway') return
         setOpenSnack(false)
     }
-
-    const handleCodeInput = (e) => setRegCodeInput(e.target.value)
 
     useEffect(() => { regCodeInput === stallRegCode ? setDisableReg(false) : setDisableReg(true) }, [regCodeInput])
 
@@ -103,11 +103,13 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
         <div className="new-stall-user">
             <Box sx={{ width: '100%' }} display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
                 <Stack sx={{ m: 2 }} spacing={4}>
+                    {/* Are you a stall staff? */}
                     <Item>
                         <Typography variant="h5" sx={{ fontWeight: 'bold' }} gutterBottom>Are you a stall staff?</Typography>
                         <Typography variant="body2" >Please inform your corresponding stall owner to add your Google account email address for access.</Typography>
                     </Item>
 
+                    {/* Are you a stall owner? */}
                     <Item>
                         <Typography variant="h5" sx={{ fontWeight: 'bold' }} gutterBottom>Are you a stall owner?</Typography>
                         <Typography variant="body2" >Please enter the <strong>Stall Registration Code</strong> you received from the <strong>Administration Office</strong> before proceeding to register your stall.</Typography>
@@ -115,12 +117,13 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                         <Box sx={{ m: 2 }} display="flex" justifyContent="center">
                             <Stack direction="row" alignItems="center" spacing={2}>
                                 <TextField type="password" label="Stall Registration Code" variant="outlined" size="small"
-                                    value={regCodeInput} onChange={handleCodeInput} />
+                                    value={regCodeInput} onChange={(e) => setRegCodeInput(e.target.value)} />
                                 <Button variant="contained" size="small" onClick={handleOpenDialog} disabled={disableReg}>Register Stall</Button>
                             </Stack>
                         </Box>
                     </Item>
 
+                    {/* Info for customer */}
                     <Item>
                         <Stack direction="row" alignItems="center" spacing={1}>
                             <InfoIcon />
@@ -128,6 +131,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                         </Stack>
                     </Item>
 
+                    {/* Logout button */}
                     <Box display="flex" justifyContent="center">
                         <Tooltip title={`Log out of ${email}`} placement="right" disableInteractive>
                             <Button variant="outlined" color="error" onClick={handleLogout} >Log Out</Button>
@@ -149,15 +153,10 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                 <RegisterStallDialogTitle id="register-dialog-title" onClose={handleCloseDialog}>Register Stall</RegisterStallDialogTitle>
 
                 <DialogContent dividers>
-                    <Typography gutterBottom>
-                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.
-                    </Typography>
-                    <Typography gutterBottom>
-                        Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-                    </Typography>
+                    <Stack spacing={4}>
+                        <TextField label="Stall Name" variant="outlined" size="small" />
+                    </Stack>
+
                     <Typography gutterBottom>
                         Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
                         magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
