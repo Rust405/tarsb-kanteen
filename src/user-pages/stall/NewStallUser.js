@@ -97,7 +97,6 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
 
     useEffect(() => { stallName === '' ? setDisableSave(true) : setDisableSave(false) }, [stallName])
 
-    //TODO:
     const handleRegister = () => {
         const staffEmailsArray = staffEmails.split(',').map(item => item.trim()).filter(element => element)
         const newStall = {
@@ -106,6 +105,12 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
         }
 
         console.log(newStall)
+
+        //TODO: limit to 10 staff emails
+
+        //TODO: deploy registerStall
+
+        //save & continue -> checking... -> ???
     }
 
     return (
@@ -166,7 +171,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                         <TextField label="Stall Name" variant="outlined"
                             value={stallName} onChange={(e) => setStallName(e.target.value)} />
 
-                        <TextField label="Staff Email(s)" multiline maxRows={3}
+                        <TextField label="Stall Staff Email(s)" multiline maxRows={3}
                             helperText="Note: Separate multiple emails by comma (,)"
                             value={staffEmails} onChange={(e) => setStaffEmails(e.target.value)} />
 

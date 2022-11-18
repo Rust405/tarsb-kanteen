@@ -132,7 +132,7 @@ function App(props) {
 
   //Loading pages
   if (loading) return <Typography variant="paragraph">Authenticating with Google..</Typography>
-  if (isFetchingUserType) return <Typography variant="paragraph">Setting user...</Typography>
+  if (isFetchingUserType) return <Typography variant="paragraph">Setting user... (This may take a while for new users)</Typography>
   if (isSearchingStaff) return <Typography variant="paragraph">Seraching database for stall user...</Typography>
 
   return (

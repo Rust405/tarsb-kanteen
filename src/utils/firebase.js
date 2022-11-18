@@ -47,14 +47,10 @@ const findStallUser = async (email) => {
   const queryStaff = query(collection(db, "stalls"), where("staffEmails", "array-contains", email))
 
   const resultOwner = await getDocs(queryOwner)
-  if (resultOwner.docs.length === 1) {
-    return { stallID: resultOwner.docs[0].id, staffRole: "owner" }
-  }
+  if (resultOwner.docs.length === 1) return { stallID: resultOwner.docs[0].id, staffRole: "owner" }
 
   const resultStaff = await getDocs(queryStaff)
-  if (resultStaff.docs.length === 1) {
-    return { stallID: resultStaff.docs[0].id, staffRole: "staff" }
-  }
+  if (resultStaff.docs.length === 1) return { stallID: resultStaff.docs[0].id, staffRole: "staff" }
 
   //new stall user
   return null
