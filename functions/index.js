@@ -1,6 +1,6 @@
-const functions = require('firebase-functions');
-const { initializeApp } = require('firebase-admin/app');
-const { getAuth } = require('firebase-admin/auth');
+const functions = require('firebase-functions')
+const { initializeApp } = require('firebase-admin/app')
+const { getAuth } = require('firebase-admin/auth')
 
 initializeApp()
 

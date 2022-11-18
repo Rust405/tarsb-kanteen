@@ -93,11 +93,13 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
 
     const [stallName, setStallName] = useState('')
     const [staffEmails, setStaffEmails] = useState('')
+    const [disableSave, setDisableSave] = useState(true)
+
+    useEffect(() => { stallName === '' ? setDisableSave(true) : setDisableSave(false) }, [stallName])
 
     //TODO:
     const handleRegister = () => {
         const staffEmailsArray = staffEmails.split(',').map(item => item.trim()).filter(element => element)
-
         const newStall = {
             stallName: stallName,
             staffEmails: staffEmailsArray
@@ -175,7 +177,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button autoFocus onClick={handleRegister}>Save & Continue</Button>
+                    <Button autoFocus disabled={disableSave} onClick={handleRegister}>Save & Continue</Button>
                 </DialogActions>
 
             </RegisterStallDialog>
