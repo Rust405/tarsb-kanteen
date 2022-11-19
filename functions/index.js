@@ -1,7 +1,7 @@
 const functions = require('firebase-functions')
 const { initializeApp } = require('firebase-admin/app')
 const { getAuth } = require('firebase-admin/auth')
-const { getFirestore } = require('firebase/firestore')
+const { getFirestore } = require('firebase-admin/firestore')
 
 initializeApp()
 const db = getFirestore()
@@ -48,11 +48,12 @@ exports.registerStall = functions.https.onCall(async (data, context) => {
 
     //if owner add student/lecturer as staff
     var isAddedCustAsStaff = false
-    newStall.staffEmails.forEach(staffEmail => {
+    for (let staffEmail in newStall.staffEmails) {
         if (staffEmail.endsWith('@student.tarc.edu.my') || staffEmail.endsWith('@tarc.edu.my')) {
             isAddedCustAsStaff = true
+            break
         }
-    })
+    }
     if (isAddedCustAsStaff) return {
         success: false,
         message: `Stall staff emails cannot include TAR students or lecturers emails.`

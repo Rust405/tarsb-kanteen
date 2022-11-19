@@ -1,4 +1,4 @@
-import { logout } from '../../utils/firebase'
+import { logout, registerStall } from '../../utils/firebase'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -104,11 +104,13 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
             staffEmails: staffEmailsArray
         }
 
-        console.log(newStall)
-
         //TODO: limit to 10 staff emails
 
-        //TODO: deploy registerStall
+        registerStall(newStall)
+            .then(result => {
+                console.log(result)
+            }
+            )
 
         //save & continue -> checking... -> ???
     }

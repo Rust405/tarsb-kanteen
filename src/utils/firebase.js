@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs } from "firebase/firestore"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
-import { getFunctions } from "firebase/functions"
+import { getFunctions, httpsCallable } from "firebase/functions"
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -56,4 +56,6 @@ const findStallUser = async (email) => {
   return null
 }
 
-export { db, auth, signInWithGoogle, logout, findStallUser }
+const registerStall = httpsCallable(functions, 'registerStall')
+
+export { db, auth, signInWithGoogle, logout, findStallUser, registerStall }
