@@ -109,8 +109,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
         registerStall(newStall)
             .then(result => {
                 console.log(result)
-            }
-            )
+            })
 
         //save & continue -> checking... -> ???
     }

@@ -18,7 +18,9 @@ exports.processSignUp = functions.auth.user().onCreate(async (user) => {
 
 exports.registerStall = functions.https.onCall(async (data, context) => {
     var newStall = data.newStall
-    newStall.ownerEmail = context.context.auth.token.email
+
+    //FIXME: The following does not work
+    newStall.ownerEmail = context.auth.token.email
     newStall.status = "close"
 
     const stallsRef = db.collection('stalls')
@@ -67,7 +69,7 @@ exports.registerStall = functions.https.onCall(async (data, context) => {
     }
 
 
-    //otherwise add stall and return success
+    // //otherwise add stall and return success
 
     //test
     return newStall
