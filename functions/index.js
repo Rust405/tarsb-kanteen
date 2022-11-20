@@ -78,7 +78,7 @@ exports.registerStall = functions.https.onCall(async (data, context) => {
 
 
     //otherwise add stall and return success
-
+    //TODO: 
     //return
     return { success: isSuccess, message: messageArray }
 })

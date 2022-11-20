@@ -1,4 +1,4 @@
-import { signInWithGoogle } from '../utils/firebase'
+import { signInWithGoogle } from './utils/firebase'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
@@ -25,7 +25,6 @@ const Login = () => {
                         <Button startIcon={<GoogleIcon />} variant="contained" onClick={signInWithGoogle} >Login with Google</Button>
                     </Box>
                 </Stack>
-
             </Box>
         </div>
     );

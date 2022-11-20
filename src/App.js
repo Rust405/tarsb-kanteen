@@ -31,7 +31,8 @@ import OrderPreview from './components/OrderPreview'
 import OrderCreate from './components/OrderCreate'
 import MenuItemCUD from './components/MenuItemCUD'
 
-import Login from './login-page/Login'
+import Login from './Login'
+import Loading from './Loading'
 
 import { auth, findStallUser } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
@@ -131,9 +132,9 @@ function App(props) {
   }
 
   //Loading pages
-  if (loading) return <Typography variant="paragraph">Authenticating with Google..</Typography>
-  if (isFetchingUserType) return <Typography variant="paragraph">Setting user... (This may take a while for new users)</Typography>
-  if (isSearchingStaff) return <Typography variant="paragraph">Seraching database for stall user...</Typography>
+  if (loading) return <Loading loadingMsg="Authenticating with Google.." />
+  if (isFetchingUserType) return <Loading loadingMsg="Setting user... (This may take a while for new users)" />
+  if (isSearchingStaff) return <Loading loadingMsg="Seraching database for stall user..." />
 
   return (
     <div className="App">
