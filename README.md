@@ -1,7 +1,7 @@
 # tarsb-kanteen
 TAR UMT Final Year Project React PWA for RSD
 
-Final application for internal use at TAR UMT SAbah Branch only!
+Final application for internal use at TAR UMT Sabah Branch only!
 
 Create your own .env file with the following variables: <br />
 REACT_APP_FIREBASE_API_KEY = ''<br />
