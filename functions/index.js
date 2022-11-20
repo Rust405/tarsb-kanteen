@@ -20,7 +20,7 @@ exports.registerStall = functions.https.onCall(async (data, context) => {
     var newStall = data
     newStall.ownerEmail = context.auth.token.email
     newStall.status = "close"
-    
+
     var isSuccess = true
     var messageArray = []
 
@@ -34,10 +34,10 @@ exports.registerStall = functions.https.onCall(async (data, context) => {
 
 
     //if stall name already in use by another stall
-    const usedStallName = await stallsRef.where('stallName', '==', newStall.stallName).get()
+    const usedStallName = await stallsRef.where('lowercaseStallName', '==', newStall.lowercaseStallName).get()
     if (!usedStallName.empty) {
         isSuccess = false
-        messageArray.push(`\"${newStall.stallName}\" is already in use by another stall.`)
+        messageArray.push(`\"${newStall.stallName}\" (or similar) is already in use by another stall.`)
     }
 
     //perform validation if staffEmails provided
@@ -82,6 +82,9 @@ exports.registerStall = functions.https.onCall(async (data, context) => {
 
     //otherwise add stall and return success
     //TODO: 
-    //return
+
+    //Note: lowercaseStallName field!!!
+
+
     return { success: isSuccess, message: messageArray }
 })

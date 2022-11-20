@@ -143,7 +143,11 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     }
 
     const handleRegister = () => {
-        const newStall = { stallName: stallName, staffEmails: staffEmails }
+        const newStall = {
+            stallName: stallName,
+            lowercaseStallName: stallName.toLowerCase(),
+            staffEmails: staffEmails
+        }
 
         setDisableSave(true)
         setIsValidating(true)
@@ -157,7 +161,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                 if (!response.success) {
                     setOpenErrSnack(true)
                     setErrMsgs(response.message)
-                } else {
+                } else { 
                     //TODO: 
                 }
                 setDisableSave(false)
