@@ -40,40 +40,44 @@ exports.registerStall = functions.https.onCall(async (data, context) => {
         messageArray.push(`\"${newStall.stallName}\" is already in use by another stall.`)
     }
 
+    //perform validation if staffEmails provided
+    if (newStall.staffEmails.length !== 0) {
 
-    //if other stall owner is added as staff
-    const addedOwnerAsStaff = await stallsRef.where("ownerEmail", "in", newStall.staffEmails).get()
-    if (!addedOwnerAsStaff.empty) {
-        isSuccess = false
-        messageArray.push(`Stall staff emails cannot include emails of other stall owners.`)
-    }
-
-
-    //if owner adds staff (>=1) already assigned to other stall
-    const addedRegisteredStaff = await stallsRef.where("staffEmails", "array-contains-any", newStall.staffEmails).get()
-    if (!addedRegisteredStaff.empty) {
-        isSuccess = false
-        messageArray.push(`Stall staff emails cannot include emails of stall staff assigned to another stall.`)
-    }
-
-
-    //if owner add student/lecturer as staff
-    for (let i in newStall.staffEmails) {
-        if (newStall.staffEmails[i].endsWith('@student.tarc.edu.my') || newStall.staffEmails[i].endsWith('@tarc.edu.my')) {
+        //if other stall owner is added as staff
+        const addedOwnerAsStaff = await stallsRef.where("ownerEmail", "in", newStall.staffEmails).get()
+        if (!addedOwnerAsStaff.empty) {
             isSuccess = false
-            messageArray.push(`Stall staff emails cannot include TAR students or lecturers emails.`)
-            break
+            messageArray.push(`Stall staff emails cannot include emails of other stall owners.`)
         }
+
+
+        //if owner adds staff (>=1) already assigned to other stall
+        const addedRegisteredStaff = await stallsRef.where("staffEmails", "array-contains-any", newStall.staffEmails).get()
+        if (!addedRegisteredStaff.empty) {
+            isSuccess = false
+            messageArray.push(`Stall staff emails cannot include emails of stall staff assigned to another stall.`)
+        }
+
+
+        //if owner add student/lecturer as staff
+        for (let i in newStall.staffEmails) {
+            if (newStall.staffEmails[i].endsWith('@student.tarc.edu.my') || newStall.staffEmails[i].endsWith('@tarc.edu.my')) {
+                isSuccess = false
+                messageArray.push(`Stall staff emails cannot include TAR students or lecturers emails.`)
+                break
+            }
+        }
+
+        //if owner added themselves as staff
+        if (newStall.staffEmails.includes(newStall.ownerEmail)) {
+            isSuccess = false
+            messageArray.push(`Stall staff emails cannot include stall owner email.`)
+        }
+
     }
 
-    //if owner added themselves as staff
-    if (newStall.staffEmails.includes(newStall.ownerEmail)) {
-        isSuccess = false
-        messageArray.push(`Stall staff emails cannot include stall owner email.`)
-    }
 
-
-    // //otherwise add stall and return success
+    //otherwise add stall and return success
 
     //return
     return { success: isSuccess, message: messageArray }
