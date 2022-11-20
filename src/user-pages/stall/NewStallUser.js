@@ -12,6 +12,8 @@ import { styled } from '@mui/material/styles'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 import Tooltip from '@mui/material/Tooltip'
+import ListItem from '@mui/material/ListItem'
+import List from '@mui/material/List'
 
 import PropTypes from 'prop-types'
 import IconButton from '@mui/material/IconButton'
@@ -22,6 +24,7 @@ import DialogActions from '@mui/material/DialogActions'
 
 import InfoIcon from '@mui/icons-material/Info'
 import CloseIcon from '@mui/icons-material/Close'
+import RemoveIcon from '@mui/icons-material/Remove'
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -92,24 +95,37 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     }
 
     const [stallName, setStallName] = useState('')
-    const [staffEmails, setStaffEmails] = useState('')
+    const [staffEmails, setStaffEmails] = useState([])
+    const [newStaffEmail, setNewStaffEmail] = useState('')
+    const [addEmailVis, setAddEmailVis] = useState(true)
     const [disableSave, setDisableSave] = useState(true)
 
+    //disable button if stall name empty
     useEffect(() => { stallName === '' ? setDisableSave(true) : setDisableSave(false) }, [stallName])
 
+    //disable add email if emails >= 10
+    useEffect(() => staffEmails.length >= 10 ? setAddEmailVis(false) : setAddEmailVis(true), [staffEmails])
+
+    const handleAddStaff = () => {
+        if (newStaffEmail === '') return
+        if (staffEmails.includes(newStaffEmail)) { setNewStaffEmail(''); return }
+
+        setStaffEmails([...staffEmails, newStaffEmail])
+        setNewStaffEmail('')
+    }
+
+    const handleRemoveStaff = (index) => setStaffEmails([...staffEmails.slice(0, index), ...staffEmails.slice(index + 1, staffEmails.length)])
+
     const handleRegister = () => {
-        const staffEmailsArray = staffEmails.split(',').map(item => item.trim()).filter(element => element)
         const newStall = {
             stallName: stallName,
-            staffEmails: staffEmailsArray
+            staffEmails: staffEmails
         }
 
-        //TODO: limit to 10 staff emails
-
-        registerStall(newStall)
-            .then(result => {
-                console.log(result)
-            })
+        // registerStall(newStall)
+        //     .then(result => {
+        //         console.log(result)
+        //     })
 
         //save & continue -> checking... -> ???
     }
@@ -168,13 +184,38 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                 <RegisterStallDialogTitle id="register-dialog-title" onClose={handleCloseDialog}>Register Stall</RegisterStallDialogTitle>
 
                 <DialogContent dividers>
-                    <Stack spacing={4}>
-                        <TextField label="Stall Name" variant="outlined"
-                            value={stallName} onChange={(e) => setStallName(e.target.value)} />
 
-                        <TextField label="Stall Staff Email(s)" multiline maxRows={3}
-                            helperText="Note: Separate multiple emails by comma (,)"
-                            value={staffEmails} onChange={(e) => setStaffEmails(e.target.value)} />
+                    <Stack spacing={2}>
+
+                        <TextField label="Stall Name" variant="outlined"
+                            value={stallName} onChange={(e) => setStallName(e.target.value)} autoComplete='off' />
+
+                        <Typography>Staff Emails (optional): </Typography>
+
+                        {staffEmails.length !== 0 &&
+                            <Paper style={{ maxHeight: 128, overflow: 'auto' }}>
+                                <List>
+                                    {staffEmails.map(
+                                        (staffEmail, index) => (
+                                            <ListItem key={index}
+                                                secondaryAction={
+                                                    <IconButton onClick={() => handleRemoveStaff(index)}><RemoveIcon /></IconButton>
+                                                }>
+                                                {staffEmail}
+                                            </ListItem>
+                                        )
+                                    )}
+                                </List>
+                            </Paper>
+                        }
+
+                        {addEmailVis &&
+                            <Stack direction="row" alignItems="center" spacing={1}>
+                                <TextField label="Staff Email" variant="outlined" size="small" autoComplete='off'
+                                    value={newStaffEmail} onChange={(e) => setNewStaffEmail(e.target.value)} />
+                                <Button variant="contained" onClick={handleAddStaff}>Add</Button>
+                            </Stack>
+                        }
 
                         <Stack direction="row" alignItems="center" spacing={1}>
                             <InfoIcon /><Typography>You can change these settings later.</Typography>

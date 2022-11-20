@@ -68,7 +68,7 @@ const NavigationDrawer = ({
                 <List>
                     {navOption.pages.map(
                         (page, index) => (
-                            <ListItem key={page} disablePadding>
+                            <ListItem key={index} disablePadding>
                                 <ListItemButton
                                     component={Link}
                                     to={navOption.links[index]}
