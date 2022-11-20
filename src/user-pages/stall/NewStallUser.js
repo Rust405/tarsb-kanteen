@@ -143,7 +143,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     }
 
     const handleRegister = () => {
-        const newStall = { stallName: stallName, staffEmails: staffEmails }
+        const newStall = { stallName: stallName, staffEmails: staffEmails, status: "close" }
 
         setDisableSave(true)
         setIsValidating(true)
@@ -252,7 +252,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                         {addEmailVis &&
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <TextField label="Staff Email" variant="outlined" size="small" autoComplete='off'
-                                    value={newStaffEmail} onChange={(e) => setNewStaffEmail(e.target.value)} disabled={isValidating} />
+                                    value={newStaffEmail} onChange={(e) => setNewStaffEmail(e.target.value)} disabled={isValidating} inputProps={{ style: { textTransform: "lowercase" } }} />
                                 <Button variant="outlined" onClick={handleAddStaff} disabled={disableAdd}>Add</Button>
                             </Stack>
                         }

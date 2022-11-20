@@ -19,8 +19,7 @@ exports.processSignUp = functions.auth.user().onCreate(async (user) => {
 exports.registerStall = functions.https.onCall(async (data, context) => {
     var newStall = data
     newStall.ownerEmail = context.auth.token.email
-    newStall.status = "close"
-
+    
     var isSuccess = true
     var messageArray = []
 
@@ -42,6 +41,9 @@ exports.registerStall = functions.https.onCall(async (data, context) => {
 
     //perform validation if staffEmails provided
     if (newStall.staffEmails.length !== 0) {
+
+        //convert emails to lowercase
+        newStall.staffEmails = newStall.staffEmails.map(em => em.toLowerCase())
 
         //if other stall owner is added as staff
         const addedOwnerAsStaff = await stallsRef.where("ownerEmail", "in", newStall.staffEmails).get()
