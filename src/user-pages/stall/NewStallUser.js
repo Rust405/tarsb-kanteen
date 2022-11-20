@@ -143,7 +143,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     }
 
     const handleRegister = () => {
-        const newStall = { stallName: stallName, staffEmails: staffEmails, status: "close" }
+        const newStall = { stallName: stallName, staffEmails: staffEmails }
 
         setDisableSave(true)
         setIsValidating(true)

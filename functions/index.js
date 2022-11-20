@@ -19,6 +19,7 @@ exports.processSignUp = functions.auth.user().onCreate(async (user) => {
 exports.registerStall = functions.https.onCall(async (data, context) => {
     var newStall = data
     newStall.ownerEmail = context.auth.token.email
+    newStall.status = "close"
     
     var isSuccess = true
     var messageArray = []
