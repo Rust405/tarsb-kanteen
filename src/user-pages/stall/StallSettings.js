@@ -21,27 +21,26 @@ const StallSettings = (
             setStatusMsg({ status: 'closed', accept: 'not accepting' })
     }, [checked])
 
-    if (staffRole === 'staff')
-        return (
-            <div className="stall-settings">
-                <Typography paragraph>
-                    You do not have permission to access this page. Only the stall owner can access or modify stall settings.
-                </Typography>
-            </div>
-        )
-    else
-        return (
-            <div className="stall-settings">
+    if (staffRole === 'staff') return (
+        <div className="stall-settings">
+            <Typography paragraph>
+                You do not have permission to access this page. Only the stall owner can access or modify stall settings.
+            </Typography>
+        </div>
+    )
 
-                <Typography variant="h6">Stall Status</Typography>
+    return (
+        <div className="stall-settings">
 
-                <Stack direction="row" alignItems="center" spacing={1}>
-                    <Switch checked={checked} onChange={handleCheckChange} />
-                    <Typography>{`The stall is now ${statusMsg.status} and ${statusMsg.accept} orders.`}</Typography>
-                </Stack>
+            <Typography variant="h6">Stall Status</Typography>
 
-            </div>
-        );
+            <Stack direction="row" alignItems="center" spacing={1}>
+                <Switch checked={checked} onChange={handleCheckChange} />
+                <Typography>{`The stall is now ${statusMsg.status} and ${statusMsg.accept} orders.`}</Typography>
+            </Stack>
+
+        </div>
+    )
 }
 
 export default StallSettings;
