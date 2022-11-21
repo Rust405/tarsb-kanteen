@@ -161,8 +161,8 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                 if (!response.success) {
                     setOpenErrSnack(true)
                     setErrMsgs(response.message)
-                } else { 
-                    //TODO: 
+                } else {
+                    window.location.reload(true)
                 }
                 setDisableSave(false)
                 setIsValidating(false)
