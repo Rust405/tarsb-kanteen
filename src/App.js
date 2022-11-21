@@ -4,7 +4,6 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 
@@ -132,7 +131,7 @@ function App(props) {
   }
 
   //Loading pages
-  if (loading) return <Loading loadingMsg="Authenticating with Google.." />
+  if (loading) return <Loading loadingMsg="Authenticating with Google..." />
   if (isFetchingUserType) return <Loading loadingMsg="Setting user... (This may take a while for new users)" />
   if (isSearchingStaff) return <Loading loadingMsg="Seraching database for stall user..." />
 
@@ -140,8 +139,7 @@ function App(props) {
     <div className="App">
 
       {/* Login Page */}
-      {!user && !userType && <Login />
-      }
+      {!user && !userType && <Login />}
 
       {/* New Stall User Landing Page */}
       {isNewStallUser && <NewStallUser setIsNewStallUser={setIsNewStallUser} email={user.email} />}
