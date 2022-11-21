@@ -81,10 +81,7 @@ exports.registerStall = functions.https.onCall(async (data, context) => {
 
 
     //otherwise add stall and return success
-    //TODO: 
-
-    //Note: lowercaseStallName field!!!
-
+    if (isSuccess) await stallsRef.add(newStall)
 
     return { success: isSuccess, message: messageArray }
 })
