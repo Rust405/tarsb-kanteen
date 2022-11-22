@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs } from "firebase/firestore"
+import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, connectFirestoreEmulator } from "firebase/firestore"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
-import { getFunctions, httpsCallable } from "firebase/functions"
+import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions"
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -18,6 +18,10 @@ const db = getFirestore(app)
 const provider = new GoogleAuthProvider()
 const auth = getAuth()
 const functions = getFunctions(app)
+
+//emulators
+connectFirestoreEmulator(db, 'localhost', 8080)
+connectFunctionsEmulator(functions, "localhost", 5001)
 
 const signInWithGoogle = async () => {
   try {
