@@ -1,5 +1,5 @@
 // import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button'
 
 const MyOrders = ({ handleIncCounter }) => {
 
@@ -15,4 +15,4 @@ const MyOrders = ({ handleIncCounter }) => {
     );
 }
 
-export default MyOrders;
+export default MyOrders

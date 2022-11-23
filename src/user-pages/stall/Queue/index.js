@@ -1,4 +1,4 @@
-import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography'
 
 const Queue = () => {
     return (
@@ -10,4 +10,4 @@ const Queue = () => {
     );
 }
 
-export default Queue;
+export default Queue

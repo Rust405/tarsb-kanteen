@@ -7,8 +7,8 @@ import Toolbar from '@mui/material/Toolbar'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 
-import ApplicationBar from './components/ApplicationBar'
-import NavigationDrawer from './components/NavigationDrawer'
+import ApplicationBar from './app-components/ApplicationBar'
+import NavigationDrawer from './app-components/NavigationDrawer'
 
 //user pages
 import MyOrders from './user-pages/customer/MyOrders'
@@ -25,10 +25,11 @@ import NotFound from './error-pages/NotFound'
 import NewStallUser from './user-pages/stall/NewStallUser'
 
 //sidebar
-import MultiPurposeSidebar from './components/MultiPurposeSidebar'
-import OrderPreview from './components/OrderPreview'
-import OrderCreate from './components/OrderCreate'
-import MenuItemCUD from './components/MenuItemCUD'
+import MultiPurposeSidebar from './app-components/MultiPurposeSidebar'
+import CustOrderPreview from './user-pages/customer/MyOrders/CustOrderPreview'
+import StallOrderPreview from './user-pages/stall/Queue/StallOrderPreview'
+import OrderCreate from './user-pages/customer/Browse/OrderCreate'
+import MenuItemCUD from './user-pages/stall/Menu/MenuItemCUD'
 
 import Login from './Login'
 import Loading from './Loading'
@@ -183,7 +184,7 @@ function App(props) {
                     navOpen={navOpen}
                     handleSidebarToggle={handleSidebarToggle}
                     container={container}
-                    drawerContent={<OrderPreview counter={counter} />} />}
+                    drawerContent={<CustOrderPreview counter={counter} />} />}
               />
               <Route path='/customer/browse'
                 element={
@@ -243,7 +244,7 @@ function App(props) {
                     navOpen={navOpen}
                     handleSidebarToggle={handleSidebarToggle}
                     container={container}
-                    drawerContent={< OrderPreview />} />}
+                    drawerContent={< StallOrderPreview />} />}
               />
               <Route path='/stall/menu'
                 element={

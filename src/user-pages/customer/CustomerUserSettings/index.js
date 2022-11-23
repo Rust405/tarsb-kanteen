@@ -1,4 +1,4 @@
-import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography'
 
 const CustomerUserSettings = () => {
     return (
@@ -15,4 +15,4 @@ const CustomerUserSettings = () => {
     );
 }
 
-export default CustomerUserSettings;
+export default CustomerUserSettings

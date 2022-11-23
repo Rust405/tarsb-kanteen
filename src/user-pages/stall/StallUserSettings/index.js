@@ -1,4 +1,4 @@
-import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography'
 
 const StallUserSettings = () => {
     return (
@@ -10,4 +10,4 @@ const StallUserSettings = () => {
     );
 }
 
-export default StallUserSettings;
+export default StallUserSettings

@@ -1,9 +1,9 @@
-import Divider from '@mui/material/Divider';
-import Toolbar from '@mui/material/Toolbar';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider'
+import Toolbar from '@mui/material/Toolbar'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
-const OrderPreview = ({
+const CustOrderPreview = ({
     counter
 }) => {
     return (
@@ -14,9 +14,11 @@ const OrderPreview = ({
                 <Divider />
                 <p>{counter}</p>
                 <Divider />
+                <Typography>Customer version</Typography>
+                <Divider />
             </Box>
         </div>
     );
 }
 
-export default OrderPreview;
+export default CustOrderPreview

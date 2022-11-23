@@ -1,4 +1,4 @@
-import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography'
 
 const Menu = () => {
     return (
@@ -10,4 +10,4 @@ const Menu = () => {
     );
 }
 
-export default Menu;
+export default Menu

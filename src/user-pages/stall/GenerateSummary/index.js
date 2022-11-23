@@ -1,4 +1,4 @@
-import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography'
 
 const GenerateSumamry = () => {
     return (
@@ -8,4 +8,4 @@ const GenerateSumamry = () => {
     );
 }
 
-export default GenerateSumamry;
+export default GenerateSumamry

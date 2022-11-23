@@ -1,4 +1,4 @@
-import { logout, registerStall } from '../../utils/firebase'
+import { logout, registerStall } from '../../../utils/firebase'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
