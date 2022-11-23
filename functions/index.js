@@ -6,7 +6,7 @@ const { getFirestore } = require('firebase-admin/firestore')
 initializeApp()
 const db = getFirestore()
 
-exports.processSignUp = functions.auth.user().onCreate(async (user) => {
+exports.processSignUp = functions.region('asia-southeast1').auth.user().onCreate(async (user) => {
     const userType = (user.email.endsWith('@student.tarc.edu.my') || user.email.endsWith('@tarc.edu.my')) ? 'customer' : 'stallUser'
     const customClaims = { userType: userType }
     try {
@@ -16,7 +16,7 @@ exports.processSignUp = functions.auth.user().onCreate(async (user) => {
     }
 })
 
-exports.registerStall = functions.https.onCall(async (data, context) => {
+exports.registerStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     var newStall = data
     newStall.stallName = newStall.stallName.trim()
     newStall.lowercaseStallName = newStall.lowercaseStallName.trim()
