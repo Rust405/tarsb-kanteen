@@ -1,4 +1,4 @@
-import { logout, registerStall } from '../../../utils/firebase'
+import { logout } from '../../../utils/firebase'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -12,19 +12,9 @@ import { styled } from '@mui/material/styles'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 import Tooltip from '@mui/material/Tooltip'
-import ListItem from '@mui/material/ListItem'
-import List from '@mui/material/List'
-
-import PropTypes from 'prop-types'
-import IconButton from '@mui/material/IconButton'
-import Dialog from '@mui/material/Dialog'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogContent from '@mui/material/DialogContent'
-import DialogActions from '@mui/material/DialogActions'
 
 import InfoIcon from '@mui/icons-material/Info'
-import CloseIcon from '@mui/icons-material/Close'
-import RemoveIcon from '@mui/icons-material/Remove'
+import RegisterStallDialog from './RegisterStallDialog'
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -38,45 +28,12 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 })
 
-const RegisterStallDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': { padding: theme.spacing(2) },
-    '& .MuiDialogActions-root': { padding: theme.spacing(1) },
-}))
-
-const RegisterStallDialogTitle = ({ children, onClose, ...other }) => {
-    return (
-        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-            {children}
-            {onClose ? (
-                <IconButton aria-label="close" onClick={onClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: (theme) => theme.palette.grey[500],
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
-            ) : null}
-        </DialogTitle>
-    )
-}
-
-RegisterStallDialogTitle.propTypes = { children: PropTypes.node, onClose: PropTypes.func.isRequired }
-
 const NewStallUser = ({ setIsNewStallUser, email }) => {
     const navigate = useNavigate()
 
     const stallRegCode = process.env.REACT_APP_STALL_REG_CODE
     const [regCodeInput, setRegCodeInput] = useState('')
 
-    const [stallName, setStallName] = useState('')
-    const [staffEmails, setStaffEmails] = useState([])
-    const [newStaffEmail, setNewStaffEmail] = useState('')
-
-    const [isValidating, setIsValidating] = useState(false)
-    const [formBtnText, setFormBtnText] = useState('Save & Continue')
     const [errMsgs, setErrMsgs] = useState([])
 
     useEffect(() => {
@@ -86,7 +43,6 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
 
     const [openDialog, setOpenDialog] = useState(false)
     const handleOpenDialog = () => setOpenDialog(true)
-    const handleCloseDialog = () => setOpenDialog(false)
 
     const [openSnack, setOpenSnack] = useState(false)
     const handleCloseSnack = (event, reason) => {
@@ -103,47 +59,6 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     const handleLogout = () => {
         setIsNewStallUser(false)
         logout()
-    }
-
-    const handleAddStaff = () => {
-        if (newStaffEmail.trim() !== '' && !staffEmails.includes(newStaffEmail.trim())) {
-            setStaffEmails([...staffEmails, newStaffEmail.trim()])
-        }
-        setNewStaffEmail('')
-    }
-
-    const handleRemoveStaff = (index) => {
-        setStaffEmails([
-            ...staffEmails.slice(0, index),
-            ...staffEmails.slice(index + 1, staffEmails.length)
-        ])
-    }
-
-    const handleRegister = () => {
-        const newStall = {
-            stallName: stallName.trim(),
-            lowercaseStallName: stallName.trim().toLowerCase(),
-            staffEmails: staffEmails
-        }
-
-        setIsValidating(true)
-        setOpenErrSnack(false)
-        setNewStaffEmail('')
-        setFormBtnText('Validating...')
-
-        registerStall(newStall)
-            .then(result => {
-                let response = result.data
-                if (response.success) {
-                    window.location.reload(true)
-
-                } else {
-                    setOpenErrSnack(true)
-                    setErrMsgs(response.message)
-                    setIsValidating(false)
-                    setFormBtnText('Save & Continue')
-                }
-            })
     }
 
     return (
@@ -195,59 +110,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
             </Snackbar>
 
             {/* Register Stall Dialog */}
-            <RegisterStallDialog onClose={handleCloseDialog} aria-labelledby="register-dialog-title" open={openDialog} >
-
-                <RegisterStallDialogTitle id="register-dialog-title" onClose={handleCloseDialog}>Register Stall</RegisterStallDialogTitle>
-
-                <DialogContent dividers>
-
-                    <Stack spacing={2}>
-
-                        <TextField label="Stall Name" variant="outlined" size="small" autoComplete='off'
-                            value={stallName} onChange={(e) => setStallName(e.target.value)} disabled={isValidating} />
-
-                        <Typography>Staff Emails (optional): </Typography>
-
-                        {staffEmails.length !== 0 &&
-                            <Paper style={{ maxHeight: 128, overflow: 'auto' }}>
-                                <List>
-                                    {staffEmails.map(
-                                        (staffEmail, index) => (
-                                            <ListItem key={index}
-                                                secondaryAction={
-                                                    <IconButton
-                                                        disabled={isValidating}
-                                                        onClick={() => handleRemoveStaff(index)}>
-                                                        <RemoveIcon />
-                                                    </IconButton>
-                                                }>
-                                                {staffEmail}
-                                            </ListItem>
-                                        )
-                                    )}
-                                </List>
-                            </Paper>
-                        }
-
-                        {staffEmails.length <= 9 &&
-                            <Stack direction="row" alignItems="center" spacing={1}>
-                                <TextField label="Staff Email" variant="outlined" size="small" autoComplete='off'
-                                    value={newStaffEmail} onChange={(e) => setNewStaffEmail(e.target.value)} disabled={isValidating} inputProps={{ style: { textTransform: "lowercase" } }} />
-                                <Button variant="text" onClick={handleAddStaff} disabled={newStaffEmail.trim() === '' || isValidating}>Add</Button>
-                            </Stack>
-                        }
-
-                        <Stack direction="row" alignItems="center" spacing={1}>
-                            <InfoIcon /><Typography variant="caption">You can change these settings later.</Typography>
-                        </Stack>
-                    </Stack>
-
-                </DialogContent>
-
-                <DialogActions>
-                    <Button autoFocus disabled={stallName.trim() === '' || isValidating} onClick={handleRegister}>{formBtnText}</Button>
-                </DialogActions>
-            </RegisterStallDialog>
+            <RegisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} setErrMsgs={setErrMsgs} setOpenErrSnack={setOpenErrSnack} />
 
             {/* Error messages snackbar */}
             <Snackbar open={openErrSnack} autoHideDuration={6000 * errMsgs.length} onClose={handleCloseErrSnack}
