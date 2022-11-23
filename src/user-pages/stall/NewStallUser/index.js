@@ -106,8 +106,8 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     }
 
     const handleAddStaff = () => {
-        if (newStaffEmail !== '' && !staffEmails.includes(newStaffEmail)) {
-            setStaffEmails([...staffEmails, newStaffEmail])
+        if (newStaffEmail.trim() !== '' && !staffEmails.includes(newStaffEmail.trim())) {
+            setStaffEmails([...staffEmails, newStaffEmail.trim()])
         }
         setNewStaffEmail('')
     }
@@ -121,8 +121,8 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
 
     const handleRegister = () => {
         const newStall = {
-            stallName: stallName,
-            lowercaseStallName: stallName.toLowerCase(),
+            stallName: stallName.trim(),
+            lowercaseStallName: stallName.trim().toLowerCase(),
             staffEmails: staffEmails
         }
 
@@ -233,7 +233,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <TextField label="Staff Email" variant="outlined" size="small" autoComplete='off'
                                     value={newStaffEmail} onChange={(e) => setNewStaffEmail(e.target.value)} disabled={isValidating} inputProps={{ style: { textTransform: "lowercase" } }} />
-                                <Button variant="text" onClick={handleAddStaff} disabled={newStaffEmail === '' || isValidating}>Add</Button>
+                                <Button variant="text" onClick={handleAddStaff} disabled={newStaffEmail.trim() === '' || isValidating}>Add</Button>
                             </Stack>
                         }
 
@@ -245,7 +245,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button autoFocus disabled={stallName === '' || isValidating} onClick={handleRegister}>{formBtnText}</Button>
+                    <Button autoFocus disabled={stallName.trim() === '' || isValidating} onClick={handleRegister}>{formBtnText}</Button>
                 </DialogActions>
             </RegisterStallDialog>
 
