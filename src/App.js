@@ -105,9 +105,8 @@ function App(props) {
     return tokenResult.claims.userType
   }
 
-  useEffect(() => redirectUser(), [userType])
-
-  const redirectUser = () => {
+  //redirect user
+  useEffect(() => {
     if (userType === 'customer') {
       if (pathName === '/') navigate('/customer/myorders', { replace: true })
     }
@@ -128,7 +127,7 @@ function App(props) {
           }
         })
     }
-  }
+  }, [userType])
 
   //Loading pages
   if (loading) return <Loading loadingMsg="Authenticating with Google..." />

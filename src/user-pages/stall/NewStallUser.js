@@ -68,70 +68,47 @@ RegisterStallDialogTitle.propTypes = { children: PropTypes.node, onClose: PropTy
 const NewStallUser = ({ setIsNewStallUser, email }) => {
     const navigate = useNavigate()
 
-    //Registration code
     const stallRegCode = process.env.REACT_APP_STALL_REG_CODE
-    const [disableReg, setDisableReg] = useState(true)
     const [regCodeInput, setRegCodeInput] = useState('')
 
-    //Stall variables
     const [stallName, setStallName] = useState('')
     const [staffEmails, setStaffEmails] = useState([])
     const [newStaffEmail, setNewStaffEmail] = useState('')
 
-    const [addEmailVis, setAddEmailVis] = useState(true)
-    const [disableAdd, setDisableAdd] = useState(true)
-    const [disableSave, setDisableSave] = useState(true)
     const [isValidating, setIsValidating] = useState(false)
     const [formBtnText, setFormBtnText] = useState('Save & Continue')
     const [errMsgs, setErrMsgs] = useState([])
 
-    //redirect user and show new user snackbar
     useEffect(() => {
         navigate('/')
         setOpenSnack(true)
     }, [])
 
-    //Register Stall Dialog
     const [openDialog, setOpenDialog] = useState(false)
     const handleOpenDialog = () => setOpenDialog(true)
     const handleCloseDialog = () => setOpenDialog(false)
 
-    //New user snackbar
     const [openSnack, setOpenSnack] = useState(false)
     const handleCloseSnack = (event, reason) => {
         if (reason === 'clickaway') return
         setOpenSnack(false)
     }
 
-    //Error message(s) snackbar
     const [openErrSnack, setOpenErrSnack] = useState(false)
     const handleCloseErrSnack = (event, reason) => {
         if (reason === 'clickaway') return
         setOpenErrSnack(false)
     }
 
-    //disable register button if code field empty
-    useEffect(() => { regCodeInput === stallRegCode ? setDisableReg(false) : setDisableReg(true) }, [regCodeInput])
-
     const handleLogout = () => {
         setIsNewStallUser(false)
         logout()
     }
 
-    //disable save button if stall name field empty
-    useEffect(() => { stallName === '' ? setDisableSave(true) : setDisableSave(false) }, [stallName])
-
-    //disable add button if email field empty
-    useEffect(() => { newStaffEmail === '' ? setDisableAdd(true) : setDisableAdd(false) }, [newStaffEmail])
-
-    //remove add email if emails >= 10
-    useEffect(() => staffEmails.length >= 10 ? setAddEmailVis(false) : setAddEmailVis(true), [staffEmails])
-
     const handleAddStaff = () => {
-        if (newStaffEmail === '') return
-        if (staffEmails.includes(newStaffEmail)) { setNewStaffEmail(''); return }
-
-        setStaffEmails([...staffEmails, newStaffEmail])
+        if (newStaffEmail !== '' && !staffEmails.includes(newStaffEmail)) {
+            setStaffEmails([...staffEmails, newStaffEmail])
+        }
         setNewStaffEmail('')
     }
 
@@ -149,7 +126,6 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
             staffEmails: staffEmails
         }
 
-        setDisableSave(true)
         setIsValidating(true)
         setOpenErrSnack(false)
         setNewStaffEmail('')
@@ -158,15 +134,15 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
         registerStall(newStall)
             .then(result => {
                 let response = result.data
-                if (!response.success) {
+                if (response.success) {
+                    window.location.reload(true)
+
+                } else {
                     setOpenErrSnack(true)
                     setErrMsgs(response.message)
-                } else {
-                    window.location.reload(true)
+                    setIsValidating(false)
+                    setFormBtnText('Save & Continue')
                 }
-                setDisableSave(false)
-                setIsValidating(false)
-                setFormBtnText('Save & Continue')
             })
     }
 
@@ -189,7 +165,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                             <Stack direction="row" alignItems="center" spacing={2}>
                                 <TextField type="password" label="Stall Registration Code" variant="outlined" size="small"
                                     value={regCodeInput} onChange={(e) => setRegCodeInput(e.target.value)} />
-                                <Button variant="contained" size="small" onClick={handleOpenDialog} disabled={disableReg}>Register Stall</Button>
+                                <Button variant="contained" size="small" onClick={handleOpenDialog} disabled={regCodeInput !== stallRegCode}>Register Stall</Button>
                             </Stack>
                         </Box>
                     </Item>
@@ -205,7 +181,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                     {/* Logout button */}
                     <Box display="flex" justifyContent="center">
                         <Tooltip title={`Log out of ${email}`} placement="right" disableInteractive>
-                            <Button variant="outlined" color="error" onClick={handleLogout} >Log Out</Button>
+                            <Button variant="outlined" color="error" onClick={handleLogout}>Log Out</Button>
                         </Tooltip>
                     </Box>
                 </Stack>
@@ -253,11 +229,11 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                             </Paper>
                         }
 
-                        {addEmailVis &&
+                        {staffEmails.length <= 9 &&
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <TextField label="Staff Email" variant="outlined" size="small" autoComplete='off'
                                     value={newStaffEmail} onChange={(e) => setNewStaffEmail(e.target.value)} disabled={isValidating} inputProps={{ style: { textTransform: "lowercase" } }} />
-                                <Button variant="outlined" onClick={handleAddStaff} disabled={disableAdd}>Add</Button>
+                                <Button variant="text" onClick={handleAddStaff} disabled={newStaffEmail === '' || isValidating}>Add</Button>
                             </Stack>
                         }
 
@@ -269,7 +245,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button autoFocus disabled={disableSave} onClick={handleRegister}>{formBtnText}</Button>
+                    <Button autoFocus disabled={stallName === '' || isValidating} onClick={handleRegister}>{formBtnText}</Button>
                 </DialogActions>
             </RegisterStallDialog>
 
