@@ -40,13 +40,14 @@ const StallClient = ({ container, userType, staffRole, stallID }) => {
         setSidebarOpen(!sidebarOpen)
     }
 
+    const stallDocRef = doc(db, "stalls", stallID)
+
     //current working stall snapshot
     const [stallSnapshot, setStallSnapshot] = useState(null)
     useEffect(() => {
-        const docRef = doc(db, "stalls", stallID)
-        const unsubscribe = onSnapshot(docRef, (doc) => {
-            setStallSnapshot(doc.data())
-        })
+        const unsubscribe = onSnapshot(stallDocRef,
+            doc => setStallSnapshot(doc.data())
+        )
         return () => unsubscribe()
     }, [])
 
@@ -80,7 +81,7 @@ const StallClient = ({ container, userType, staffRole, stallID }) => {
                             <Route path="/stall/generatesummary" element={<GenerateSummary />} />
                             <Route path="/stall/usersettings" element={<StallUserSettings />} />
                             {staffRole === 'owner' &&
-                                <Route path="/stall/stallsettings" element={<StallSettings stallSnapshot={stallSnapshot} />} />
+                                <Route path="/stall/stallsettings" element={<StallSettings stallSnapshot={stallSnapshot} stallDocRef={stallDocRef} />} />
                             }
                             <Route path="*" element={<NotFound />} />
                         </Routes>

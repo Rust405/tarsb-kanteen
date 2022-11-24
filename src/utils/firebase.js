@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, connectFirestoreEmulator } from "firebase/firestore"
+import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, updateDoc, connectFirestoreEmulator } from "firebase/firestore"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions"
 
@@ -14,16 +14,16 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-const db = getFirestore(app)
+export const db = getFirestore(app)
 const provider = new GoogleAuthProvider()
-const auth = getAuth()
+export const auth = getAuth()
 const functions = getFunctions(app, "asia-southeast1")
 
 //emulators
 connectFirestoreEmulator(db, 'localhost', 8080)
 connectFunctionsEmulator(functions, "localhost", 5001)
 
-const signInWithGoogle = async () => {
+export const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, provider)
     const user = res.user
@@ -44,9 +44,9 @@ const signInWithGoogle = async () => {
   }
 }
 
-const logout = () => signOut(auth)
+export const logout = () => signOut(auth)
 
-const findStallUser = async (email) => {
+export const findStallUser = async (email) => {
   const queryOwner = query(collection(db, "stalls"), where("ownerEmail", "==", email))
   const queryStaff = query(collection(db, "stalls"), where("staffEmails", "array-contains", email))
 
@@ -60,6 +60,13 @@ const findStallUser = async (email) => {
   return null
 }
 
-const registerStall = httpsCallable(functions, 'registerStall')
+export const registerStall = httpsCallable(functions, 'registerStall')
 
-export { db, auth, signInWithGoogle, logout, findStallUser, registerStall }
+export const openStall = async (stallDocRef) => {
+  await updateDoc(stallDocRef, { status: "open" })
+}
+
+export const closeStall = async (stallDocRef) => {
+  await updateDoc(stallDocRef, { status: "closed" })
+}
+
