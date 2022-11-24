@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 const provider = new GoogleAuthProvider()
 const auth = getAuth()
-const functions = getFunctions(app)
+const functions = getFunctions(app, "asia-southeast1")
 
 //emulators
 connectFirestoreEmulator(db, 'localhost', 8080)
