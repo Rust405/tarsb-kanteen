@@ -131,7 +131,7 @@ function App(props) {
           }
         })
     }
-  }, [userType])
+  }, [userType]) 
 
   //Loading pages
   if (loading) return <Loading loadingMsg="Authenticating with Google..." />
