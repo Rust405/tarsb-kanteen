@@ -1,0 +1,113 @@
+[debug] [2022-11-24T12:52:00.377Z] ----------------------------------------------------------------------
+[debug] [2022-11-24T12:52:00.379Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --import emulator-data --export-on-exit
+[debug] [2022-11-24T12:52:00.380Z] CLI Version:   11.16.1
+[debug] [2022-11-24T12:52:00.381Z] Platform:      win32
+[debug] [2022-11-24T12:52:00.381Z] Node Version:  v18.12.1
+[debug] [2022-11-24T12:52:00.382Z] Time:          Thu Nov 24 2022 20:52:00 GMT+0800 (シンガポール標準時)
+[debug] [2022-11-24T12:52:00.382Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-11-24T12:52:00.550Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-11-24T12:52:00.551Z] > authorizing via signed-in user (tarsbkanteen@gmail.com)
+[debug] [2022-11-24T12:52:00.677Z] java version "19" 2022-09-20
+
+[debug] [2022-11-24T12:52:00.677Z] Java(TM) SE Runtime Environment (build 19+36-2238)
+Java HotSpot(TM) 64-Bit Server VM (build 19+36-2238, mixed mode, sharing)
+
+[debug] [2022-11-24T12:52:00.693Z] Parsed Java major version: 19
+[info] i  emulators: Starting emulators: functions, firestore, hosting, pubsub {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, firestore, hosting, pubsub"}}
+[warn] !  hosting: The hosting emulator is configured but there is no hosting configuration. Have you run firebase init hosting? {"metadata":{"emulator":{"name":"hosting"},"message":"The hosting emulator is configured but there is no hosting configuration. Have you run \u001b[1mfirebase init hosting\u001b[22m?"}}
+[debug] [2022-11-24T12:52:00.714Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-11-24T12:52:00.715Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-11-24T12:52:00.715Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-11-24T12:52:00.715Z] [pubsub] Pub/Sub Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-11-24T12:52:00.716Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"pubsub":[{"address":"127.0.0.1","family":"IPv4","port":8085}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2022-11-24T12:52:00.734Z] [hub] writing locator at C:\Users\User\AppData\Local\Temp\hub-tarsb-kanteen-2022.json
+[debug] [2022-11-24T12:52:00.756Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-11-24T12:52:00.756Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-11-24T12:52:00.757Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"pubsub":[{"address":"127.0.0.1","family":"IPv4","port":8085}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, database, hosting, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, database, hosting, storage\u001b[22m"}}
+[warn] !  Your requested "node" version "16" doesn't match your global version "18". Using node@18 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Your requested \"node\" version \"16\" doesn't match your global version \"18\". Using node@18 from host."}}
+[debug] [2022-11-24T12:52:00.797Z] defaultcredentials: writing to file C:\Users\User\AppData\Roaming\firebase\tarsbkanteen_gmail_com_application_default_credentials.json
+[debug] [2022-11-24T12:52:00.803Z] Setting GAC to C:\Users\User\AppData\Roaming\firebase\tarsbkanteen_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\User\\AppData\\Roaming\\firebase\\tarsbkanteen_gmail_com_application_default_credentials.json"}}
+[debug] [2022-11-24T12:52:00.807Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig [none]
+[debug] [2022-11-24T12:52:01.219Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig 200
+[debug] [2022-11-24T12:52:01.219Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig {"projectId":"tarsb-kanteen-2022","storageBucket":"tarsb-kanteen-2022.appspot.com","locationId":"asia-southeast1"}
+[info] i  firestore: Importing data from C:\Users\User\Desktop\Code\React\tarsb-kanteen\emulator-data\firestore_export\firestore_export.overall_export_metadata {"metadata":{"emulator":{"name":"firestore"},"message":"Importing data from C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\emulator-data\\firestore_export\\firestore_export.overall_export_metadata"}}
+[warn] !  firestore: Did not find a Cloud Firestore rules file specified in a firebase.json config file. {"metadata":{"emulator":{"name":"firestore"},"message":"Did not find a Cloud Firestore rules file specified in a firebase.json config file."}}
+[warn] !  firestore: The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration. {"metadata":{"emulator":{"name":"firestore"},"message":"The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration."}}
+[debug] [2022-11-24T12:52:01.255Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-11-24T12:52:01.255Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2022-11-24T12:52:01.255Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\User\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.15.1.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","tarsb-kanteen-2022","--seed_from_export","C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\emulator-data\\firestore_export\\firestore_export.overall_export_metadata","--single_project_mode",true,"--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.15.1.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"tarsb-kanteen-2022\",\"--seed_from_export\",\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\emulator-data\\\\firestore_export\\\\firestore_export.overall_export_metadata\",\"--single_project_mode\",true,\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[debug] [2022-11-24T12:52:03.900Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-11-24T12:52:03.900Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-11-24T12:52:03.900Z] Starting Pub/Sub Emulator with command {"binary":"C:\\Users\\User\\.cache\\firebase\\emulators\\pubsub-emulator-0.7.1\\pubsub-emulator\\bin\\cloud-pubsub-emulator.bat","args":["--host=127.0.0.1","--port=8085"],"optionalArgs":["port","host"],"joinArgs":true} {"metadata":{"emulator":{"name":"pubsub"},"message":"Starting Pub/Sub Emulator with command {\"binary\":\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\pubsub-emulator-0.7.1\\\\pubsub-emulator\\\\bin\\\\cloud-pubsub-emulator.bat\",\"args\":[\"--host=127.0.0.1\",\"--port=8085\"],\"optionalArgs\":[\"port\",\"host\"],\"joinArgs\":true}"}}
+[info] i  pubsub: Pub/Sub Emulator logging to pubsub-debug.log {"metadata":{"emulator":{"name":"pubsub"},"message":"Pub/Sub Emulator logging to \u001b[1mpubsub-debug.log\u001b[22m"}}
+[debug] [2022-11-24T12:52:06.806Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-11-24T12:52:06.806Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-11-24T12:52:06.806Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\User\\.cache\\firebase\\emulators\\ui-v1.11.1\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.1\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2022-11-24T12:52:07.026Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2022-11-24T12:52:07.027Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[info] i  functions: Watching "C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\" for Cloud Functions..."}}
+[debug] [2022-11-24T12:52:07.100Z] Validating nodejs source
+[debug] [2022-11-24T12:52:12.560Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-11-24T12:52:12.560Z] Building nodejs source
+[debug] [2022-11-24T12:52:12.560Z] Analyzing nodejs backend spec
+[debug] [2022-11-24T12:52:12.563Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-11-24T12:52:12.976Z] Serving at port 9005
+
+[debug] [2022-11-24T12:52:13.528Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-11-24T12:52:13.539Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall."}}
+[debug] [2022-11-24T12:52:13.558Z] addAuthTrigger {"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","resource":"projects/tarsb-kanteen-2022"}}
+[info] +  functions[asia-southeast1-processSignUp]: auth function initialized. {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mauth\u001b[22m function initialized."}}
+[info] +  functions[asia-southeast1-registerStall]: http function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/registerStall). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/registerStall)."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬──────────────────────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port                        │ View in Emulator UI             │
+├───────────┼──────────────────────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001                   │ http://127.0.0.1:4000/functions │
+├───────────┼──────────────────────────────────┼─────────────────────────────────┤
+│ Firestore │ 127.0.0.1:8080                   │ http://127.0.0.1:4000/firestore │
+├───────────┼──────────────────────────────────┼─────────────────────────────────┤
+│ Hosting   │ Failed to initialize (see above) │                                 │
+├───────────┼──────────────────────────────────┼─────────────────────────────────┤
+│ Pub/Sub   │ 127.0.0.1:8085                   │ n/a                             │
+└───────────┴──────────────────────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500, 9150
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
