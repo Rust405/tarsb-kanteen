@@ -112,7 +112,7 @@ function App(props) {
 
       {/* StallUser Client */}
       {user && userType === 'stallUser' && staffRole &&
-        <StallClient container={container} userType={userType} staffRole={staffRole} />
+        <StallClient container={container} userType={userType} staffRole={staffRole} stallID={stallID} />
       }
 
       {/* Logged In Snackbar */}

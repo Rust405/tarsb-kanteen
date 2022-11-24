@@ -1,18 +1,17 @@
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
-import { useEffect, useState } from 'react'
-
-const StallSettings = () => {
+const StallSettings = ({ stallSnapshot }) => {
 
     return (
         <div className="stall-settings">
-            <Typography variant="h6">Stall Status</Typography>
+            {stallSnapshot &&
+                <Typography> Stall Status: {stallSnapshot.status}</Typography>
+            }
 
             <Button variant="outlined">Open Stall</Button>
             <Button variant="outlined">Close Stall</Button>
 
-            <Typography>Status: </Typography>
         </div>
     )
 }

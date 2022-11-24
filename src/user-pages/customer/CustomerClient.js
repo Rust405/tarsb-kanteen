@@ -23,7 +23,6 @@ import OrderCreate from './Browse/OrderCreate'
 const CustomerClient = ({ container, userType }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
-
     const { pathname: pathName } = useLocation()
 
     const handleDrawerToggle = (e) => {

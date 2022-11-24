@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 
 import CssBaseline from '@mui/material/CssBaseline'
@@ -22,10 +22,12 @@ import NotFound from '../../error-pages/NotFound'
 import StallOrderPreview from './Queue/StallOrderPreview'
 import MenuItemCUD from './Menu/MenuItemCUD'
 
-const StallClient = ({ container, userType, staffRole }) => {
+import { db } from '../../utils/firebase'
+import { doc, onSnapshot } from "firebase/firestore"
+
+const StallClient = ({ container, userType, staffRole, stallID }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
-
     const { pathname: pathName } = useLocation()
 
     const handleDrawerToggle = (e) => {
@@ -37,6 +39,17 @@ const StallClient = ({ container, userType, staffRole }) => {
         if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
         setSidebarOpen(!sidebarOpen)
     }
+
+    //current working stall snapshot
+    const [stallSnapshot, setStallSnapshot] = useState(null)
+    useEffect(() => {
+        const docRef = doc(db, "stalls", stallID)
+        const unsubscribe = onSnapshot(docRef, (doc) => {
+            setStallSnapshot(doc.data())
+        })
+        return () => unsubscribe()
+    }, [])
+
 
     return (
         <div className="stall-client">
@@ -66,7 +79,9 @@ const StallClient = ({ container, userType, staffRole }) => {
                             <Route path="/stall/menu" element={<Menu />} />
                             <Route path="/stall/generatesummary" element={<GenerateSummary />} />
                             <Route path="/stall/usersettings" element={<StallUserSettings />} />
-                            {staffRole === 'owner' && <Route path="/stall/stallsettings" element={<StallSettings />} />}
+                            {staffRole === 'owner' &&
+                                <Route path="/stall/stallsettings" element={<StallSettings stallSnapshot={stallSnapshot} />} />
+                            }
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </Box>
