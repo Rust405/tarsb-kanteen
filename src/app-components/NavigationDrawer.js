@@ -27,7 +27,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 
 import { auth, logout } from '../utils/firebase'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const customer = {
     pages: ['My Orders', 'Browse', 'Settings'],
@@ -35,17 +35,24 @@ const customer = {
     links: ['/customer/myorders', '/customer/browse', '/customer/usersettings']
 }
 
-const stallUser = {
+const stallOwner = {
     pages: ['Queue', 'Menu', 'Stall', 'Generate Summary', 'Settings'],
     icons: [<ListAltIcon />, <MenuBookIcon />, <StorefrontIcon />, <PrintIcon />, <SettingsIcon />],
     links: ['/stall/queue', '/stall/menu', '/stall/stallsettings', '/stall/generatesummary', '/stall/usersettings']
+}
+
+const stallStaff = {
+    pages: ['Queue', 'Menu', 'Generate Summary', 'Settings'],
+    icons: [<ListAltIcon />, <MenuBookIcon />, <PrintIcon />, <SettingsIcon />],
+    links: ['/stall/queue', '/stall/menu', '/stall/generatesummary', '/stall/usersettings']
 }
 
 const NavigationDrawer = ({
     navOpen,
     handleDrawerToggle,
     container,
-    userType
+    userType,
+    staffRole
 }) => {
     const displayName = auth.currentUser.displayName
     const email = auth.currentUser.email
@@ -54,7 +61,7 @@ const NavigationDrawer = ({
     if (userType === 'customer') {
         navOption = customer
     } else if (userType === 'stallUser') {
-        navOption = stallUser
+        staffRole === 'owner' ? navOption = stallOwner : navOption = stallStaff
     }
 
     //logout collapse

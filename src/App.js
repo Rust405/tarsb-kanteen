@@ -220,6 +220,7 @@ function App(props) {
               handleDrawerToggle={handleDrawerToggle}
               container={container}
               userType={userType}
+              staffRole={staffRole}
             />
           </div>
 
@@ -232,7 +233,7 @@ function App(props) {
                 <Route path="/stall/menu" element={<Menu />} />
                 <Route path="/stall/generatesummary" element={<GenerateSummary />} />
                 <Route path="/stall/usersettings" element={<StallUserSettings />} />
-                <Route path="/stall/stallsettings" element={<StallSettings staffRole={staffRole} />} />
+                {staffRole === 'owner' && <Route path="/stall/stallsettings" element={<StallSettings />} />}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Box>
