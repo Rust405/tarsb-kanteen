@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography'
-import Switch from '@mui/material/Switch'
-import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
+
 import { useEffect, useState } from 'react'
 
 const StallSettings = () => {
@@ -9,6 +9,10 @@ const StallSettings = () => {
         <div className="stall-settings">
             <Typography variant="h6">Stall Status</Typography>
 
+            <Button variant="outlined">Open Stall</Button>
+            <Button variant="outlined">Close Stall</Button>
+
+            <Typography>Status: </Typography>
         </div>
     )
 }
