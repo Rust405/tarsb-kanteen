@@ -6,20 +6,6 @@ import { useEffect, useState } from 'react'
 const StallSettings = (
     { staffRole }
 ) => {
-    const [statusMsg, setStatusMsg] = useState({ status: 'open', accept: 'accepting' })
-    const [checked, setChecked] = useState(false)
-
-    const handleCheckChange = (event) => {
-        setChecked(event.target.checked)
-    }
-
-    //change status message depending on switch
-    useEffect(() => {
-        checked ?
-            setStatusMsg({ status: 'open', accept: 'accepting' })
-            :
-            setStatusMsg({ status: 'closed', accept: 'not accepting' })
-    }, [checked])
 
     if (staffRole === 'staff') return (
         <div className="stall-settings">
@@ -31,13 +17,7 @@ const StallSettings = (
 
     return (
         <div className="stall-settings">
-
             <Typography variant="h6">Stall Status</Typography>
-
-            <Stack direction="row" alignItems="center" spacing={1}>
-                <Switch checked={checked} onChange={handleCheckChange} />
-                <Typography>{`The stall is now ${statusMsg.status} and ${statusMsg.accept} orders.`}</Typography>
-            </Stack>
 
         </div>
     )

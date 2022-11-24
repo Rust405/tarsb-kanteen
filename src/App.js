@@ -59,20 +59,12 @@ function App(props) {
     setSidebarOpen(!sidebarOpen)
   }
 
-  //props passing test, TODO: change to Redux maybe
+  //props passing test
   const [counter, setCounter] = useState(1)
   const handleIncCounter = () => {
     setCounter(counter + 1)
   }
-
-  const [user, loading] = useAuthState(auth)
-  const [userType, setUserType] = useState(null)
-  const [isFetchingUserType, setIsFetchingUserType] = useState(false)
-
-  const [stallID, setStallID] = useState(false)
-  const [staffRole, setStaffRole] = useState(null)
-  const [isSearchingStaff, setIsSearchingStaff] = useState(false)
-  const [isNewStallUser, setIsNewStallUser] = useState(false)
+  //end props passing test
 
   //Snackbar log in success
   const [openSnack, setOpenSnack] = useState(false)
@@ -80,6 +72,17 @@ function App(props) {
     if (reason === 'clickaway') return
     setOpenSnack(false)
   }
+
+  //user variables
+  const [user, loading] = useAuthState(auth)
+  const [userType, setUserType] = useState(null)
+  const [isFetchingUserType, setIsFetchingUserType] = useState(false)
+
+  //stall user variables
+  const [stallID, setStallID] = useState(false)
+  const [staffRole, setStaffRole] = useState(null)
+  const [isSearchingStaff, setIsSearchingStaff] = useState(false)
+  const [isNewStallUser, setIsNewStallUser] = useState(false)
 
   useEffect(() => {
     if (user) {
