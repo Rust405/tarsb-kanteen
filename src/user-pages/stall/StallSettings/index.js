@@ -153,8 +153,10 @@ const StallSettings = ({ stallSnapshot, stallDocRef }) => {
                     </Stack>
                 }
 
+                {/* Enable editing button */}
                 {!isEditing && <Button onClick={() => setIsEditing(true)}>Edit Stall Details</Button>}
 
+                {/* Details Edit buttons */}
                 {isEditing &&
                     <Stack direction="row" alignItems="center" spacing={2}>
                         <Button onClick={handleCancelChanges} disabled={isValidating} >Cancel</Button>
