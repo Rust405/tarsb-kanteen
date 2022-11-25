@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, updateDoc, connectFirestoreEmulator } from "firebase/firestore"
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
+import { getAuth, GoogleAuthProvider, signOut, signInWithRedirect } from "firebase/auth"
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions"
 
 const firebaseConfig = {
@@ -25,7 +25,7 @@ connectFunctionsEmulator(functions, "localhost", 5001)
 
 export const signInWithGoogle = async () => {
   try {
-    const res = await signInWithPopup(auth, provider)
+    const res = await signInWithRedirect(auth, provider)
     const user = res.user
 
     const docRef = doc(db, "users", user.uid)
@@ -40,7 +40,7 @@ export const signInWithGoogle = async () => {
     }
 
   } catch (err) {
-    alert("Login with Google cancelled")
+    alert(`Login with Google cancelled.\n${err.message}`)
   }
 }
 
