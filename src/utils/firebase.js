@@ -37,7 +37,6 @@ export const signInWithGoogle = async () => {
       reminderTiming: 10
     })
   }
-
 }
 
 export const logout = () => signOut(auth)
