@@ -31,7 +31,9 @@ const StallSettings = ({ stallSnapshot, stallDocRef }) => {
     }
 
     const [stallName, setStallName] = useState(stallSnapshot.stallName)
+    const [staffEmails, setStaffEmails] = useState(stallSnapshot.staffEmails)
 
+    const [isValidating, setIsValidating] = useState(false)
 
     return (
         <div className="stall-settings">

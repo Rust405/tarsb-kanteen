@@ -22,7 +22,11 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     newStall.lowercaseStallName = newStall.lowercaseStallName.trim()
     newStall.ownerEmail = context.auth.token.email
     newStall.status = "closed"
+    
+    return await validateStall(newStall)
+})
 
+async function validateStall(newStall) {
     var isSuccess = true
     var messageArray = []
 
@@ -86,4 +90,5 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     if (isSuccess) await stallsRef.add(newStall)
 
     return { success: isSuccess, message: messageArray }
-})
+}
+
