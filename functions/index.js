@@ -22,8 +22,8 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     newStall.lowercaseStallName = newStall.lowercaseStallName.trim()
     newStall.ownerEmail = context.auth.token.email
     newStall.status = "closed"
-    
-    return await validateStall(newStall)
+
+    return validateStall(newStall)
 })
 
 async function validateStall(newStall) {
