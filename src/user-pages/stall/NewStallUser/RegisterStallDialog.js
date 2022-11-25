@@ -14,6 +14,8 @@ import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
 
 import PropTypes from 'prop-types'
 
@@ -156,7 +158,21 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog, setErrMsgs, setOpenErr
                 </DialogContent>
 
                 <DialogActions>
-                    <Button autoFocus disabled={stallName.trim() === '' || isValidating} onClick={handleRegister}>{formBtnText}</Button>
+                    <Box sx={{ position: 'relative' }}>
+                        <Button autoFocus disabled={stallName.trim() === '' || isValidating} onClick={handleRegister}>{formBtnText}</Button>
+                        {isValidating &&
+                            <CircularProgress
+                                size={24}
+                                sx={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    marginTop: '-12px',
+                                    marginLeft: '-12px',
+                                }}
+                            />
+                        }
+                    </Box>
                 </DialogActions>
             </CustomDialog>
         </div>
