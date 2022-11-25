@@ -31,7 +31,9 @@ const CustomDialogTitle = ({ children, onClose, ...other }) => {
         <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
             {children}
             {onClose ? (
-                <IconButton aria-label="close" onClick={onClose}
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
                     sx={{
                         position: 'absolute',
                         right: 8,
@@ -56,7 +58,10 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog, setErrMsgs, setOpenErr
     const [isValidating, setIsValidating] = useState(false)
     const [formBtnText, setFormBtnText] = useState('Save & Continue')
 
-    const handleCloseDialog = () => setOpenDialog(false)
+    const handleCloseDialog = () => {
+        if (isValidating) return
+        setOpenDialog(false)
+    }
 
     const handleAddStaff = () => {
         if (newStaffEmail.trim() !== '' && !staffEmails.includes(newStaffEmail.trim())) {
