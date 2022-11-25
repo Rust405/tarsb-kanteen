@@ -24,24 +24,20 @@ connectFirestoreEmulator(db, 'localhost', 8080)
 connectFunctionsEmulator(functions, "localhost", 5001)
 
 export const signInWithGoogle = async () => {
-  try {
-    const res = await signInWithRedirect(auth, provider)
-    const user = res.user
+  const res = await signInWithRedirect(auth, provider)
+  const user = res.user
 
-    const docRef = doc(db, "users", user.uid)
-    const docSnap = await getDoc(docRef)
+  const docRef = doc(db, "users", user.uid)
+  const docSnap = await getDoc(docRef)
 
-    if (!docSnap.exists()) {
-      await setDoc(docRef, {
-        email: user.email,
-        name: user.displayName,
-        reminderTiming: 10
-      })
-    }
-
-  } catch (err) {
-    alert(`Login with Google cancelled.\n${err.message}`)
+  if (!docSnap.exists()) {
+    await setDoc(docRef, {
+      email: user.email,
+      name: user.displayName,
+      reminderTiming: 10
+    })
   }
+
 }
 
 export const logout = () => signOut(auth)
