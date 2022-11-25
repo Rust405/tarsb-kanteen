@@ -10,6 +10,7 @@ import List from '@mui/material/List'
 import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
 import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
 
 import RemoveIcon from '@mui/icons-material/Remove'
 
@@ -65,10 +66,13 @@ const StallSettings = ({ stallSnapshot, stallDocRef }) => {
         setIsValidating(true)
         setNewStaffEmail('')
 
-        updateStallDetails(updatedDetails)
-            .then(
-                setIsValidating(false)
-            )
+        // updateStallDetails(updatedDetails)
+        //     .then(
+        //         setIsValidating(false)
+        //     )
+
+        //test
+        setTimeout(() => { setIsValidating(false) }, 5000)
     }
 
     const handleAddStaff = () => {
@@ -103,6 +107,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef }) => {
                 </Typography>
             </Stack>
 
+            {/* TODO: upgdate UI, sort out sizing*/}
             <br /><br />
 
             <Typography variant="h6" gutterBottom>Stall Details</Typography>
@@ -114,27 +119,25 @@ const StallSettings = ({ stallSnapshot, stallDocRef }) => {
                 <Typography>Staff Emails ({staffEmails.length === 0 ? "None" : staffEmails.length}) </Typography>
 
                 {staffEmails.length !== 0 &&
-                    <div>
-                        <Paper style={{ maxHeight: 128, overflow: 'auto' }}>
-                            <List>
-                                {staffEmails.map(
-                                    (staffEmail, index) => (
-                                        <ListItem key={index}
-                                            disabled={!isEditing || isValidating}
-                                            secondaryAction={
-                                                isEditing && !isValidating &&
-                                                <IconButton
-                                                    onClick={() => handleRemoveStaff(index)} >
-                                                    <RemoveIcon />
-                                                </IconButton>
-                                            }>
-                                            {staffEmail}
-                                        </ListItem>
-                                    )
-                                )}
-                            </List>
-                        </Paper>
-                    </div>
+                    <Paper style={{ maxHeight: 128, overflow: 'auto' }}>
+                        <List>
+                            {staffEmails.map(
+                                (staffEmail, index) => (
+                                    <ListItem key={index}
+                                        disabled={!isEditing || isValidating}
+                                        secondaryAction={
+                                            isEditing && !isValidating &&
+                                            <IconButton
+                                                onClick={() => handleRemoveStaff(index)} >
+                                                <RemoveIcon />
+                                            </IconButton>
+                                        }>
+                                        {staffEmail}
+                                    </ListItem>
+                                )
+                            )}
+                        </List>
+                    </Paper>
                 }
 
                 {staffEmails.length <= 9 && isEditing &&
@@ -154,11 +157,26 @@ const StallSettings = ({ stallSnapshot, stallDocRef }) => {
 
                 {isEditing &&
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        <Button onClick={handleCancelChanges}>Cancel</Button>
-                        <Button onClick={handleSaveChanges} >Save Changes</Button>
-                    </Stack>}
-
-                { }
+                        <Button onClick={handleCancelChanges} disabled={isValidating} >Cancel</Button>
+                        <Box sx={{ position: 'relative' }}>
+                            <Button onClick={handleSaveChanges} disabled={isValidating}>
+                                {isValidating ? "Validating..." : "Save Changes"}
+                            </Button>
+                            {isValidating &&
+                                <CircularProgress
+                                    size={24}
+                                    sx={{
+                                        position: 'absolute',
+                                        top: '50%',
+                                        left: '50%',
+                                        marginTop: '-12px',
+                                        marginLeft: '-12px',
+                                    }}
+                                />
+                            }
+                        </Box>
+                    </Stack>
+                }
 
             </Stack>
 

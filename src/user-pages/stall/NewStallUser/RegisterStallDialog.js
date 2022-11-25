@@ -125,7 +125,8 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
                         <TextField label="Stall Name" variant="outlined" size="small" autoComplete='off'
                             value={stallName} onChange={(e) => setStallName(e.target.value)} disabled={isValidating} />
 
-                        <Typography>Staff Emails (optional): </Typography>
+                        <Typography>Staff Emails ({staffEmails.length === 0 ? "Optional" : staffEmails.length}) </Typography>
+                        
                         {staffEmails.length !== 0 &&
                             <Paper style={{ maxHeight: 128, overflow: 'auto' }}>
                                 <List>
