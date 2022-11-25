@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import ApplicationBar from '../../app-components/ApplicationBar'
 import NavigationDrawer from '../../app-components/NavigationDrawer'
@@ -75,7 +76,7 @@ const StallClient = ({ container, userType, staffRole, stallID }) => {
                     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                         <Toolbar />
                         <Routes>
-                            <Route exact path="/" element={<div>Loading...</div>} />
+                            <Route exact path="/" element={<CircularProgress />} />
                             <Route path="/stall/queue" element={<Queue />} />
                             <Route path="/stall/menu" element={<Menu />} />
                             <Route path="/stall/generatesummary" element={<GenerateSummary />} />

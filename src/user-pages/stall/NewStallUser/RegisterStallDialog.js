@@ -16,12 +16,15 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
+import Snackbar from '@mui/material/Snackbar'
 
 import PropTypes from 'prop-types'
 
 import InfoIcon from '@mui/icons-material/Info'
 import CloseIcon from '@mui/icons-material/Close'
 import RemoveIcon from '@mui/icons-material/Remove'
+
+import { Alert } from '../../../utils/customComponents'
 
 const CustomDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': { padding: theme.spacing(2) },
@@ -52,13 +55,12 @@ const CustomDialogTitle = ({ children, onClose, ...other }) => {
 
 CustomDialogTitle.propTypes = { children: PropTypes.node, onClose: PropTypes.func.isRequired }
 
-const RegisterStallDialog = ({ openDialog, setOpenDialog, setErrMsgs, setOpenErrSnack }) => {
+const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
     const [stallName, setStallName] = useState('')
     const [staffEmails, setStaffEmails] = useState([])
     const [newStaffEmail, setNewStaffEmail] = useState('')
 
     const [isValidating, setIsValidating] = useState(false)
-    const [formBtnText, setFormBtnText] = useState('Save & Continue')
 
     const handleCloseDialog = () => {
         if (isValidating) return
@@ -89,21 +91,25 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog, setErrMsgs, setOpenErr
         setIsValidating(true)
         setOpenErrSnack(false)
         setNewStaffEmail('')
-        setFormBtnText('Validating...')
 
         registerStall(newStall)
             .then(result => {
                 let response = result.data
                 if (response.success) {
                     window.location.reload(true)
-
                 } else {
                     setOpenErrSnack(true)
                     setErrMsgs(response.message)
                     setIsValidating(false)
-                    setFormBtnText('Save & Continue')
                 }
             })
+    }
+
+    const [errMsgs, setErrMsgs] = useState([])
+    const [openErrSnack, setOpenErrSnack] = useState(false)
+    const handleCloseErrSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenErrSnack(false)
     }
 
     return (
@@ -120,16 +126,16 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog, setErrMsgs, setOpenErr
                             value={stallName} onChange={(e) => setStallName(e.target.value)} disabled={isValidating} />
 
                         <Typography>Staff Emails (optional): </Typography>
-
                         {staffEmails.length !== 0 &&
                             <Paper style={{ maxHeight: 128, overflow: 'auto' }}>
                                 <List>
                                     {staffEmails.map(
                                         (staffEmail, index) => (
                                             <ListItem key={index}
+                                                disabled={isValidating}
                                                 secondaryAction={
+                                                    !isValidating &&
                                                     <IconButton
-                                                        disabled={isValidating}
                                                         onClick={() => handleRemoveStaff(index)}>
                                                         <RemoveIcon />
                                                     </IconButton>
@@ -151,7 +157,7 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog, setErrMsgs, setOpenErr
                                     inputProps={{ style: { textTransform: "lowercase" } }}
                                     onKeyPress={(e) => { if (e.key === 'Enter') handleAddStaff() }}
                                 />
-                                <Button variant="text" onClick={handleAddStaff} disabled={newStaffEmail.trim() === '' || isValidating}>Add</Button>
+                                <Button onClick={handleAddStaff} disabled={newStaffEmail.trim() === '' || isValidating}>Add</Button>
                             </Stack>
                         }
 
@@ -164,7 +170,9 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog, setErrMsgs, setOpenErr
 
                 <DialogActions>
                     <Box sx={{ position: 'relative' }}>
-                        <Button autoFocus disabled={stallName.trim() === '' || isValidating} onClick={handleRegister}>{formBtnText}</Button>
+                        <Button autoFocus disabled={stallName.trim() === '' || isValidating} onClick={handleRegister}>
+                            {isValidating ? "Validating..." : "Save & Continue"}
+                        </Button>
                         {isValidating &&
                             <CircularProgress
                                 size={24}
@@ -180,6 +188,18 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog, setErrMsgs, setOpenErr
                     </Box>
                 </DialogActions>
             </CustomDialog>
+
+            {/* Error messages snackbar */}
+            <Snackbar open={openErrSnack} autoHideDuration={6000 * errMsgs.length} onClose={handleCloseErrSnack}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
+                    {errMsgs.length > 1 ?
+                        errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
+                        :
+                        <div>{errMsgs[0]}</div>
+                    }
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

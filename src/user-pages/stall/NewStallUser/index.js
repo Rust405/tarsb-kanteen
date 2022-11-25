@@ -5,36 +5,22 @@ import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
-import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
-import { styled } from '@mui/material/styles'
+
 import Snackbar from '@mui/material/Snackbar'
-import MuiAlert from '@mui/material/Alert'
 import Tooltip from '@mui/material/Tooltip'
 
 import InfoIcon from '@mui/icons-material/Info'
 import RegisterStallDialog from './RegisterStallDialog'
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary
-}))
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-})
+import { Alert, Item } from '../../../utils/customComponents'
 
 const NewStallUser = ({ setIsNewStallUser, email }) => {
     const navigate = useNavigate()
 
     const stallRegCode = process.env.REACT_APP_STALL_REG_CODE
     const [regCodeInput, setRegCodeInput] = useState('')
-
-    const [errMsgs, setErrMsgs] = useState([])
 
     useEffect(() => {
         navigate('/')
@@ -48,12 +34,6 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     const handleCloseSnack = (event, reason) => {
         if (reason === 'clickaway') return
         setOpenSnack(false)
-    }
-
-    const [openErrSnack, setOpenErrSnack] = useState(false)
-    const handleCloseErrSnack = (event, reason) => {
-        if (reason === 'clickaway') return
-        setOpenErrSnack(false)
     }
 
     const handleLogout = () => {
@@ -110,19 +90,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
             </Snackbar>
 
             {/* Register Stall Dialog */}
-            <RegisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} setErrMsgs={setErrMsgs} setOpenErrSnack={setOpenErrSnack} />
-
-            {/* Error messages snackbar */}
-            <Snackbar open={openErrSnack} autoHideDuration={6000 * errMsgs.length} onClose={handleCloseErrSnack}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}>
-                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
-                    {errMsgs.length > 1 ?
-                        errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
-                        :
-                        <div>{errMsgs[0]}</div>
-                    }
-                </Alert>
-            </Snackbar>
+            <RegisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
         </div >
     )
 }

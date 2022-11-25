@@ -6,6 +6,8 @@ const { getFirestore } = require('firebase-admin/firestore')
 initializeApp()
 const db = getFirestore()
 
+const stallsRef = db.collection('stalls')
+
 exports.processSignUp = functions.region('asia-southeast1').auth.user().onCreate(async (user) => {
     const userType = (user.email.endsWith('@student.tarc.edu.my') || user.email.endsWith('@tarc.edu.my')) ? 'customer' : 'stallUser'
     const customClaims = { userType: userType }
@@ -23,14 +25,8 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     newStall.ownerEmail = context.auth.token.email
     newStall.status = "closed"
 
-    return validateStall(newStall)
-})
-
-async function validateStall(newStall) {
     var isSuccess = true
     var messageArray = []
-
-    const stallsRef = db.collection('stalls')
 
     //return early if staffEmails somehow > 10, otherwise likely problem with array-contains-any
     if (newStall.staffEmails.length > 10) return {
@@ -90,5 +86,8 @@ async function validateStall(newStall) {
     if (isSuccess) await stallsRef.add(newStall)
 
     return { success: isSuccess, message: messageArray }
-}
+})
 
+exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    console.log(data)
+})

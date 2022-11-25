@@ -14,9 +14,7 @@ import CustomerClient from './user-pages/customer/CustomerClient'
 import StallClient from './user-pages/stall/StallClient'
 import NewStallUser from './user-pages/stall/NewStallUser'
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
-})
+import { Alert } from './utils/customComponents'
 
 function App(props) {
   const { window } = props

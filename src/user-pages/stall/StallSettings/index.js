@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
@@ -8,11 +8,12 @@ import TextField from '@mui/material/TextField'
 import ListItem from '@mui/material/ListItem'
 import List from '@mui/material/List'
 import IconButton from '@mui/material/IconButton'
+import Paper from '@mui/material/Paper'
+import CircularProgress from '@mui/material/CircularProgress'
 
-import CloseIcon from '@mui/icons-material/Close'
 import RemoveIcon from '@mui/icons-material/Remove'
 
-import { closeStall, openStall } from '../../../utils/firebase'
+import { closeStall, openStall, updateStallDetails } from '../../../utils/firebase'
 
 const StallSettings = ({ stallSnapshot, stallDocRef }) => {
 
@@ -30,29 +31,138 @@ const StallSettings = ({ stallSnapshot, stallDocRef }) => {
         }
     }
 
-    const [stallName, setStallName] = useState(stallSnapshot.stallName)
-    const [staffEmails, setStaffEmails] = useState(stallSnapshot.staffEmails)
+    const [stallName, setStallName] = useState('')
+    const [staffEmails, setStaffEmails] = useState('')
+    const [newStaffEmail, setNewStaffEmail] = useState('')
 
+    function resetFields() {
+        setStallName(stallSnapshot.stallName)
+        setStaffEmails(stallSnapshot.staffEmails)
+    }
+
+    useEffect(() => {
+        if (stallSnapshot) resetFields()
+    }, [stallSnapshot])
+
+    const [isEditing, setIsEditing] = useState(false)
     const [isValidating, setIsValidating] = useState(false)
+
+    const handleCancelChanges = () => {
+        resetFields()
+        setIsEditing(false)
+        setNewStaffEmail('')
+    }
+
+
+    //TODO: Backend and err snackbar
+    const handleSaveChanges = () => {
+        const updatedDetails = {
+            stallName: stallName.trim(),
+            lowercaseStallName: stallName.trim().toLowerCase(),
+            staffEmails: staffEmails
+        }
+
+        setIsValidating(true)
+        setNewStaffEmail('')
+
+        updateStallDetails(updatedDetails)
+            .then(
+                setIsValidating(false)
+            )
+    }
+
+    const handleAddStaff = () => {
+        if (newStaffEmail.trim() !== '' && !staffEmails.includes(newStaffEmail.trim())) {
+            setStaffEmails([...staffEmails, newStaffEmail.trim()])
+        }
+        setNewStaffEmail('')
+    }
+
+    const handleRemoveStaff = (index) => {
+        setStaffEmails([
+            ...staffEmails.slice(0, index),
+            ...staffEmails.slice(index + 1, staffEmails.length)
+        ])
+    }
+
+    if (!stallSnapshot) return <CircularProgress />
 
     return (
         <div className="stall-settings">
-            <Typography variant="h6">Stall Status</Typography>
 
-            {stallSnapshot &&
-                <Stack direction="row" alignItems="center" spacing={2}>
-                    <Switch
-                        checked={stallSnapshot.status === 'open'}
-                        onChange={handleStatusToggle}
-                        disabled={disableSwitch}
-                    />
-                    <Typography variant="body1">
-                        The stall is now {stallSnapshot.status} and {stallSnapshot.status === 'open' ? "accepting" : "not accepting"} orders.
-                    </Typography>
-                </Stack>
-            }
+            <Typography variant="h6" gutterBottom>Stall Status</Typography>
 
-            <Typography variant="h6">Stall Details</Typography>
+            <Stack direction="row" alignItems="center" spacing={2}>
+                <Switch
+                    checked={stallSnapshot.status === 'open'}
+                    onChange={handleStatusToggle}
+                    disabled={disableSwitch}
+                />
+                <Typography variant="body1">
+                    The stall is now {stallSnapshot.status} and {stallSnapshot.status === 'open' ? "accepting" : "not accepting"} orders.
+                </Typography>
+            </Stack>
+
+            <br /><br />
+
+            <Typography variant="h6" gutterBottom>Stall Details</Typography>
+
+            <Stack spacing={2}>
+                <TextField label="Stall Name" variant="outlined" size="small" autoComplete='off'
+                    value={stallName} onChange={(e) => setStallName(e.target.value)} disabled={!isEditing || isValidating} />
+
+                <Typography>Staff Emails ({staffEmails.length === 0 ? "None" : staffEmails.length}) </Typography>
+
+                {staffEmails.length !== 0 &&
+                    <div>
+                        <Paper style={{ maxHeight: 128, overflow: 'auto' }}>
+                            <List>
+                                {staffEmails.map(
+                                    (staffEmail, index) => (
+                                        <ListItem key={index}
+                                            disabled={!isEditing || isValidating}
+                                            secondaryAction={
+                                                isEditing && !isValidating &&
+                                                <IconButton
+                                                    onClick={() => handleRemoveStaff(index)} >
+                                                    <RemoveIcon />
+                                                </IconButton>
+                                            }>
+                                            {staffEmail}
+                                        </ListItem>
+                                    )
+                                )}
+                            </List>
+                        </Paper>
+                    </div>
+                }
+
+                {staffEmails.length <= 9 && isEditing &&
+                    <Stack direction="row" alignItems="center" spacing={1}>
+                        <TextField label="Staff Email" variant="outlined" size="small" autoComplete='off'
+                            value={newStaffEmail}
+                            onChange={(e) => setNewStaffEmail(e.target.value)}
+                            disabled={isValidating}
+                            inputProps={{ style: { textTransform: "lowercase" } }}
+                            onKeyPress={(e) => { if (e.key === 'Enter') handleAddStaff() }}
+                        />
+                        <Button onClick={handleAddStaff} disabled={newStaffEmail.trim() === '' || isValidating}>Add</Button>
+                    </Stack>
+                }
+
+                {!isEditing && <Button onClick={() => setIsEditing(true)}>Edit Stall Details</Button>}
+
+                {isEditing &&
+                    <Stack direction="row" alignItems="center" spacing={2}>
+                        <Button onClick={handleCancelChanges}>Cancel</Button>
+                        <Button onClick={handleSaveChanges} >Save Changes</Button>
+                    </Stack>}
+
+                { }
+
+            </Stack>
+
+
         </div>
     )
 }

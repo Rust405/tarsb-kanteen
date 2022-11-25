@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import ApplicationBar from '../../app-components/ApplicationBar'
 import NavigationDrawer from '../../app-components/NavigationDrawer'
@@ -19,6 +20,7 @@ import NotFound from '../../error-pages/NotFound'
 //sidebar
 import CustOrderPreview from './MyOrders/CustOrderPreview'
 import OrderCreate from './Browse/OrderCreate'
+
 
 const CustomerClient = ({ container, userType }) => {
     const [navOpen, setNavOpen] = useState(false)
@@ -64,7 +66,7 @@ const CustomerClient = ({ container, userType }) => {
                     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                         <Toolbar />
                         <Routes>
-                            <Route exact path="/" element={<div>Loading...</div>} />
+                            <Route exact path="/" element={<CircularProgress />} />
                             <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />
                             <Route path="/customer/browse" element={<Browse />} />
                             <Route path="/customer/usersettings" element={<CustomerUserSettings />} />

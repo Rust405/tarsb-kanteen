@@ -65,3 +65,4 @@ export const closeStall = async (stallDocRef) => {
   await updateDoc(stallDocRef, { status: "closed" })
 }
 
+export const updateStallDetails = httpsCallable(functions, 'updateStallDetails')
