@@ -145,7 +145,12 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog, setErrMsgs, setOpenErr
                         {staffEmails.length <= 9 &&
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <TextField label="Staff Email" variant="outlined" size="small" autoComplete='off'
-                                    value={newStaffEmail} onChange={(e) => setNewStaffEmail(e.target.value)} disabled={isValidating} inputProps={{ style: { textTransform: "lowercase" } }} />
+                                    value={newStaffEmail}
+                                    onChange={(e) => setNewStaffEmail(e.target.value)}
+                                    disabled={isValidating}
+                                    inputProps={{ style: { textTransform: "lowercase" } }}
+                                    onKeyPress={(e) => { if (e.key === 'Enter') handleAddStaff() }}
+                                />
                                 <Button variant="text" onClick={handleAddStaff} disabled={newStaffEmail.trim() === '' || isValidating}>Add</Button>
                             </Stack>
                         }
