@@ -11,10 +11,12 @@ import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
+import Snackbar from '@mui/material/Snackbar'
 
 import RemoveIcon from '@mui/icons-material/Remove'
 
 import { closeStall, openStall, updateStallDetails } from '../../../utils/firebase'
+import { Alert } from '../../../utils/customComponents'
 
 const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
 
@@ -54,7 +56,6 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
         setNewStaffEmail('')
     }
 
-    //TODO: Err snackbar
     const handleSaveChanges = () => {
         var hasChanges = false
         var updatedDetails = {
@@ -75,9 +76,8 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
 
         if (hasChanges) {
             setIsValidating(true)
+            setOpenErrSnack(false)
             setNewStaffEmail('')
-
-            console.log(updatedDetails)
 
             updateStallDetails(updatedDetails)
                 .then(result => {
@@ -85,7 +85,8 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                     if (response.success) {
                         setIsEditing(false)
                     } else {
-                        console.log(response.message)
+                        setOpenErrSnack(true)
+                        setErrMsgs(response.message)
                     }
                     setIsValidating(false)
                 })
@@ -108,6 +109,13 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
             ...staffEmails.slice(0, index),
             ...staffEmails.slice(index + 1, staffEmails.length)
         ])
+    }
+
+    const [errMsgs, setErrMsgs] = useState([])
+    const [openErrSnack, setOpenErrSnack] = useState(false)
+    const handleCloseErrSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenErrSnack(false)
     }
 
     if (!stallSnapshot) return <CircularProgress />
@@ -203,6 +211,17 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
 
             </Stack>
 
+            {/* Error messages snackbar */}
+            <Snackbar open={openErrSnack} autoHideDuration={6000 * errMsgs.length} onClose={handleCloseErrSnack}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
+                    {errMsgs.length > 1 ?
+                        errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
+                        :
+                        <div>{errMsgs[0]}</div>
+                    }
+                </Alert>
+            </Snackbar>
 
         </div>
     )
