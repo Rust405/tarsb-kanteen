@@ -84,7 +84,6 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
     const handleRegister = () => {
         const newStall = {
             stallName: stallName.trim(),
-            lowercaseStallName: stallName.trim().toLowerCase(),
             staffEmails: staffEmails
         }
 

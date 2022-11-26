@@ -21,19 +21,12 @@ exports.processSignUp = functions.region('asia-southeast1').auth.user().onCreate
 exports.registerStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     var newStall = data
     newStall.stallName = newStall.stallName.trim()
-    newStall.lowercaseStallName = newStall.lowercaseStallName.trim()
+    newStall.lowercaseStallName = newStall.stallName.trim().toLowerCase()
     newStall.ownerEmail = context.auth.token.email
     newStall.status = "closed"
 
     var isSuccess = true
     var messageArray = []
-
-    //return early if staffEmails somehow > 10, otherwise likely problem with array-contains-any
-    if (newStall.staffEmails.length > 10) return {
-        success: false,
-        message: `Stall staff emails cannot include more than 10 emails.`
-    }
-
 
     //if stall name already in use by another stall
     const usedStallName = await stallsRef.where('lowercaseStallName', '==', newStall.lowercaseStallName).get()
@@ -44,6 +37,11 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
 
     //perform validation if staffEmails provided
     if (newStall.staffEmails.length !== 0) {
+        //return early if staffEmails somehow > 10, otherwise problem with array-contains-any
+        if (newStall.staffEmails.length > 10) return {
+            success: false,
+            message: [`Stall staff emails cannot include more than 10 emails.`]
+        }
 
         //convert emails to lowercase
         newStall.staffEmails = newStall.staffEmails.map(em => em.trim().toLowerCase())
@@ -89,5 +87,93 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
 })
 
 exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    console.log(data)
+    var updatedDetails = data
+
+    var isSuccess = true
+    var messageArray = []
+
+    const oldStallDetails = (await db.collection('stalls').doc(updatedDetails.stallID).get()).data()
+
+    //perform validation if change in stallName
+    if (updatedDetails.stallName) {
+        updatedDetails.lowercaseStallName = updatedDetails.stallName.trim().toLowerCase()
+
+        //if stall name already in use by another stall, only check if not a change of name casing
+        if (updatedDetails.lowercaseStallName != oldStallDetails.lowercaseStallName) {
+            const usedStallName = await stallsRef.where('lowercaseStallName', '==', updatedDetails.lowercaseStallName).get()
+            if (!usedStallName.empty) {
+                isSuccess = false
+                messageArray.push(`\"${updatedDetails.stallName}\" (or similar) is already in use by another stall.`)
+            }
+        }
+
+    }
+
+    //perform validation if change in staffEmails
+    if (updatedDetails.staffEmails && updatedDetails.staffEmails.length !== 0) {
+
+        //return early if staffEmails somehow > 10, otherwise problem with array-contains-any
+        if (updatedDetails.staffEmails.length > 10) return {
+            success: false,
+            message: [`Stall staff emails cannot include more than 10 emails.`]
+        }
+
+        //convert emails to lowercase
+        updatedDetails.staffEmails = updatedDetails.staffEmails.map(em => em.trim().toLowerCase())
+
+        //if other stall owner is added as staff, only check for other stall owners
+        const filteredOutCurrentOwner = updatedDetails.staffEmails.filter(existing => existing !== oldStallDetails.ownerEmail)
+        const addedOwnerAsStaff = await stallsRef.where("ownerEmail", "in", filteredOutCurrentOwner).get()
+        if (!addedOwnerAsStaff.empty) {
+            isSuccess = false
+            messageArray.push(`Stall staff emails cannot include emails of other stall owners.`)
+        }
+
+
+        //if owner adds staff (>=1) already assigned to other stall, only check for other stall's staff
+        const filteredOutExistingStaff = updatedDetails.staffEmails.filter(existing => !oldStallDetails.staffEmails.includes(existing))
+        if (filteredOutExistingStaff.length !== 0) {
+            const addedRegisteredStaff = await stallsRef.where("staffEmails", "array-contains-any", filteredOutExistingStaff).get()
+            if (!addedRegisteredStaff.empty) {
+                isSuccess = false
+                messageArray.push(`Stall staff emails cannot include emails of stall staff assigned to another stall.`)
+            }
+        }
+
+
+        //if owner add student/lecturer as staff
+        for (let i in updatedDetails.staffEmails) {
+            if (updatedDetails.staffEmails[i].endsWith('@student.tarc.edu.my') || updatedDetails.staffEmails[i].endsWith('@tarc.edu.my')) {
+                isSuccess = false
+                messageArray.push(`Stall staff emails cannot include TAR students or lecturers emails.`)
+                break
+            }
+        }
+
+        //if owner added themselves as staff
+        if (updatedDetails.staffEmails.includes(oldStallDetails.ownerEmail)) {
+            isSuccess = false
+            messageArray.push(`Stall staff emails cannot include stall owner email.`)
+        }
+    }
+
+
+    if (isSuccess) {
+        if (updatedDetails.stallName && !updatedDetails.staffEmails) {
+            await stallsRef.doc(updatedDetails.stallID).update({ stallName: updatedDetails.stallName })
+        }
+        else if (updatedDetails.staffEmails && !updatedDetails.stallName) {
+            await stallsRef.doc(updatedDetails.stallID).update({ staffEmails: updatedDetails.staffEmails })
+        }
+        else if (updatedDetails.staffEmails && updatedDetails.stallName) {
+            await stallsRef.doc(updatedDetails.stallID).update(
+                {
+                    stallName: updatedDetails.stallName,
+                    staffEmails: updatedDetails.staffEmails
+                }
+            )
+        }
+    }
+
+    return { success: isSuccess, message: messageArray }
 })

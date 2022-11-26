@@ -16,7 +16,7 @@ import RemoveIcon from '@mui/icons-material/Remove'
 
 import { closeStall, openStall, updateStallDetails } from '../../../utils/firebase'
 
-const StallSettings = ({ stallSnapshot, stallDocRef }) => {
+const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
 
     const [disableSwitch, setDisableSwitch] = useState(false)
 
@@ -48,31 +48,52 @@ const StallSettings = ({ stallSnapshot, stallDocRef }) => {
     const [isEditing, setIsEditing] = useState(false)
     const [isValidating, setIsValidating] = useState(false)
 
-    const handleCancelChanges = () => {
+    const handleRemoveChanges = () => {
         resetFields()
         setIsEditing(false)
         setNewStaffEmail('')
     }
 
-
-    //TODO: Backend and err snackbar
+    //TODO: Err snackbar
     const handleSaveChanges = () => {
-        const updatedDetails = {
-            stallName: stallName.trim(),
-            lowercaseStallName: stallName.trim().toLowerCase(),
-            staffEmails: staffEmails
+        var hasChanges = false
+        var updatedDetails = {
+            stallID: stallID,
+            stallName: null,
+            staffEmails: null
         }
 
-        setIsValidating(true)
-        setNewStaffEmail('')
+        //only send details that was changed
+        if (stallName !== stallSnapshot.stallName) {
+            updatedDetails.stallName = stallName.trim()
+            hasChanges = true
+        }
+        if (!staffEmails.every((val, index) => val === stallSnapshot.staffEmails[index]) || staffEmails.length != stallSnapshot.staffEmails.length) {
+            updatedDetails.staffEmails = staffEmails
+            hasChanges = true
+        }
 
-        // updateStallDetails(updatedDetails)
-        //     .then(
-        //         setIsValidating(false)
-        //     )
+        if (hasChanges) {
+            setIsValidating(true)
+            setNewStaffEmail('')
 
-        //test
-        setTimeout(() => { setIsValidating(false) }, 5000)
+            console.log(updatedDetails)
+
+            updateStallDetails(updatedDetails)
+                .then(result => {
+                    let response = result.data
+                    if (response.success) {
+                        setIsEditing(false)
+                    } else {
+                        console.log(response.message)
+                    }
+                    setIsValidating(false)
+                })
+        } else {
+            handleRemoveChanges()
+            console.log("No changes made.")
+        }
+
     }
 
     const handleAddStaff = () => {
@@ -110,7 +131,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef }) => {
             {/* TODO: upgdate UI, sort out sizing*/}
             <br /><br />
 
-            <Typography variant="h6" gutterBottom>Stall Details</Typography>
+            <Typography variant="h6" gutterBottom>Stall Details {isEditing && " - Editing"}</Typography>
 
             <Stack spacing={2}>
                 <TextField label="Stall Name" variant="outlined" size="small" autoComplete='off'
@@ -159,7 +180,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef }) => {
                 {/* Details Edit buttons */}
                 {isEditing &&
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        <Button onClick={handleCancelChanges} disabled={isValidating} >Cancel</Button>
+                        <Button onClick={handleRemoveChanges} disabled={isValidating} >Cancel</Button>
                         <Box sx={{ position: 'relative' }}>
                             <Button onClick={handleSaveChanges} disabled={isValidating}>
                                 {isValidating ? "Validating..." : "Save Changes"}
