@@ -136,7 +136,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                 </Typography>
             </Stack>
 
-            {/* TODO: upgdate UI, sort out sizing*/}
+            {/* TODO: update fix UI, sort out sizing*/}
             <br /><br />
 
             <Typography variant="h6" gutterBottom>Stall Details {isEditing && " - Editing"}</Typography>

@@ -23,7 +23,7 @@ import NotFound from '../../error-pages/NotFound'
 import StallOrderPreview from './Queue/StallOrderPreview'
 import MenuItemCUD from './Menu/MenuItemCUD'
 
-import { db } from '../../utils/firebase'
+import { db, auth, logout } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
 
 const StallClient = ({ container, userType, staffRole, stallID }) => {
@@ -52,6 +52,15 @@ const StallClient = ({ container, userType, staffRole, stallID }) => {
         return () => unsubscribe()
     }, [])
 
+    //immediately logout staff if removed from staffEmails, unless it is stall owner
+    useEffect(() => {
+        if (stallSnapshot) {
+            let authEmail = auth.currentUser.email
+            if (!stallSnapshot.staffEmails.includes(authEmail) && stallSnapshot.ownerEmail !== authEmail) {
+                logout()
+            }
+        }
+    }, [stallSnapshot])
 
     return (
         <div className="stall-client">
