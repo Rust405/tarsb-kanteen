@@ -57,7 +57,7 @@ const NavigationDrawer = ({
     const displayName = auth.currentUser.displayName
     const email = auth.currentUser.email
 
-    var navOption
+    let navOption
     if (userType === 'customer') {
         navOption = customer
     } else if (userType === 'stallUser') {
@@ -65,7 +65,7 @@ const NavigationDrawer = ({
     }
 
     //logout collapse
-    const [openCollapse, setOpenCollapse] = useState(false);
+    const [openCollapse, setOpenCollapse] = useState(false)
     const handleOpenLogout = () => setOpenCollapse(!openCollapse)
 
     const drawer = (

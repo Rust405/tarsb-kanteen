@@ -59,8 +59,8 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
     }
 
     const handleSaveChanges = () => {
-        var hasChanges = false
-        var updatedDetails = {
+        let hasChanges = false
+        let updatedDetails = {
             stallID: stallID,
             stallName: null,
             staffEmails: null
@@ -129,9 +129,26 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
 
     const [openDialog, setOpenDialog] = useState(false)
     const handleUnregister = () => {
-        //TODO: check if queue and list are empty
-        
-        setOpenDialog(true)
+        let errMsgs = []
+        let hasErrs = false
+
+        setOpenErrSnack(false)
+
+        if (stallSnapshot.status !== 'closed') {
+            errMsgs.push('Please ensure the stall is closed before proceeding.')
+            hasErrs = true
+        }
+        if (stallSnapshot.orderQueue.length !== 0 || stallSnapshot.preOrderList.length !== 0) {
+            errMsgs.push('Please fulfill or cancel any unfulfilled orders before proceeding.')
+            hasErrs = true
+        }
+
+        if (!hasErrs) {
+            setOpenDialog(true)
+        } else {
+            setOpenErrSnack(true)
+            setErrMsgs(errMsgs)
+        }
     }
 
     if (!stallSnapshot) return <CircularProgress />
@@ -238,7 +255,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                     <Divider />
 
                     <Box display="flex" justifyContent="center">
-                        <Button variant="outlined" size="small" color="error" onClick={handleUnregister}>Unregister Stall</Button>
+                        <Button variant="outlined" size="small" color="error" onClick={handleUnregister} disabled={isEditing}>Unregister Stall</Button>
                     </Box>
                 </Stack>
             </Box>

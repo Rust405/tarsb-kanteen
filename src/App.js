@@ -56,7 +56,7 @@ function App(props) {
   }, [user])
 
   async function fetchUserType() {
-    var tokenResult = await auth.currentUser.getIdTokenResult()
+    let tokenResult = await auth.currentUser.getIdTokenResult()
     while (tokenResult.claims.userType === undefined) {
       tokenResult = await auth.currentUser.getIdTokenResult(true)
     }

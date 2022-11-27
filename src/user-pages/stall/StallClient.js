@@ -52,7 +52,7 @@ const StallClient = ({ container, userType, staffRole, stallID }) => {
         return () => unsubscribe()
     }, [])
 
-    //immediately logout staff if removed from staffEmails, unless it is stall owner
+    //immediately logout staff if removed from staffEmail
     useEffect(() => {
         if (stallSnapshot) {
             let authEmail = auth.currentUser.email

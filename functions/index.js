@@ -19,14 +19,14 @@ exports.processSignUp = functions.region('asia-southeast1').auth.user().onCreate
 })
 
 exports.registerStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    var newStall = data
+    let newStall = data
     newStall.stallName = newStall.stallName.trim()
     newStall.lowercaseStallName = newStall.stallName.trim().toLowerCase()
     newStall.ownerEmail = context.auth.token.email
     newStall.status = "closed"
 
-    var isSuccess = true
-    var messageArray = []
+    let isSuccess = true
+    let messageArray = []
 
     //if stall name already in use by another stall
     const usedStallName = await stallsRef.where('lowercaseStallName', '==', newStall.lowercaseStallName).get()
@@ -87,10 +87,10 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
 })
 
 exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    var updatedDetails = data
+    let updatedDetails = data
 
-    var isSuccess = true
-    var messageArray = []
+    let isSuccess = true
+    let messageArray = []
 
     const oldStallDetails = (await db.collection('stalls').doc(updatedDetails.stallID).get()).data()
 
