@@ -18,6 +18,7 @@ import RemoveIcon from '@mui/icons-material/Remove'
 
 import { closeStall, openStall, updateStallDetails } from '../../../utils/firebase'
 import { Alert } from '../../../utils/customComponents'
+import UnregisterStallDialog from './UnregisterStallDialog'
 
 const stallSettingsWidth = 325
 
@@ -126,9 +127,11 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
         setOpenSavedSnack(false)
     }
 
+    const [openDialog, setOpenDialog] = useState(false)
     const handleUnregister = () => {
-        //TODO: implement somehow
-        alert("This feature is currently unavailable.")
+        //TODO: check if queue and list are empty
+        
+        setOpenDialog(true)
     }
 
     if (!stallSnapshot) return <CircularProgress />
@@ -258,6 +261,8 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                     }
                 </Alert>
             </Snackbar>
+
+            <UnregisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
         </div>
     )
 }
