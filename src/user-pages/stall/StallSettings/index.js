@@ -43,9 +43,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
         setStaffEmails(stallSnapshot.staffEmails)
     }
 
-    useEffect(() => {
-        if (stallSnapshot) resetFields()
-    }, [stallSnapshot])
+    useEffect(() => { if (stallSnapshot) resetFields() }, [stallSnapshot])
 
     const [isEditing, setIsEditing] = useState(false)
     const [isValidating, setIsValidating] = useState(false)
@@ -77,6 +75,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
         if (hasChanges) {
             setIsValidating(true)
             setOpenErrSnack(false)
+            setOpenSavedSnack(false)
             setNewStaffEmail('')
 
             updateStallDetails(updatedDetails)
@@ -84,6 +83,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                     let response = result.data
                     if (response.success) {
                         setIsEditing(false)
+                        setOpenSavedSnack(true)
                     } else {
                         setOpenErrSnack(true)
                         setErrMsgs(response.message)
@@ -92,7 +92,6 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                 })
         } else {
             handleRemoveChanges()
-            console.log("No changes made.")
         }
 
     }
@@ -116,6 +115,12 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
     const handleCloseErrSnack = (event, reason) => {
         if (reason === 'clickaway') return
         setOpenErrSnack(false)
+    }
+
+    const [openSavedSnack, setOpenSavedSnack] = useState(false)
+    const handleCloseSavedSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenSavedSnack(false)
     }
 
     if (!stallSnapshot) return <CircularProgress />
@@ -210,6 +215,13 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                 }
 
             </Stack>
+
+            {/* Changes saved snackbar */}
+            <Snackbar open={openSavedSnack} autoHideDuration={6000} onClose={handleCloseSavedSnack} >
+                <Alert onClose={handleCloseSavedSnack} severity="success" sx={{ width: '100%' }}>
+                    Changes saved
+                </Alert>
+            </Snackbar>
 
             {/* Error messages snackbar */}
             <Snackbar open={openErrSnack} autoHideDuration={6000 * errMsgs.length} onClose={handleCloseErrSnack}
