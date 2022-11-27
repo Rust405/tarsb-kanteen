@@ -78,6 +78,7 @@ const StallClient = ({ container, userType, staffRole, stallID }) => {
                         container={container}
                         userType={userType}
                         staffRole={staffRole}
+                        stallStatus={stallSnapshot ? stallSnapshot.status : null}
                     />
                 </div>
 

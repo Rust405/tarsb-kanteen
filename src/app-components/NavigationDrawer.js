@@ -13,6 +13,7 @@ import Drawer from '@mui/material/Drawer'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Tooltip from '@mui/material/Tooltip'
 import Collapse from '@mui/material/Collapse'
+import Typography from '@mui/material/Typography'
 
 import FastfoodIcon from '@mui/icons-material/Fastfood'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
@@ -26,6 +27,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import LogoutIcon from '@mui/icons-material/Logout'
 
 import { auth, logout } from '../utils/firebase'
+
 
 const drawerWidth = 240
 
@@ -52,7 +54,8 @@ const NavigationDrawer = ({
     handleDrawerToggle,
     container,
     userType,
-    staffRole
+    staffRole,
+    stallStatus
 }) => {
     const displayName = auth.currentUser.displayName
     const email = auth.currentUser.email
@@ -73,6 +76,23 @@ const NavigationDrawer = ({
             <Toolbar />
             <Box sx={{ overflow: 'auto' }}>
                 <List>
+                    {userType === 'stallUser' && stallStatus &&
+                        <div>
+                            <Box sx={{ m: 1 }} display="flex" justifyContent="center">
+                                <Typography>Stall is currently  <Box
+                                    component="span"
+                                    sx={{
+                                        color: stallStatus === "open" ? 'green' : 'red',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    {stallStatus}
+                                </Box>
+                                </Typography>
+                            </Box>
+                            <Divider />
+                        </div>
+                    }
+
                     {navOption.pages.map(
                         (page, index) => (
                             <ListItem key={index} disablePadding>
@@ -122,7 +142,7 @@ const NavigationDrawer = ({
                     </Collapse>
                 </List>
             </Box>
-        </div>)
+        </div >)
 
     return (
         <div className="navigation-drawer">

@@ -22,6 +22,7 @@ const UnregisterStallDialog = ({ openDialog, setOpenDialog }) => {
                     <DialogContentText id="alert-dialog-description">
                         Before your proceed, please note that all users
                         associated with the stall will be automatically logged out.
+                        This process cannot be undone.
                     </DialogContentText>
                 </DialogContent>
 

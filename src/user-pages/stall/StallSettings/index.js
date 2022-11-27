@@ -167,7 +167,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                                 disabled={disableSwitch}
                             />
                             <Typography variant="body1">
-                                The stall is now {stallSnapshot.status} and {stallSnapshot.status === 'open' ? "accepting" : "not accepting"} orders.
+                                The stall is now {stallSnapshot.status === 'open' ? "open and accepting" : "closed and not accepting"} orders.
                             </Typography>
                         </Stack>
                     </div>
