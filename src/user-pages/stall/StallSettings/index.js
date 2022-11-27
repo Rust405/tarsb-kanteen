@@ -124,6 +124,11 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
         setOpenSavedSnack(false)
     }
 
+    const handleUnregister = () => {
+        //TODO: implement somehow
+        alert("This feature is currently unavailable.")
+    }
+
     if (!stallSnapshot) return <CircularProgress />
 
     return (
@@ -222,6 +227,12 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
 
                 </Stack>
 
+            </Box>
+
+            <Divider />
+
+            <Box sx={{ m: 2 }} display="flex" justifyContent="center">
+                <Button variant="outlined" color="error" onClick={handleUnregister}>Unregister Stall</Button>
             </Box>
 
             {/* Changes saved snackbar */}
