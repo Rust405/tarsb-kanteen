@@ -83,7 +83,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
             </Box>
 
             {/* New stall user snackbar */}
-            <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack} >
+            <Snackbar open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack} >
                 <Alert onClose={handleCloseSnack} severity="info" sx={{ width: '100%' }}>
                     New user detected
                 </Alert>

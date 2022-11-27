@@ -217,14 +217,14 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
             </Stack>
 
             {/* Changes saved snackbar */}
-            <Snackbar open={openSavedSnack} autoHideDuration={6000} onClose={handleCloseSavedSnack} >
+            <Snackbar open={openSavedSnack} autoHideDuration={3000} onClose={handleCloseSavedSnack} >
                 <Alert onClose={handleCloseSavedSnack} severity="success" sx={{ width: '100%' }}>
                     Changes saved
                 </Alert>
             </Snackbar>
 
             {/* Error messages snackbar */}
-            <Snackbar open={openErrSnack} autoHideDuration={6000 * errMsgs.length} onClose={handleCloseErrSnack}
+            <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}>
                 <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
                     {errMsgs.length > 1 ?

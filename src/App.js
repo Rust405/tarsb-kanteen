@@ -115,7 +115,7 @@ function App(props) {
 
       {/* Logged In Snackbar */}
       {user && userType && staffRole &&
-        <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack} >
+        <Snackbar open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack} >
           <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
             Logged in with {user.email}
           </Alert>

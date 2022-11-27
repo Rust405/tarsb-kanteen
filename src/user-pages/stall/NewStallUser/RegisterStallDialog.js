@@ -190,7 +190,7 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
             </CustomDialog>
 
             {/* Error messages snackbar */}
-            <Snackbar open={openErrSnack} autoHideDuration={6000 * errMsgs.length} onClose={handleCloseErrSnack}
+            <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}>
                 <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
                     {errMsgs.length > 1 ?
