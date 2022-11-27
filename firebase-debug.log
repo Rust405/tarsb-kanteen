@@ -391,3 +391,76 @@ Issues? Report them at https://github.com/firebase/firebase-tools/issues and att
 [debug] [2022-11-27T16:20:46.197Z] [worker-asia-southeast1-updateStallDetails-d02a9841-dda7-4a8f-a237-1f394f6ea300]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-updateStallDetails-d02a9841-dda7-4a8f-a237-1f394f6ea300]: IDLE"}}
 [debug] [2022-11-27T16:20:46.197Z] [work-queue] {"queueLength":0,"workRunningCount":0}
 [info] i  functions: Finished "updateStallDetails" in 31.2837ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-updateStallDetails"},"extension":{},"message":"Finished \"updateStallDetails\" in 31.2837ms"}}
+[debug] [2022-11-27T16:41:41.909Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-11-27T16:41:42.919Z] Validating nodejs source
+[debug] [2022-11-27T16:41:48.863Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-11-27T16:41:48.863Z] Building nodejs source
+[debug] [2022-11-27T16:41:48.863Z] Analyzing nodejs backend spec
+[debug] [2022-11-27T16:41:48.865Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-11-27T16:41:48.891Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-11-27T16:41:49.253Z] Serving at port 9005
+
+[debug] [2022-11-27T16:41:49.363Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-11-27T16:41:49.775Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-11-27T16:41:49.782Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails."}}
+[debug] [2022-11-27T16:41:49.797Z] [worker-pool] Shutting down IDLE worker (asia-southeast1-updateStallDetails) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (asia-southeast1-updateStallDetails)"}}
+[debug] [2022-11-27T16:41:49.797Z] [worker-asia-southeast1-updateStallDetails-d02a9841-dda7-4a8f-a237-1f394f6ea300]: FINISHING {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-updateStallDetails-d02a9841-dda7-4a8f-a237-1f394f6ea300]: FINISHING"}}
+[debug] [2022-11-27T16:41:49.810Z] [worker-asia-southeast1-updateStallDetails-d02a9841-dda7-4a8f-a237-1f394f6ea300]: exited {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-updateStallDetails-d02a9841-dda7-4a8f-a237-1f394f6ea300]: exited"}}
+[debug] [2022-11-27T16:41:49.811Z] [worker-asia-southeast1-updateStallDetails-d02a9841-dda7-4a8f-a237-1f394f6ea300]: FINISHED {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-updateStallDetails-d02a9841-dda7-4a8f-a237-1f394f6ea300]: FINISHED"}}
+[debug] [2022-11-27T16:41:50.372Z] Validating nodejs source
+[debug] [2022-11-27T16:41:56.023Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-11-27T16:41:56.023Z] Building nodejs source
+[debug] [2022-11-27T16:41:56.023Z] Analyzing nodejs backend spec
+[debug] [2022-11-27T16:41:56.024Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-11-27T16:41:56.444Z] Serving at port 9005
+
+[debug] [2022-11-27T16:41:57.051Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-11-27T16:41:57.059Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails."}}
