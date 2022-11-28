@@ -22,6 +22,8 @@ const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName, stallID }
                 console.warn(err)
                 //popup
             })
+
+            //FIXME: console errors after logout
     }
 
     const handleCloseDialog = () => {

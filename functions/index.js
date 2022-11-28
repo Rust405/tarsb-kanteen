@@ -223,11 +223,13 @@ exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async
         )
     }
 
+    //delete emails which automatically signs users out
+    await stallsRef.doc(stallID).update({ ownerEmail: '', staffEmails: [] })
 
-    // //delete emails which automatically signs users out
-    // await stallsRef.doc(stallID).update({ ownerEmail: '', staffEmails: [] })
+    //delete stall
+    await stallsRef.doc(stallID).delete()
 
-    // //delete stall and subcollections
-    // await stallsRef.doc(stallID).delete()
+    //TODO: delete subcollections
+
 
 })
