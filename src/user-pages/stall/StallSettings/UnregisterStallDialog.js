@@ -9,7 +9,7 @@ const UnregisterStallDialog = ({ openDialog, setOpenDialog }) => {
 
     const handleUnregisterStall = () => {
         //TODO:
-        //Note: Figure out how to log out stall owner on all devices. Most likely will be a cloud function.
+        //Type stall name again to confirm
         alert("Not yet implemented")
     }
 
