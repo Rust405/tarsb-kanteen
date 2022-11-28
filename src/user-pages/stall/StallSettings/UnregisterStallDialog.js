@@ -1,21 +1,33 @@
+import { useState } from 'react'
+
+import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
 
-const UnregisterStallDialog = ({ openDialog, setOpenDialog }) => {
+
+const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName }) => {
+
+    const [confirmation, setConfirmation] = useState('')
 
     const handleUnregisterStall = () => {
         //TODO:
-        //Type stall name again to confirm
         alert("Not yet implemented")
+    }
+
+    const handleCloseDialog = () => {
+        setConfirmation('')
+        setOpenDialog(false)
     }
 
     return (
         <div className="unregister-stall-dialog">
-            <Dialog open={openDialog} onClose={() => setOpenDialog(false)} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+            <Dialog open={openDialog} onClose={handleCloseDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
                 <DialogTitle id="alert-dialog-title">Unregister Stall? </DialogTitle>
 
                 <DialogContent>
@@ -24,11 +36,16 @@ const UnregisterStallDialog = ({ openDialog, setOpenDialog }) => {
                         associated with the stall will be automatically logged out.
                         This process cannot be undone.
                     </DialogContentText>
+
+                    <Box sx={{ m: 2 }}>
+                        <Typography> Confirm the unregistration of this stall by typing its name: <strong>{stallName}</strong></Typography>
+                        <TextField size="small" value={confirmation} onChange={(e) => setConfirmation(e.target.value)} placeholder={stallName} />
+                    </Box>
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-                    <Button onClick={handleUnregisterStall} autoFocus>Proceed</Button>
+                    <Button onClick={handleCloseDialog}>Cancel</Button>
+                    <Button onClick={handleUnregisterStall} disabled={confirmation !== stallName} autoFocus>Proceed</Button>
                 </DialogActions>
             </Dialog>
         </div >

@@ -279,7 +279,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                 </Alert>
             </Snackbar>
 
-            <UnregisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+            <UnregisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} stallName={stallSnapshot.stallName} />
         </div>
     )
 }
