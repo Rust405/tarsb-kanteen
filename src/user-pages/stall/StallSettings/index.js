@@ -82,7 +82,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
             setOpenSavedSnack(false)
             setNewStaffEmail('')
 
-            updateStallDetails(updatedDetails)
+            updateStallDetails({ updatedDetails: updatedDetails })
                 .then(result => {
                     let response = result.data
                     if (response.success) {

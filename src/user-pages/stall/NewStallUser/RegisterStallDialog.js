@@ -91,7 +91,7 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
         setOpenErrSnack(false)
         setNewStaffEmail('')
 
-        registerStall(newStall)
+        registerStall({ newStall: newStall })
             .then(result => {
                 let response = result.data
                 if (response.success) {

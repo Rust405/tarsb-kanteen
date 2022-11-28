@@ -29,7 +29,7 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
         )
     }
 
-    let newStall = data
+    let newStall = data.newStall
     newStall.stallName = newStall.stallName.trim()
     newStall.lowercaseStallName = newStall.stallName.trim().toLowerCase()
     newStall.ownerEmail = context.auth.token.email
@@ -98,11 +98,11 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     return { success: isSuccess, message: messageArray }
 })
 
-async function verifyStallOwner(stallID, context) {
+async function verifyStallOwner(stallID, token) {
     const ownerEmail = (await stallsRef.doc(stallID).get()).data().ownerEmail
 
-    if (context.auth.token.userType !== 'stallUser' || context.auth.token.email !== ownerEmail) {
-        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+    if (token.userType !== 'stallUser' || token.email !== ownerEmail) {
+        console.log(`${token.email} made an unauthorized function call.`)
         return false
     }
 
@@ -110,21 +110,21 @@ async function verifyStallOwner(stallID, context) {
 }
 
 exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    let updatedDetails = data.updatedDetails
+
+    let isSuccess = true
+    let messageArray = []
+
+    const oldStallDetails = (await stallsRef.doc(updatedDetails.stallID).get()).data()
+
     //verify user
-    const isStallOwner = await verifyStallOwner(data.stallID, context)
+    const isStallOwner = await verifyStallOwner(updatedDetails.stallID, context.auth.token)
     if (!isStallOwner) {
         throw new functions.https.HttpsError(
             'permission-denied',
             'Must be a stall owner to update stall details.'
         )
     }
-
-    let updatedDetails = data
-
-    let isSuccess = true
-    let messageArray = []
-
-    const oldStallDetails = (await stallsRef.doc(updatedDetails.stallID).get()).data()
 
     //perform validation if change in stallName
     if (updatedDetails.stallName) {
@@ -212,8 +212,10 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
 
 
 exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    let stallID = data.stallID
+
     //verify user
-    const isStallOwner = await verifyStallOwner(data, context)
+    const isStallOwner = await verifyStallOwner(stallID, context.auth.token)
     if (!isStallOwner) {
         throw new functions.https.HttpsError(
             'permission-denied',
@@ -221,9 +223,6 @@ exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async
         )
     }
 
-    let stallID = data
-
-    console.log(stallID)
 
     // //delete emails which automatically signs users out
     // await stallsRef.doc(stallID).update({ ownerEmail: '', staffEmails: [] })

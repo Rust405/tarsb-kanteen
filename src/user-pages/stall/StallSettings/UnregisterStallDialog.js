@@ -17,9 +17,10 @@ const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName, stallID }
     const [confirmation, setConfirmation] = useState('')
 
     const handleUnregisterStall = () => {
-        unregisterStall(stallID)
+        unregisterStall({ stallID: stallID })
             .catch(err => {
                 console.warn(err)
+                //popup
             })
     }
 
