@@ -18,6 +18,9 @@ const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName, stallID }
 
     const handleUnregisterStall = () => {
         unregisterStall(stallID)
+            .catch(err => {
+                console.warn(err)
+            })
     }
 
     const handleCloseDialog = () => {

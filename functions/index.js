@@ -23,10 +23,10 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     //verify user
     if (context.auth.token.userType !== 'stallUser') {
         console.log(`${context.auth.token.email} made an unauthorized function call.`)
-        return {
-            success: false,
-            message: ['User is unauthorized to perform this function.']
-        }
+        throw new functions.https.HttpsError(
+            'permission-denied',
+            'Must be a stall user to register stall.'
+        )
     }
 
     let newStall = data
@@ -112,9 +112,11 @@ async function verifyStallOwner(stallID, context) {
 exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     //verify user
     const isStallOwner = await verifyStallOwner(data.stallID, context)
-    if (!isStallOwner) return {
-        success: false,
-        message: ['User is unauthorized to perform this function.']
+    if (!isStallOwner) {
+        throw new functions.https.HttpsError(
+            'permission-denied',
+            'Must be a stall owner to update stall details.'
+        )
     }
 
     let updatedDetails = data
@@ -208,11 +210,16 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
     return { success: isSuccess, message: messageArray }
 })
 
-//TODO: from context, check if user is stallUser && is stall owner otherwise throw error
+
 exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     //verify user
     const isStallOwner = await verifyStallOwner(data, context)
-    if (!isStallOwner) { }
+    if (!isStallOwner) {
+        throw new functions.https.HttpsError(
+            'permission-denied',
+            'Must be a stall owner to unregister stall.'
+        )
+    }
 
     let stallID = data
 
