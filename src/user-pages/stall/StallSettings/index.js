@@ -94,6 +94,12 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                     }
                     setIsValidating(false)
                 })
+                .catch(err => {
+                    console.warn(err)
+                    setOpenErrSnack(true)
+                    setErrMsgs(['Unable to proceed. A server error has occured.'])
+                    setIsValidating(false)
+                })
         } else {
             handleRemoveChanges()
         }
@@ -279,7 +285,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                 </Alert>
             </Snackbar>
 
-            <UnregisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} stallName={stallSnapshot.stallName} />
+            <UnregisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} stallName={stallSnapshot.stallName} stallID={stallID} />
         </div>
     )
 }

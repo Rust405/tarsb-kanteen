@@ -10,14 +10,14 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 
+import { unregisterStall } from '../../../utils/firebase'
 
-const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName }) => {
+const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName, stallID }) => {
 
     const [confirmation, setConfirmation] = useState('')
 
     const handleUnregisterStall = () => {
-        //TODO:
-        alert("Not yet implemented")
+        unregisterStall(stallID)
     }
 
     const handleCloseDialog = () => {

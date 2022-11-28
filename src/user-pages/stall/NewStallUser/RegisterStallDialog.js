@@ -102,6 +102,12 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
                     setIsValidating(false)
                 }
             })
+            .catch(err => {
+                console.warn(err)
+                setOpenErrSnack(true)
+                setErrMsgs(['Unable to proceed. A server error has occured.'])
+                setIsValidating(false)
+            })
     }
 
     const [errMsgs, setErrMsgs] = useState([])
@@ -125,7 +131,7 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
                             value={stallName} onChange={(e) => setStallName(e.target.value)} disabled={isValidating} />
 
                         <Typography>Staff Emails ({staffEmails.length === 0 ? "Optional" : staffEmails.length}) </Typography>
-                        
+
                         {staffEmails.length !== 0 &&
                             <Paper style={{ maxHeight: 128, overflow: 'auto' }}>
                                 <List>

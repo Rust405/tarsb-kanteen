@@ -18,7 +18,17 @@ exports.processSignUp = functions.region('asia-southeast1').auth.user().onCreate
     }
 })
 
+
 exports.registerStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    //verify user
+    if (context.auth.token.userType !== 'stallUser') {
+        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+        return {
+            success: false,
+            message: ['User is unauthorized to perform this function.']
+        }
+    }
+
     let newStall = data
     newStall.stallName = newStall.stallName.trim()
     newStall.lowercaseStallName = newStall.stallName.trim().toLowerCase()
@@ -88,13 +98,31 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     return { success: isSuccess, message: messageArray }
 })
 
+async function verifyStallOwner(stallID, context) {
+    const ownerEmail = (await stallsRef.doc(stallID).get()).data().ownerEmail
+
+    if (context.auth.token.userType !== 'stallUser' || context.auth.token.email !== ownerEmail) {
+        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+        return false
+    }
+
+    return true
+}
+
 exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    //verify user
+    const isStallOwner = await verifyStallOwner(data.stallID, context)
+    if (!isStallOwner) return {
+        success: false,
+        message: ['User is unauthorized to perform this function.']
+    }
+
     let updatedDetails = data
 
     let isSuccess = true
     let messageArray = []
 
-    const oldStallDetails = (await db.collection('stalls').doc(updatedDetails.stallID).get()).data()
+    const oldStallDetails = (await stallsRef.doc(updatedDetails.stallID).get()).data()
 
     //perform validation if change in stallName
     if (updatedDetails.stallName) {
@@ -178,4 +206,22 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
     }
 
     return { success: isSuccess, message: messageArray }
+})
+
+//TODO: from context, check if user is stallUser && is stall owner otherwise throw error
+exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    //verify user
+    const isStallOwner = await verifyStallOwner(data, context)
+    if (!isStallOwner) { }
+
+    let stallID = data
+
+    console.log(stallID)
+
+    // //delete emails which automatically signs users out
+    // await stallsRef.doc(stallID).update({ ownerEmail: '', staffEmails: [] })
+
+    // //delete stall and subcollections
+    // await stallsRef.doc(stallID).delete()
+
 })
