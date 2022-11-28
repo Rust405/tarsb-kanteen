@@ -25,7 +25,7 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     newStall.ownerEmail = context.auth.token.email
     newStall.status = "closed"
     newStall.orderQueue = []
-    newStakk.preOrderList = []
+    newStall.preOrderList = []
 
     let isSuccess = true
     let messageArray = []
