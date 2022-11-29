@@ -4,4 +4,6 @@
 
 3. Each staff and owner can only be associated with one stall, checked by email. (Ignored, can be "bypassed" by using multiple Google accounts but no requirement for a stall-switching interface)
 
-4. SignInWithPopup currently does not work on mobile.
+4. Authenticating with `--token` is deprecated and will be removed in a future major version of `firebase-tools`. Instead, use a service account key with `GOOGLE_APPLICATION_CREDENTIALS`: https://cloud.google.com/docs/authentication/getting-started. (Ignored, can't find any official documentation on how to perform this, instead following official documentation through https://firebase.google.com/docs/firestore/solutions/delete-collections and following https://fireship.io/snippets/delete-firestore-collection/).
+
+

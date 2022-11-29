@@ -2,10 +2,11 @@ const functions = require('firebase-functions')
 const { initializeApp } = require('firebase-admin/app')
 const { getAuth } = require('firebase-admin/auth')
 const { getFirestore } = require('firebase-admin/firestore')
+const firebase_tools = require('firebase-tools')
 
 initializeApp()
-const db = getFirestore()
 
+const db = getFirestore()
 const stallsRef = db.collection('stalls')
 
 exports.processSignUp = functions.region('asia-southeast1').auth.user().onCreate(async (user) => {
@@ -223,13 +224,26 @@ exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async
         )
     }
 
-    //delete emails which automatically signs users out
+    // delete emails which automatically signs users out
     await stallsRef.doc(stallID).update({ ownerEmail: '', staffEmails: [] })
 
-    //delete stall
+    // delete stall
     await stallsRef.doc(stallID).delete()
 
-    //TODO: delete subcollections
+    //delete subcollections
+    await deleteCollection(`/stalls/${stallID}/menu`)
+    await deleteCollection(`/stalls/${stallID}/orders`)
 
+    //TODO: return?
 
 })
+
+async function deleteCollection(path) {
+    await firebase_tools.firestore
+        .delete(path, {
+            project: process.env.GCLOUD_PROJECT,
+            recursive: true,
+            force: true,
+            token: functions.config().ci.token
+        })
+}
