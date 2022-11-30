@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import Snackbar from '@mui/material/Snackbar'
-import MuiAlert from '@mui/material/Alert'
 
 import Login from './Login'
 import Loading from './Loading'
