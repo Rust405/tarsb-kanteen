@@ -26,8 +26,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import LogoutIcon from '@mui/icons-material/Logout'
 
-import { auth, logout } from '../utils/firebase'
-
+import { logout } from '../utils/firebase'
 
 const drawerWidth = 240
 
@@ -55,10 +54,11 @@ const NavigationDrawer = ({
     container,
     userType,
     staffRole,
-    stallStatus
+    stallStatus,
+    userInfo
 }) => {
-    const displayName = auth.currentUser.displayName
-    const email = auth.currentUser.email
+    const displayName = userInfo.displayName
+    const email = userInfo.email
 
     let navOption
     if (userType === 'customer') {

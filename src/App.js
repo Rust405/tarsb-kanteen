@@ -105,12 +105,12 @@ function App(props) {
 
       {/* Customer Client */}
       {user && userType === 'customer' &&
-        <CustomerClient container={container} userType={userType} />
+        <CustomerClient container={container} userType={userType} userInfo={{ displayName: user.displayName, email: user.email }} />
       }
 
       {/* StallUser Client */}
       {user && userType === 'stallUser' && staffRole &&
-        <StallClient container={container} userType={userType} staffRole={staffRole} stallID={stallID} />
+        <StallClient container={container} userType={userType} staffRole={staffRole} stallID={stallID} userInfo={{ displayName: user.displayName, email: user.email }} />
       }
 
       {/* Logged In Snackbar */}

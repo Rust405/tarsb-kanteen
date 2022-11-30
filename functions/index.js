@@ -233,9 +233,6 @@ exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async
     //delete subcollections
     await deleteCollection(`/stalls/${stallID}/menu`)
     await deleteCollection(`/stalls/${stallID}/orders`)
-
-    //TODO: return?
-
 })
 
 async function deleteCollection(path) {

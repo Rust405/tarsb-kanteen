@@ -26,7 +26,7 @@ import MenuItemCUD from './Menu/MenuItemCUD'
 import { db, auth, logout } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
 
-const StallClient = ({ container, userType, staffRole, stallID }) => {
+const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const { pathname: pathName } = useLocation()
@@ -79,6 +79,7 @@ const StallClient = ({ container, userType, staffRole, stallID }) => {
                         userType={userType}
                         staffRole={staffRole}
                         stallStatus={stallSnapshot ? stallSnapshot.status : null}
+                        userInfo={userInfo}
                     />
                 </div>
 

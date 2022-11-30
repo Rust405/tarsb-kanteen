@@ -22,7 +22,7 @@ import CustOrderPreview from './MyOrders/CustOrderPreview'
 import OrderCreate from './Browse/OrderCreate'
 
 
-const CustomerClient = ({ container, userType }) => {
+const CustomerClient = ({ container, userType, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const { pathname: pathName } = useLocation()
@@ -59,6 +59,7 @@ const CustomerClient = ({ container, userType }) => {
                         handleDrawerToggle={handleDrawerToggle}
                         container={container}
                         userType={userType}
+                        userInfo={userInfo}
                     />
                 </div>
 
