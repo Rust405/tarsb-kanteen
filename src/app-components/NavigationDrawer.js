@@ -77,23 +77,24 @@ const NavigationDrawer = ({
             <Toolbar />
             <Box sx={{ overflow: 'auto' }}>
                 <List>
-                    <Box sx={{ m: 1 }} display="flex" justifyContent="center">
-                        {userType === 'stallUser' && stallStatus ?
-                            <Typography>Stall is currently  <Box
-                                component="span"
-                                sx={{
-                                    color: stallStatus === "open" ? 'green' : 'red',
-                                    fontWeight: 'bold'
-                                }}>
-                                {stallStatus}
-                            </Box>
-                            </Typography>
-                            :
-                            <Typography>Loading...</Typography>
-                        }
-                    </Box>
-
-                    <Divider />
+                    {userType === 'stallUser' && <div>
+                        <Box sx={{ m: 1 }} display="flex" justifyContent="center">
+                            {stallStatus ?
+                                <Typography>Stall is currently  <Box
+                                    component="span"
+                                    sx={{
+                                        color: stallStatus === "open" ? 'green' : 'red',
+                                        fontWeight: 'bold'
+                                    }}>
+                                    {stallStatus}
+                                </Box>
+                                </Typography>
+                                :
+                                <Typography>Loading...</Typography>}
+                        </Box>
+                        <Divider />
+                    </div>
+                    }
 
                     {navOption.pages.map(
                         (page, index) => (
