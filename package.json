@@ -15,6 +15,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
+    "react-online-hook": "^1.0.4",
     "react-router-dom": "^6.4.3",
     "react-scripts": "^5.0.1",
     "workbox-background-sync": "^6.5.4",

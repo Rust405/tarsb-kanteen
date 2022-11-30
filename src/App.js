@@ -14,12 +14,15 @@ import StallClient from './user-pages/stall/StallClient'
 import NewStallUser from './user-pages/stall/NewStallUser'
 
 import { Alert } from './utils/customComponents'
+import useOnlineStatus from 'react-online-hook'
+import Offline from './error-pages/Offline'
 
 function App(props) {
   const { window } = props
   const container = window !== undefined ? () => window().document.body : undefined
   const { pathname: pathName } = useLocation()
   const navigate = useNavigate()
+  const { isOnline } = useOnlineStatus()
 
   //Snackbar log in success
   const [openSnack, setOpenSnack] = useState(false)
@@ -87,6 +90,9 @@ function App(props) {
         })
     }
   }
+
+  //offline
+  if (!isOnline) return <Offline />
 
   //Loading pages
   if (loading) return <Loading loadingMsg="Authenticating with Google..." />
