@@ -14,11 +14,11 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Tooltip from '@mui/material/Tooltip'
 import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
+import Avatar from '@mui/material/Avatar'
 
 import FastfoodIcon from '@mui/icons-material/Fastfood'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import SettingsIcon from '@mui/icons-material/Settings'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import PrintIcon from '@mui/icons-material/Print'
 import StorefrontIcon from '@mui/icons-material/Storefront'
@@ -59,6 +59,7 @@ const NavigationDrawer = ({
 }) => {
     const displayName = userInfo.displayName
     const email = userInfo.email
+    const photoURL = userInfo.photoURL
 
     let navOption
     if (userType === 'customer') {
@@ -76,22 +77,23 @@ const NavigationDrawer = ({
             <Toolbar />
             <Box sx={{ overflow: 'auto' }}>
                 <List>
-                    {userType === 'stallUser' && stallStatus &&
-                        <div>
-                            <Box sx={{ m: 1 }} display="flex" justifyContent="center">
-                                <Typography>Stall is currently  <Box
-                                    component="span"
-                                    sx={{
-                                        color: stallStatus === "open" ? 'green' : 'red',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    {stallStatus}
-                                </Box>
-                                </Typography>
+                    <Box sx={{ m: 1 }} display="flex" justifyContent="center">
+                        {userType === 'stallUser' && stallStatus ?
+                            <Typography>Stall is currently  <Box
+                                component="span"
+                                sx={{
+                                    color: stallStatus === "open" ? 'green' : 'red',
+                                    fontWeight: 'bold'
+                                }}>
+                                {stallStatus}
                             </Box>
-                            <Divider />
-                        </div>
-                    }
+                            </Typography>
+                            :
+                            <Typography>Loading...</Typography>
+                        }
+                    </Box>
+
+                    <Divider />
 
                     {navOption.pages.map(
                         (page, index) => (
@@ -116,8 +118,8 @@ const NavigationDrawer = ({
                     <Tooltip title={displayName} placement="right" disableInteractive>
                         <ListItem disablePadding>
                             <ListItemButton onClick={handleOpenLogout} >
-                                <ListItemIcon>
-                                    <AccountCircleIcon />
+                                <ListItemIcon >
+                                    <Avatar sx={{ width: '24px', height: '24px' }} src={photoURL} referrerPolicy="origin" />
                                 </ListItemIcon>
                                 <ListItemText
                                     primaryTypographyProps={{ style: { whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }}

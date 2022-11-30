@@ -110,12 +110,20 @@ function App(props) {
 
       {/* Customer Client */}
       {user && userType === 'customer' &&
-        <CustomerClient container={container} userType={userType} userInfo={{ displayName: user.displayName, email: user.email }} />
+        <CustomerClient
+          container={container}
+          userType={userType}
+          userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />
       }
 
       {/* StallUser Client */}
       {user && userType === 'stallUser' && staffRole &&
-        <StallClient container={container} userType={userType} staffRole={staffRole} stallID={stallID} userInfo={{ displayName: user.displayName, email: user.email }} />
+        <StallClient
+          container={container}
+          userType={userType}
+          staffRole={staffRole}
+          stallID={stallID}
+          userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />
       }
 
       {/* Logged In Snackbar */}
