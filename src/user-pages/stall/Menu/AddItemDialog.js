@@ -74,21 +74,23 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
         <div className="add-item-dialog">
             <CustomDialog onClose={handleCloseDialog} aria-labelledby="register-dialog-title" open={openNewItemDialog} >
 
-                <CustomDialogTitle id="register-dialog-title" onClose={handleCloseDialog}>Add New Item</CustomDialogTitle>
+                <CustomDialogTitle id="register-dialog-title" onClose={handleCloseDialog}>Add New Menu Item</CustomDialogTitle>
 
                 <DialogContent dividers>
                     <Stack spacing={2}>
-                        <TextField label="Item Name" value={itemName} onChange={e => setItemName(e.target.value)} />
+                        <TextField label="Item Name" value={itemName} onChange={e => setItemName(e.target.value)} variant="outlined" autoComplete='off' />
 
-                        <TextField label="Price (RM)" value={itemPrice} onChange={e => setItemPrice(e.target.value)} />
+                        <TextField label="Price (RM)" value={itemPrice} onChange={e => setItemPrice(e.target.value)} variant="outlined" autoComplete='off' />
 
-                        <FormControlLabel
-                            control={
-                                <Checkbox checked={itemRequireCooking} onChange={e => setItemRequireCooking(e.target.checked)} />
-                            }
-                            labelPlacement="start"
-                            label="Require cooking?"
-                        />
+                        <Box display="flex" justifyContent="flex-start">
+                            <FormControlLabel
+                                control={
+                                    <Checkbox checked={itemRequireCooking} onChange={e => setItemRequireCooking(e.target.checked)} />
+                                }
+                                labelPlacement="start"
+                                label="Require cooking?"
+                            />
+                        </Box>
 
                         <Stack direction="row" alignItems="center" spacing={1}>
                             <InfoIcon /><Typography variant="caption">Ticking 'Require cooking' will enable estimate cooking time calculation.</Typography>
@@ -99,7 +101,7 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
                 <DialogActions>
                     <Box sx={{ position: 'relative' }}>
                         <Button autoFocus disabled={itemName.trim() === '' || isValidating} onClick={handleAddNewItem}>
-                            {isValidating ? "Validating..." : "Add New Item"}
+                            {isValidating ? "Validating..." : "Save & Continue"}
                         </Button>
                         {isValidating &&
                             <CircularProgress
