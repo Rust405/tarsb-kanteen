@@ -28,7 +28,6 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
     }, [])
 
     const [openDialog, setOpenDialog] = useState(false)
-    const handleOpenDialog = () => setOpenDialog(true)
 
     const [openSnack, setOpenSnack] = useState(false)
     const handleCloseSnack = (event, reason) => {
@@ -60,7 +59,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                             <Stack direction="row" alignItems="center" spacing={2}>
                                 <TextField type="password" label="Stall Registration Code" variant="outlined" size="small"
                                     value={regCodeInput} onChange={(e) => setRegCodeInput(e.target.value)} />
-                                <Button variant="contained" size="small" onClick={handleOpenDialog} disabled={regCodeInput !== stallRegCode}>Register Stall</Button>
+                                <Button variant="contained" size="small" onClick={() => setOpenDialog(true)} disabled={regCodeInput !== stallRegCode}>Register Stall</Button>
                             </Stack>
                         </Box>
                     </Item>

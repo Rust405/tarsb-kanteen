@@ -25,6 +25,7 @@ import MenuItemCUD from './Menu/MenuItemCUD'
 
 import { db, auth, logout } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
+import AddItemDialog from './Menu/AddItemDialog'
 
 const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
@@ -61,6 +62,10 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
             }
         }
     }, [stallSnapshot])
+
+    //New Item Dialog
+    const [openNewItemDialog, setOpenNewItemDialog] = useState(false)
+
 
     return (
         <div className="stall-client">
@@ -118,12 +123,15 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                                     navOpen={navOpen}
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
-                                    drawerContent={<MenuItemCUD />} />}
+                                    drawerContent={<MenuItemCUD setOpenNewItemDialog={setOpenNewItemDialog} />} />}
                         />
                         <Route path='*' element={<></>} />
                     </Routes>
                 </div>
 
+
+                {/* New Item Dialog */}
+                <AddItemDialog openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog} />
             </Box>
         </div>
     )
