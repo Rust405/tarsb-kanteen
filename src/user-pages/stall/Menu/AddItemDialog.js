@@ -3,11 +3,8 @@ import React, { useState } from 'react'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
-import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
-import ListItem from '@mui/material/ListItem'
-import List from '@mui/material/List'
 import IconButton from '@mui/material/IconButton'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -16,6 +13,8 @@ import DialogActions from '@mui/material/DialogActions'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import Snackbar from '@mui/material/Snackbar'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
 
 import PropTypes from 'prop-types'
 
@@ -61,6 +60,16 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
         setOpenNewItemDialog(false)
     }
 
+    const [itemName, setItemName] = useState('')
+    const [itemPrice, setItemPrice] = useState(0.00)
+    const [itemRequireCooking, setItemRequireCooking] = useState(true)
+
+    const handleAddNewItem = () => {
+        console.log("Name:" + itemName)
+        console.log("RM " + itemPrice)
+        console.log("Require cooking: " + itemRequireCooking)
+    }
+
     return (
         <div className="add-item-dialog">
             <CustomDialog onClose={handleCloseDialog} aria-labelledby="register-dialog-title" open={openNewItemDialog} >
@@ -68,11 +77,43 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
                 <CustomDialogTitle id="register-dialog-title" onClose={handleCloseDialog}>Add New Item</CustomDialogTitle>
 
                 <DialogContent dividers>
+                    <Stack spacing={2}>
+                        <TextField label="Item Name" value={itemName} onChange={e => setItemName(e.target.value)} />
 
+                        <TextField label="Price (RM)" value={itemPrice} onChange={e => setItemPrice(e.target.value)} />
+
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={itemRequireCooking} onChange={e => setItemRequireCooking(e.target.checked)} />
+                            }
+                            labelPlacement="start"
+                            label="Require cooking?"
+                        />
+
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <InfoIcon /><Typography variant="caption">Ticking 'Require cooking' will enable estimate cooking time calculation.</Typography>
+                        </Stack>
+                    </Stack>
                 </DialogContent>
 
                 <DialogActions>
-
+                    <Box sx={{ position: 'relative' }}>
+                        <Button autoFocus disabled={itemName.trim() === '' || isValidating} onClick={handleAddNewItem}>
+                            {isValidating ? "Validating..." : "Add New Item"}
+                        </Button>
+                        {isValidating &&
+                            <CircularProgress
+                                size={24}
+                                sx={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    marginTop: '-12px',
+                                    marginLeft: '-12px',
+                                }}
+                            />
+                        }
+                    </Box>
                 </DialogActions>
             </CustomDialog>
         </div>

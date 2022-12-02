@@ -55,7 +55,7 @@ const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName, stallID }
                     <Box sx={{ m: 2 }}>
                         <Typography> Confirm the unregistration of this stall by typing its name: <strong>{stallName}</strong></Typography>
                         <TextField size="small" value={confirmation} disabled={isUnregistering}
-                            onChange={(e) => setConfirmation(e.target.value)} placeholder={stallName} />
+                            onChange={e => setConfirmation(e.target.value)} placeholder={stallName} />
                     </Box>
                 </DialogContent>
 

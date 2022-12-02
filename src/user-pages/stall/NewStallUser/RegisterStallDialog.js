@@ -128,7 +128,7 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
                     <Stack spacing={2}>
 
                         <TextField label="Stall Name" variant="outlined" size="small" autoComplete='off'
-                            value={stallName} onChange={(e) => setStallName(e.target.value)} disabled={isValidating} />
+                            value={stallName} onChange={e => setStallName(e.target.value)} disabled={isValidating} />
 
                         <Typography>Staff Emails ({staffEmails.length === 0 ? "Optional" : staffEmails.length}) </Typography>
 
@@ -158,10 +158,10 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <TextField label="Staff Email" variant="outlined" size="small" autoComplete='off'
                                     value={newStaffEmail}
-                                    onChange={(e) => setNewStaffEmail(e.target.value)}
+                                    onChange={e => setNewStaffEmail(e.target.value)}
                                     disabled={isValidating}
                                     inputProps={{ style: { textTransform: "lowercase" } }}
-                                    onKeyPress={(e) => { if (e.key === 'Enter') handleAddStaff() }}
+                                    onKeyPress={e => { if (e.key === 'Enter') handleAddStaff() }}
                                 />
                                 <Button onClick={handleAddStaff} disabled={newStaffEmail.trim() === '' || isValidating}>Add</Button>
                             </Stack>
