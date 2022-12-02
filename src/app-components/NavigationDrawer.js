@@ -120,7 +120,7 @@ const NavigationDrawer = ({
                         <ListItem disablePadding>
                             <ListItemButton onClick={handleOpenLogout} >
                                 <ListItemIcon >
-                                    <Avatar sx={{ width: '24px', height: '24px' }} src={photoURL} referrerPolicy="origin" />
+                                    <Avatar sx={{ width: '24px', height: '24px' }} src={photoURL} referrerPolicy="no-referrer" />
                                 </ListItemIcon>
                                 <ListItemText
                                     primaryTypographyProps={{ style: { whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }}
