@@ -279,8 +279,7 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
     newItem.menuItemName = newItem.menuItemName.trim()
     newItem.lowercaseMenuItemName = newItem.menuItemName.trim().toLowerCase()
     newItem.isAvailable = true
-    newItem.estCookTime = 5 //5 minutes
-
+    newItem.estCookTime = 5 //5 minutes default, will be updated as orders are created
 
     let isSuccess = true
     let messageArray = []
@@ -310,9 +309,8 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
     }
 
     if (isSuccess) {
-        //TODO: add to Firestore
-        //convert price to number
-        console.log(newItem)
+        newItem.price = parseFloat(newItem.price)
+        await menuRef.add(newItem)
     }
 
     return { success: isSuccess, message: messageArray }

@@ -83,6 +83,9 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
             .then(result => {
                 let response = result.data
                 if (response.success) {
+                    setIsValidating(false)
+                    console.log("Success")
+
                     //close dialog
                     //TODO: success snack?, order of operation might be a problem
                 } else {
