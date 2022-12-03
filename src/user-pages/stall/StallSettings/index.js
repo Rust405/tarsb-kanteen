@@ -236,7 +236,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                                 <Stack direction="row" alignItems="center" spacing={2}>
                                     <Button onClick={handleRemoveChanges} disabled={isValidating} >Cancel</Button>
                                     <Box sx={{ position: 'relative' }}>
-                                        <Button onClick={handleSaveChanges} disabled={isValidating}>
+                                        <Button onClick={handleSaveChanges} disabled={stallName.trim() === '' || isValidating}>
                                             {isValidating ? "Validating..." : "Save Changes"}
                                         </Button>
                                         {isValidating &&
