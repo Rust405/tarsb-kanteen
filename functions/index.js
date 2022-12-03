@@ -259,7 +259,7 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
     let stallID = data.stallID
 
     newItem.isAvailable = true
-    newItem.estCookTime = 5
+    newItem.estCookTime = 5 //5 minutes
 
     let isSuccess = true
     let messageArray = []
