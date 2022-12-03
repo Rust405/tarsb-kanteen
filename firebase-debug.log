@@ -446,3 +446,623 @@ Issues? Report them at https://github.com/firebase/firebase-tools/issues and att
 [debug] [2022-12-03T14:35:44.026Z] shutdown requested via /__/quitquitquit
 
 [info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:30:01.252Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:30:02.262Z] Validating nodejs source
+[debug] [2022-12-03T15:30:08.905Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:30:08.906Z] Building nodejs source
+[debug] [2022-12-03T15:30:08.906Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:30:08.906Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:30:09.288Z] Serving at port 9005
+
+[debug] [2022-12-03T15:30:14.942Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:30:14.956Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:30:29.261Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-03T15:30:29.261Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-03T15:30:29.261Z] Accepted request OPTIONS /tarsb-kanteen-2022/asia-southeast1/addMenuItem --> asia-southeast1-addMenuItem
+[debug] [2022-12-03T15:30:29.268Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-03T15:30:29.268Z] [functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/"}}
+[debug] [2022-12-03T15:30:29.268Z] [worker-pool] Cleaned up workers for asia-southeast1-updateStallDetails: 1 --> 0 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for asia-southeast1-updateStallDetails: 1 --> 0"}}
+[debug] [2022-12-03T15:30:29.278Z] [worker-pool] addWorker(asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:30:29.278Z] [worker-pool] Adding worker with key asia-southeast1-addMenuItem, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key asia-southeast1-addMenuItem, total=1"}}
+[debug] [2022-12-03T15:30:31.257Z] [runtime-status] [8152] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2022-12-03T15:30:31.261Z] [runtime-status] [8152] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:30:31.262Z] [runtime-status] [8152] Found local functions config: C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions/.runtimeconfig.json {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Found local functions config: C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions/.runtimeconfig.json"}}
+[debug] [2022-12-03T15:30:31.262Z] [runtime-status] [8152] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2022-12-03T15:30:31.265Z] [runtime-status] [8152] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:30:31.607Z] [runtime-status] [8152] Checked functions.config() {"config":{"ci":{"token":"1//0grZWD6jvov1jCgYIARAAGBASNwF-L9IrAFWACHwmhgIa_b-D50DqgeFy4gHvtSzCAr4O8fTCDL9U1rdFhwB3IvFm-2VV-5EEhCE"}}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Checked functions.config() {\"config\":{\"ci\":{\"token\":\"1//0grZWD6jvov1jCgYIARAAGBASNwF-L9IrAFWACHwmhgIa_b-D50DqgeFy4gHvtSzCAr4O8fTCDL9U1rdFhwB3IvFm-2VV-5EEhCE\"}}}"}}
+[debug] [2022-12-03T15:30:31.607Z] [runtime-status] [8152] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
+[debug] [2022-12-03T15:30:31.609Z] [runtime-status] [8152] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:30:31.612Z] [runtime-status] [8152] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2022-12-03T15:30:31.617Z] [runtime-status] [8152] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:30:31.619Z] [runtime-status] [8152] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2022-12-03T15:30:35.387Z] [runtime-status] [8152] Functions runtime initialized. {"cwd":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions","node_version":"18.12.1"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\",\"node_version\":\"18.12.1\"}"}}
+[debug] [2022-12-03T15:30:35.388Z] [runtime-status] [8152] Listening to port: \\?\pipe\fire_emu_463c789a0b623e32 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Listening to port: \\\\?\\pipe\\fire_emu_463c789a0b623e32"}}
+[debug] [2022-12-03T15:30:35.429Z] [worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: IDLE"}}
+[debug] [2022-12-03T15:30:35.429Z] [worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:30:35.430Z] [worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: BUSY"}}
+[info] i  functions: Beginning execution of "addMenuItem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Beginning execution of \"addMenuItem\""}}
+[debug] [2022-12-03T15:30:35.439Z] [worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: IDLE"}}
+[debug] [2022-12-03T15:30:35.440Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "addMenuItem" in 4.5456ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Finished \"addMenuItem\" in 4.5456ms"}}
+[debug] [2022-12-03T15:30:35.442Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-03T15:30:35.443Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-03T15:30:35.443Z] Accepted request POST /tarsb-kanteen-2022/asia-southeast1/addMenuItem --> asia-southeast1-addMenuItem
+[debug] [2022-12-03T15:30:35.443Z] ID Token: eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1MWMwOGM1MTZhZTM1MmI4OWU0ZDJlMGUxNDA5NmY3MzQ5NDJhODciLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVEFSU0IgS2FudGVlbiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BTG01d3UwNEFSSmZIWDliVFVYcEhTemZWX2dvU0lBMGpLOGlQdGNrMTRRTD1zOTYtYyIsInVzZXJUeXBlIjoic3RhbGxVc2VyIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3RhcnNiLWthbnRlZW4tMjAyMiIsImF1ZCI6InRhcnNiLWthbnRlZW4tMjAyMiIsImF1dGhfdGltZSI6MTY3MDA1MzkyNiwidXNlcl9pZCI6IldLY1ZKWDVSbnVVdWlNUllKNFVzcERmUk56RDMiLCJzdWIiOiJXS2NWSlg1Um51VXVpTVJZSjRVc3BEZlJOekQzIiwiaWF0IjoxNjcwMDgwMzc3LCJleHAiOjE2NzAwODM5NzcsImVtYWlsIjoidGFyc2JrYW50ZWVuQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTE4MjU0OTk2NjQ0MDQ5MjEwMDQ3Il0sImVtYWlsIjpbInRhcnNia2FudGVlbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.AN9EG8TyzKErB8QI_A3I4NC6edgUMTunn0ganoYICnGL9ALzudl6OavxZ5g1w0R6joYWdCJi9pEx1y5P2NJdhhu5rouLHpd3JUHUbCuBGKG5cq3VcGOs2_pSNzVeGNY72VinHghC-mMplBMlKZdZcv2t7U3PUIm54aqAUQ9qwpp5pEIDPIZN7IDEtjZZ0dJf70fmZoETH45GdizDnfSDH_g-298rj6WHj5t0ZINbWceVESqEYezzIcBY7kEmq8n7mBntg1yWgJC3FBvPK7e_Aw5f3t5l5Vjc4PYBmd6TvgjgQ3zRAwzlgajyayhSZaQz9GRkYGDyfV83ED-L-Akq2w
+[debug] [2022-12-03T15:30:35.450Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-03T15:30:35.450Z] [functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/"}}
+[debug] [2022-12-03T15:30:35.451Z] [worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:30:35.451Z] [worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: BUSY"}}
+[info] i  functions: Beginning execution of "addMenuItem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Beginning execution of \"addMenuItem\""}}
+[info] >  {"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"} {"user":{"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"verifications\":{\"app\":\"MISSING\",\"auth\":\"MISSING\"},\"logging.googleapis.com/labels\":{\"firebase-log-type\":\"callable-request-verification\"},\"severity\":\"DEBUG\",\"message\":\"Callable request verification passed\"}"}}
+[debug] [2022-12-03T15:30:35.481Z] [runtime-status] [8152] Callable functions auth override {"key":"x-callable-context-auth","value":"%7B%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22token%22%3A%7B%22name%22%3A%22TARSB%20Kanteen%22%2C%22picture%22%3A%22https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FALm5wu04ARJfHX9bTUXpHSzfV_goSIA0jK8iPtck14QL%3Ds96-c%22%2C%22userType%22%3A%22stallUser%22%2C%22iss%22%3A%22https%3A%2F%2Fsecuretoken.google.com%2Ftarsb-kanteen-2022%22%2C%22aud%22%3A%22tarsb-kanteen-2022%22%2C%22auth_time%22%3A1670053926%2C%22user_id%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22sub%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22iat%22%3A1670080377%2C%22exp%22%3A1670083977%2C%22email%22%3A%22tarsbkanteen%40gmail.com%22%2C%22email_verified%22%3Atrue%2C%22firebase%22%3A%7B%22identities%22%3A%7B%22google.com%22%3A%5B%22118254996644049210047%22%5D%2C%22email%22%3A%5B%22tarsbkanteen%40gmail.com%22%5D%7D%2C%22sign_in_provider%22%3A%22google.com%22%7D%2C%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%7D%7D"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [8152] Callable functions auth override {\"key\":\"x-callable-context-auth\",\"value\":\"%7B%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22token%22%3A%7B%22name%22%3A%22TARSB%20Kanteen%22%2C%22picture%22%3A%22https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FALm5wu04ARJfHX9bTUXpHSzfV_goSIA0jK8iPtck14QL%3Ds96-c%22%2C%22userType%22%3A%22stallUser%22%2C%22iss%22%3A%22https%3A%2F%2Fsecuretoken.google.com%2Ftarsb-kanteen-2022%22%2C%22aud%22%3A%22tarsb-kanteen-2022%22%2C%22auth_time%22%3A1670053926%2C%22user_id%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22sub%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22iat%22%3A1670080377%2C%22exp%22%3A1670083977%2C%22email%22%3A%22tarsbkanteen%40gmail.com%22%2C%22email_verified%22%3Atrue%2C%22firebase%22%3A%7B%22identities%22%3A%7B%22google.com%22%3A%5B%22118254996644049210047%22%5D%2C%22email%22%3A%5B%22tarsbkanteen%40gmail.com%22%5D%7D%2C%22sign_in_provider%22%3A%22google.com%22%7D%2C%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%7D%7D\"}"}}
+[info] >  tarsbkanteen@gmail.com made an unauthorized function call. {"user":"tarsbkanteen@gmail.com made an unauthorized function call.","metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"\u001b[90m> \u001b[39m tarsbkanteen@gmail.com made an unauthorized function call."}}
+[debug] [2022-12-03T15:30:35.485Z] [worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: IDLE"}}
+[debug] [2022-12-03T15:30:35.485Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "addMenuItem" in 9.0784ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Finished \"addMenuItem\" in 9.0784ms"}}
+[debug] [2022-12-03T15:30:49.400Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:30:50.401Z] Validating nodejs source
+[debug] [2022-12-03T15:30:56.645Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:30:56.646Z] Building nodejs source
+[debug] [2022-12-03T15:30:56.646Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:30:56.646Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:30:56.984Z] Serving at port 9005
+
+[debug] [2022-12-03T15:31:01.247Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:31:01.254Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:31:01.284Z] [worker-pool] Shutting down IDLE worker (asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:31:01.284Z] [worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: FINISHING {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: FINISHING"}}
+[debug] [2022-12-03T15:31:01.300Z] [worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: exited {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: exited"}}
+[debug] [2022-12-03T15:31:01.300Z] [worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: FINISHED {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-7c461cba-e370-4f39-a200-103a7dbeb10b]: FINISHED"}}
+[debug] [2022-12-03T15:32:44.873Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:32:45.883Z] Validating nodejs source
+[debug] [2022-12-03T15:32:51.454Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:32:51.454Z] Building nodejs source
+[debug] [2022-12-03T15:32:51.454Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:32:51.455Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:32:51.843Z] Serving at port 9005
+
+[debug] [2022-12-03T15:32:56.946Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:32:56.961Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:33:30.694Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:33:31.701Z] Validating nodejs source
+[debug] [2022-12-03T15:33:37.683Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:33:37.683Z] Building nodejs source
+[debug] [2022-12-03T15:33:37.683Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:33:37.684Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:33:38.065Z] Serving at port 9005
+
+[debug] [2022-12-03T15:33:42.974Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:33:42.981Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:36:09.515Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:36:10.527Z] Validating nodejs source
+[debug] [2022-12-03T15:36:16.664Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:36:16.665Z] Building nodejs source
+[debug] [2022-12-03T15:36:16.665Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:36:16.665Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:36:17.011Z] Serving at port 9005
+
+[debug] [2022-12-03T15:36:21.775Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:36:21.783Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:36:42.454Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:36:43.467Z] Validating nodejs source
+[debug] [2022-12-03T15:36:49.212Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:36:49.213Z] Building nodejs source
+[debug] [2022-12-03T15:36:49.213Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:36:49.214Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:36:49.595Z] Serving at port 9005
+
+[debug] [2022-12-03T15:36:54.116Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:36:54.124Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:38:09.995Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:38:11.003Z] Validating nodejs source
+[debug] [2022-12-03T15:38:15.932Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:38:15.932Z] Building nodejs source
+[debug] [2022-12-03T15:38:15.932Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:38:15.934Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:38:16.281Z] Serving at port 9005
+
+[debug] [2022-12-03T15:38:20.227Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:38:20.355Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:38:20.362Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:38:21.237Z] Validating nodejs source
+[debug] [2022-12-03T15:38:26.132Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:38:26.132Z] Building nodejs source
+[debug] [2022-12-03T15:38:26.132Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:38:26.133Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:38:26.441Z] Serving at port 9005
+
+[debug] [2022-12-03T15:38:30.370Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:38:30.377Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:38:44.935Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:38:45.946Z] Validating nodejs source
+[debug] [2022-12-03T15:38:51.925Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:38:51.926Z] Building nodejs source
+[debug] [2022-12-03T15:38:51.926Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:38:51.927Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:38:52.329Z] Serving at port 9005
+
+[debug] [2022-12-03T15:38:57.468Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:38:57.475Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:44:13.146Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:44:14.156Z] Validating nodejs source
+[debug] [2022-12-03T15:44:21.540Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:44:21.540Z] Building nodejs source
+[debug] [2022-12-03T15:44:21.540Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:44:21.541Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:44:22.021Z] Serving at port 9005
+
+[debug] [2022-12-03T15:44:28.047Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:44:28.056Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:44:51.096Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-03T15:44:51.096Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-03T15:44:51.096Z] Accepted request OPTIONS /tarsb-kanteen-2022/asia-southeast1/addMenuItem --> asia-southeast1-addMenuItem
+[debug] [2022-12-03T15:44:51.105Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-03T15:44:51.105Z] [functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/"}}
+[debug] [2022-12-03T15:44:51.105Z] [worker-pool] Cleaned up workers for asia-southeast1-addMenuItem: 1 --> 0 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for asia-southeast1-addMenuItem: 1 --> 0"}}
+[debug] [2022-12-03T15:44:51.122Z] [worker-pool] addWorker(asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:44:51.122Z] [worker-pool] Adding worker with key asia-southeast1-addMenuItem, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key asia-southeast1-addMenuItem, total=1"}}
+[debug] [2022-12-03T15:44:53.127Z] [runtime-status] [15368] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2022-12-03T15:44:53.138Z] [runtime-status] [15368] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:44:53.139Z] [runtime-status] [15368] Found local functions config: C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions/.runtimeconfig.json {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Found local functions config: C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions/.runtimeconfig.json"}}
+[debug] [2022-12-03T15:44:53.139Z] [runtime-status] [15368] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2022-12-03T15:44:53.140Z] [runtime-status] [15368] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:44:53.518Z] [runtime-status] [15368] Checked functions.config() {"config":{"ci":{"token":"1//0grZWD6jvov1jCgYIARAAGBASNwF-L9IrAFWACHwmhgIa_b-D50DqgeFy4gHvtSzCAr4O8fTCDL9U1rdFhwB3IvFm-2VV-5EEhCE"}}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Checked functions.config() {\"config\":{\"ci\":{\"token\":\"1//0grZWD6jvov1jCgYIARAAGBASNwF-L9IrAFWACHwmhgIa_b-D50DqgeFy4gHvtSzCAr4O8fTCDL9U1rdFhwB3IvFm-2VV-5EEhCE\"}}}"}}
+[debug] [2022-12-03T15:44:53.519Z] [runtime-status] [15368] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
+[debug] [2022-12-03T15:44:53.521Z] [runtime-status] [15368] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:44:53.523Z] [runtime-status] [15368] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2022-12-03T15:44:53.527Z] [runtime-status] [15368] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:44:53.527Z] [runtime-status] [15368] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2022-12-03T15:44:57.367Z] [runtime-status] [15368] Functions runtime initialized. {"cwd":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions","node_version":"18.12.1"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\",\"node_version\":\"18.12.1\"}"}}
+[debug] [2022-12-03T15:44:57.368Z] [runtime-status] [15368] Listening to port: \\?\pipe\fire_emu_1a93fc638bbf4d88 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Listening to port: \\\\?\\pipe\\fire_emu_1a93fc638bbf4d88"}}
+[debug] [2022-12-03T15:44:57.479Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: IDLE"}}
+[debug] [2022-12-03T15:44:57.479Z] [worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:44:57.479Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: BUSY"}}
+[info] i  functions: Beginning execution of "addMenuItem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Beginning execution of \"addMenuItem\""}}
+[debug] [2022-12-03T15:44:57.487Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: IDLE"}}
+[debug] [2022-12-03T15:44:57.488Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "addMenuItem" in 3.5195ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Finished \"addMenuItem\" in 3.5195ms"}}
+[debug] [2022-12-03T15:44:57.491Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-03T15:44:57.491Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-03T15:44:57.491Z] Accepted request POST /tarsb-kanteen-2022/asia-southeast1/addMenuItem --> asia-southeast1-addMenuItem
+[debug] [2022-12-03T15:44:57.492Z] ID Token: eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1MWMwOGM1MTZhZTM1MmI4OWU0ZDJlMGUxNDA5NmY3MzQ5NDJhODciLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVEFSU0IgS2FudGVlbiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BTG01d3UwNEFSSmZIWDliVFVYcEhTemZWX2dvU0lBMGpLOGlQdGNrMTRRTD1zOTYtYyIsInVzZXJUeXBlIjoic3RhbGxVc2VyIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3RhcnNiLWthbnRlZW4tMjAyMiIsImF1ZCI6InRhcnNiLWthbnRlZW4tMjAyMiIsImF1dGhfdGltZSI6MTY3MDA1MzkyNiwidXNlcl9pZCI6IldLY1ZKWDVSbnVVdWlNUllKNFVzcERmUk56RDMiLCJzdWIiOiJXS2NWSlg1Um51VXVpTVJZSjRVc3BEZlJOekQzIiwiaWF0IjoxNjcwMDgwMzc3LCJleHAiOjE2NzAwODM5NzcsImVtYWlsIjoidGFyc2JrYW50ZWVuQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTE4MjU0OTk2NjQ0MDQ5MjEwMDQ3Il0sImVtYWlsIjpbInRhcnNia2FudGVlbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.AN9EG8TyzKErB8QI_A3I4NC6edgUMTunn0ganoYICnGL9ALzudl6OavxZ5g1w0R6joYWdCJi9pEx1y5P2NJdhhu5rouLHpd3JUHUbCuBGKG5cq3VcGOs2_pSNzVeGNY72VinHghC-mMplBMlKZdZcv2t7U3PUIm54aqAUQ9qwpp5pEIDPIZN7IDEtjZZ0dJf70fmZoETH45GdizDnfSDH_g-298rj6WHj5t0ZINbWceVESqEYezzIcBY7kEmq8n7mBntg1yWgJC3FBvPK7e_Aw5f3t5l5Vjc4PYBmd6TvgjgQ3zRAwzlgajyayhSZaQz9GRkYGDyfV83ED-L-Akq2w
+[debug] [2022-12-03T15:44:57.501Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-03T15:44:57.502Z] [functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/"}}
+[debug] [2022-12-03T15:44:57.502Z] [worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:44:57.502Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: BUSY"}}
+[info] i  functions: Beginning execution of "addMenuItem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Beginning execution of \"addMenuItem\""}}
+[info] >  {"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"} {"user":{"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"verifications\":{\"app\":\"MISSING\",\"auth\":\"MISSING\"},\"logging.googleapis.com/labels\":{\"firebase-log-type\":\"callable-request-verification\"},\"severity\":\"DEBUG\",\"message\":\"Callable request verification passed\"}"}}
+[debug] [2022-12-03T15:44:57.529Z] [runtime-status] [15368] Callable functions auth override {"key":"x-callable-context-auth","value":"%7B%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22token%22%3A%7B%22name%22%3A%22TARSB%20Kanteen%22%2C%22picture%22%3A%22https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FALm5wu04ARJfHX9bTUXpHSzfV_goSIA0jK8iPtck14QL%3Ds96-c%22%2C%22userType%22%3A%22stallUser%22%2C%22iss%22%3A%22https%3A%2F%2Fsecuretoken.google.com%2Ftarsb-kanteen-2022%22%2C%22aud%22%3A%22tarsb-kanteen-2022%22%2C%22auth_time%22%3A1670053926%2C%22user_id%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22sub%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22iat%22%3A1670080377%2C%22exp%22%3A1670083977%2C%22email%22%3A%22tarsbkanteen%40gmail.com%22%2C%22email_verified%22%3Atrue%2C%22firebase%22%3A%7B%22identities%22%3A%7B%22google.com%22%3A%5B%22118254996644049210047%22%5D%2C%22email%22%3A%5B%22tarsbkanteen%40gmail.com%22%5D%7D%2C%22sign_in_provider%22%3A%22google.com%22%7D%2C%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%7D%7D"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Callable functions auth override {\"key\":\"x-callable-context-auth\",\"value\":\"%7B%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22token%22%3A%7B%22name%22%3A%22TARSB%20Kanteen%22%2C%22picture%22%3A%22https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FALm5wu04ARJfHX9bTUXpHSzfV_goSIA0jK8iPtck14QL%3Ds96-c%22%2C%22userType%22%3A%22stallUser%22%2C%22iss%22%3A%22https%3A%2F%2Fsecuretoken.google.com%2Ftarsb-kanteen-2022%22%2C%22aud%22%3A%22tarsb-kanteen-2022%22%2C%22auth_time%22%3A1670053926%2C%22user_id%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22sub%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22iat%22%3A1670080377%2C%22exp%22%3A1670083977%2C%22email%22%3A%22tarsbkanteen%40gmail.com%22%2C%22email_verified%22%3Atrue%2C%22firebase%22%3A%7B%22identities%22%3A%7B%22google.com%22%3A%5B%22118254996644049210047%22%5D%2C%22email%22%3A%5B%22tarsbkanteen%40gmail.com%22%5D%7D%2C%22sign_in_provider%22%3A%22google.com%22%7D%2C%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%7D%7D\"}"}}
+[debug] [2022-12-03T15:44:57.533Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: IDLE"}}
+[debug] [2022-12-03T15:44:57.534Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "addMenuItem" in 9.5227ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Finished \"addMenuItem\" in 9.5227ms"}}
+[debug] [2022-12-03T15:45:02.959Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-03T15:45:02.960Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-03T15:45:02.960Z] Accepted request OPTIONS /tarsb-kanteen-2022/asia-southeast1/addMenuItem --> asia-southeast1-addMenuItem
+[debug] [2022-12-03T15:45:02.965Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-03T15:45:02.965Z] [functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/"}}
+[debug] [2022-12-03T15:45:02.965Z] [worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:45:02.965Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: BUSY"}}
+[info] i  functions: Beginning execution of "addMenuItem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Beginning execution of \"addMenuItem\""}}
+[debug] [2022-12-03T15:45:02.968Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: IDLE"}}
+[debug] [2022-12-03T15:45:02.968Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "addMenuItem" in 0.6917ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Finished \"addMenuItem\" in 0.6917ms"}}
+[debug] [2022-12-03T15:45:02.972Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-03T15:45:02.972Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-03T15:45:02.972Z] Accepted request POST /tarsb-kanteen-2022/asia-southeast1/addMenuItem --> asia-southeast1-addMenuItem
+[debug] [2022-12-03T15:45:02.972Z] ID Token: eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1MWMwOGM1MTZhZTM1MmI4OWU0ZDJlMGUxNDA5NmY3MzQ5NDJhODciLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVEFSU0IgS2FudGVlbiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BTG01d3UwNEFSSmZIWDliVFVYcEhTemZWX2dvU0lBMGpLOGlQdGNrMTRRTD1zOTYtYyIsInVzZXJUeXBlIjoic3RhbGxVc2VyIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3RhcnNiLWthbnRlZW4tMjAyMiIsImF1ZCI6InRhcnNiLWthbnRlZW4tMjAyMiIsImF1dGhfdGltZSI6MTY3MDA1MzkyNiwidXNlcl9pZCI6IldLY1ZKWDVSbnVVdWlNUllKNFVzcERmUk56RDMiLCJzdWIiOiJXS2NWSlg1Um51VXVpTVJZSjRVc3BEZlJOekQzIiwiaWF0IjoxNjcwMDgwMzc3LCJleHAiOjE2NzAwODM5NzcsImVtYWlsIjoidGFyc2JrYW50ZWVuQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTE4MjU0OTk2NjQ0MDQ5MjEwMDQ3Il0sImVtYWlsIjpbInRhcnNia2FudGVlbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.AN9EG8TyzKErB8QI_A3I4NC6edgUMTunn0ganoYICnGL9ALzudl6OavxZ5g1w0R6joYWdCJi9pEx1y5P2NJdhhu5rouLHpd3JUHUbCuBGKG5cq3VcGOs2_pSNzVeGNY72VinHghC-mMplBMlKZdZcv2t7U3PUIm54aqAUQ9qwpp5pEIDPIZN7IDEtjZZ0dJf70fmZoETH45GdizDnfSDH_g-298rj6WHj5t0ZINbWceVESqEYezzIcBY7kEmq8n7mBntg1yWgJC3FBvPK7e_Aw5f3t5l5Vjc4PYBmd6TvgjgQ3zRAwzlgajyayhSZaQz9GRkYGDyfV83ED-L-Akq2w
+[debug] [2022-12-03T15:45:02.979Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-03T15:45:02.979Z] [functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/"}}
+[debug] [2022-12-03T15:45:02.979Z] [worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:45:02.979Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: BUSY"}}
+[info] i  functions: Beginning execution of "addMenuItem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Beginning execution of \"addMenuItem\""}}
+[info] >  {"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"} {"user":{"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"verifications\":{\"app\":\"MISSING\",\"auth\":\"MISSING\"},\"logging.googleapis.com/labels\":{\"firebase-log-type\":\"callable-request-verification\"},\"severity\":\"DEBUG\",\"message\":\"Callable request verification passed\"}"}}
+[debug] [2022-12-03T15:45:02.985Z] [runtime-status] [15368] Callable functions auth override {"key":"x-callable-context-auth","value":"%7B%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22token%22%3A%7B%22name%22%3A%22TARSB%20Kanteen%22%2C%22picture%22%3A%22https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FALm5wu04ARJfHX9bTUXpHSzfV_goSIA0jK8iPtck14QL%3Ds96-c%22%2C%22userType%22%3A%22stallUser%22%2C%22iss%22%3A%22https%3A%2F%2Fsecuretoken.google.com%2Ftarsb-kanteen-2022%22%2C%22aud%22%3A%22tarsb-kanteen-2022%22%2C%22auth_time%22%3A1670053926%2C%22user_id%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22sub%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22iat%22%3A1670080377%2C%22exp%22%3A1670083977%2C%22email%22%3A%22tarsbkanteen%40gmail.com%22%2C%22email_verified%22%3Atrue%2C%22firebase%22%3A%7B%22identities%22%3A%7B%22google.com%22%3A%5B%22118254996644049210047%22%5D%2C%22email%22%3A%5B%22tarsbkanteen%40gmail.com%22%5D%7D%2C%22sign_in_provider%22%3A%22google.com%22%7D%2C%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%7D%7D"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [15368] Callable functions auth override {\"key\":\"x-callable-context-auth\",\"value\":\"%7B%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22token%22%3A%7B%22name%22%3A%22TARSB%20Kanteen%22%2C%22picture%22%3A%22https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FALm5wu04ARJfHX9bTUXpHSzfV_goSIA0jK8iPtck14QL%3Ds96-c%22%2C%22userType%22%3A%22stallUser%22%2C%22iss%22%3A%22https%3A%2F%2Fsecuretoken.google.com%2Ftarsb-kanteen-2022%22%2C%22aud%22%3A%22tarsb-kanteen-2022%22%2C%22auth_time%22%3A1670053926%2C%22user_id%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22sub%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22iat%22%3A1670080377%2C%22exp%22%3A1670083977%2C%22email%22%3A%22tarsbkanteen%40gmail.com%22%2C%22email_verified%22%3Atrue%2C%22firebase%22%3A%7B%22identities%22%3A%7B%22google.com%22%3A%5B%22118254996644049210047%22%5D%2C%22email%22%3A%5B%22tarsbkanteen%40gmail.com%22%5D%7D%2C%22sign_in_provider%22%3A%22google.com%22%7D%2C%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%7D%7D\"}"}}
+[info] i  functions: Finished "addMenuItem" in 1.3448ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Finished \"addMenuItem\" in 1.3448ms"}}
+[debug] [2022-12-03T15:45:02.987Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: IDLE"}}
+[debug] [2022-12-03T15:45:02.988Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-03T15:45:10.386Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:45:11.395Z] Validating nodejs source
+[debug] [2022-12-03T15:45:17.737Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:45:17.737Z] Building nodejs source
+[debug] [2022-12-03T15:45:17.737Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:45:17.737Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:45:18.097Z] Serving at port 9005
+
+[debug] [2022-12-03T15:45:23.030Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:45:23.037Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:45:23.076Z] [worker-pool] Shutting down IDLE worker (asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:45:23.076Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: FINISHING {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: FINISHING"}}
+[debug] [2022-12-03T15:45:23.095Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: exited {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: exited"}}
+[debug] [2022-12-03T15:45:23.095Z] [worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: FINISHED {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-9b4a79d4-0a5a-42d4-9211-eae3e4cb5027]: FINISHED"}}
+[debug] [2022-12-03T15:46:36.892Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:46:37.904Z] Validating nodejs source
+[debug] [2022-12-03T15:46:43.109Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:46:43.110Z] Building nodejs source
+[debug] [2022-12-03T15:46:43.110Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:46:43.111Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:46:43.461Z] Serving at port 9005
+
+[debug] [2022-12-03T15:46:47.610Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:46:47.616Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:46:51.281Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-03T15:46:51.281Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-03T15:46:51.281Z] Accepted request OPTIONS /tarsb-kanteen-2022/asia-southeast1/addMenuItem --> asia-southeast1-addMenuItem
+[debug] [2022-12-03T15:46:51.287Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-03T15:46:51.287Z] [functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/"}}
+[debug] [2022-12-03T15:46:51.287Z] [worker-pool] Cleaned up workers for asia-southeast1-addMenuItem: 1 --> 0 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for asia-southeast1-addMenuItem: 1 --> 0"}}
+[debug] [2022-12-03T15:46:51.297Z] [worker-pool] addWorker(asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:46:51.297Z] [worker-pool] Adding worker with key asia-southeast1-addMenuItem, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key asia-southeast1-addMenuItem, total=1"}}
+[debug] [2022-12-03T15:46:53.245Z] [runtime-status] [5896] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2022-12-03T15:46:53.249Z] [runtime-status] [5896] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:46:53.250Z] [runtime-status] [5896] Found local functions config: C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions/.runtimeconfig.json {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Found local functions config: C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions/.runtimeconfig.json"}}
+[debug] [2022-12-03T15:46:53.250Z] [runtime-status] [5896] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2022-12-03T15:46:53.253Z] [runtime-status] [5896] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:46:53.590Z] [runtime-status] [5896] Checked functions.config() {"config":{"ci":{"token":"1//0grZWD6jvov1jCgYIARAAGBASNwF-L9IrAFWACHwmhgIa_b-D50DqgeFy4gHvtSzCAr4O8fTCDL9U1rdFhwB3IvFm-2VV-5EEhCE"}}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Checked functions.config() {\"config\":{\"ci\":{\"token\":\"1//0grZWD6jvov1jCgYIARAAGBASNwF-L9IrAFWACHwmhgIa_b-D50DqgeFy4gHvtSzCAr4O8fTCDL9U1rdFhwB3IvFm-2VV-5EEhCE\"}}}"}}
+[debug] [2022-12-03T15:46:53.591Z] [runtime-status] [5896] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
+[debug] [2022-12-03T15:46:53.592Z] [runtime-status] [5896] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:46:53.594Z] [runtime-status] [5896] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2022-12-03T15:46:53.598Z] [runtime-status] [5896] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-03T15:46:53.598Z] [runtime-status] [5896] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2022-12-03T15:46:57.247Z] [runtime-status] [5896] Functions runtime initialized. {"cwd":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions","node_version":"18.12.1"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\",\"node_version\":\"18.12.1\"}"}}
+[debug] [2022-12-03T15:46:57.247Z] [runtime-status] [5896] Listening to port: \\?\pipe\fire_emu_fba865e0bbd6df0b {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Listening to port: \\\\?\\pipe\\fire_emu_fba865e0bbd6df0b"}}
+[debug] [2022-12-03T15:46:57.266Z] [worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: IDLE"}}
+[debug] [2022-12-03T15:46:57.266Z] [worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:46:57.266Z] [worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: BUSY"}}
+[info] i  functions: Beginning execution of "addMenuItem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Beginning execution of \"addMenuItem\""}}
+[debug] [2022-12-03T15:46:57.272Z] [worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: IDLE"}}
+[debug] [2022-12-03T15:46:57.272Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "addMenuItem" in 2.1397ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Finished \"addMenuItem\" in 2.1397ms"}}
+[debug] [2022-12-03T15:46:57.274Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-03T15:46:57.274Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-03T15:46:57.274Z] Accepted request POST /tarsb-kanteen-2022/asia-southeast1/addMenuItem --> asia-southeast1-addMenuItem
+[debug] [2022-12-03T15:46:57.274Z] ID Token: eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1MWMwOGM1MTZhZTM1MmI4OWU0ZDJlMGUxNDA5NmY3MzQ5NDJhODciLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVEFSU0IgS2FudGVlbiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BTG01d3UwNEFSSmZIWDliVFVYcEhTemZWX2dvU0lBMGpLOGlQdGNrMTRRTD1zOTYtYyIsInVzZXJUeXBlIjoic3RhbGxVc2VyIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3RhcnNiLWthbnRlZW4tMjAyMiIsImF1ZCI6InRhcnNiLWthbnRlZW4tMjAyMiIsImF1dGhfdGltZSI6MTY3MDA1MzkyNiwidXNlcl9pZCI6IldLY1ZKWDVSbnVVdWlNUllKNFVzcERmUk56RDMiLCJzdWIiOiJXS2NWSlg1Um51VXVpTVJZSjRVc3BEZlJOekQzIiwiaWF0IjoxNjcwMDgwMzc3LCJleHAiOjE2NzAwODM5NzcsImVtYWlsIjoidGFyc2JrYW50ZWVuQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTE4MjU0OTk2NjQ0MDQ5MjEwMDQ3Il0sImVtYWlsIjpbInRhcnNia2FudGVlbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.AN9EG8TyzKErB8QI_A3I4NC6edgUMTunn0ganoYICnGL9ALzudl6OavxZ5g1w0R6joYWdCJi9pEx1y5P2NJdhhu5rouLHpd3JUHUbCuBGKG5cq3VcGOs2_pSNzVeGNY72VinHghC-mMplBMlKZdZcv2t7U3PUIm54aqAUQ9qwpp5pEIDPIZN7IDEtjZZ0dJf70fmZoETH45GdizDnfSDH_g-298rj6WHj5t0ZINbWceVESqEYezzIcBY7kEmq8n7mBntg1yWgJC3FBvPK7e_Aw5f3t5l5Vjc4PYBmd6TvgjgQ3zRAwzlgajyayhSZaQz9GRkYGDyfV83ED-L-Akq2w
+[debug] [2022-12-03T15:46:57.282Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-03T15:46:57.282Z] [functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/"}}
+[debug] [2022-12-03T15:46:57.283Z] [worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:46:57.283Z] [worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: BUSY"}}
+[info] i  functions: Beginning execution of "addMenuItem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Beginning execution of \"addMenuItem\""}}
+[info] >  {"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"} {"user":{"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"verifications\":{\"app\":\"MISSING\",\"auth\":\"MISSING\"},\"logging.googleapis.com/labels\":{\"firebase-log-type\":\"callable-request-verification\"},\"severity\":\"DEBUG\",\"message\":\"Callable request verification passed\"}"}}
+[debug] [2022-12-03T15:46:57.309Z] [runtime-status] [5896] Callable functions auth override {"key":"x-callable-context-auth","value":"%7B%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22token%22%3A%7B%22name%22%3A%22TARSB%20Kanteen%22%2C%22picture%22%3A%22https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FALm5wu04ARJfHX9bTUXpHSzfV_goSIA0jK8iPtck14QL%3Ds96-c%22%2C%22userType%22%3A%22stallUser%22%2C%22iss%22%3A%22https%3A%2F%2Fsecuretoken.google.com%2Ftarsb-kanteen-2022%22%2C%22aud%22%3A%22tarsb-kanteen-2022%22%2C%22auth_time%22%3A1670053926%2C%22user_id%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22sub%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22iat%22%3A1670080377%2C%22exp%22%3A1670083977%2C%22email%22%3A%22tarsbkanteen%40gmail.com%22%2C%22email_verified%22%3Atrue%2C%22firebase%22%3A%7B%22identities%22%3A%7B%22google.com%22%3A%5B%22118254996644049210047%22%5D%2C%22email%22%3A%5B%22tarsbkanteen%40gmail.com%22%5D%7D%2C%22sign_in_provider%22%3A%22google.com%22%7D%2C%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%7D%7D"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [5896] Callable functions auth override {\"key\":\"x-callable-context-auth\",\"value\":\"%7B%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22token%22%3A%7B%22name%22%3A%22TARSB%20Kanteen%22%2C%22picture%22%3A%22https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FALm5wu04ARJfHX9bTUXpHSzfV_goSIA0jK8iPtck14QL%3Ds96-c%22%2C%22userType%22%3A%22stallUser%22%2C%22iss%22%3A%22https%3A%2F%2Fsecuretoken.google.com%2Ftarsb-kanteen-2022%22%2C%22aud%22%3A%22tarsb-kanteen-2022%22%2C%22auth_time%22%3A1670053926%2C%22user_id%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22sub%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22iat%22%3A1670080377%2C%22exp%22%3A1670083977%2C%22email%22%3A%22tarsbkanteen%40gmail.com%22%2C%22email_verified%22%3Atrue%2C%22firebase%22%3A%7B%22identities%22%3A%7B%22google.com%22%3A%5B%22118254996644049210047%22%5D%2C%22email%22%3A%5B%22tarsbkanteen%40gmail.com%22%5D%7D%2C%22sign_in_provider%22%3A%22google.com%22%7D%2C%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%7D%7D\"}"}}
+[info] >  tarsbkanteen@gmail.com made an unauthorized function call. {"user":"tarsbkanteen@gmail.com made an unauthorized function call.","metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"\u001b[90m> \u001b[39m tarsbkanteen@gmail.com made an unauthorized function call."}}
+[debug] [2022-12-03T15:46:57.315Z] [worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: IDLE"}}
+[debug] [2022-12-03T15:46:57.315Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "addMenuItem" in 8.7669ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Finished \"addMenuItem\" in 8.7669ms"}}
+[debug] [2022-12-03T15:47:11.499Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
+[debug] [2022-12-03T15:47:12.508Z] Validating nodejs source
+[debug] [2022-12-03T15:47:18.734Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-03T15:47:18.734Z] Building nodejs source
+[debug] [2022-12-03T15:47:18.734Z] Analyzing nodejs backend spec
+[debug] [2022-12-03T15:47:18.735Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-03T15:47:19.345Z] Serving at port 9005
+
+[debug] [2022-12-03T15:47:24.926Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-03T15:47:24.944Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-03T15:47:25.007Z] [worker-pool] Shutting down IDLE worker (asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (asia-southeast1-addMenuItem)"}}
+[debug] [2022-12-03T15:47:25.007Z] [worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: FINISHING {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: FINISHING"}}
+[debug] [2022-12-03T15:47:25.030Z] [worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: exited {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: exited"}}
+[debug] [2022-12-03T15:47:25.031Z] [worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: FINISHED {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-eb4f9ea3-0a82-4527-8f4f-6d6e31a9b9a5]: FINISHED"}}
