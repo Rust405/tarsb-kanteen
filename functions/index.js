@@ -41,6 +41,12 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     let isSuccess = true
     let messageArray = []
 
+    //if stall name is empty
+    if (newStall.stallName === '') {
+        isSuccess = false
+        messageArray.push(`Stall name cannot be empty.`)
+    }
+
     //if stall name already in use by another stall
     const usedStallName = await stallsRef.where('lowercaseStallName', '==', newStall.lowercaseStallName).get()
     if (!usedStallName.empty) {
@@ -130,6 +136,12 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
     //perform validation if change in stallName
     if (updatedDetails.stallName) {
         updatedDetails.lowercaseStallName = updatedDetails.stallName.trim().toLowerCase()
+
+        //if stall name is empty
+        if (newStall.stallName === '') {
+            isSuccess = false
+            messageArray.push(`Stall name cannot be empty.`)
+        }
 
         //if stall name already in use by another stall, only check if not a change of name casing
         if (updatedDetails.lowercaseStallName != oldStallDetails.lowercaseStallName) {
@@ -258,21 +270,44 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
     let newItem = data.newItem
     let stallID = data.stallID
 
+    newItem.menuItemName = newItem.menuItemName.trim()
+    newItem.lowercaseMenuItemName = newItem.menuItemName.trim().toLowerCase()
     newItem.isAvailable = true
     newItem.estCookTime = 5 //5 minutes
+
 
     let isSuccess = true
     let messageArray = []
 
     const menuRef = stallsRef.doc(stallID).collection('menu')
 
-    //validate
+    //if item name is empty
+    if (newItem.menuItemName === '') {
+        isSuccess = false
+        messageArray.push(`Menu item name cannot be empty.`)
+    }
 
-    //check if item already exists
+    //if menu item or similar already exists
+    const usedMenuItemName = await menuRef.where('lowercaseMenuItemName', '==', newItem.lowercaseMenuItemName).get()
+    if (!usedMenuItemName.empty) {
+        isSuccess = false
+        messageArray.push(`\"${newItem.menuItemName}\" (or similar) already exists.`)
+    }
 
-    //check if price is number && >= 0 && <=99.99
+    //if price is < 0 or > 99.99
+    if (newItem.price < 0) {
+        isSuccess = false
+        messageArray.push(`Price cannot be less than RM 0.00`)
+    } else if (newItem.price > 99.99) {
+        isSuccess = false
+        messageArray.push(`Price cannot be greater than RM 99.99.`)
+    }
 
-    //TODO: add to Firestore
+    if (isSuccess) {
+        //TODO: add to Firestore
+        //convert price to number
+        console.log(newItem)
+    }
 
     return { success: isSuccess, message: messageArray }
 })

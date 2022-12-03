@@ -140,8 +140,9 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
                         </Box>
 
                         <Stack direction="row" alignItems="center" spacing={1}>
-                            <InfoIcon /><Typography variant="caption">Ticking 'Require cooking' will enable estimate cooking time calculation.</Typography>
+                            <InfoIcon /><Typography variant="caption">Ticking 'Require cooking' enables estimated cooking time calculation.</Typography>
                         </Stack>
+
                     </Stack>
                 </DialogContent>
 
