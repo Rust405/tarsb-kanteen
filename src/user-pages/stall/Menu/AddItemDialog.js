@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
@@ -51,6 +51,8 @@ const CustomDialogTitle = ({ children, onClose, ...other }) => {
     )
 }
 
+CustomDialogTitle.propTypes = { children: PropTypes.node, onClose: PropTypes.func.isRequired }
+
 const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
 
     const [isValidating, setIsValidating] = useState(false)
@@ -58,10 +60,12 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
     const handleCloseDialog = () => {
         if (isValidating) return
         setOpenNewItemDialog(false)
+        setItemName('')
+        setItemPrice(0)
     }
 
     const [itemName, setItemName] = useState('')
-    const [itemPrice, setItemPrice] = useState(0.00)
+    const [itemPrice, setItemPrice] = useState(0)
     const [itemRequireCooking, setItemRequireCooking] = useState(true)
 
     const handleAddNewItem = () => {
@@ -69,6 +73,12 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
         console.log("RM " + itemPrice)
         console.log("Require cooking: " + itemRequireCooking)
     }
+
+
+    useEffect(() => {
+        console.log(itemPrice)
+    }, [itemPrice])
+
 
     return (
         <div className="add-item-dialog">
@@ -78,9 +88,13 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
 
                 <DialogContent dividers>
                     <Stack spacing={2}>
-                        <TextField label="Item Name" value={itemName} onChange={e => setItemName(e.target.value)} variant="outlined" autoComplete='off' />
+                        <TextField label="Item Name" value={itemName}
+                            onChange={e => setItemName(e.target.value)} variant="outlined" autoComplete='off' />
 
-                        <TextField label="Price (RM)" value={itemPrice} onChange={e => setItemPrice(e.target.value)} variant="outlined" autoComplete='off' />
+                        <TextField label="Item Price" value={itemPrice}
+                            onChange={e => setItemPrice(e.target.value)} variant="outlined" autoComplete='off' />
+
+
 
                         <Box display="flex" justifyContent="flex-start">
                             <FormControlLabel
@@ -100,7 +114,9 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
 
                 <DialogActions>
                     <Box sx={{ position: 'relative' }}>
-                        <Button autoFocus disabled={itemName.trim() === '' || isValidating} onClick={handleAddNewItem}>
+                        <Button autoFocus
+                            disabled={itemName.trim() === '' || isValidating}
+                            onClick={handleAddNewItem}>
                             {isValidating ? "Validating..." : "Save & Continue"}
                         </Button>
                         {isValidating &&
