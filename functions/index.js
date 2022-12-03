@@ -279,7 +279,7 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
     newItem.menuItemName = newItem.menuItemName.trim()
     newItem.lowercaseMenuItemName = newItem.menuItemName.trim().toLowerCase()
     newItem.isAvailable = true
-    newItem.estCookTime = 5 //5 minutes default, will be updated as orders are created
+    newItem.isRequireWaiting ? newItem.estWaitTime = 5 : newItem.estWaitTime = 0
 
     let isSuccess = true
     let messageArray = []
@@ -308,6 +308,7 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
         messageArray.push(`Price cannot be greater than RM 99.99.`)
     }
 
+    //otherwise add new menu item and return success
     if (isSuccess) {
         newItem.price = parseFloat(newItem.price)
         await menuRef.add(newItem)

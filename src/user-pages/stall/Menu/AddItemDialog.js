@@ -67,13 +67,13 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
 
     const [itemName, setItemName] = useState('')
     const [itemPrice, setItemPrice] = useState('0.00')
-    const [itemRequireCooking, setItemRequireCooking] = useState(true)
+    const [itemRequireWaiting, setItemRequireWaiting] = useState(true)
 
     const handleAddNewItem = () => {
         const newItem = {
             menuItemName: itemName,
             price: itemPrice,
-            isRequireCooking: itemRequireCooking
+            isRequireWaiting: itemRequireWaiting
         }
 
         setIsValidating(true)
@@ -134,16 +134,16 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
                         <Box display="flex" justifyContent="flex-start">
                             <FormControlLabel
                                 control={
-                                    <Checkbox checked={itemRequireCooking} onChange={e => setItemRequireCooking(e.target.checked)} />
+                                    <Checkbox checked={itemRequireWaiting} onChange={e => setItemRequireWaiting(e.target.checked)} />
                                 }
                                 labelPlacement="start"
-                                label="Require cooking?"
+                                label="Require waiting?"
                                 disabled={isValidating}
                             />
                         </Box>
 
                         <Stack direction="row" alignItems="center" spacing={1}>
-                            <InfoIcon /><Typography variant="caption">Ticking 'Require cooking' enables estimated cooking time calculation.</Typography>
+                            <InfoIcon /><Typography variant="caption">Ticking 'Require waiting' allows customers to view auto-calculated estimated wait time.</Typography>
                         </Stack>
 
                     </Stack>
