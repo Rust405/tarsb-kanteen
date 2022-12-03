@@ -53,7 +53,7 @@ const CustomDialogTitle = ({ children, onClose, ...other }) => {
 
 CustomDialogTitle.propTypes = { children: PropTypes.node, onClose: PropTypes.func.isRequired }
 
-const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
+const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => {
 
     const [isValidating, setIsValidating] = useState(false)
 
@@ -61,22 +61,28 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
         if (isValidating) return
         setOpenNewItemDialog(false)
         setItemName('')
-        setItemPrice(0)
+        setItemPrice('0.00')
     }
 
     const [itemName, setItemName] = useState('')
-    const [itemPrice, setItemPrice] = useState('0')
+    const [itemPrice, setItemPrice] = useState('0.00')
     const [itemRequireCooking, setItemRequireCooking] = useState(true)
 
     const handleAddNewItem = () => {
-        console.log("Name:" + itemName)
-        console.log("RM " + itemPrice)
-        console.log("Require cooking: " + itemRequireCooking)
-    }
+        const newItem = {
+            stallID: stallID,
+            menuItemName: itemName,
+            price: itemPrice,
+            isRequireCooking: itemRequireCooking
+        }
 
-    useEffect(() => {
-        console.log(itemPrice)
-    }, [itemPrice])
+        console.log(newItem)
+
+        setIsValidating(true)
+        //TODO: add item to firestore
+
+        //success snack?
+    }
 
     return (
         <div className="add-item-dialog">
@@ -86,10 +92,10 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
 
                 <DialogContent dividers>
                     <Stack spacing={2}>
-                        <TextField label="Item Name" value={itemName}
+                        <TextField label="Item Name" value={itemName} disabled={isValidating}
                             onChange={e => setItemName(e.target.value)} autoComplete='off' />
 
-                        <CurrencyInput label="Item Price" autoComplete='off' customInput={TextField}
+                        <CurrencyInput label="Item Price" autoComplete='off' customInput={TextField} disabled={isValidating}
                             value={itemPrice}
                             onValueChange={value => setItemPrice(value)}
                             intlConfig={{ locale: 'en-MY', currency: 'MYR' }}
@@ -107,6 +113,7 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
                                 }
                                 labelPlacement="start"
                                 label="Require cooking?"
+                                disabled={isValidating}
                             />
                         </Box>
 

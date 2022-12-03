@@ -244,3 +244,17 @@ async function deleteCollection(path) {
             token: functions.config().ci.token
         })
 }
+
+exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    //verify user
+    if (context.auth.token.userType !== 'stallUser') {
+        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+        throw new functions.https.HttpsError(
+            'permission-denied',
+            'Must be a stall user to add menu item.'
+        )
+    }
+
+    //TODO: add to Firestore
+
+})

@@ -3,6 +3,8 @@ import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, u
 import { getAuth, GoogleAuthProvider, signOut, signInWithRedirect } from "firebase/auth"
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions"
 
+const useEmulators = true //set to true when testing, otherwise set to false in production
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -27,8 +29,10 @@ export const auth = getAuth()
 const functions = getFunctions(app, "asia-southeast1")
 
 //emulators
-connectFirestoreEmulator(db, 'localhost', 8080)
-connectFunctionsEmulator(functions, "localhost", 5001)
+if (useEmulators) {
+  connectFirestoreEmulator(db, 'localhost', 8080)
+  connectFunctionsEmulator(functions, "localhost", 5001)
+}
 
 export const signInWithGoogle = async () => {
   const res = await signInWithRedirect(auth, provider)
