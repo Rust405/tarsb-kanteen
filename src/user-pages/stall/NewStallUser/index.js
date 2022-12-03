@@ -57,7 +57,7 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
 
                         <Box sx={{ m: 2 }} display="flex" justifyContent="center">
                             <Stack direction="row" alignItems="center" spacing={2}>
-                                <TextField type="password" label="Stall Registration Code" variant="outlined" size="small"
+                                <TextField type="password" label="Stall Registration Code" size="small"
                                     value={regCodeInput} onChange={e => setRegCodeInput(e.target.value)} />
                                 <Button variant="contained" size="small" onClick={() => setOpenDialog(true)} disabled={regCodeInput !== stallRegCode}>Register Stall</Button>
                             </Stack>

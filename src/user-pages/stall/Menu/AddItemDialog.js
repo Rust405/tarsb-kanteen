@@ -20,9 +20,9 @@ import PropTypes from 'prop-types'
 
 import InfoIcon from '@mui/icons-material/Info'
 import CloseIcon from '@mui/icons-material/Close'
-import RemoveIcon from '@mui/icons-material/Remove'
 
 import { Alert } from '../../../utils/customComponents'
+import CurrencyInput from 'react-currency-input-field'
 
 const CustomDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': { padding: theme.spacing(2) },
@@ -65,8 +65,17 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
     }
 
     const [itemName, setItemName] = useState('')
-    const [itemPrice, setItemPrice] = useState(0)
+    const [itemPrice, setItemPrice] = useState('0')
     const [itemRequireCooking, setItemRequireCooking] = useState(true)
+
+
+    const handleItemPrice = (v) => {
+        if (v === undefined) {
+            setItemPrice('0')
+        } else {
+            setItemPrice(v)
+        }
+    }
 
     const handleAddNewItem = () => {
         console.log("Name:" + itemName)
@@ -74,11 +83,9 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
         console.log("Require cooking: " + itemRequireCooking)
     }
 
-
     useEffect(() => {
         console.log(itemPrice)
     }, [itemPrice])
-
 
     return (
         <div className="add-item-dialog">
@@ -89,12 +96,20 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
                 <DialogContent dividers>
                     <Stack spacing={2}>
                         <TextField label="Item Name" value={itemName}
-                            onChange={e => setItemName(e.target.value)} variant="outlined" autoComplete='off' />
+                            onChange={e => setItemName(e.target.value)}  autoComplete='off' />
 
-                        <TextField label="Item Price" value={itemPrice}
-                            onChange={e => setItemPrice(e.target.value)} variant="outlined" autoComplete='off' />
-
-
+                        <CurrencyInput
+                            value={itemPrice}
+                            onValueChange={handleItemPrice}
+                            intlConfig={{ locale: 'en-MY', currency: 'MYR' }}
+                            allowNegativeValue={false}
+                            customInput={TextField}
+                            decimalScale={2}
+                            disableAbbreviations={true}
+                            disableGroupSeparators={true}
+                            label="Item Price"
+                            autoComplete='off'
+                        />
 
                         <Box display="flex" justifyContent="flex-start">
                             <FormControlLabel

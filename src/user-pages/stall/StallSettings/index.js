@@ -184,7 +184,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                         <Typography variant="h6" gutterBottom>Stall Details {isEditing && "(Editing)"}</Typography>
 
                         <Stack spacing={2}>
-                            <TextField label="Stall Name" variant="outlined" size="small" autoComplete='off'
+                            <TextField label="Stall Name" size="small" autoComplete='off'
                                 value={stallName} onChange={e => setStallName(e.target.value)} disabled={!isEditing || isValidating} />
 
                             <Typography>Staff Emails ({staffEmails.length === 0 ? "None" : staffEmails.length}) </Typography>
@@ -213,7 +213,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
 
                             {staffEmails.length <= 9 && isEditing &&
                                 <Stack direction="row" alignItems="center" spacing={1}>
-                                    <TextField label="Staff Email" variant="outlined" size="small" autoComplete='off'
+                                    <TextField label="Staff Email" size="small" autoComplete='off'
                                         value={newStaffEmail}
                                         onChange={e => setNewStaffEmail(e.target.value)}
                                         disabled={isValidating}
