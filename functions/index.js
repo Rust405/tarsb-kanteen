@@ -255,6 +255,24 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
         )
     }
 
+    let newItem = data.newItem
+    let stallID = data.stallID
+
+    newItem.isAvailable = true
+    newItem.estCookTime = 5
+
+    let isSuccess = true
+    let messageArray = []
+
+    const menuRef = stallsRef.doc(stallID).collection('menu')
+
+    //validate
+
+    //check if item already exists
+
+    //check if price is number && >= 0 && <=99.99
+
     //TODO: add to Firestore
 
+    return { success: isSuccess, message: messageArray }
 })

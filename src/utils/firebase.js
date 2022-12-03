@@ -79,3 +79,5 @@ export const closeStall = async (stallDocRef) => {
 export const updateStallDetails = httpsCallable(functions, 'updateStallDetails')
 
 export const unregisterStall = httpsCallable(functions, 'unregisterStall')
+
+export const addMenuItem = httpsCallable(functions, 'addMenuItem')

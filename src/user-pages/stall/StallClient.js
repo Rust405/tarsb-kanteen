@@ -129,9 +129,9 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                     </Routes>
                 </div>
 
-
                 {/* New Item Dialog */}
                 <AddItemDialog openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog} stallID={stallID} />
+
             </Box>
         </div>
     )

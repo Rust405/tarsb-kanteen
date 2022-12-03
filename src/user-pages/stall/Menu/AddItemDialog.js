@@ -23,6 +23,7 @@ import CloseIcon from '@mui/icons-material/Close'
 
 import { Alert } from '../../../utils/customComponents'
 import CurrencyInput from 'react-currency-input-field'
+import { addMenuItem } from '../../../utils/firebase'
 
 const CustomDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': { padding: theme.spacing(2) },
@@ -70,18 +71,39 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
 
     const handleAddNewItem = () => {
         const newItem = {
-            stallID: stallID,
             menuItemName: itemName,
             price: itemPrice,
             isRequireCooking: itemRequireCooking
         }
 
-        console.log(newItem)
-
         setIsValidating(true)
-        //TODO: add item to firestore
+        setOpenErrSnack(false)
 
-        //success snack?
+        addMenuItem({ newItem: newItem, stallID: stallID })
+            .then(result => {
+                let response = result.data
+                if (response.success) {
+                    //close dialog
+                    //TODO: success snack?, order of operation might be a problem
+                } else {
+                    setOpenErrSnack(true)
+                    setErrMsgs(response.message)
+                    setIsValidating(false)
+                }
+            })
+            .catch(err => {
+                console.warn(err)
+                setOpenErrSnack(true)
+                setErrMsgs(['Unable to proceed. A server error has occured.'])
+                setIsValidating(false)
+            })
+    }
+
+    const [errMsgs, setErrMsgs] = useState([])
+    const [openErrSnack, setOpenErrSnack] = useState(false)
+    const handleCloseErrSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenErrSnack(false)
     }
 
     return (
@@ -145,6 +167,18 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
                     </Box>
                 </DialogActions>
             </CustomDialog>
+
+            {/* Error messages snackbar */}
+            <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
+                    {errMsgs.length > 1 ?
+                        errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
+                        :
+                        <div>{errMsgs[0]}</div>
+                    }
+                </Alert>
+            </Snackbar>
         </div>
     )
 }
