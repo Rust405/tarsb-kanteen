@@ -68,15 +68,6 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
     const [itemPrice, setItemPrice] = useState('0')
     const [itemRequireCooking, setItemRequireCooking] = useState(true)
 
-
-    const handleItemPrice = (v) => {
-        if (v === undefined) {
-            setItemPrice('0')
-        } else {
-            setItemPrice(v)
-        }
-    }
-
     const handleAddNewItem = () => {
         console.log("Name:" + itemName)
         console.log("RM " + itemPrice)
@@ -96,19 +87,17 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
                 <DialogContent dividers>
                     <Stack spacing={2}>
                         <TextField label="Item Name" value={itemName}
-                            onChange={e => setItemName(e.target.value)}  autoComplete='off' />
+                            onChange={e => setItemName(e.target.value)} autoComplete='off' />
 
-                        <CurrencyInput
+                        <CurrencyInput label="Item Price" autoComplete='off' customInput={TextField}
                             value={itemPrice}
-                            onValueChange={handleItemPrice}
+                            onValueChange={value => setItemPrice(value)}
                             intlConfig={{ locale: 'en-MY', currency: 'MYR' }}
-                            allowNegativeValue={false}
-                            customInput={TextField}
                             decimalScale={2}
                             disableAbbreviations={true}
                             disableGroupSeparators={true}
-                            label="Item Price"
-                            autoComplete='off'
+                            error={itemPrice > 99.99}
+                            helperText={itemPrice > 99.99 && "Item price cannot exceed RM 99.99"}
                         />
 
                         <Box display="flex" justifyContent="flex-start">
@@ -130,7 +119,7 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog }) => {
                 <DialogActions>
                     <Box sx={{ position: 'relative' }}>
                         <Button autoFocus
-                            disabled={itemName.trim() === '' || isValidating}
+                            disabled={itemName.trim() === '' || itemPrice > 99.99 || isValidating}
                             onClick={handleAddNewItem}>
                             {isValidating ? "Validating..." : "Save & Continue"}
                         </Button>
