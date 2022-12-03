@@ -62,6 +62,9 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
             message: [`Stall staff emails cannot include more than 10 emails.`]
         }
 
+        //remove empty elements from staffEmails
+        newStall.staffEmails = newStall.staffEmails.filter(em => em)
+
         //convert emails to lowercase
         newStall.staffEmails = newStall.staffEmails.map(em => em.trim().toLowerCase())
 
@@ -162,6 +165,9 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
             success: false,
             message: [`Stall staff emails cannot include more than 10 emails.`]
         }
+
+        //remove empty elements from staffEmails
+        updatedDetails.staffEmails = updatedDetails.staffEmails.filter(em => em)
 
         //convert emails to lowercase
         updatedDetails.staffEmails = updatedDetails.staffEmails.map(em => em.trim().toLowerCase())
