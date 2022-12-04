@@ -17,7 +17,7 @@ import Divider from '@mui/material/Divider'
 import RemoveIcon from '@mui/icons-material/Remove'
 
 import { closeStall, openStall, updateStallDetails } from '../../../utils/firebase'
-import { Alert } from '../../../utils/customComponents'
+import { Alert } from '../../../utils/reusableConstants'
 import UnregisterStallDialog from './UnregisterStallDialog'
 
 const stallSettingsWidth = 325

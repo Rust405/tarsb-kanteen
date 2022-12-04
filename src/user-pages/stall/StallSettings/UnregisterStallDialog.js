@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Snackbar from '@mui/material/Snackbar'
 
-import { Alert } from '../../../utils/customComponents'
+import { Alert } from '../../../utils/reusableConstants'
 import { unregisterStall } from '../../../utils/firebase'
 
 const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName, stallID }) => {

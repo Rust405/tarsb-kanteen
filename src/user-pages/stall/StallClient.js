@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
@@ -27,12 +27,11 @@ import MenuItemCUD from './Menu/MenuItemCUD'
 
 import { db, auth, logout } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
-import { Alert } from '../../utils/customComponents'
+import { Alert, pathName } from '../../utils/reusableConstants'
 
 const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
-    const { pathname: pathName } = useLocation()
 
     const handleDrawerToggle = (e) => {
         if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
@@ -78,7 +77,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
 
 
 
-    
+
     return (
         <div className="stall-client">
             <Box sx={{ display: 'flex' }}>

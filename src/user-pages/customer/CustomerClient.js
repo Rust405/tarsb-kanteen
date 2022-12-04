@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
@@ -21,11 +21,11 @@ import NotFound from '../../error-pages/NotFound'
 import CustOrderPreview from './MyOrders/CustOrderPreview'
 import OrderCreate from './Browse/OrderCreate'
 
+import { pathName } from '../../utils/reusableConstants'
 
 const CustomerClient = ({ container, userType, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
-    const { pathname: pathName } = useLocation()
 
     const handleDrawerToggle = (e) => {
         if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return

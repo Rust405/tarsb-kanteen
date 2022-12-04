@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip'
 import InfoIcon from '@mui/icons-material/Info'
 import RegisterStallDialog from './RegisterStallDialog'
 
-import { Alert, Item } from '../../../utils/customComponents'
+import { Alert, Item } from '../../../utils/reusableConstants'
 
 const NewStallUser = ({ setIsNewStallUser, email }) => {
     const navigate = useNavigate()
