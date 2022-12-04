@@ -75,10 +75,16 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
         setOpenErrSnack(false)
     }
 
+    //Success snackbar
+    const [openSucSnack, setOpenSucSnack] = useState(false)
+    const [sucMsg, setSucMsg] = useState('')
+    const handleCloseSucSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenSucSnack(false)
+    }
+
     //MENU PAGE
     const [selectedItem, setSelectedItem] = useState(null)
-
-    
 
     return (
         <div className="stall-client">
@@ -146,12 +152,17 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
             {/* New Item Dialog */}
             <AddItemDialog
                 openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog}
+                setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
                 setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
                 stallID={stallID}
             />
 
             {/* Success snackbar */}
-            {/* TODO: */}
+            <Snackbar open={openSucSnack} autoHideDuration={5000} onClose={handleCloseErrSnack}>
+                <Alert onClose={handleCloseSucSnack} severity="success" sx={{ width: '100%' }}>
+                    {sucMsg}
+                </Alert>
+            </Snackbar>
 
             {/* Error messages snackbar */}
             <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}

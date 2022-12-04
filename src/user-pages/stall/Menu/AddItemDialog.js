@@ -54,6 +54,7 @@ CustomDialogTitle.propTypes = { children: PropTypes.node, onClose: PropTypes.fun
 
 const AddItemDialog = ({
     openNewItemDialog, setOpenNewItemDialog,
+    setOpenSucSnack, setSucMsg,
     setOpenErrSnack, setErrMsgs,
     stallID
 }) => {
@@ -73,7 +74,7 @@ const AddItemDialog = ({
 
     const handleAddNewItem = () => {
         const newItem = {
-            menuItemName: itemName,
+            menuItemName: itemName.trim(),
             price: itemPrice,
             isRequireWaiting: itemRequireWaiting
         }
@@ -86,7 +87,8 @@ const AddItemDialog = ({
                 let response = result.data
                 if (response.success) {
                     setIsValidating(false)
-                    //TODO: success snackbar
+                    setSucMsg(`'${newItem.menuItemName}' has been successfully added.`)
+                    setOpenSucSnack(true)
                     handleCloseDialog()
                 } else {
                     setOpenErrSnack(true)
