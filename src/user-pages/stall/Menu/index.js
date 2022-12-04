@@ -19,7 +19,10 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
 
     useEffect(() => {
         const unsubscribe = onSnapshot(q, snapshot => setMenuSnapshot(snapshot.docs))
-        return () => unsubscribe()
+        return () => {
+            unsubscribe()
+            setSelectedItem(null)
+        }
     }, [])
 
     return (

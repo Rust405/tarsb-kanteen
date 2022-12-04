@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
@@ -57,6 +57,8 @@ const NavigationDrawer = ({
     stallStatus,
     userInfo
 }) => {
+    const { pathname: pathName } = useLocation()
+
     const displayName = userInfo.displayName
     const email = userInfo.email
     const photoURL = userInfo.photoURL
@@ -100,6 +102,7 @@ const NavigationDrawer = ({
                         (page, index) => (
                             <ListItem key={index} disablePadding>
                                 <ListItemButton
+                                    selected={pathName === navOption.links[index]}
                                     component={Link}
                                     to={navOption.links[index]}
                                     onClick={handleDrawerToggle}

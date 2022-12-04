@@ -3,21 +3,8 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-import { useLocation } from 'react-router-dom'
-
-const titles = {
-  '/customer/myorders': 'My Orders',
-  '/customer/browse': 'Browse',
-  '/customer/usersettings': 'Settings',
-  '/stall/queue': 'Queue',
-  '/stall/menu': 'Menu',
-  '/stall/generatesummary': 'Generate Summary',
-  '/stall/usersettings': 'Settings',
-  '/stall/stallsettings': 'Stall'
-}
 
 const ApplicationBar = ({ handleDrawerToggle }) => {
-  const { pathname: pathName } = useLocation()
 
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -37,9 +24,7 @@ const ApplicationBar = ({ handleDrawerToggle }) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
-          {titles[pathName] ? titles[pathName] : 'TARSB Kanteen'}
-        </Typography>
+        <Typography variant="h6" noWrap component="div">TARSB Kanteen</Typography>
       </Toolbar>
     </AppBar>
   );
