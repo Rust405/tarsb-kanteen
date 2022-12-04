@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import CircularProgress from '@mui/material/CircularProgress'
+import Snackbar from '@mui/material/Snackbar'
 
 import ApplicationBar from '../../app-components/ApplicationBar'
 import NavigationDrawer from '../../app-components/NavigationDrawer'
@@ -16,6 +17,7 @@ import Menu from './Menu'
 import GenerateSummary from './GenerateSummary'
 import StallUserSettings from './StallUserSettings'
 import StallSettings from './StallSettings'
+import AddItemDialog from './Menu/AddItemDialog'
 
 import NotFound from '../../error-pages/NotFound'
 
@@ -25,7 +27,8 @@ import MenuItemCUD from './Menu/MenuItemCUD'
 
 import { db, auth, logout } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
-import AddItemDialog from './Menu/AddItemDialog'
+import { Alert } from '../../utils/customComponents'
+
 
 const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
@@ -63,10 +66,16 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
         }
     }, [stallSnapshot])
 
-    //New Item Dialog
+    //Add New Item Dialog
     const [openNewItemDialog, setOpenNewItemDialog] = useState(false)
 
-
+    //Error snackbar
+    const [openErrSnack, setOpenErrSnack] = useState(false)
+    const [errMsgs, setErrMsgs] = useState([])
+    const handleCloseErrSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenErrSnack(false)
+    }
     return (
         <div className="stall-client">
             <Box sx={{ display: 'flex' }}>
@@ -94,7 +103,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
                             <Route path="/stall/queue" element={<Queue />} />
-                            <Route path="/stall/menu" element={<Menu />} />
+                            <Route path="/stall/menu" element={<Menu stallID={stallID} />} />
                             <Route path="/stall/generatesummary" element={<GenerateSummary />} />
                             <Route path="/stall/usersettings" element={<StallUserSettings />} />
                             {staffRole === 'owner' &&
@@ -131,8 +140,23 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
             </Box>
 
             {/* New Item Dialog */}
-            <AddItemDialog openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog} stallID={stallID} />
+            <AddItemDialog
+                openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog}
+                setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                stallID={stallID}
+            />
 
+            {/* Error messages snackbar */}
+            <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
+                    {errMsgs.length > 1 ?
+                        errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
+                        :
+                        <div>{errMsgs[0]}</div>
+                    }
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

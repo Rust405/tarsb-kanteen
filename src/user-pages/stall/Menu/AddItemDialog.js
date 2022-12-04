@@ -12,7 +12,6 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
-import Snackbar from '@mui/material/Snackbar'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 
@@ -21,7 +20,6 @@ import PropTypes from 'prop-types'
 import InfoIcon from '@mui/icons-material/Info'
 import CloseIcon from '@mui/icons-material/Close'
 
-import { Alert } from '../../../utils/customComponents'
 import CurrencyInput from 'react-currency-input-field'
 import { addMenuItem } from '../../../utils/firebase'
 
@@ -54,8 +52,11 @@ const CustomDialogTitle = ({ children, onClose, ...other }) => {
 
 CustomDialogTitle.propTypes = { children: PropTypes.node, onClose: PropTypes.func.isRequired }
 
-const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => {
-
+const AddItemDialog = ({
+    openNewItemDialog, setOpenNewItemDialog,
+    setOpenErrSnack, setErrMsgs,
+    stallID
+}) => {
     const [isValidating, setIsValidating] = useState(false)
 
     const [itemName, setItemName] = useState('')
@@ -85,6 +86,7 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
                 let response = result.data
                 if (response.success) {
                     setIsValidating(false)
+                    //TODO: success snackbar
                     handleCloseDialog()
                 } else {
                     setOpenErrSnack(true)
@@ -100,12 +102,8 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
             })
     }
 
-    const [errMsgs, setErrMsgs] = useState([])
-    const [openErrSnack, setOpenErrSnack] = useState(false)
-    const handleCloseErrSnack = (event, reason) => {
-        if (reason === 'clickaway') return
-        setOpenErrSnack(false)
-    }
+
+
 
     return (
         <div className="add-item-dialog">
@@ -170,17 +168,7 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
                 </DialogActions>
             </CustomDialog>
 
-            {/* Error messages snackbar */}
-            <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}>
-                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
-                    {errMsgs.length > 1 ?
-                        errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
-                        :
-                        <div>{errMsgs[0]}</div>
-                    }
-                </Alert>
-            </Snackbar>
+
         </div>
     )
 }
