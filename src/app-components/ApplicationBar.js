@@ -3,8 +3,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-
-import { pathName } from '../utils/reusableConstants'
+import { useLocation } from 'react-router-dom'
 
 const titles = {
   '/customer/myorders': 'My Orders',
@@ -18,6 +17,8 @@ const titles = {
 }
 
 const ApplicationBar = ({ handleDrawerToggle }) => {
+  const { pathname: pathName } = useLocation()
+
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>

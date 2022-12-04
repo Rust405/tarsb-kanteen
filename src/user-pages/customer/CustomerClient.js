@@ -21,8 +21,6 @@ import NotFound from '../../error-pages/NotFound'
 import CustOrderPreview from './MyOrders/CustOrderPreview'
 import OrderCreate from './Browse/OrderCreate'
 
-import { pathName } from '../../utils/reusableConstants'
-
 const CustomerClient = ({ container, userType, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -50,7 +48,7 @@ const CustomerClient = ({ container, userType, userInfo }) => {
                 <CssBaseline />
 
                 <div className="application-bar">
-                    <ApplicationBar handleDrawerToggle={handleDrawerToggle} pathName={pathName} />
+                    <ApplicationBar handleDrawerToggle={handleDrawerToggle} />
                 </div>
 
                 <div className="navigation-drawer">

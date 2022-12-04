@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import Snackbar from '@mui/material/Snackbar'
 
@@ -13,7 +13,7 @@ import CustomerClient from './user-pages/customer/CustomerClient'
 import StallClient from './user-pages/stall/StallClient'
 import NewStallUser from './user-pages/stall/NewStallUser'
 
-import { Alert, pathName } from './utils/reusableConstants'
+import { Alert } from './utils/reusableConstants'
 import useOnlineStatus from 'react-online-hook'
 import Offline from './error-pages/Offline'
 
@@ -21,6 +21,7 @@ function App(props) {
   const { window } = props
   const container = window !== undefined ? () => window().document.body : undefined
   const navigate = useNavigate()
+  const { pathname: pathName } = useLocation()
   const { isOnline } = useOnlineStatus()
 
   //Snackbar log in success

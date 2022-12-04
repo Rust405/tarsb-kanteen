@@ -27,7 +27,7 @@ import MenuItemCUD from './Menu/MenuItemCUD'
 
 import { db, auth, logout } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
-import { Alert, pathName } from '../../utils/reusableConstants'
+import { Alert } from '../../utils/reusableConstants'
 
 const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
@@ -84,7 +84,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                 <CssBaseline />
 
                 <div className="application-bar">
-                    <ApplicationBar handleDrawerToggle={handleDrawerToggle} pathName={pathName} />
+                    <ApplicationBar handleDrawerToggle={handleDrawerToggle} />
                 </div>
 
                 <div className="navigation-drawer">
