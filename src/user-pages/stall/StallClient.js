@@ -75,7 +75,10 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
         setOpenErrSnack(false)
     }
 
-    const [selectedItemID, setSelectedItemID] = useState(null)
+    //MENU PAGE
+    const [selectedItem, setSelectedItem] = useState(null)
+
+    
 
     return (
         <div className="stall-client">
@@ -104,7 +107,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
                             <Route path="/stall/queue" element={<Queue />} />
-                            <Route path="/stall/menu" element={<Menu stallID={stallID} selectedItemID={selectedItemID} setSelectedItemID={setSelectedItemID} />} />
+                            <Route path="/stall/menu" element={<Menu stallID={stallID} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />} />
                             <Route path="/stall/generatesummary" element={<GenerateSummary />} />
                             <Route path="/stall/usersettings" element={<StallUserSettings />} />
                             {staffRole === 'owner' &&
@@ -133,7 +136,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                                     navOpen={navOpen}
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
-                                    drawerContent={<MenuItemCUD setOpenNewItemDialog={setOpenNewItemDialog} selectedItemID={selectedItemID} />} />}
+                                    drawerContent={<MenuItemCUD setOpenNewItemDialog={setOpenNewItemDialog} selectedItem={selectedItem} />} />}
                         />
                         <Route path='*' element={<></>} />
                     </Routes>

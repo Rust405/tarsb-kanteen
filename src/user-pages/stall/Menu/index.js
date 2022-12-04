@@ -12,8 +12,7 @@ import { useEffect, useState } from 'react'
 
 import { db } from '../../../utils/firebase'
 
-const Menu = ({ stallID, selectedItemID, setSelectedItemID }) => {
-
+const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     const [menuSnapshot, setMenuSnapshot] = useState(null)
     const menuRef = collection(db, "stalls", stallID, 'menu')
     const q = query(menuRef, orderBy('menuItemName'))
@@ -35,8 +34,8 @@ const Menu = ({ stallID, selectedItemID, setSelectedItemID }) => {
                         doc => (
                             <ListItem key={doc.id}>
                                 <ListItemButton
-                                    selected={selectedItemID === doc.id}
-                                    onClick={() => setSelectedItemID(doc.id)}
+                                    selected={selectedItem && selectedItem.id === doc.id}
+                                    onClick={() => setSelectedItem({ id: doc.id, data: doc.data() })}
                                 >
                                     <ListItemText primary={doc.data().menuItemName} />
                                 </ListItemButton>
