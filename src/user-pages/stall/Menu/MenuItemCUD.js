@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
-const MenuItemCUD = ({ setOpenNewItemDialog }) => {
+const MenuItemCUD = ({ setOpenNewItemDialog, selectedItemID }) => {
 
     return (
         <div className="menu-item-cud">
@@ -21,6 +21,9 @@ const MenuItemCUD = ({ setOpenNewItemDialog }) => {
                 </Box>
 
                 {/* TODO: Update menu item form */}
+                {!selectedItemID && <div>Select something.</div>}
+                {selectedItemID}
+
 
             </Box>
         </div>

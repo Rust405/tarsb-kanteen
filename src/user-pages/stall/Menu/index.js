@@ -5,13 +5,14 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Divider from '@mui/material/Divider'
+import Paper from '@mui/material/Paper'
 
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 
 import { db } from '../../../utils/firebase'
 
-const Menu = ({ stallID }) => {
+const Menu = ({ stallID, selectedItemID, setSelectedItemID }) => {
 
     const [menuSnapshot, setMenuSnapshot] = useState(null)
     const menuRef = collection(db, "stalls", stallID, 'menu')
@@ -22,32 +23,27 @@ const Menu = ({ stallID }) => {
         return () => unsubscribe()
     }, [])
 
-    // \/ will move to StalLClient.js
-    const [selectedItemID, setSelectedItemID] = useState(null)
-
     return (
         <div className="menu">
 
-            {/* TODO: replace with skeleton */}
+            {/* TODO: Replace with skeleton */}
             {!menuSnapshot && <div>Loading...</div>}
 
             {menuSnapshot &&
-                <Box>
-                    <List>
-                        {menuSnapshot.map(
-                            doc => (
-                                <ListItem key={doc.id}>
-                                    <ListItemButton
-                                        selected={selectedItemID === doc.id}
-                                        onClick={() => setSelectedItemID(doc.id)}
-                                    >
-                                        <ListItemText primary={doc.data().menuItemName} />
-                                    </ListItemButton>
-                                </ListItem>
-                            )
-                        )}
-                    </List>
-                </Box>
+                <List>
+                    {menuSnapshot.map(
+                        doc => (
+                            <ListItem key={doc.id}>
+                                <ListItemButton
+                                    selected={selectedItemID === doc.id}
+                                    onClick={() => setSelectedItemID(doc.id)}
+                                >
+                                    <ListItemText primary={doc.data().menuItemName} />
+                                </ListItemButton>
+                            </ListItem>
+                        )
+                    )}
+                </List>
             }
         </div>
     )
