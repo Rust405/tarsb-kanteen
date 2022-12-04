@@ -86,6 +86,8 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
     //MENU PAGE
     const [selectedItem, setSelectedItem] = useState(null)
 
+    
+
     return (
         <div className="stall-client">
             <Box sx={{ display: 'flex' }}>

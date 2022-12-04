@@ -104,9 +104,6 @@ const AddItemDialog = ({
             })
     }
 
-
-
-
     return (
         <div className="add-item-dialog">
             <CustomDialog onClose={handleCloseDialog} aria-labelledby="register-dialog-title" open={openNewItemDialog} >

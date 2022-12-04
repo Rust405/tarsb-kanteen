@@ -141,7 +141,7 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
         updatedDetails.lowercaseStallName = updatedDetails.stallName.trim().toLowerCase()
 
         //if stall name is empty
-        if (newStall.stallName === '') {
+        if (updatedDetails.stallName === '') {
             isSuccess = false
             messageArray.push(`Stall name cannot be empty.`)
         }
