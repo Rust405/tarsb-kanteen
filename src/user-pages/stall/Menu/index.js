@@ -25,24 +25,30 @@ const Menu = ({ stallID }) => {
     // \/ will move to StalLClient.js
     const [selectedItemID, setSelectedItemID] = useState(null)
 
-
     return (
         <div className="menu">
-            <Box>
-                <List>
-                    {menuSnapshot &&
-                        menuSnapshot.map(
+
+            {/* TODO: replace with skeleton */}
+            {!menuSnapshot && <div>Loading...</div>}
+
+            {menuSnapshot &&
+                <Box>
+                    <List>
+                        {menuSnapshot.map(
                             doc => (
                                 <ListItem key={doc.id}>
-                                    <ListItemButton>
+                                    <ListItemButton
+                                        selected={selectedItemID === doc.id}
+                                        onClick={() => setSelectedItemID(doc.id)}
+                                    >
                                         <ListItemText primary={doc.data().menuItemName} />
                                     </ListItemButton>
                                 </ListItem>
                             )
-                        )
-                    }
-                </List>
-            </Box>
+                        )}
+                    </List>
+                </Box>
+            }
         </div>
     )
 }

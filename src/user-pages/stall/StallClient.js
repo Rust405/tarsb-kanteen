@@ -29,7 +29,6 @@ import { db, auth, logout } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
 import { Alert } from '../../utils/customComponents'
 
-
 const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -76,6 +75,10 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
         if (reason === 'clickaway') return
         setOpenErrSnack(false)
     }
+
+
+
+    
     return (
         <div className="stall-client">
             <Box sx={{ display: 'flex' }}>
@@ -145,6 +148,9 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                 setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
                 stallID={stallID}
             />
+
+            {/* Success snackbar */}
+            {/* TODO: */}
 
             {/* Error messages snackbar */}
             <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
