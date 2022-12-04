@@ -227,7 +227,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                             {/* Enable editing button */}
                             {!isEditing &&
                                 <Box display="flex" justifyContent="center">
-                                    <Button onClick={() => setIsEditing(true)}>Edit Stall Details</Button>
+                                    <Button variant="contained" onClick={() => setIsEditing(true)}>Edit Stall Details</Button>
                                 </Box>
                             }
 

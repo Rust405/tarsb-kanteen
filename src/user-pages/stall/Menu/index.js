@@ -28,7 +28,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     return (
         <div className="menu">
 
-            {/* TODO: Replace with skeleton */}
+            {/* TODO: Replace with Skeleton */}
             {!menuSnapshot && <div>Loading...</div>}
 
             {menuSnapshot &&
