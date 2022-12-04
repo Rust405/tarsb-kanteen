@@ -128,11 +128,11 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                         <Route path='*' element={<></>} />
                     </Routes>
                 </div>
-
-                {/* New Item Dialog */}
-                <AddItemDialog openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog} stallID={stallID} />
-
             </Box>
+
+            {/* New Item Dialog */}
+            <AddItemDialog openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog} stallID={stallID} />
+
         </div>
     )
 }

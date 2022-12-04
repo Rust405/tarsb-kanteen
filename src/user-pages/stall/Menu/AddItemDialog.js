@@ -58,16 +58,17 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
 
     const [isValidating, setIsValidating] = useState(false)
 
+    const [itemName, setItemName] = useState('')
+    const [itemPrice, setItemPrice] = useState('0.00')
+    const [itemRequireWaiting, setItemRequireWaiting] = useState(true)
+
     const handleCloseDialog = () => {
         if (isValidating) return
         setOpenNewItemDialog(false)
         setItemName('')
         setItemPrice('0.00')
+        setItemRequireWaiting(true)
     }
-
-    const [itemName, setItemName] = useState('')
-    const [itemPrice, setItemPrice] = useState('0.00')
-    const [itemRequireWaiting, setItemRequireWaiting] = useState(true)
 
     const handleAddNewItem = () => {
         const newItem = {
@@ -84,10 +85,7 @@ const AddItemDialog = ({ openNewItemDialog, setOpenNewItemDialog, stallID }) => 
                 let response = result.data
                 if (response.success) {
                     setIsValidating(false)
-                    console.log("Success")
-
-                    //close dialog
-                    //TODO: success snack?, order of operation might be a problem
+                    handleCloseDialog()
                 } else {
                     setOpenErrSnack(true)
                     setErrMsgs(response.message)
