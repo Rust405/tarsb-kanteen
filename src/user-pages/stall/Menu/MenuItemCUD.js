@@ -63,6 +63,7 @@ const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem }) => {
                 </Box>
 
                 {/* Update Item Form */}
+
                 {/* TODO: \/ make prettier */}
                 {!selectedItem && <div><br />Select something.</div>}
 

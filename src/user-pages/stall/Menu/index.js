@@ -1,16 +1,11 @@
 import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
-import ListItemButton from '@mui/material/ListItemButton'
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
-import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
-import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
-import Divider from '@mui/material/Divider'
-import Paper from '@mui/material/Paper'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import { collection, onSnapshot, query, orderBy, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
@@ -59,10 +54,16 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         }
     }
 
+    //TODO: separate cooking and non-cooking???
+
     return (
         <div className="menu">
-            {/* TODO: Replace with Skeleton */}
-            {!menuSnapshot && <div>Loading...</div>}
+            {!menuSnapshot &&
+                <Stack direction="row" alignItems="center" spacing={2}>
+                    <Typography>Fetching Data...</Typography>
+                    <CircularProgress size={24} />
+                </Stack>
+            }
 
             {menuSnapshot && <div>
                 {/* TODO: nicer message */}
