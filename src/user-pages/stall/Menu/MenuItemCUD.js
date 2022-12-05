@@ -20,12 +20,14 @@ const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem }) => {
     const [itemRequireWaiting, setItemRequireWaiting] = useState(false)
 
     function resetFields() {
-        setItemName(selectedItem.data.menuItemName)
-        setItemPrice(selectedItem.data.price)
-        setItemRequireWaiting(selectedItem.data.isRequireWaiting)
+        if (selectedItem) {
+            setItemName(selectedItem.data.menuItemName)
+            setItemPrice(selectedItem.data.price)
+            setItemRequireWaiting(selectedItem.data.isRequireWaiting)
+        }
     }
 
-    useEffect(() => { if (selectedItem && !isValidating && !isEditing) handleRemoveChanges() }, [selectedItem])
+    useEffect(() => { if (!isValidating && !isEditing) handleRemoveChanges() }, [selectedItem])
 
     const handleSaveChanges = () => {
         console.log("Edit")

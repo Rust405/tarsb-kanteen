@@ -53,16 +53,10 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
             {!menuSnapshot && <div>Loading...</div>}
 
             {menuSnapshot &&
-                <List >
+                <List>
                     {menuSnapshot.map(
                         doc => (
-                            <ListItem key={doc.id}
-                                secondaryAction={
-                                    <Switch
-                                        checked={doc.data().isAvailable}
-                                        onChange={handleAvailabilityToggle} />
-                                }
-                            >
+                            <ListItem key={doc.id} sx={{ width: 240, border: '1px solid' }}>
                                 <ListItemButton
                                     selected={selectedItem && selectedItem.id === doc.id}
                                     onClick={() => setSelectedItem({ id: doc.id, data: doc.data() })}
