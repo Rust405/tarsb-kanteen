@@ -6,6 +6,7 @@ import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 import Stack from '@mui/material/Stack'
 import Switch from '@mui/material/Switch'
 import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
 
 import { collection, onSnapshot, query, orderBy, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
@@ -59,10 +60,9 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     return (
         <div className="menu">
             {!menuSnapshot &&
-                <Stack direction="row" alignItems="center" spacing={2}>
-                    <Typography>Fetching Data...</Typography>
-                    <CircularProgress size={24} />
-                </Stack>
+                <Box display="flex" justifyContent="center">
+                    <CircularProgress />
+                </Box>
             }
 
             {menuSnapshot && <div>
