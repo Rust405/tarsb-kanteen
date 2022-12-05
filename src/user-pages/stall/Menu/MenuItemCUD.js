@@ -26,7 +26,7 @@ const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem }) => {
         setItemRequireWaiting(selectedItem.data.isRequireWaiting)
     }
 
-    useEffect(() => { if (selectedItem) handleRemoveChanges() }, [selectedItem])
+    useEffect(() => { if (selectedItem && !isValidating && !isEditing) handleRemoveChanges() }, [selectedItem])
 
     const handleSaveChanges = () => {
         console.log("Edit")

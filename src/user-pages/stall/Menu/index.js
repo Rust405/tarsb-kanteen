@@ -18,7 +18,16 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     const q = query(menuRef, orderBy('menuItemName'))
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(q, snapshot => setMenuSnapshot(snapshot.docs))
+        const unsubscribe = onSnapshot(q, snapshot => {
+            setMenuSnapshot(snapshot.docs)
+
+            //update selected item details if changed externally
+            snapshot.forEach(doc => {
+                if (selectedItem && selectedItem.id === doc.id) {
+                    setSelectedItem({ id: doc.id, data: doc.data() })
+                }
+            })
+        })
         return () => {
             unsubscribe()
             setSelectedItem(null)
