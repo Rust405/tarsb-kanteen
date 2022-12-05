@@ -21,10 +21,12 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         const unsubscribe = onSnapshot(q, snapshot => {
             setMenuSnapshot(snapshot.docs)
 
-            //update passed selected item details with latest data
             if (selectedItem) {
-                const latestSelected = snapshot.docs.find(doc => doc.id === selectedItem.id)
-                setSelectedItem({ id: latestSelected.id, data: latestSelected.data() })
+                snapshot.docChanges().forEach(change => {
+                    if (change.type === "modified" && change.doc.id === selectedItem.id) {
+                        setSelectedItem({ id: change.doc.id, data: change.doc.data() })
+                    }
+                })
             }
         })
         return () => {
