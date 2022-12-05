@@ -16,7 +16,7 @@ import Divider from '@mui/material/Divider'
 
 import RemoveIcon from '@mui/icons-material/Remove'
 
-import { closeStall, openStall, updateStallDetails } from '../../../utils/firebase'
+import { toggleStallStatus, updateStallDetails } from '../../../utils/firebase'
 import { Alert } from '../../../utils/reusableConstants'
 import UnregisterStallDialog from './UnregisterStallDialog'
 
@@ -28,10 +28,10 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
         setDisableSwitch(true)
 
         if (stallSnapshot.status === 'open') {
-            closeStall(stallDocRef)
+            toggleStallStatus(stallDocRef, "closed")
                 .then(() => setDisableSwitch(false))
         } else if (stallSnapshot.status === 'closed') {
-            openStall(stallDocRef)
+            toggleStallStatus(stallDocRef, "open")
                 .then(() => setDisableSwitch(false))
         }
     }

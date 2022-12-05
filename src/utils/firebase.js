@@ -68,12 +68,8 @@ export const findStallUser = async (email) => {
 
 export const registerStall = httpsCallable(functions, 'registerStall')
 
-export const openStall = async (stallDocRef) => {
-  await updateDoc(stallDocRef, { status: "open" })
-}
-
-export const closeStall = async (stallDocRef) => {
-  await updateDoc(stallDocRef, { status: "closed" })
+export const toggleStallStatus = async (stallDocRef, status) => {
+  await updateDoc(stallDocRef, { status: status })
 }
 
 export const updateStallDetails = httpsCallable(functions, 'updateStallDetails')
