@@ -21,6 +21,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         const unsubscribe = onSnapshot(q, snapshot => {
             setMenuSnapshot(snapshot.docs)
 
+            //Update selected item in realtime
             if (selectedItem) {
                 snapshot.docChanges().forEach(change => {
                     if (change.type === "modified" && change.doc.id === selectedItem.id) {
