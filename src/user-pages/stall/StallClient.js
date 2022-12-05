@@ -110,8 +110,8 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                 </div>
 
                 <div className="main-content">
-                    <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
-                        <Toolbar />
+                    <Toolbar />
+                    <Box component="main" sx={{ flexGrow: 1, p: 2, backgroundColor: 'primary.light' }}>
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
                             <Route path="/stall/queue" element={<Queue />} />

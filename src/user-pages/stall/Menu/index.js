@@ -49,7 +49,35 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
 
     return (
         <div className="menu">
-       
+            {/* TODO: Replace with Skeleton */}
+            {!menuSnapshot && <div>Loading...</div>}
+
+            {menuSnapshot &&
+                <List >
+                    {menuSnapshot.map(
+                        doc => (
+                            <ListItem key={doc.id}
+                                secondaryAction={
+                                    <Switch
+                                        checked={doc.data().isAvailable}
+                                        onChange={handleAvailabilityToggle} />
+                                }
+                            >
+                                <ListItemButton
+                                    selected={selectedItem && selectedItem.id === doc.id}
+                                    onClick={() => setSelectedItem({ id: doc.id, data: doc.data() })}
+                                >
+                                    <ListItemText
+                                        primary={doc.data().menuItemName}
+                                        secondary={`RM ${doc.data().price}`}
+                                    />
+
+                                </ListItemButton>
+                            </ListItem>
+                        )
+                    )}
+                </List>
+            }
         </div>
     )
 }
