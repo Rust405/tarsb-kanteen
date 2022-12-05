@@ -589,3 +589,67 @@ Java HotSpot(TM) 64-Bit Server VM (build 19+36-2238, mixed mode, sharing)
 [debug] [2022-12-05T05:18:07.277Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: auto_download"}}
 [debug] [2022-12-05T05:18:07.277Z] Starting Pub/Sub Emulator with command {"binary":"C:\\Users\\User\\.cache\\firebase\\emulators\\pubsub-emulator-0.7.1\\pubsub-emulator\\bin\\cloud-pubsub-emulator.bat","args":["--host=127.0.0.1","--port=8085"],"optionalArgs":["port","host"],"joinArgs":true} {"metadata":{"emulator":{"name":"pubsub"},"message":"Starting Pub/Sub Emulator with command {\"binary\":\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\pubsub-emulator-0.7.1\\\\pubsub-emulator\\\\bin\\\\cloud-pubsub-emulator.bat\",\"args\":[\"--host=127.0.0.1\",\"--port=8085\"],\"optionalArgs\":[\"port\",\"host\"],\"joinArgs\":true}"}}
 [info] i  pubsub: Pub/Sub Emulator logging to pubsub-debug.log {"metadata":{"emulator":{"name":"pubsub"},"message":"Pub/Sub Emulator logging to \u001b[1mpubsub-debug.log\u001b[22m"}}
+[debug] [2022-12-05T05:18:11.474Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-12-05T05:18:11.475Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-12-05T05:18:11.476Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\User\\.cache\\firebase\\emulators\\ui-v1.11.1\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.1\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2022-12-05T05:18:12.059Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2022-12-05T05:18:12.059Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[info] i  functions: Watching "C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\" for Cloud Functions..."}}
+[debug] [2022-12-05T05:18:12.283Z] Validating nodejs source
+[debug] [2022-12-05T05:18:18.862Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.3.0",
+    "firebase-functions": "^4.1.0",
+    "firebase-tools": "^11.16.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-05T05:18:18.863Z] Building nodejs source
+[debug] [2022-12-05T05:18:18.863Z] Analyzing nodejs backend spec
+[debug] [2022-12-05T05:18:18.865Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-05T05:18:20.607Z] Serving at port 9005
+
+[debug] [2022-12-05T05:18:50.869Z] shutdown requested via /__/quitquitquit
+
+[error] !!  functions: Failed to load function definition from source: FirebaseError: User code failed to load. Cannot determine backend specification {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: User code failed to load. Cannot determine backend specification"}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬──────────────────────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port                        │ View in Emulator UI             │
+├───────────┼──────────────────────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001                   │ http://127.0.0.1:4000/functions │
+├───────────┼──────────────────────────────────┼─────────────────────────────────┤
+│ Firestore │ 127.0.0.1:8080                   │ http://127.0.0.1:4000/firestore │
+├───────────┼──────────────────────────────────┼─────────────────────────────────┤
+│ Hosting   │ Failed to initialize (see above) │                                 │
+├───────────┼──────────────────────────────────┼─────────────────────────────────┤
+│ Pub/Sub   │ 127.0.0.1:8085                   │ n/a                             │
+└───────────┴──────────────────────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500, 9150
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
