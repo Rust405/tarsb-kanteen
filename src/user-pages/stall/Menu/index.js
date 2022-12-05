@@ -16,6 +16,7 @@ import { collection, onSnapshot, query, orderBy, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 
 import { db, toggleItemAvail } from '../../../utils/firebase'
+import currency from 'currency.js'
 
 const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     const [menuSnapshot, setMenuSnapshot] = useState(null)
@@ -84,8 +85,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                 >
                                     <ListItemText
                                         primary={doc.data().menuItemName}
-                                        // TODO: currency .00
-                                        secondary={`RM ${doc.data().price}`}
+                                        secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
                                     />
 
                                     <ListItemSecondaryAction>
