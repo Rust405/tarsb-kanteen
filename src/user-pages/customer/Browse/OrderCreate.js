@@ -1,13 +1,11 @@
-import Divider from '@mui/material/Divider';
-import Toolbar from '@mui/material/Toolbar';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 const OrderCreate = () => {
     return (
         <div className="order-create">
             <div>
-                <Toolbar />
                 <Box sx={{ overflow: 'auto' }}>
                     <Typography variant="body" component="h3" align="center" >Order<br />Create</Typography>
                     <Divider />

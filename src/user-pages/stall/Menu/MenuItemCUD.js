@@ -1,5 +1,4 @@
 import Divider from '@mui/material/Divider'
-import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
@@ -43,7 +42,6 @@ const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem }) => {
 
     return (
         <div className="menu-item-cud">
-            <Toolbar />
             <Box sx={{ overflow: 'auto' }} >
                 <Box sx={{ m: 2 }} display="flex" justifyContent="center">
                     <Button variant="contained"

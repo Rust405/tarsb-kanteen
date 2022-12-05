@@ -1,8 +1,9 @@
-import Drawer from '@mui/material/Drawer';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { grey } from '@mui/material/colors';
+import Drawer from '@mui/material/Drawer'
+import SwipeableDrawer from '@mui/material/SwipeableDrawer'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import { grey } from '@mui/material/colors'
+import Toolbar from '@mui/material/Toolbar'
 
 const drawerWidth = 240;
 const drawerBleeding = 56;
@@ -34,6 +35,7 @@ const MultiPurposeSidebar = ({
                 }}
                 open
             >
+                <Toolbar />
                 {drawerContent}
             </Drawer>
 
