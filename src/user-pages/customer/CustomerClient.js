@@ -63,7 +63,7 @@ const CustomerClient = ({ container, userType, userInfo }) => {
 
                 <div className="main-content" style={{ width: '100%' }}>
                     <Toolbar />
-                    <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
+                    <Box component="main" sx={{ flexGrow: 1, p: 2, overflow: 'auto', maxHeight: 'calc(100vh - 80px)' }}>
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
                             <Route path="/customer/myorders" element={<MyOrders handleIncCounter={handleIncCounter} />} />

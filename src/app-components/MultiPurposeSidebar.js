@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography'
 import { grey } from '@mui/material/colors'
 import Toolbar from '@mui/material/Toolbar'
 
-const drawerWidth = 240;
-const drawerBleeding = 56;
+const drawerWidth = 240
+const drawerBleeding = 56
 
 const MultiPurposeSidebar = ({
     sidebarOpen,
@@ -58,7 +58,7 @@ const MultiPurposeSidebar = ({
                             sm: 'none'
                         },
                         '& .MuiDrawer-paper': {
-                            height: `calc(50% - ${drawerBleeding}px)`,
+                            height: `calc(75% - ${drawerBleeding}px)`,
                             overflow: 'visible',
                         }
                     }}

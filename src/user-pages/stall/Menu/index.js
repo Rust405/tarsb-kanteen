@@ -53,37 +53,47 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
             {/* TODO: Replace with Skeleton */}
             {!menuSnapshot && <div>Loading...</div>}
 
-            {menuSnapshot &&
-                <List>
-                    {menuSnapshot.map(
-                        doc => (
-                            <ListItem button key={doc.id} ContainerComponent="div"
-                                sx={{
-                                    m: '12px 0',
-                                    border: '1px solid'
-                                }}
-                                selected={selectedItem && selectedItem.id === doc.id}
-                                onClick={() => setSelectedItem({ id: doc.id, data: doc.data() })}
-                            >
-                                <ListItemText
-                                    primary={doc.data().menuItemName}
-                                    // TODO: currency .00
-                                    secondary={`RM ${doc.data().price}`}
-                                />
+            {menuSnapshot && <div>
+                {/* TODO: nicer message */}
+                {menuSnapshot.length === 0 && <div>No menu items.</div>}
 
-                                <ListItemSecondaryAction>
-                                    <Stack direction="row" alignItems="center" spacing={1}>
-                                        <Typography>{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
-                                        <Switch
-                                            checked={doc.data().isAvailable}
-                                            onChange={handleAvailabilityToggle} />
-                                    </Stack>
-                                </ListItemSecondaryAction>
-                            </ListItem>
-                        )
-                    )}
-                </List>
-            }
+                {menuSnapshot.length !== 0 &&
+                    <List>
+                        {menuSnapshot.map(
+                            doc => (
+                                <ListItem
+                                    button
+                                    key={doc.id}
+                                    ContainerComponent="div"
+                                    sx={{
+                                        m: '12px 0',
+                                        border: '1px solid'
+                                    }}
+                                    selected={selectedItem && selectedItem.id === doc.id}
+                                    onClick={() => setSelectedItem({ id: doc.id, data: doc.data() })}
+                                >
+                                    <ListItemText
+                                        primary={doc.data().menuItemName}
+                                        // TODO: currency .00
+                                        secondary={`RM ${doc.data().price}`}
+                                    />
+
+                                    <ListItemSecondaryAction>
+                                        <Stack direction="row" alignItems="center" spacing={1}>
+                                            <Typography>{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
+                                            <Switch
+                                                checked={doc.data().isAvailable}
+                                                onChange={handleAvailabilityToggle} />
+                                        </Stack>
+                                    </ListItemSecondaryAction>
+                                </ListItem>
+                            )
+                        )}
+                    </List>
+                }
+            </div>}
+
+
         </div>
     )
 }
