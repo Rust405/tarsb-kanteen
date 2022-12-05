@@ -20,8 +20,6 @@ import { closeStall, openStall, updateStallDetails } from '../../../utils/fireba
 import { Alert } from '../../../utils/reusableConstants'
 import UnregisterStallDialog from './UnregisterStallDialog'
 
-const stallSettingsWidth = 325
-
 const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
 
     const [disableSwitch, setDisableSwitch] = useState(false)
@@ -161,7 +159,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
 
     return (
         <div className="stall-settings">
-            <Box sx={{ width: stallSettingsWidth }}>
+            <Box sx={{ width: "100%", maxWidth: "540px" }}>
                 <Stack spacing={2}>
                     <div>
                         <Typography variant="h6" gutterBottom>Stall Status</Typography>
@@ -173,7 +171,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                                 disabled={disableSwitch}
                             />
                             <Typography variant="body1">
-                                The stall is now {stallSnapshot.status === 'open' ? "open and accepting" : "closed and not accepting"} orders.
+                                The stall is now {stallSnapshot.status === 'open' ? "open and is accepting" : "closed and is not accepting"} orders.
                             </Typography>
                         </Stack>
                     </div>

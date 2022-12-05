@@ -56,8 +56,9 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                 <List>
                     {menuSnapshot.map(
                         doc => (
-                            <ListItem key={doc.id} sx={{ width: 240, border: '1px solid' }}>
+                            <ListItem key={doc.id}>
                                 <ListItemButton
+                                    sx={{ border: '1px solid' }}
                                     selected={selectedItem && selectedItem.id === doc.id}
                                     onClick={() => setSelectedItem({ id: doc.id, data: doc.data() })}
                                 >

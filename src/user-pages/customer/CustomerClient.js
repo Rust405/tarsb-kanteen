@@ -61,7 +61,7 @@ const CustomerClient = ({ container, userType, userInfo }) => {
                     />
                 </div>
 
-                <div className="main-content">
+                <div className="main-content" style={{ width: '100%' }}>
                     <Toolbar />
                     <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
                         <Routes>

@@ -109,7 +109,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                     />
                 </div>
 
-                <div className="main-content">
+                <div className="main-content" style={{ width: '100%' }}>
                     <Toolbar />
                     <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
                         <Routes>
@@ -149,10 +149,10 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                         <Route path='*' element={<></>} />
                     </Routes>
                 </div>
-            </Box>
+            </Box >
 
             {/* New Item Dialog */}
-            <AddItemDialog
+            < AddItemDialog
                 openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog}
                 setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
                 setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
@@ -160,14 +160,14 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
             />
 
             {/* Success snackbar */}
-            <Snackbar open={openSucSnack} autoHideDuration={5000} onClose={handleCloseErrSnack}>
+            < Snackbar open={openSucSnack} autoHideDuration={5000} onClose={handleCloseErrSnack} >
                 <Alert onClose={handleCloseSucSnack} severity="success" sx={{ width: '100%' }}>
                     {sucMsg}
                 </Alert>
-            </Snackbar>
+            </Snackbar >
 
             {/* Error messages snackbar */}
-            <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
+            < Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}>
                 <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
                     {errMsgs.length > 1 ?
@@ -176,8 +176,8 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                         <div>{errMsgs[0]}</div>
                     }
                 </Alert>
-            </Snackbar>
-        </div>
+            </Snackbar >
+        </div >
     )
 }
 
