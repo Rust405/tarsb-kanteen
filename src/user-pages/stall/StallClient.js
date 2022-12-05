@@ -86,7 +86,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
     //MENU PAGE
     const [selectedItem, setSelectedItem] = useState(null)
 
-    
+
 
     return (
         <div className="stall-client">
@@ -110,7 +110,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                 </div>
 
                 <div className="main-content">
-                    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                    <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
                         <Toolbar />
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />

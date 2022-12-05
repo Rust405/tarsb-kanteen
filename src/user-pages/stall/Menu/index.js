@@ -2,8 +2,12 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
+import ListItemButton from '@mui/material/ListItemButton'
+import TextField from '@mui/material/TextField'
+import Stack from '@mui/material/Stack'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Switch from '@mui/material/Switch'
 import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
 
@@ -39,22 +43,35 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         })
     }
 
+    const handleAvailabilityToggle = () => {
+        console.log("Toggle")
+    }
+
     return (
         <div className="menu">
-
             {/* TODO: Replace with Skeleton */}
             {!menuSnapshot && <div>Loading...</div>}
 
             {menuSnapshot &&
-                <List>
+                <List >
                     {menuSnapshot.map(
                         doc => (
-                            <ListItem key={doc.id}>
+                            <ListItem key={doc.id}
+                                secondaryAction={
+                                    <Switch
+                                        checked={doc.data().isAvailable}
+                                        onChange={handleAvailabilityToggle} />
+                                }
+                            >
                                 <ListItemButton
                                     selected={selectedItem && selectedItem.id === doc.id}
                                     onClick={() => setSelectedItem({ id: doc.id, data: doc.data() })}
                                 >
-                                    <ListItemText primary={doc.data().menuItemName} />
+                                    <ListItemText
+                                        primary={doc.data().menuItemName}
+                                        secondary={`RM ${doc.data().price}`}
+                                    />
+
                                 </ListItemButton>
                             </ListItem>
                         )

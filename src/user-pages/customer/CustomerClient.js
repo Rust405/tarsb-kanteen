@@ -62,7 +62,7 @@ const CustomerClient = ({ container, userType, userInfo }) => {
                 </div>
 
                 <div className="main-content">
-                    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                    <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
                         <Toolbar />
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
