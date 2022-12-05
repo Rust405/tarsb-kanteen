@@ -90,11 +90,11 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
 
                                     <ListItemSecondaryAction>
                                         <Stack direction="row" alignItems="center" spacing={1}>
-                                            <Typography>{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
                                             <Switch
                                                 disabled={disableSwitch === doc.id}
                                                 checked={doc.data().isAvailable}
                                                 onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)} />
+                                            <Typography>{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
                                         </Stack>
                                     </ListItemSecondaryAction>
                                 </ListItem>
