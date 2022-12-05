@@ -4,6 +4,7 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -56,18 +57,28 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                 <List>
                     {menuSnapshot.map(
                         doc => (
-                            <ListItem key={doc.id}>
-                                <ListItemButton
-                                    sx={{ border: '1px solid' }}
-                                    selected={selectedItem && selectedItem.id === doc.id}
-                                    onClick={() => setSelectedItem({ id: doc.id, data: doc.data() })}
-                                >
-                                    <ListItemText
-                                        primary={doc.data().menuItemName}
-                                        secondary={`RM ${doc.data().price}`}
-                                    />
+                            <ListItem button key={doc.id} ContainerComponent="div"
+                                sx={{
+                                    m: '12px 0',
+                                    border: '1px solid'
+                                }}
+                                selected={selectedItem && selectedItem.id === doc.id}
+                                onClick={() => setSelectedItem({ id: doc.id, data: doc.data() })}
+                            >
+                                <ListItemText
+                                    primary={doc.data().menuItemName}
+                                    // TODO: currency .00
+                                    secondary={`RM ${doc.data().price}`}
+                                />
 
-                                </ListItemButton>
+                                <ListItemSecondaryAction>
+                                    <Stack direction="row" alignItems="center" spacing={1}>
+                                        <Typography>{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
+                                        <Switch
+                                            checked={doc.data().isAvailable}
+                                            onChange={handleAvailabilityToggle} />
+                                    </Stack>
+                                </ListItemSecondaryAction>
                             </ListItem>
                         )
                     )}
