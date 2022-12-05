@@ -12,10 +12,10 @@ import Switch from '@mui/material/Switch'
 import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
 
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore'
+import { collection, onSnapshot, query, orderBy, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 
-import { db } from '../../../utils/firebase'
+import { db, toggleItemAvail } from '../../../utils/firebase'
 
 const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     const [menuSnapshot, setMenuSnapshot] = useState(null)
@@ -44,8 +44,18 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         })
     }
 
-    const handleAvailabilityToggle = () => {
-        console.log("Toggle")
+    const [disableSwitch, setDisableSwitch] = useState(false)
+    const handleAvailabilityToggle = (menuItemID, isAvailable) => {
+        const itemDocRef = doc(menuRef, menuItemID)
+        setDisableSwitch(menuItemID)
+
+        if (isAvailable) {
+            toggleItemAvail(itemDocRef, false)
+                .then(() => setDisableSwitch(null))
+        } else {
+            toggleItemAvail(itemDocRef, true)
+                .then(() => setDisableSwitch(null))
+        }
     }
 
     return (
@@ -82,8 +92,9 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                         <Stack direction="row" alignItems="center" spacing={1}>
                                             <Typography>{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
                                             <Switch
+                                                disabled={disableSwitch === doc.id}
                                                 checked={doc.data().isAvailable}
-                                                onChange={handleAvailabilityToggle} />
+                                                onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)} />
                                         </Stack>
                                     </ListItemSecondaryAction>
                                 </ListItem>
