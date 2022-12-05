@@ -81,8 +81,13 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                         border: '1px solid'
                                     }}
                                     selected={selectedItem && selectedItem.id === doc.id}
-                                    onClick={() => setSelectedItem({ id: doc.id, data: doc.data() })}
-                                >
+                                    onClick={() => {
+                                        if (selectedItem && selectedItem.id === doc.id) {
+                                            setSelectedItem(null)
+                                        } else {
+                                            setSelectedItem({ id: doc.id, data: doc.data() })
+                                        }
+                                    }}>
                                     <ListItemText
                                         primary={doc.data().menuItemName}
                                         secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
