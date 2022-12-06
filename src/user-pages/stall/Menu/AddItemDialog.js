@@ -75,7 +75,7 @@ const AddItemDialog = ({
     const handleAddNewItem = () => {
         const newItem = {
             menuItemName: itemName.trim(),
-            price: itemPrice,
+            price: parseFloat(itemPrice),
             isRequireWaiting: itemRequireWaiting
         }
 

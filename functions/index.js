@@ -310,7 +310,6 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
 
     //otherwise add new menu item and return success
     if (isSuccess) {
-        newItem.price = parseFloat(newItem.price)
         await menuRef.add(newItem)
     }
 

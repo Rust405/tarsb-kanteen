@@ -11,7 +11,7 @@ import CurrencyInput from 'react-currency-input-field'
 
 import { useState, useEffect } from 'react'
 
-const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem }) => {
+const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem, stallID }) => {
     const [isEditing, setIsEditing] = useState(false)
     const [isValidating, setIsValidating] = useState(false)
 
@@ -30,8 +30,36 @@ const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem }) => {
     useEffect(() => { if (!isValidating && !isEditing) handleRemoveChanges() }, [selectedItem])
 
     const handleSaveChanges = () => {
-        // TODO:
-        console.log("Edit")
+        let hasChanges = false
+        let updatedItemDetails = {
+            stallID: stallID,
+            menuItemID: selectedItem.id,
+            menuItemName: null,
+            price: null,
+            isRequireWaiting: null
+        }
+
+        //only send details that was changed
+        if (itemName.trim() !== selectedItem.data.menuItemName) {
+            updatedItemDetails.menuItemName = itemName.trim()
+            hasChanges = true
+        }
+        if (itemPrice !== selectedItem.data.price) {
+            updatedItemDetails.price = parseFloat(itemPrice)
+            hasChanges = true
+        }
+        if (itemRequireWaiting !== selectedItem.data.isRequireWaiting) {
+            updatedItemDetails.isRequireWaiting = itemRequireWaiting
+            hasChanges = true
+        }
+
+
+        if (hasChanges) {
+            console.log("updatedItemDetails", updatedItemDetails)
+        } else {
+            handleRemoveChanges()
+        }
+
     }
 
     const handleRemoveChanges = () => {

@@ -65,7 +65,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
         }
 
         //only send details that was changed
-        if (stallName !== stallSnapshot.stallName) {
+        if (stallName.trim() !== stallSnapshot.stallName) {
             updatedDetails.stallName = stallName.trim()
             hasChanges = true
         }
