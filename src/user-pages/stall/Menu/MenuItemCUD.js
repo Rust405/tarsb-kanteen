@@ -38,12 +38,7 @@ const MenuItemCUD = ({
 
     const handleSaveChanges = () => {
         let hasChanges = false
-        let updatedDetails = {
-            menuItemID: selectedItem.id,
-            menuItemName: null,
-            price: null,
-            isRequireWaiting: null
-        }
+        let updatedDetails = { menuItemID: selectedItem.id }
 
         //only send details that was changed
         if (itemName.trim() !== selectedItem.data.menuItemName) {

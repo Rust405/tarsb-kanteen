@@ -225,7 +225,6 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
     return { success: isSuccess, message: messageArray }
 })
 
-
 exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     let stallID = data.stallID
 
@@ -333,7 +332,7 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
     const oldItemDetails = (await stallsRef.doc(stallID).collection('menu').doc(updatedDetails.menuItemID).get()).data()
 
     //perform validation if change in itemName
-    if (updatedDetails.menuItemName) {
+    if (updatedDetails.menuItemName !== undefined) {
         updatedDetails.lowercaseMenuItemName = updatedDetails.menuItemName.trim().toLowerCase()
 
         //if item name is empty
@@ -353,7 +352,7 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
     }
 
     //perform validation if change in price
-    if (updatedDetails.price !== null) {
+    if (updatedDetails.price !== undefined) {
         //if price is < 0 or > 99.99
         if (updatedDetails.price < 0) {
             isSuccess = false
@@ -367,14 +366,14 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
     if (isSuccess) {
         let updateObj = {}
 
-        if (updatedDetails.menuItemName) {
+        if (updatedDetails.menuItemName !== undefined) {
             updateObj.menuItemName = updatedDetails.menuItemName
             updateObj.lowercaseMenuItemName = updatedDetails.lowercaseMenuItemName
         }
-        if (updatedDetails.price !== null) {
+        if (updatedDetails.price !== undefined) {
             updateObj.price = updatedDetails.price
         }
-        if (updatedDetails.isRequireWaiting !== null) {
+        if (updatedDetails.isRequireWaiting !== undefined) {
             updateObj.isRequireWaiting = updatedDetails.isRequireWaiting
             updatedDetails.isRequireWaiting ? updateObj.estWaitTime = 5 : updateObj.estWaitTime = 0
         }
