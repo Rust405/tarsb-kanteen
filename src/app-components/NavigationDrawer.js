@@ -78,11 +78,7 @@ const NavigationDrawer = ({
         <div>
             <Toolbar />
             <Box sx={{ overflow: 'auto' }}>
-                <List sx={{
-                    '&& .Mui-selected': {
-                        borderLeft: '4px solid #3f50b5',
-                    }
-                }}>
+                <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5', } }}>
                     {userType === 'stallUser' && <div>
                         <Box sx={{ m: 1 }} display="flex" justifyContent="center">
                             {stallStatus ?
