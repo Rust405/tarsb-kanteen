@@ -361,7 +361,7 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
     }
 
     //perform validation if change in price
-    if (updatedDetails.price) {
+    if (updatedDetails.price !== null) {
         //if price is < 0 or > 99.99
         if (updatedDetails.price < 0) {
             isSuccess = false
@@ -373,32 +373,22 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
     }
 
     if (isSuccess) {
-        if (updatedDetails.menuItemName && !updatedDetails.price && updatedDetails.isRequireWaiting === null) {
-            await menuRef.doc(updatedDetails.menuItemID)
-                .update({
-                    menuItemName: updatedDetails.menuItemName,
-                    lowercaseMenuItemName: updatedDetails.lowercaseMenuItemName
-                })
-        } else if (!updatedDetails.menuItemName && updatedDetails.price && updatedDetails.isRequireWaiting === null) {
-            await menuRef.doc(updatedDetails.menuItemID)
-                .update({
-                    price: updatedDetails.price
-                })
-        } else if (!updatedDetails.menuItemName && !updatedDetails.price && updatedDetails.isRequireWaiting !== null) {
-            await menuRef.doc(updatedDetails.menuItemID)
-                .update({
-                    isRequireWaiting: updatedDetails.isRequireWaiting
-                })
-        } else if (updatedDetails.menuItemName && updatedDetails.price && updatedDetails.isRequireWaiting !== null) {
-            await menuRef.doc(updatedDetails.menuItemID)
-                .update({
-                    menuItemName: updatedDetails.menuItemName,
-                    lowercaseMenuItemName: updatedDetails.lowercaseMenuItemName,
-                    price: updatedDetails.price,
-                    isRequireWaiting: updatedDetails.isRequireWaiting
-                })
+
+        let updateObj = {}
+
+        if (updatedDetails.menuItemName) {
+            updateObj.menuItemName = updatedDetails.menuItemName
+            updateObj.lowercaseMenuItemName = updatedDetails.lowercaseMenuItemName
+        }
+        if (updatedDetails.price !== null) {
+            updateObj.price = updatedDetails.price
+        }
+        if (updatedDetails.isRequireWaiting !== null) {
+            updateObj.isRequireWaiting = updatedDetails.isRequireWaiting
+            updatedDetails.isRequireWaiting ? updateObj.estWaitTime = 5 : updateObj.estWaitTime = 0
         }
 
+        await menuRef.doc(updatedDetails.menuItemID).update(updateObj)
     }
 
     return { success: isSuccess, message: messageArray }

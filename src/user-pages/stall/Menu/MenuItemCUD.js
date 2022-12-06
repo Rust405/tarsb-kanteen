@@ -6,12 +6,9 @@ import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import Snackbar from '@mui/material/Snackbar'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import CurrencyInput from 'react-currency-input-field'
-
-import { Alert } from '../../../utils/reusableConstants'
 import { useState, useEffect } from 'react'
 import { updateItemDetails } from '../../../utils/firebase'
 
