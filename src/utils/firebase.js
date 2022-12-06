@@ -82,3 +82,5 @@ export const toggleItemAvail = async (itemDocRef, isAvailable) => {
   await updateDoc(itemDocRef, { isAvailable: isAvailable })
 }
 
+export const updateItemDetails = httpsCallable(functions, 'updateItemDetails')
+

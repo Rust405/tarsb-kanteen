@@ -211,7 +211,7 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
 
     if (isSuccess) {
         if (updatedDetails.stallName && !updatedDetails.staffEmails) {
-            await stallsRef.doc(updatedDetails.stallID).update({ stallName: updatedDetails.stallName })
+            await stallsRef.doc(updatedDetails.stallID).update({ stallName: updatedDetails.stallName, lowercaseStallName: updatedDetails.lowercaseStallName })
         }
         else if (updatedDetails.staffEmails && !updatedDetails.stallName) {
             await stallsRef.doc(updatedDetails.stallID).update({ staffEmails: updatedDetails.staffEmails })
@@ -220,6 +220,7 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
             await stallsRef.doc(updatedDetails.stallID).update(
                 {
                     stallName: updatedDetails.stallName,
+                    lowercaseStallName: updatedDetails.lowercaseStallName,
                     staffEmails: updatedDetails.staffEmails
                 }
             )
@@ -314,4 +315,20 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
     }
 
     return { success: isSuccess, message: messageArray }
+})
+
+exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    //verify user
+    if (context.auth.token.userType !== 'stallUser') {
+        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+        throw new functions.https.HttpsError(
+            'permission-denied',
+            'Must be a stall user to add menu item.'
+        )
+    }
+
+    const stallID = data.stallID
+    let updatedDetails = data.updatedDetails
+
+
 })
