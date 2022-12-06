@@ -369,7 +369,7 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
         }
 
         //if price is somehow NaN
-        if (isNaN(newItem.price)) {
+        if (isNaN(updatedDetails.price)) {
             isSuccess = false
             messageArray.push(`Price must be a valid number.`)
         }

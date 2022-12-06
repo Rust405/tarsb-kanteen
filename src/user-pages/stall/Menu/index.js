@@ -23,15 +23,12 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         const unsubscribe = onSnapshot(q, snapshot => {
             setMenuSnapshot(snapshot.docs)
 
-            //FIXME:
-            //update selected item
-            if (selectedItem) {
-                snapshot.docChanges().forEach(change => {
-                    if (change.type === "modified" && change.doc.id === selectedItem.id) {
-                        setSelectedItem({ id: change.doc.id, data: change.doc.data() })
-                    }
-                })
-            }
+            //Update selected item if updated
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "modified" && selectedItem && change.doc.id === selectedItem.id) {
+                    setSelectedItem({ id: change.doc.id, data: change.doc.data() })
+                }
+            })
         })
         return () => {
             unsubscribe()

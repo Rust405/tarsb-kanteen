@@ -147,7 +147,7 @@ const MenuItemCUD = ({
                             {!isEditing &&
                                 <Button
                                     variant="contained"
-                                    onClick={() => setIsEditing(true)} >
+                                    onClick={() => { setIsEditing(true) }} >
                                     Edit Item Details
                                 </Button>
                             }
