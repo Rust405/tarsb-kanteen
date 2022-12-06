@@ -23,6 +23,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         const unsubscribe = onSnapshot(q, snapshot => {
             setMenuSnapshot(snapshot.docs)
 
+            //FIXME:
             //update selected item
             if (selectedItem) {
                 snapshot.docChanges().forEach(change => {
