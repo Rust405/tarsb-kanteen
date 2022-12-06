@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import { grey } from '@mui/material/colors'
 import Toolbar from '@mui/material/Toolbar'
 
-const drawerWidth = 240
+const drawerWidth = 300
 const drawerBleeding = 56
 
 const MultiPurposeSidebar = ({
