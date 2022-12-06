@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import CircularProgress from '@mui/material/CircularProgress'
+import Snackbar from '@mui/material/Snackbar'
 
 import ApplicationBar from '../../app-components/ApplicationBar'
 import NavigationDrawer from '../../app-components/NavigationDrawer'
@@ -16,6 +17,8 @@ import Browse from './Browse'
 import CustomerUserSettings from './CustomerUserSettings'
 
 import NotFound from '../../error-pages/NotFound'
+
+import { Alert } from '../../utils/reusableConstants'
 
 //sidebar
 import CustOrderPreview from './MyOrders/CustOrderPreview'
@@ -35,12 +38,30 @@ const CustomerClient = ({ container, userType, userInfo }) => {
         setSidebarOpen(!sidebarOpen)
     }
 
+    //Error snackbar
+    const [openErrSnack, setOpenErrSnack] = useState(false)
+    const [errMsgs, setErrMsgs] = useState([])
+    const handleCloseErrSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenErrSnack(false)
+    }
+
+    //Success snackbar
+    const [openSucSnack, setOpenSucSnack] = useState(false)
+    const [sucMsg, setSucMsg] = useState('')
+    const handleCloseSucSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenSucSnack(false)
+    }
+
     //props passing test
     const [counter, setCounter] = useState(1)
     const handleIncCounter = () => {
         setCounter(counter + 1)
     }
     //end props passing test
+
+
 
     return (
         <div className="customer-client">
@@ -99,6 +120,25 @@ const CustomerClient = ({ container, userType, userInfo }) => {
                 </div>
 
             </Box>
+
+            {/* Success snackbar */}
+            < Snackbar open={openSucSnack} autoHideDuration={5000} onClose={handleCloseErrSnack} >
+                <Alert onClose={handleCloseSucSnack} severity="success" sx={{ width: '100%' }}>
+                    {sucMsg}
+                </Alert>
+            </Snackbar >
+
+            {/* Error messages snackbar */}
+            < Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
+                    {errMsgs.length > 1 ?
+                        errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
+                        :
+                        <div>{errMsgs[0]}</div>
+                    }
+                </Alert>
+            </Snackbar >
         </div>)
 }
 
