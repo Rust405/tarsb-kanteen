@@ -66,8 +66,9 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
             }
 
             {menuSnapshot && <div>
-                {/* TODO: nicer message */}
-                {menuSnapshot.length === 0 && <div>No menu items.</div>}
+                {menuSnapshot.length === 0 &&
+                    <Typography>No menu items found. Start adding menu items with "Add New Item".</Typography>
+                }
 
                 {menuSnapshot.length !== 0 &&
                     <List>
