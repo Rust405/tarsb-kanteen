@@ -34,7 +34,9 @@ const MenuItemCUD = ({
         }
     }
 
-    useEffect(() => { if (!isValidating && !isEditing) resetFields() }, [selectedItem])
+    useEffect(() => {
+        handleRemoveChanges()
+    }, [selectedItem])
 
     const handleSaveChanges = () => {
         let hasChanges = false
