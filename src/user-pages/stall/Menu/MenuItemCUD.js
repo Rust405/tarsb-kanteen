@@ -34,9 +34,7 @@ const MenuItemCUD = ({
         }
     }
 
-    useEffect(() => {
-        handleRemoveChanges()
-    }, [selectedItem])
+    useEffect(() => handleRemoveChanges(), [selectedItem])
 
     const handleSaveChanges = () => {
         let hasChanges = false
