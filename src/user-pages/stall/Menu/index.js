@@ -23,8 +23,13 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         const unsubscribe = onSnapshot(q, snapshot => {
             setMenuSnapshot(snapshot.docs)
 
+            //update selected item
             if (selectedItem) {
-                updateSelectedItem(snapshot)
+                snapshot.docChanges().forEach(change => {
+                    if (change.type === "modified" && change.doc.id === selectedItem.id) {
+                        setSelectedItem({ id: change.doc.id, data: change.doc.data() })
+                    }
+                })
             }
         })
         return () => {
@@ -32,14 +37,6 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
             setSelectedItem(null)
         }
     }, [])
-
-    function updateSelectedItem(snapshot) {
-        snapshot.docChanges().forEach(change => {
-            if (change.type === "modified" && change.doc.id === selectedItem.id) {
-                setSelectedItem({ id: change.doc.id, data: change.doc.data() })
-            }
-        })
-    }
 
     const [disableSwitch, setDisableSwitch] = useState(false)
     const handleAvailabilityToggle = (menuItemID, isAvailable) => {
@@ -80,7 +77,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                     ContainerComponent="div"
                                     sx={{
                                         m: '12px 0',
-                                        border: '1px solid lightgray',
+                                        border: '2px solid lightgray',
                                         borderRadius: '8px',
 
                                     }}
