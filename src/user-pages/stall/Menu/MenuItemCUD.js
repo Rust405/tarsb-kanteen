@@ -34,7 +34,7 @@ const MenuItemCUD = ({
         }
     }
 
-    useEffect(() => { if (!isValidating && !isEditing) handleRemoveChanges() }, [selectedItem])
+    useEffect(() => { if (!isValidating && !isEditing) resetFields() }, [selectedItem])
 
     const handleSaveChanges = () => {
         let hasChanges = false
@@ -158,7 +158,7 @@ const MenuItemCUD = ({
                                     <Box sx={{ position: 'relative' }}>
                                         <Button
                                             onClick={handleSaveChanges}
-                                            disabled={itemName.trim() === '' || itemPrice > 99.99 || isValidating}>
+                                            disabled={itemName.trim() === '' || itemPrice > 99.99 || isNaN(itemPrice) || isValidating}>
                                             {isValidating ? "Validating..." : "Save Changes"}
                                         </Button>
                                         {isValidating &&

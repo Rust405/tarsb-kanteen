@@ -303,6 +303,12 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
         messageArray.push(`Price cannot be greater than RM 99.99.`)
     }
 
+    //if price is somehow NaN
+    if (isNaN(newItem.price)) {
+        isSuccess = false
+        messageArray.push(`Price must be a valid number.`)
+    }
+
     //otherwise add new menu item and return success
     if (isSuccess) {
         await menuRef.add(newItem)
@@ -361,6 +367,13 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
             isSuccess = false
             messageArray.push(`Price cannot be greater than RM 99.99.`)
         }
+
+        //if price is somehow NaN
+        if (isNaN(newItem.price)) {
+            isSuccess = false
+            messageArray.push(`Price must be a valid number.`)
+        }
+
     }
 
     if (isSuccess) {

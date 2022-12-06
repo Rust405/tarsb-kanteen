@@ -147,7 +147,7 @@ const AddItemDialog = ({
                 <DialogActions>
                     <Box sx={{ position: 'relative' }}>
                         <Button autoFocus
-                            disabled={itemName.trim() === '' || itemPrice > 99.99 || isValidating}
+                            disabled={itemName.trim() === '' || itemPrice > 99.99 || isNaN(itemPrice) || isValidating}
                             onClick={handleAddNewItem}>
                             {isValidating ? "Validating..." : "Save & Continue"}
                         </Button>
