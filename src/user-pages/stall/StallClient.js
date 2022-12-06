@@ -169,7 +169,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
             />
 
             {/* Success snackbar */}
-            < Snackbar open={openSucSnack} autoHideDuration={3000} onClose={handleCloseErrSnack} >
+            < Snackbar open={openSucSnack} autoHideDuration={5000} onClose={handleCloseSucSnack} >
                 <Alert onClose={handleCloseSucSnack} severity="success" sx={{ width: '100%' }}>
                     {sucMsg}
                 </Alert>
