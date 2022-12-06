@@ -71,7 +71,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                 }
 
                 {menuSnapshot.length !== 0 &&
-                    <List>
+                    <List sx={{ '&& .Mui-selected': { border: '2px solid #3f50b5' } }} >
                         {menuSnapshot.map(
                             doc => (
                                 <ListItem
@@ -80,7 +80,9 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                     ContainerComponent="div"
                                     sx={{
                                         m: '12px 0',
-                                        border: '1px solid'
+                                        border: '1px solid lightgray',
+                                        borderRadius: '8px',
+
                                     }}
                                     selected={selectedItem && selectedItem.id === doc.id}
                                     onClick={() => {
@@ -112,7 +114,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
             </div>}
 
 
-        </div>
+        </div >
     )
 }
 
