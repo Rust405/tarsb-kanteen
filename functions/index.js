@@ -379,15 +379,16 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
                     menuItemName: updatedDetails.menuItemName,
                     lowercaseMenuItemName: updatedDetails.lowercaseMenuItemName
                 })
-            console.log("Update name")
         } else if (!updatedDetails.menuItemName && updatedDetails.price && updatedDetails.isRequireWaiting === null) {
             await menuRef.doc(updatedDetails.menuItemID)
-                .update({ price: updatedDetails.price })
-            console.log("Update price")
+                .update({
+                    price: updatedDetails.price
+                })
         } else if (!updatedDetails.menuItemName && !updatedDetails.price && updatedDetails.isRequireWaiting !== null) {
             await menuRef.doc(updatedDetails.menuItemID)
-                .update({ isRequireWaiting: updatedDetails.isRequireWaiting })
-            console.log("Update isRequireWait")
+                .update({
+                    isRequireWaiting: updatedDetails.isRequireWaiting
+                })
         } else if (updatedDetails.menuItemName && updatedDetails.price && updatedDetails.isRequireWaiting !== null) {
             await menuRef.doc(updatedDetails.menuItemID)
                 .update({
@@ -396,7 +397,6 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
                     price: updatedDetails.price,
                     isRequireWaiting: updatedDetails.isRequireWaiting
                 })
-            console.log("Update all")
         }
 
     }
