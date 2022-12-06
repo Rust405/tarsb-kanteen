@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Snackbar from '@mui/material/Snackbar'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import CurrencyInput from 'react-currency-input-field'
 
@@ -14,7 +15,13 @@ import { Alert } from '../../../utils/reusableConstants'
 import { useState, useEffect } from 'react'
 import { updateItemDetails } from '../../../utils/firebase'
 
-const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem, stallID }) => {
+const MenuItemCUD = ({
+    setOpenNewItemDialog,
+    selectedItem,
+    stallID,
+    setOpenErrSnack, setErrMsgs,
+    setOpenSucSnack, setSucMsg
+}) => {
     const [isEditing, setIsEditing] = useState(false)
     const [isValidating, setIsValidating] = useState(false)
 
@@ -59,14 +66,15 @@ const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem, stallID }) => {
         if (hasChanges) {
             setIsValidating(true)
             setOpenErrSnack(false)
-            setOpenSavedSnack(false)
+            setOpenSucSnack(false)
 
             updateItemDetails({ updatedDetails: updatedDetails, stallID: stallID })
                 .then(result => {
                     let response = result.data
                     if (response.success) {
                         setIsEditing(false)
-                        setOpenSavedSnack(true)
+                        setSucMsg('Changes saved')
+                        setOpenSucSnack(true)
                     } else {
                         setOpenErrSnack(true)
                         setErrMsgs(response.message)
@@ -92,19 +100,6 @@ const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem, stallID }) => {
     const handleDeleteItem = () => {
         //TODO:
         console.log("Delete")
-    }
-
-    const [errMsgs, setErrMsgs] = useState([])
-    const [openErrSnack, setOpenErrSnack] = useState(false)
-    const handleCloseErrSnack = (event, reason) => {
-        if (reason === 'clickaway') return
-        setOpenErrSnack(false)
-    }
-
-    const [openSavedSnack, setOpenSavedSnack] = useState(false)
-    const handleCloseSavedSnack = (event, reason) => {
-        if (reason === 'clickaway') return
-        setOpenSavedSnack(false)
     }
 
     return (
@@ -202,27 +197,7 @@ const MenuItemCUD = ({ setOpenNewItemDialog, selectedItem, stallID }) => {
                         </Stack>
                     </div>
                 }
-
-                {/* Changes saved snackbar */}
-                <Snackbar open={openSavedSnack} autoHideDuration={3000} onClose={handleCloseSavedSnack} >
-                    <Alert onClose={handleCloseSavedSnack} severity="success" sx={{ width: '100%' }}>
-                        Changes saved
-                    </Alert>
-                </Snackbar>
-
-                {/* Error messages snackbar */}
-                <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
-                    anchorOrigin={{ vertical: "top", horizontal: "right" }}>
-                    <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
-                        {errMsgs.length > 1 ?
-                            errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
-                            :
-                            <div>{errMsgs[0]}</div>
-                        }
-                    </Alert>
-                </Snackbar>
             </Box>
-
         </div >
     )
 }

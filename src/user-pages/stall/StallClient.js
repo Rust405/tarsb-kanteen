@@ -144,7 +144,16 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                                     navOpen={navOpen}
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
-                                    drawerContent={<MenuItemCUD setOpenNewItemDialog={setOpenNewItemDialog} selectedItem={selectedItem} stallID={stallID} />} />}
+                                    drawerContent={
+                                        <MenuItemCUD
+                                            setOpenNewItemDialog={setOpenNewItemDialog}
+                                            selectedItem={selectedItem}
+                                            stallID={stallID}
+                                            setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                                            setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
+                                        />
+                                    }
+                                />}
                         />
                         <Route path='*' element={<></>} />
                     </Routes>

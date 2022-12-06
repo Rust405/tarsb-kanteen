@@ -147,14 +147,13 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
         }
 
         //if stall name already in use by another stall, only check if not a change of name casing
-        if (updatedDetails.lowercaseStallName != oldStallDetails.lowercaseStallName) {
+        if (updatedDetails.lowercaseStallName !== oldStallDetails.lowercaseStallName) {
             const usedStallName = await stallsRef.where('lowercaseStallName', '==', updatedDetails.lowercaseStallName).get()
             if (!usedStallName.empty) {
                 isSuccess = false
                 messageArray.push(`\"${updatedDetails.stallName}\" (or similar) is already in use by another stall.`)
             }
         }
-
     }
 
     //perform validation if change in staffEmails
@@ -211,19 +210,23 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
 
     if (isSuccess) {
         if (updatedDetails.stallName && !updatedDetails.staffEmails) {
-            await stallsRef.doc(updatedDetails.stallID).update({ stallName: updatedDetails.stallName, lowercaseStallName: updatedDetails.lowercaseStallName })
+            await stallsRef.doc(updatedDetails.stallID)
+                .update({
+                    stallName: updatedDetails.stallName,
+                    lowercaseStallName: updatedDetails.lowercaseStallName
+                })
         }
         else if (updatedDetails.staffEmails && !updatedDetails.stallName) {
-            await stallsRef.doc(updatedDetails.stallID).update({ staffEmails: updatedDetails.staffEmails })
+            await stallsRef.doc(updatedDetails.stallID)
+                .update({ staffEmails: updatedDetails.staffEmails })
         }
         else if (updatedDetails.staffEmails && updatedDetails.stallName) {
-            await stallsRef.doc(updatedDetails.stallID).update(
-                {
+            await stallsRef.doc(updatedDetails.stallID)
+                .update({
                     stallName: updatedDetails.stallName,
                     lowercaseStallName: updatedDetails.lowercaseStallName,
                     staffEmails: updatedDetails.staffEmails
-                }
-            )
+                })
         }
     }
 
@@ -323,12 +326,80 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
         console.log(`${context.auth.token.email} made an unauthorized function call.`)
         throw new functions.https.HttpsError(
             'permission-denied',
-            'Must be a stall user to add menu item.'
+            'Must be a stall user to update menu item.'
         )
     }
 
     const stallID = data.stallID
     let updatedDetails = data.updatedDetails
 
+    let isSuccess = true
+    let messageArray = []
 
+    const menuRef = stallsRef.doc(stallID).collection('menu')
+
+    const oldItemDetails = (await stallsRef.doc(stallID).collection('menu').doc(updatedDetails.menuItemID).get()).data()
+
+    //perform validation if change in itemName
+    if (updatedDetails.menuItemName) {
+        updatedDetails.lowercaseMenuItemName = updatedDetails.menuItemName.trim().toLowerCase()
+
+        //if item name is empty
+        if (updatedDetails.menuItemNam === '') {
+            isSuccess = false
+            messageArray.push(`Menu item name cannot be empty.`)
+        }
+
+        //if item name already in use
+        if (updatedDetails.lowercaseMenuItemName !== oldItemDetails.lowercaseMenuItemName) {
+            const usedMenuItemName = await menuRef.where('lowercaseMenuItemName', '==', updatedDetails.lowercaseMenuItemName).get()
+            if (!usedMenuItemName.empty) {
+                isSuccess = false
+                messageArray.push(`\"${updatedDetails.menuItemName}\" (or similar) already exists.`)
+            }
+        }
+    }
+
+    //perform validation if change in price
+    if (updatedDetails.price) {
+        //if price is < 0 or > 99.99
+        if (updatedDetails.price < 0) {
+            isSuccess = false
+            messageArray.push(`Price cannot be less than RM 0.00`)
+        } else if (updatedDetails.price > 99.99) {
+            isSuccess = false
+            messageArray.push(`Price cannot be greater than RM 99.99.`)
+        }
+    }
+
+    if (isSuccess) {
+        if (updatedDetails.menuItemName && !updatedDetails.price && updatedDetails.isRequireWaiting === null) {
+            await menuRef.doc(updatedDetails.menuItemID)
+                .update({
+                    menuItemName: updatedDetails.menuItemName,
+                    lowercaseMenuItemName: updatedDetails.lowercaseMenuItemName
+                })
+            console.log("Update name")
+        } else if (!updatedDetails.menuItemName && updatedDetails.price && updatedDetails.isRequireWaiting === null) {
+            await menuRef.doc(updatedDetails.menuItemID)
+                .update({ price: updatedDetails.price })
+            console.log("Update price")
+        } else if (!updatedDetails.menuItemName && !updatedDetails.price && updatedDetails.isRequireWaiting !== null) {
+            await menuRef.doc(updatedDetails.menuItemID)
+                .update({ isRequireWaiting: updatedDetails.isRequireWaiting })
+            console.log("Update isRequireWait")
+        } else if (updatedDetails.menuItemName && updatedDetails.price && updatedDetails.isRequireWaiting !== null) {
+            await menuRef.doc(updatedDetails.menuItemID)
+                .update({
+                    menuItemName: updatedDetails.menuItemName,
+                    lowercaseMenuItemName: updatedDetails.lowercaseMenuItemName,
+                    price: updatedDetails.price,
+                    isRequireWaiting: updatedDetails.isRequireWaiting
+                })
+            console.log("Update all")
+        }
+
+    }
+
+    return { success: isSuccess, message: messageArray }
 })

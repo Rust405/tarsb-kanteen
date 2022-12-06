@@ -1,359 +1,61 @@
-[debug] [2022-12-06T03:15:52.379Z] ----------------------------------------------------------------------
-[debug] [2022-12-06T03:15:52.382Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --import emulator-data --export-on-exit
-[debug] [2022-12-06T03:15:52.382Z] CLI Version:   11.16.1
-[debug] [2022-12-06T03:15:52.382Z] Platform:      win32
-[debug] [2022-12-06T03:15:52.383Z] Node Version:  v18.12.1
-[debug] [2022-12-06T03:15:52.384Z] Time:          Tue Dec 06 2022 11:15:52 GMT+0800 (シンガポール標準時)
-[debug] [2022-12-06T03:15:52.384Z] ----------------------------------------------------------------------
+[debug] [2022-12-06T09:57:21.957Z] ----------------------------------------------------------------------
+[debug] [2022-12-06T09:57:21.960Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --import emulator-data --export-on-exit
+[debug] [2022-12-06T09:57:21.961Z] CLI Version:   11.16.1
+[debug] [2022-12-06T09:57:21.961Z] Platform:      win32
+[debug] [2022-12-06T09:57:21.961Z] Node Version:  v18.12.1
+[debug] [2022-12-06T09:57:21.962Z] Time:          Tue Dec 06 2022 17:57:21 GMT+0800 (シンガポール標準時)
+[debug] [2022-12-06T09:57:21.963Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2022-12-06T03:15:52.548Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2022-12-06T03:15:52.549Z] > authorizing via signed-in user (tarsbkanteen@gmail.com)
-[debug] [2022-12-06T03:15:52.687Z] java version "19" 2022-09-20
+[debug] [2022-12-06T09:57:22.145Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-12-06T09:57:22.146Z] > authorizing via signed-in user (tarsbkanteen@gmail.com)
+[debug] [2022-12-06T09:57:22.456Z] java version "19" 2022-09-20
 
-[debug] [2022-12-06T03:15:52.688Z] Java(TM) SE Runtime Environment (build 19+36-2238)
+[debug] [2022-12-06T09:57:22.457Z] Java(TM) SE Runtime Environment (build 19+36-2238)
 Java HotSpot(TM) 64-Bit Server VM (build 19+36-2238, mixed mode, sharing)
 
-[debug] [2022-12-06T03:15:52.710Z] Parsed Java major version: 19
+[debug] [2022-12-06T09:57:22.474Z] Parsed Java major version: 19
 [info] i  emulators: Starting emulators: functions, firestore, hosting, pubsub {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, firestore, hosting, pubsub"}}
 [warn] !  hosting: The hosting emulator is configured but there is no hosting configuration. Have you run firebase init hosting? {"metadata":{"emulator":{"name":"hosting"},"message":"The hosting emulator is configured but there is no hosting configuration. Have you run \u001b[1mfirebase init hosting\u001b[22m?"}}
-[debug] [2022-12-06T03:15:52.739Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T03:15:52.739Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T03:15:52.739Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T03:15:52.739Z] [pubsub] Pub/Sub Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T03:15:52.739Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"pubsub":[{"address":"127.0.0.1","family":"IPv4","port":8085}]},"metadata":{"message":"assigned listening specs for emulators"}}
-[debug] [2022-12-06T03:15:52.756Z] [hub] writing locator at C:\Users\User\AppData\Local\Temp\hub-tarsb-kanteen-2022.json
-[debug] [2022-12-06T03:15:52.778Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T03:15:52.778Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T03:15:52.778Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"pubsub":[{"address":"127.0.0.1","family":"IPv4","port":8085}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[debug] [2022-12-06T09:57:22.506Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-06T09:57:22.507Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-06T09:57:22.507Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-06T09:57:22.507Z] [pubsub] Pub/Sub Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-06T09:57:22.508Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"pubsub":[{"address":"127.0.0.1","family":"IPv4","port":8085}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2022-12-06T09:57:22.533Z] [hub] writing locator at C:\Users\User\AppData\Local\Temp\hub-tarsb-kanteen-2022.json
+[debug] [2022-12-06T09:57:22.569Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-06T09:57:22.570Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-06T09:57:22.570Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"pubsub":[{"address":"127.0.0.1","family":"IPv4","port":8085}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
 [warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, database, hosting, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, database, hosting, storage\u001b[22m"}}
 [warn] !  Your requested "node" version "16" doesn't match your global version "18". Using node@18 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Your requested \"node\" version \"16\" doesn't match your global version \"18\". Using node@18 from host."}}
-[debug] [2022-12-06T03:15:52.811Z] defaultcredentials: writing to file C:\Users\User\AppData\Roaming\firebase\tarsbkanteen_gmail_com_application_default_credentials.json
-[debug] [2022-12-06T03:15:52.814Z] Setting GAC to C:\Users\User\AppData\Roaming\firebase\tarsbkanteen_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\User\\AppData\\Roaming\\firebase\\tarsbkanteen_gmail_com_application_default_credentials.json"}}
-[debug] [2022-12-06T03:15:52.816Z] > refreshing access token with scopes: []
-[debug] [2022-12-06T03:15:52.820Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
-[debug] [2022-12-06T03:15:52.820Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
-[debug] [2022-12-06T03:15:56.896Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
-[debug] [2022-12-06T03:15:56.896Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
-[debug] [2022-12-06T03:15:56.913Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig [none]
-[debug] [2022-12-06T03:15:58.859Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig 200
-[debug] [2022-12-06T03:15:58.859Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig {"projectId":"tarsb-kanteen-2022","storageBucket":"tarsb-kanteen-2022.appspot.com","locationId":"asia-southeast1"}
+[debug] [2022-12-06T09:57:22.613Z] defaultcredentials: writing to file C:\Users\User\AppData\Roaming\firebase\tarsbkanteen_gmail_com_application_default_credentials.json
+[debug] [2022-12-06T09:57:22.619Z] Setting GAC to C:\Users\User\AppData\Roaming\firebase\tarsbkanteen_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\User\\AppData\\Roaming\\firebase\\tarsbkanteen_gmail_com_application_default_credentials.json"}}
+[debug] [2022-12-06T09:57:22.623Z] > refreshing access token with scopes: []
+[debug] [2022-12-06T09:57:22.626Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2022-12-06T09:57:22.627Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-12-06T09:57:22.818Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2022-12-06T09:57:22.819Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-12-06T09:57:22.843Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig [none]
+[debug] [2022-12-06T09:57:23.499Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig 200
+[debug] [2022-12-06T09:57:23.499Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig {"projectId":"tarsb-kanteen-2022","storageBucket":"tarsb-kanteen-2022.appspot.com","locationId":"asia-southeast1"}
 [info] i  firestore: Importing data from C:\Users\User\Desktop\Code\React\tarsb-kanteen\emulator-data\firestore_export\firestore_export.overall_export_metadata {"metadata":{"emulator":{"name":"firestore"},"message":"Importing data from C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\emulator-data\\firestore_export\\firestore_export.overall_export_metadata"}}
 [warn] !  firestore: Did not find a Cloud Firestore rules file specified in a firebase.json config file. {"metadata":{"emulator":{"name":"firestore"},"message":"Did not find a Cloud Firestore rules file specified in a firebase.json config file."}}
 [warn] !  firestore: The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration. {"metadata":{"emulator":{"name":"firestore"},"message":"The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration."}}
-[debug] [2022-12-06T03:15:58.896Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
-[debug] [2022-12-06T03:15:58.896Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
-[debug] [2022-12-06T03:15:58.896Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\User\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.15.1.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","tarsb-kanteen-2022","--seed_from_export","C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\emulator-data\\firestore_export\\firestore_export.overall_export_metadata","--single_project_mode",true,"--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.15.1.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"tarsb-kanteen-2022\",\"--seed_from_export\",\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\emulator-data\\\\firestore_export\\\\firestore_export.overall_export_metadata\",\"--single_project_mode\",true,\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[debug] [2022-12-06T09:57:23.553Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-12-06T09:57:23.554Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2022-12-06T09:57:23.554Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\User\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.15.1.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","tarsb-kanteen-2022","--seed_from_export","C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\emulator-data\\firestore_export\\firestore_export.overall_export_metadata","--single_project_mode",true,"--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.15.1.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"tarsb-kanteen-2022\",\"--seed_from_export\",\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\emulator-data\\\\firestore_export\\\\firestore_export.overall_export_metadata\",\"--single_project_mode\",true,\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false}"}}
 [info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
 [info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
-[debug] [2022-12-06T03:16:01.538Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: projectId"}}
-[debug] [2022-12-06T03:16:01.538Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: auto_download"}}
-[debug] [2022-12-06T03:16:01.538Z] Starting Pub/Sub Emulator with command {"binary":"C:\\Users\\User\\.cache\\firebase\\emulators\\pubsub-emulator-0.7.1\\pubsub-emulator\\bin\\cloud-pubsub-emulator.bat","args":["--host=127.0.0.1","--port=8085"],"optionalArgs":["port","host"],"joinArgs":true} {"metadata":{"emulator":{"name":"pubsub"},"message":"Starting Pub/Sub Emulator with command {\"binary\":\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\pubsub-emulator-0.7.1\\\\pubsub-emulator\\\\bin\\\\cloud-pubsub-emulator.bat\",\"args\":[\"--host=127.0.0.1\",\"--port=8085\"],\"optionalArgs\":[\"port\",\"host\"],\"joinArgs\":true}"}}
+[debug] [2022-12-06T09:57:26.930Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-12-06T09:57:26.931Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-12-06T09:57:26.931Z] Starting Pub/Sub Emulator with command {"binary":"C:\\Users\\User\\.cache\\firebase\\emulators\\pubsub-emulator-0.7.1\\pubsub-emulator\\bin\\cloud-pubsub-emulator.bat","args":["--host=127.0.0.1","--port=8085"],"optionalArgs":["port","host"],"joinArgs":true} {"metadata":{"emulator":{"name":"pubsub"},"message":"Starting Pub/Sub Emulator with command {\"binary\":\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\pubsub-emulator-0.7.1\\\\pubsub-emulator\\\\bin\\\\cloud-pubsub-emulator.bat\",\"args\":[\"--host=127.0.0.1\",\"--port=8085\"],\"optionalArgs\":[\"port\",\"host\"],\"joinArgs\":true}"}}
 [info] i  pubsub: Pub/Sub Emulator logging to pubsub-debug.log {"metadata":{"emulator":{"name":"pubsub"},"message":"Pub/Sub Emulator logging to \u001b[1mpubsub-debug.log\u001b[22m"}}
-[debug] [2022-12-06T03:16:05.225Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
-[debug] [2022-12-06T03:16:05.225Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
-[debug] [2022-12-06T03:16:05.226Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\User\\.cache\\firebase\\emulators\\ui-v1.11.1\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.1\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[debug] [2022-12-06T09:57:32.521Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-12-06T09:57:32.522Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-12-06T09:57:32.522Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\User\\.cache\\firebase\\emulators\\ui-v1.11.1\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.1\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
 [info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
-[debug] [2022-12-06T03:16:05.449Z] Web / API server started at 127.0.0.1:4000
+[debug] [2022-12-06T09:57:33.807Z] Web / API server started at 127.0.0.1:4000
  {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
-[debug] [2022-12-06T03:16:05.449Z] Web / API server started at ::1:4000
+[debug] [2022-12-06T09:57:33.808Z] Web / API server started at ::1:4000
  {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
 [info] i  functions: Watching "C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\" for Cloud Functions..."}}
-[debug] [2022-12-06T03:16:05.506Z] Validating nodejs source
-[debug] [2022-12-06T03:16:13.021Z] > [functions] package.json contents: {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
-  "scripts": {
-    "serve": "firebase emulators:start --only functions",
-    "shell": "firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  },
-  "engines": {
-    "node": "16"
-  },
-  "main": "index.js",
-  "dependencies": {
-    "firebase-admin": "^10.3.0",
-    "firebase-functions": "^4.1.0",
-    "firebase-tools": "^11.16.1"
-  },
-  "devDependencies": {
-    "firebase-functions-test": "^0.2.0"
-  },
-  "private": true
-}
-[debug] [2022-12-06T03:16:13.021Z] Building nodejs source
-[debug] [2022-12-06T03:16:13.021Z] Analyzing nodejs backend spec
-[debug] [2022-12-06T03:16:13.024Z] Could not find functions.yaml. Must use http discovery
-[debug] [2022-12-06T03:16:13.380Z] Serving at port 9005
-
-[debug] [2022-12-06T03:16:18.773Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
-[debug] [2022-12-06T03:16:18.788Z] shutdown requested via /__/quitquitquit
-
-[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
-[debug] [2022-12-06T03:16:18.819Z] addAuthTrigger {"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","resource":"projects/tarsb-kanteen-2022"}}
-[info] +  functions[asia-southeast1-processSignUp]: auth function initialized. {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mauth\u001b[22m function initialized."}}
-[info] +  functions[asia-southeast1-registerStall]: http function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/registerStall). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/registerStall)."}}
-[info] +  functions[asia-southeast1-updateStallDetails]: http function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/updateStallDetails). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/updateStallDetails)."}}
-[info] +  functions[asia-southeast1-unregisterStall]: http function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/unregisterStall). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/unregisterStall)."}}
-[info] +  functions[asia-southeast1-addMenuItem]: http function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/addMenuItem). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/addMenuItem)."}}
-[info] 
-┌─────────────────────────────────────────────────────────────┐
-│ ✔  All emulators ready! It is now safe to connect your app. │
-│ i  View Emulator UI at http://127.0.0.1:4000/               │
-└─────────────────────────────────────────────────────────────┘
-
-┌───────────┬──────────────────────────────────┬─────────────────────────────────┐
-│ Emulator  │ Host:Port                        │ View in Emulator UI             │
-├───────────┼──────────────────────────────────┼─────────────────────────────────┤
-│ Functions │ 127.0.0.1:5001                   │ http://127.0.0.1:4000/functions │
-├───────────┼──────────────────────────────────┼─────────────────────────────────┤
-│ Firestore │ 127.0.0.1:8080                   │ http://127.0.0.1:4000/firestore │
-├───────────┼──────────────────────────────────┼─────────────────────────────────┤
-│ Hosting   │ Failed to initialize (see above) │                                 │
-├───────────┼──────────────────────────────────┼─────────────────────────────────┤
-│ Pub/Sub   │ 127.0.0.1:8085                   │ n/a                             │
-└───────────┴──────────────────────────────────┴─────────────────────────────────┘
-  Emulator Hub running at 127.0.0.1:4400
-  Other reserved ports: 4500, 9150
-
-Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
- 
-[debug] [2022-12-06T03:16:27.661Z] [work-queue] {"queueLength":1,"workRunningCount":0}
-[debug] [2022-12-06T03:16:27.662Z] [work-queue] {"queueLength":0,"workRunningCount":1}
-[debug] [2022-12-06T03:16:27.662Z] Accepted request OPTIONS /tarsb-kanteen-2022/asia-southeast1/addMenuItem --> asia-southeast1-addMenuItem
-[debug] [2022-12-06T03:16:27.668Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
-[debug] [2022-12-06T03:16:27.669Z] [functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/"}}
-[debug] [2022-12-06T03:16:27.681Z] [worker-pool] addWorker(asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(asia-southeast1-addMenuItem)"}}
-[debug] [2022-12-06T03:16:27.682Z] [worker-pool] Adding worker with key asia-southeast1-addMenuItem, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key asia-southeast1-addMenuItem, total=1"}}
-[debug] [2022-12-06T03:16:29.612Z] [runtime-status] [18872] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
-[debug] [2022-12-06T03:16:29.617Z] [runtime-status] [18872] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
-[debug] [2022-12-06T03:16:29.617Z] [runtime-status] [18872] Found local functions config: C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions/.runtimeconfig.json {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Found local functions config: C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions/.runtimeconfig.json"}}
-[debug] [2022-12-06T03:16:29.618Z] [runtime-status] [18872] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
-[debug] [2022-12-06T03:16:29.620Z] [runtime-status] [18872] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
-[debug] [2022-12-06T03:16:29.965Z] [runtime-status] [18872] Checked functions.config() {"config":{"ci":{"token":"1//0grZWD6jvov1jCgYIARAAGBASNwF-L9IrAFWACHwmhgIa_b-D50DqgeFy4gHvtSzCAr4O8fTCDL9U1rdFhwB3IvFm-2VV-5EEhCE"}}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Checked functions.config() {\"config\":{\"ci\":{\"token\":\"1//0grZWD6jvov1jCgYIARAAGBASNwF-L9IrAFWACHwmhgIa_b-D50DqgeFy4gHvtSzCAr4O8fTCDL9U1rdFhwB3IvFm-2VV-5EEhCE\"}}}"}}
-[debug] [2022-12-06T03:16:29.966Z] [runtime-status] [18872] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
-[debug] [2022-12-06T03:16:29.967Z] [runtime-status] [18872] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
-[debug] [2022-12-06T03:16:29.970Z] [runtime-status] [18872] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
-[debug] [2022-12-06T03:16:30.005Z] [runtime-status] [18872] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
-[debug] [2022-12-06T03:16:30.005Z] [runtime-status] [18872] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
-[debug] [2022-12-06T03:16:33.769Z] [runtime-status] [18872] Functions runtime initialized. {"cwd":"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions","node_version":"18.12.1"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\functions\",\"node_version\":\"18.12.1\"}"}}
-[debug] [2022-12-06T03:16:33.770Z] [runtime-status] [18872] Listening to port: \\?\pipe\fire_emu_18eec8ec809f6515 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Listening to port: \\\\?\\pipe\\fire_emu_18eec8ec809f6515"}}
-[debug] [2022-12-06T03:16:33.861Z] [worker-asia-southeast1-addMenuItem-08ef3da3-d56a-47aa-a5ac-dad3dafe05fd]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-08ef3da3-d56a-47aa-a5ac-dad3dafe05fd]: IDLE"}}
-[debug] [2022-12-06T03:16:33.862Z] [worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem)"}}
-[debug] [2022-12-06T03:16:33.862Z] [worker-asia-southeast1-addMenuItem-08ef3da3-d56a-47aa-a5ac-dad3dafe05fd]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-08ef3da3-d56a-47aa-a5ac-dad3dafe05fd]: BUSY"}}
-[info] i  functions: Beginning execution of "addMenuItem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Beginning execution of \"addMenuItem\""}}
-[debug] [2022-12-06T03:16:33.871Z] [worker-asia-southeast1-addMenuItem-08ef3da3-d56a-47aa-a5ac-dad3dafe05fd]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-08ef3da3-d56a-47aa-a5ac-dad3dafe05fd]: IDLE"}}
-[debug] [2022-12-06T03:16:33.871Z] [work-queue] {"queueLength":0,"workRunningCount":0}
-[info] i  functions: Finished "addMenuItem" in 2.7833ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Finished \"addMenuItem\" in 2.7833ms"}}
-[debug] [2022-12-06T03:16:33.874Z] [work-queue] {"queueLength":1,"workRunningCount":0}
-[debug] [2022-12-06T03:16:33.874Z] [work-queue] {"queueLength":0,"workRunningCount":1}
-[debug] [2022-12-06T03:16:33.874Z] Accepted request POST /tarsb-kanteen-2022/asia-southeast1/addMenuItem --> asia-southeast1-addMenuItem
-[debug] [2022-12-06T03:16:33.875Z] ID Token: eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1MWMwOGM1MTZhZTM1MmI4OWU0ZDJlMGUxNDA5NmY3MzQ5NDJhODciLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVEFSU0IgS2FudGVlbiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BTG01d3UwNEFSSmZIWDliVFVYcEhTemZWX2dvU0lBMGpLOGlQdGNrMTRRTD1zOTYtYyIsInVzZXJUeXBlIjoic3RhbGxVc2VyIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3RhcnNiLWthbnRlZW4tMjAyMiIsImF1ZCI6InRhcnNiLWthbnRlZW4tMjAyMiIsImF1dGhfdGltZSI6MTY3MDIzMjk2NSwidXNlcl9pZCI6IldLY1ZKWDVSbnVVdWlNUllKNFVzcERmUk56RDMiLCJzdWIiOiJXS2NWSlg1Um51VXVpTVJZSjRVc3BEZlJOekQzIiwiaWF0IjoxNjcwMjk2MzQzLCJleHAiOjE2NzAyOTk5NDMsImVtYWlsIjoidGFyc2JrYW50ZWVuQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTE4MjU0OTk2NjQ0MDQ5MjEwMDQ3Il0sImVtYWlsIjpbInRhcnNia2FudGVlbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.iNzI9FgZ6nToPH6-YkjYqLLX3HGn7f-9olc5sAtsSpkIg_WkXZ4Gzh7dYQRywDtM1dR9sirk0e05bGqJxuzegOnhxkwN5pehInj2dw3W40_jYXbM_3JyHUFM0k-dENB9V-sQeJEKM2FNEOlSFSscgpUAMjgJSwawWzZa_qwWf2sVBzpwge0NI5i48mnPlUXY05L828lsvFBrzz74iR0LdoFZlnGYPgtbqhrfwp2-D76k_AzZMqX7wyWh227rAELjt6plmYDa-VYxeiqB1_0j4PkuvPFRvmde_1xwaqYJFLWdVLmL28tO7wJuHvIfADLIHwmTr0SlphFvgvHry8ULNw
-[debug] [2022-12-06T03:16:33.884Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
-[debug] [2022-12-06T03:16:33.884Z] [functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tarsb-kanteen-2022/asia-southeast1/addMenuItem, mapping to path=/"}}
-[debug] [2022-12-06T03:16:33.884Z] [worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=asia-southeast1-addMenuItem)"}}
-[debug] [2022-12-06T03:16:33.884Z] [worker-asia-southeast1-addMenuItem-08ef3da3-d56a-47aa-a5ac-dad3dafe05fd]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-08ef3da3-d56a-47aa-a5ac-dad3dafe05fd]: BUSY"}}
-[info] i  functions: Beginning execution of "addMenuItem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Beginning execution of \"addMenuItem\""}}
-[info] >  {"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"} {"user":{"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"verifications\":{\"app\":\"MISSING\",\"auth\":\"MISSING\"},\"logging.googleapis.com/labels\":{\"firebase-log-type\":\"callable-request-verification\"},\"severity\":\"DEBUG\",\"message\":\"Callable request verification passed\"}"}}
-[debug] [2022-12-06T03:16:33.909Z] [runtime-status] [18872] Callable functions auth override {"key":"x-callable-context-auth","value":"%7B%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22token%22%3A%7B%22name%22%3A%22TARSB%20Kanteen%22%2C%22picture%22%3A%22https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FALm5wu04ARJfHX9bTUXpHSzfV_goSIA0jK8iPtck14QL%3Ds96-c%22%2C%22userType%22%3A%22stallUser%22%2C%22iss%22%3A%22https%3A%2F%2Fsecuretoken.google.com%2Ftarsb-kanteen-2022%22%2C%22aud%22%3A%22tarsb-kanteen-2022%22%2C%22auth_time%22%3A1670232965%2C%22user_id%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22sub%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22iat%22%3A1670296343%2C%22exp%22%3A1670299943%2C%22email%22%3A%22tarsbkanteen%40gmail.com%22%2C%22email_verified%22%3Atrue%2C%22firebase%22%3A%7B%22identities%22%3A%7B%22google.com%22%3A%5B%22118254996644049210047%22%5D%2C%22email%22%3A%5B%22tarsbkanteen%40gmail.com%22%5D%7D%2C%22sign_in_provider%22%3A%22google.com%22%7D%2C%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%7D%7D"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"[runtime-status] [18872] Callable functions auth override {\"key\":\"x-callable-context-auth\",\"value\":\"%7B%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22token%22%3A%7B%22name%22%3A%22TARSB%20Kanteen%22%2C%22picture%22%3A%22https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FALm5wu04ARJfHX9bTUXpHSzfV_goSIA0jK8iPtck14QL%3Ds96-c%22%2C%22userType%22%3A%22stallUser%22%2C%22iss%22%3A%22https%3A%2F%2Fsecuretoken.google.com%2Ftarsb-kanteen-2022%22%2C%22aud%22%3A%22tarsb-kanteen-2022%22%2C%22auth_time%22%3A1670232965%2C%22user_id%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22sub%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%2C%22iat%22%3A1670296343%2C%22exp%22%3A1670299943%2C%22email%22%3A%22tarsbkanteen%40gmail.com%22%2C%22email_verified%22%3Atrue%2C%22firebase%22%3A%7B%22identities%22%3A%7B%22google.com%22%3A%5B%22118254996644049210047%22%5D%2C%22email%22%3A%5B%22tarsbkanteen%40gmail.com%22%5D%7D%2C%22sign_in_provider%22%3A%22google.com%22%7D%2C%22uid%22%3A%22WKcVJX5RnuUuiMRYJ4UspDfRNzD3%22%7D%7D\"}"}}
-[debug] [2022-12-06T03:16:37.433Z] [worker-asia-southeast1-addMenuItem-08ef3da3-d56a-47aa-a5ac-dad3dafe05fd]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-asia-southeast1-addMenuItem-08ef3da3-d56a-47aa-a5ac-dad3dafe05fd]: IDLE"}}
-[debug] [2022-12-06T03:16:37.434Z] [work-queue] {"queueLength":0,"workRunningCount":0}
-[info] i  functions: Finished "addMenuItem" in 3526.5407ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"asia-southeast1-addMenuItem"},"extension":{},"message":"Finished \"addMenuItem\" in 3526.5407ms"}}
-[debug] [2022-12-06T04:28:34.845Z] Received signal SIGHUP 1
-[debug] [2022-12-06T05:59:13.843Z] ----------------------------------------------------------------------
-[debug] [2022-12-06T05:59:13.846Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --import emulator-data --export-on-exit
-[debug] [2022-12-06T05:59:13.847Z] CLI Version:   11.16.1
-[debug] [2022-12-06T05:59:13.847Z] Platform:      win32
-[debug] [2022-12-06T05:59:13.847Z] Node Version:  v18.12.1
-[debug] [2022-12-06T05:59:13.848Z] Time:          Tue Dec 06 2022 13:59:13 GMT+0800 (シンガポール標準時)
-[debug] [2022-12-06T05:59:13.849Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2022-12-06T05:59:13.860Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
-[debug] [2022-12-06T05:59:14.038Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2022-12-06T05:59:14.039Z] > authorizing via signed-in user (tarsbkanteen@gmail.com)
-[debug] [2022-12-06T05:59:14.406Z] java version "19" 2022-09-20
-
-[debug] [2022-12-06T05:59:14.407Z] Java(TM) SE Runtime Environment (build 19+36-2238)
-Java HotSpot(TM) 64-Bit Server VM (build 19+36-2238, mixed mode, sharing)
-
-[debug] [2022-12-06T05:59:14.427Z] Parsed Java major version: 19
-[info] i  emulators: Starting emulators: functions, firestore, hosting, pubsub {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, firestore, hosting, pubsub"}}
-[warn] !  hosting: The hosting emulator is configured but there is no hosting configuration. Have you run firebase init hosting? {"metadata":{"emulator":{"name":"hosting"},"message":"The hosting emulator is configured but there is no hosting configuration. Have you run \u001b[1mfirebase init hosting\u001b[22m?"}}
-[debug] [2022-12-06T05:59:14.455Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T05:59:14.455Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T05:59:14.456Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T05:59:14.456Z] [pubsub] Pub/Sub Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T05:59:14.456Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"pubsub":[{"address":"127.0.0.1","family":"IPv4","port":8085}]},"metadata":{"message":"assigned listening specs for emulators"}}
-[warn] !  emulators: It seems that you are running multiple instances of the emulator suite for project tarsb-kanteen-2022. This may result in unexpected behavior. 
-[debug] [2022-12-06T05:59:14.482Z] [hub] writing locator at C:\Users\User\AppData\Local\Temp\hub-tarsb-kanteen-2022.json
-[debug] [2022-12-06T05:59:14.513Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T05:59:14.514Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2022-12-06T05:59:14.514Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"pubsub":[{"address":"127.0.0.1","family":"IPv4","port":8085}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
-[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, database, hosting, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, database, hosting, storage\u001b[22m"}}
-[warn] !  Your requested "node" version "16" doesn't match your global version "18". Using node@18 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Your requested \"node\" version \"16\" doesn't match your global version \"18\". Using node@18 from host."}}
-[debug] [2022-12-06T05:59:14.565Z] defaultcredentials: writing to file C:\Users\User\AppData\Roaming\firebase\tarsbkanteen_gmail_com_application_default_credentials.json
-[debug] [2022-12-06T05:59:14.571Z] Setting GAC to C:\Users\User\AppData\Roaming\firebase\tarsbkanteen_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\User\\AppData\\Roaming\\firebase\\tarsbkanteen_gmail_com_application_default_credentials.json"}}
-[debug] [2022-12-06T05:59:14.574Z] > refreshing access token with scopes: []
-[debug] [2022-12-06T05:59:14.575Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
-[debug] [2022-12-06T05:59:14.575Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
-[debug] [2022-12-06T05:59:14.643Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
-[debug] [2022-12-06T05:59:14.643Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
-[debug] [2022-12-06T05:59:14.867Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
-[debug] [2022-12-06T05:59:14.867Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
-[debug] [2022-12-06T05:59:14.881Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig [none]
-[debug] [2022-12-06T05:59:15.407Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig 200
-[debug] [2022-12-06T05:59:15.407Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/tarsb-kanteen-2022/adminSdkConfig {"projectId":"tarsb-kanteen-2022","storageBucket":"tarsb-kanteen-2022.appspot.com","locationId":"asia-southeast1"}
-[info] i  firestore: Importing data from C:\Users\User\Desktop\Code\React\tarsb-kanteen\emulator-data\firestore_export\firestore_export.overall_export_metadata {"metadata":{"emulator":{"name":"firestore"},"message":"Importing data from C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\emulator-data\\firestore_export\\firestore_export.overall_export_metadata"}}
-[warn] !  firestore: Did not find a Cloud Firestore rules file specified in a firebase.json config file. {"metadata":{"emulator":{"name":"firestore"},"message":"Did not find a Cloud Firestore rules file specified in a firebase.json config file."}}
-[warn] !  firestore: The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration. {"metadata":{"emulator":{"name":"firestore"},"message":"The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration."}}
-[debug] [2022-12-06T05:59:15.441Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
-[debug] [2022-12-06T05:59:15.441Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
-[debug] [2022-12-06T05:59:15.441Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\User\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.15.1.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","tarsb-kanteen-2022","--seed_from_export","C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\emulator-data\\firestore_export\\firestore_export.overall_export_metadata","--single_project_mode",true,"--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.15.1.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"tarsb-kanteen-2022\",\"--seed_from_export\",\"C:\\\\Users\\\\User\\\\Desktop\\\\Code\\\\React\\\\tarsb-kanteen\\\\emulator-data\\\\firestore_export\\\\firestore_export.overall_export_metadata\",\"--single_project_mode\",true,\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false}"}}
-[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
-[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
-[debug] [2022-12-06T05:59:19.081Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: projectId"}}
-[debug] [2022-12-06T05:59:19.081Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: auto_download"}}
-[debug] [2022-12-06T05:59:19.081Z] Starting Pub/Sub Emulator with command {"binary":"C:\\Users\\User\\.cache\\firebase\\emulators\\pubsub-emulator-0.7.1\\pubsub-emulator\\bin\\cloud-pubsub-emulator.bat","args":["--host=127.0.0.1","--port=8085"],"optionalArgs":["port","host"],"joinArgs":true} {"metadata":{"emulator":{"name":"pubsub"},"message":"Starting Pub/Sub Emulator with command {\"binary\":\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\pubsub-emulator-0.7.1\\\\pubsub-emulator\\\\bin\\\\cloud-pubsub-emulator.bat\",\"args\":[\"--host=127.0.0.1\",\"--port=8085\"],\"optionalArgs\":[\"port\",\"host\"],\"joinArgs\":true}"}}
-[info] i  pubsub: Pub/Sub Emulator logging to pubsub-debug.log {"metadata":{"emulator":{"name":"pubsub"},"message":"Pub/Sub Emulator logging to \u001b[1mpubsub-debug.log\u001b[22m"}}
-[debug] [2022-12-06T05:59:24.399Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
-[debug] [2022-12-06T05:59:24.400Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
-[debug] [2022-12-06T05:59:24.400Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\User\\.cache\\firebase\\emulators\\ui-v1.11.1\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\User\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.1\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
-[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
-[debug] [2022-12-06T05:59:24.960Z] Web / API server started at 127.0.0.1:4000
- {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
-[debug] [2022-12-06T05:59:24.961Z] Web / API server started at ::1:4000
- {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
-[info] i  functions: Watching "C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\" for Cloud Functions..."}}
-[debug] [2022-12-06T05:59:25.220Z] Validating nodejs source
-[debug] [2022-12-06T05:59:39.305Z] > [functions] package.json contents: {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
-  "scripts": {
-    "serve": "firebase emulators:start --only functions",
-    "shell": "firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  },
-  "engines": {
-    "node": "16"
-  },
-  "main": "index.js",
-  "dependencies": {
-    "firebase-admin": "^10.3.0",
-    "firebase-functions": "^4.1.0",
-    "firebase-tools": "^11.16.1"
-  },
-  "devDependencies": {
-    "firebase-functions-test": "^0.2.0"
-  },
-  "private": true
-}
-[debug] [2022-12-06T05:59:39.306Z] Building nodejs source
-[debug] [2022-12-06T05:59:39.307Z] Analyzing nodejs backend spec
-[debug] [2022-12-06T05:59:39.311Z] Could not find functions.yaml. Must use http discovery
-[debug] [2022-12-06T05:59:43.527Z] Serving at port 9005
-
-[debug] [2022-12-06T06:00:51.334Z] shutdown requested via /__/quitquitquit
-
-[error] !!  functions: Failed to load function definition from source: FirebaseError: User code failed to load. Cannot determine backend specification {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: User code failed to load. Cannot determine backend specification"}}
-[info] 
-┌─────────────────────────────────────────────────────────────┐
-│ ✔  All emulators ready! It is now safe to connect your app. │
-│ i  View Emulator UI at http://127.0.0.1:4000/               │
-└─────────────────────────────────────────────────────────────┘
-
-┌───────────┬──────────────────────────────────┬─────────────────────────────────┐
-│ Emulator  │ Host:Port                        │ View in Emulator UI             │
-├───────────┼──────────────────────────────────┼─────────────────────────────────┤
-│ Functions │ 127.0.0.1:5001                   │ http://127.0.0.1:4000/functions │
-├───────────┼──────────────────────────────────┼─────────────────────────────────┤
-│ Firestore │ 127.0.0.1:8080                   │ http://127.0.0.1:4000/firestore │
-├───────────┼──────────────────────────────────┼─────────────────────────────────┤
-│ Hosting   │ Failed to initialize (see above) │                                 │
-├───────────┼──────────────────────────────────┼─────────────────────────────────┤
-│ Pub/Sub   │ 127.0.0.1:8085                   │ n/a                             │
-└───────────┴──────────────────────────────────┴─────────────────────────────────┘
-  Emulator Hub running at 127.0.0.1:4400
-  Other reserved ports: 4500, 9150
-
-Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
- 
-[debug] [2022-12-06T06:43:18.187Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
-[debug] [2022-12-06T06:43:19.195Z] Validating nodejs source
-[debug] [2022-12-06T06:43:25.293Z] > [functions] package.json contents: {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
-  "scripts": {
-    "serve": "firebase emulators:start --only functions",
-    "shell": "firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  },
-  "engines": {
-    "node": "16"
-  },
-  "main": "index.js",
-  "dependencies": {
-    "firebase-admin": "^10.3.0",
-    "firebase-functions": "^4.1.0",
-    "firebase-tools": "^11.16.1"
-  },
-  "devDependencies": {
-    "firebase-functions-test": "^0.2.0"
-  },
-  "private": true
-}
-[debug] [2022-12-06T06:43:25.293Z] Building nodejs source
-[debug] [2022-12-06T06:43:25.293Z] Analyzing nodejs backend spec
-[debug] [2022-12-06T06:43:25.294Z] Could not find functions.yaml. Must use http discovery
-[debug] [2022-12-06T06:43:25.667Z] Serving at port 9005
-
-[debug] [2022-12-06T06:43:25.868Z] File C:\Users\User\Desktop\Code\React\tarsb-kanteen\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\User\\Desktop\\Code\\React\\tarsb-kanteen\\functions\\index.js changed, reloading triggers"}}
-[debug] [2022-12-06T06:43:26.870Z] Validating nodejs source
-[debug] [2022-12-06T06:43:33.284Z] > [functions] package.json contents: {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
-  "scripts": {
-    "serve": "firebase emulators:start --only functions",
-    "shell": "firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  },
-  "engines": {
-    "node": "16"
-  },
-  "main": "index.js",
-  "dependencies": {
-    "firebase-admin": "^10.3.0",
-    "firebase-functions": "^4.1.0",
-    "firebase-tools": "^11.16.1"
-  },
-  "devDependencies": {
-    "firebase-functions-test": "^0.2.0"
-  },
-  "private": true
-}
-[debug] [2022-12-06T06:43:33.285Z] Building nodejs source
-[debug] [2022-12-06T06:43:33.285Z] Analyzing nodejs backend spec
-[debug] [2022-12-06T06:43:33.287Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
-[debug] [2022-12-06T06:43:33.295Z] Could not find functions.yaml. Must use http discovery
-[debug] [2022-12-06T06:43:33.337Z] shutdown requested via /__/quitquitquit
-
-[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
-[debug] [2022-12-06T06:43:33.383Z] addAuthTrigger {"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","resource":"projects/tarsb-kanteen-2022"}}
-[info] +  functions[asia-southeast1-processSignUp]: auth function initialized. {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mauth\u001b[22m function initialized."}}
-[info] +  functions[asia-southeast1-registerStall]: http function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/registerStall). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/registerStall)."}}
-[info] +  functions[asia-southeast1-updateStallDetails]: http function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/updateStallDetails). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/updateStallDetails)."}}
-[info] +  functions[asia-southeast1-unregisterStall]: http function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/unregisterStall). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/unregisterStall)."}}
-[info] +  functions[asia-southeast1-addMenuItem]: http function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/addMenuItem). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/tarsb-kanteen-2022/asia-southeast1/addMenuItem)."}}
-[debug] [2022-12-06T06:43:33.665Z] Serving at port 9006
-
-[debug] [2022-12-06T06:43:37.898Z] Got response from /__/functions.yaml {"endpoints":{"processSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/tarsb-kanteen-2022"},"retry":false},"labels":{},"entryPoint":"processSignUp"},"registerStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"registerStall"},"updateStallDetails":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"updateStallDetails"},"unregisterStall":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"unregisterStall"},"addMenuItem":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"region":["asia-southeast1"],"callableTrigger":{},"entryPoint":"addMenuItem"}},"specVersion":"v1alpha1","requiredAPIs":[]}
-[debug] [2022-12-06T06:43:37.907Z] shutdown requested via /__/quitquitquit
-
-[info] +  functions: Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: processSignUp, registerStall, updateStallDetails, unregisterStall, addMenuItem."}}
+[debug] [2022-12-06T09:57:33.938Z] Validating nodejs source
