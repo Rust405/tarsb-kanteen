@@ -71,7 +71,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                 }
 
                 {menuSnapshot.length !== 0 &&
-                    <List sx={{ '&& .Mui-selected': { border: '2px solid #3f50b5' } }} >
+                    <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
                         {menuSnapshot.map(
                             doc => (
                                 <ListItem
