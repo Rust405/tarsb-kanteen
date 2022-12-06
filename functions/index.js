@@ -137,7 +137,7 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
     }
 
     //perform validation if change in stallName
-    if (updatedDetails.stallName) {
+    if (updatedDetails.stallName !== undefined) {
         updatedDetails.lowercaseStallName = updatedDetails.stallName.trim().toLowerCase()
 
         //if stall name is empty
@@ -157,7 +157,7 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
     }
 
     //perform validation if change in staffEmails
-    if (updatedDetails.staffEmails && updatedDetails.staffEmails.length !== 0) {
+    if (updatedDetails.staffEmails !== undefined && updatedDetails.staffEmails.length !== 0) {
 
         //return early if staffEmails somehow > 10, otherwise problem with array-contains-any
         if (updatedDetails.staffEmails.length > 10) return {
@@ -211,11 +211,11 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
     if (isSuccess) {
         let updateObj = {}
 
-        if (updatedDetails.stallName) {
+        if (updatedDetails.stallName !== undefined) {
             updateObj.stallName = updatedDetails.stallName
             updateObj.lowercaseStallName = updatedDetails.lowercaseStallName
         }
-        if (updatedDetails.staffEmails) {
+        if (updatedDetails.staffEmails !== undefined) {
             updateObj.staffEmails = updatedDetails.staffEmails
         }
 

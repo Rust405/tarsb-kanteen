@@ -58,11 +58,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
 
     const handleSaveChanges = () => {
         let hasChanges = false
-        let updatedDetails = {
-            stallID: stallID,
-            stallName: null,
-            staffEmails: null
-        }
+        let updatedDetails = { stallID: stallID }
 
         //only send details that was changed
         if (stallName.trim() !== stallSnapshot.stallName) {
