@@ -209,25 +209,17 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
 
 
     if (isSuccess) {
-        if (updatedDetails.stallName && !updatedDetails.staffEmails) {
-            await stallsRef.doc(updatedDetails.stallID)
-                .update({
-                    stallName: updatedDetails.stallName,
-                    lowercaseStallName: updatedDetails.lowercaseStallName
-                })
+        let updateObj = {}
+
+        if (updatedDetails.stallName) {
+            updateObj.stallName = updatedDetails.stallName
+            updateObj.lowercaseStallName = updatedDetails.lowercaseStallName
         }
-        else if (updatedDetails.staffEmails && !updatedDetails.stallName) {
-            await stallsRef.doc(updatedDetails.stallID)
-                .update({ staffEmails: updatedDetails.staffEmails })
+        if (updatedDetails.staffEmails) {
+            updateObj.staffEmails = updatedDetails.staffEmails
         }
-        else if (updatedDetails.staffEmails && updatedDetails.stallName) {
-            await stallsRef.doc(updatedDetails.stallID)
-                .update({
-                    stallName: updatedDetails.stallName,
-                    lowercaseStallName: updatedDetails.lowercaseStallName,
-                    staffEmails: updatedDetails.staffEmails
-                })
-        }
+
+        await stallsRef.doc(updatedDetails.stallID).update(updateObj)
     }
 
     return { success: isSuccess, message: messageArray }
@@ -373,7 +365,6 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
     }
 
     if (isSuccess) {
-
         let updateObj = {}
 
         if (updatedDetails.menuItemName) {
