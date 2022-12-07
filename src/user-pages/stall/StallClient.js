@@ -26,7 +26,7 @@ import MenuItemCUD from './Menu/MenuItemCUD'
 
 import { db, auth, logout } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
-import { Alert } from '../../utils/reusableConstants'
+import { Alert } from '../../constants/components'
 import { ROUTE } from '../../constants'
 
 const StallClient = ({ container, staffRole, stallID, userInfo }) => {

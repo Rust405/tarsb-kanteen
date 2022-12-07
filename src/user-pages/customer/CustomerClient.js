@@ -18,7 +18,7 @@ import CustomerUserSettings from './CustomerUserSettings'
 
 import NotFound from '../../error-pages/NotFound'
 
-import { Alert } from '../../utils/reusableConstants'
+import { Alert } from '../../constants/components'
 import { ROUTE } from '../../constants'
 
 //sidebar

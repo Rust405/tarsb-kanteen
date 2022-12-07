@@ -13,7 +13,7 @@ import CustomerClient from './user-pages/customer/CustomerClient'
 import StallClient from './user-pages/stall/StallClient'
 import NewStallUser from './user-pages/stall/NewStallUser'
 
-import { Alert } from './utils/reusableConstants'
+import { Alert } from './constants/components'
 import { ROUTE } from './constants'
 
 import useOnlineStatus from 'react-online-hook'

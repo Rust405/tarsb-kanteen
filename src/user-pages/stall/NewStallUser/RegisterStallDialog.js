@@ -24,7 +24,7 @@ import InfoIcon from '@mui/icons-material/Info'
 import CloseIcon from '@mui/icons-material/Close'
 import RemoveIcon from '@mui/icons-material/Remove'
 
-import { Alert } from '../../../utils/reusableConstants'
+import { Alert } from '../../../constants/components'
 
 const CustomDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': { padding: theme.spacing(2) },
