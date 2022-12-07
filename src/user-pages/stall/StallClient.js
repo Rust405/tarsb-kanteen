@@ -119,7 +119,12 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                             <Route path="/stall/generatesummary" element={<GenerateSummary />} />
                             <Route path="/stall/usersettings" element={<StallUserSettings />} />
                             {staffRole === 'owner' &&
-                                <Route path="/stall/stallsettings" element={<StallSettings stallSnapshot={stallSnapshot} stallDocRef={stallDocRef} stallID={stallID} />} />
+                                <Route
+                                    path="/stall/stallsettings"
+                                    element={<StallSettings stallSnapshot={stallSnapshot} stallDocRef={stallDocRef} stallID={stallID}
+                                        setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                                        setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg} />}
+                                />
                             }
                             <Route path="*" element={<NotFound />} />
                         </Routes>

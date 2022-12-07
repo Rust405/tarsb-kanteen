@@ -11,17 +11,18 @@ import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
-import Snackbar from '@mui/material/Snackbar'
 import Divider from '@mui/material/Divider'
 
 import RemoveIcon from '@mui/icons-material/Remove'
 
 import { toggleStallStatus, updateStallDetails } from '../../../utils/firebase'
-import { Alert } from '../../../utils/reusableConstants'
 import UnregisterStallDialog from './UnregisterStallDialog'
 
-const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
-
+const StallSettings = ({
+    stallSnapshot, stallDocRef, stallID,
+    setOpenErrSnack, setErrMsgs,
+    setSucMsg, setOpenSucSnack
+}) => {
     const [disableSwitch, setDisableSwitch] = useState(false)
 
     const handleStatusToggle = () => {
@@ -73,7 +74,7 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
         if (hasChanges) {
             setIsValidating(true)
             setOpenErrSnack(false)
-            setOpenSavedSnack(false)
+            setOpenSucSnack(false)
             setNewStaffEmail('')
 
             updateStallDetails({ updatedDetails: updatedDetails })
@@ -81,7 +82,8 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                     let response = result.data
                     if (response.success) {
                         setIsEditing(false)
-                        setOpenSavedSnack(true)
+                        setSucMsg('Changes saved')
+                        setOpenSucSnack(true)
                     } else {
                         setOpenErrSnack(true)
                         setErrMsgs(response.message)
@@ -112,19 +114,6 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
             ...staffEmails.slice(0, index),
             ...staffEmails.slice(index + 1, staffEmails.length)
         ])
-    }
-
-    const [errMsgs, setErrMsgs] = useState([])
-    const [openErrSnack, setOpenErrSnack] = useState(false)
-    const handleCloseErrSnack = (event, reason) => {
-        if (reason === 'clickaway') return
-        setOpenErrSnack(false)
-    }
-
-    const [openSavedSnack, setOpenSavedSnack] = useState(false)
-    const handleCloseSavedSnack = (event, reason) => {
-        if (reason === 'clickaway') return
-        setOpenSavedSnack(false)
     }
 
     const [openDialog, setOpenDialog] = useState(false)
@@ -259,25 +248,6 @@ const StallSettings = ({ stallSnapshot, stallDocRef, stallID }) => {
                     </Box>
                 </Stack>
             </Box>
-
-            {/* Changes saved snackbar */}
-            <Snackbar open={openSavedSnack} autoHideDuration={3000} onClose={handleCloseSavedSnack} >
-                <Alert onClose={handleCloseSavedSnack} severity="success" sx={{ width: '100%' }}>
-                    Changes saved
-                </Alert>
-            </Snackbar>
-
-            {/* Error messages snackbar */}
-            <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}>
-                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
-                    {errMsgs.length > 1 ?
-                        errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
-                        :
-                        <div>{errMsgs[0]}</div>
-                    }
-                </Alert>
-            </Snackbar>
 
             <UnregisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} stallName={stallSnapshot.stallName} stallID={stallID} />
         </div>
