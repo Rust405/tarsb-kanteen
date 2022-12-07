@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack'
 const Loading = ({ loadingMsg }) => {
     return (
         <div className="loading">
-            <Box sx={{ width: '100%' }} display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+            <Box sx={{ width: '100%' }} display="flex" justifyContent="center" alignItems="center" minHeight="calc(100vh - 16px)">
                 <Stack alignItems="center" spacing={2}>
                     <Typography variant="body">{loadingMsg}</Typography>
                     <CircularProgress />

@@ -16,6 +16,8 @@ import currency from 'currency.js'
 
 const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     const [menuSnapshot, setMenuSnapshot] = useState(null)
+    const [updatedItems, setUpdatedItems] = useState([])
+
     const menuRef = collection(db, "stalls", stallID, 'menu')
     const q = query(menuRef, orderBy('menuItemName'))
 
@@ -23,12 +25,10 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         const unsubscribe = onSnapshot(q, snapshot => {
             setMenuSnapshot(snapshot.docs)
 
-            //Update selected item if updated
-            snapshot.docChanges().forEach((change) => {
-                if (change.type === "modified" && selectedItem && change.doc.id === selectedItem.id) {
-                    const modified = { id: change.doc.id, data: change.doc.data() }
-                    setSelectedItem(modified)
-                }
+            setUpdatedItems([])
+
+            snapshot.docChanges().forEach(change => {
+                if (change.type === "modified") { setUpdatedItems([...updatedItems, change.doc]) }
             })
         })
         return () => {
@@ -36,6 +36,16 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
             setSelectedItem(null)
         }
     }, [])
+
+    //update selectedItem if modified externally
+    useEffect(() => {
+        if (selectedItem) {
+            const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
+            if (latestDoc) {
+                setSelectedItem({ id: latestDoc.id, data: latestDoc.data() })
+            }
+        }
+    }, [updatedItems])
 
     const [disableSwitch, setDisableSwitch] = useState(false)
     const handleAvailabilityToggle = (menuItemID, isAvailable) => {
