@@ -7,5 +7,3 @@
 4. Authenticating with `--token` is deprecated and will be removed in a future major version of `firebase-tools`. Instead, use a service account key with `GOOGLE_APPLICATION_CREDENTIALS`: https://cloud.google.com/docs/authentication/getting-started. (Ignored, can't find any official documentation on how to update this and that deprecation was very recent).
 
 5. Profile image may return 403 when running locally on localhost. This does not happen if 127.0.0.1 is used instead. (Solved, create a .env.local file in root and add HOST=127.0.0.1 so that every npm start run uses 127.0.0.1)
-
-6. For /stall/menu, if a selected menu item is updated externally, i.e. via other stuff or through Firestore/emulator console, then it will kick any user out of editing mode. (Ignored, solution whereby fields only update when not in edit mode requires additional time, current behaviour acceptable.

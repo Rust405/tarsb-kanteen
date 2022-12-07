@@ -34,7 +34,18 @@ const MenuItemCUD = ({
         }
     }
 
-    useEffect(() => handleRemoveChanges(), [selectedItem])
+    //disable editing and update fields to latest if selected item changes
+    const { id: selectedID } = selectedItem ? selectedItem : { id: null }
+    useEffect(() => {
+        handleRemoveChanges()
+    }, [selectedID])
+
+    //only update fields to latest if not editing/validating
+    const { data: selectedData } = selectedItem ? selectedItem : { data: null }
+    useEffect(() => {
+        if (!isValidating && !isEditing) resetFields()
+    }, [selectedData])
+
 
     const handleSaveChanges = () => {
         let hasChanges = false

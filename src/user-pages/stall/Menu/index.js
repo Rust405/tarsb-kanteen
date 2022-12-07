@@ -26,7 +26,8 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
             //Update selected item if updated
             snapshot.docChanges().forEach((change) => {
                 if (change.type === "modified" && selectedItem && change.doc.id === selectedItem.id) {
-                    setSelectedItem({ id: change.doc.id, data: change.doc.data() })
+                    const modified = { id: change.doc.id, data: change.doc.data() }
+                    setSelectedItem(modified)
                 }
             })
         })
