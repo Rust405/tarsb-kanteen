@@ -37,6 +37,8 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         }
     }, [])
 
+    //TODO: handle deleted item
+
     //update selectedItem if modified externally
     useEffect(() => {
         if (selectedItem) {

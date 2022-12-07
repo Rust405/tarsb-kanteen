@@ -30,7 +30,7 @@ import { doc, onSnapshot } from "firebase/firestore"
 import { Alert } from '../../utils/reusableConstants'
 import { ROUTE } from '../../constants'
 
-const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
+const StallClient = ({ container, staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -86,8 +86,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
 
     //MENU PAGE
     const [selectedItem, setSelectedItem] = useState(null)
-
-
+    
 
     return (
         <div className="stall-client">
@@ -103,7 +102,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                         navOpen={navOpen}
                         handleDrawerToggle={handleDrawerToggle}
                         container={container}
-                        userType={userType}
+                        userType={'stallUser'}
                         staffRole={staffRole}
                         stallStatus={stallSnapshot ? stallSnapshot.status : null}
                         userInfo={userInfo}
@@ -141,7 +140,10 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                                     navOpen={navOpen}
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
-                                    drawerContent={< StallOrderPreview />} />}
+                                    drawerContent={
+                                        < StallOrderPreview />
+                                    }
+                                />}
                         />
                         <Route path={ROUTE.STALL.MENU}
                             element={

@@ -38,7 +38,7 @@ function App(props) {
   const [userType, setUserType] = useState(null)
   const [isFetchingUserType, setIsFetchingUserType] = useState(false)
 
-  //stall variables
+  //stall avariables
   const [stallID, setStallID] = useState(false)
   const [staffRole, setStaffRole] = useState(null)
   const [isSearchingStaff, setIsSearchingStaff] = useState(false)
@@ -114,7 +114,6 @@ function App(props) {
       {user && userType === 'customer' &&
         <CustomerClient
           container={container}
-          userType={userType}
           userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />
       }
 
@@ -122,7 +121,6 @@ function App(props) {
       {user && userType === 'stallUser' && staffRole &&
         <StallClient
           container={container}
-          userType={userType}
           staffRole={staffRole}
           stallID={stallID}
           userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />

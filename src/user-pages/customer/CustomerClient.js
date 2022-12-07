@@ -25,7 +25,7 @@ import { ROUTE } from '../../constants'
 import CustOrderPreview from './MyOrders/CustOrderPreview'
 import OrderCreate from './Browse/OrderCreate'
 
-const CustomerClient = ({ container, userType, userInfo }) => {
+const CustomerClient = ({ container, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -78,7 +78,7 @@ const CustomerClient = ({ container, userType, userInfo }) => {
                         navOpen={navOpen}
                         handleDrawerToggle={handleDrawerToggle}
                         container={container}
-                        userType={userType}
+                        userType={'customer'}
                         userInfo={userInfo}
                     />
                 </div>
@@ -105,7 +105,10 @@ const CustomerClient = ({ container, userType, userInfo }) => {
                                     navOpen={navOpen}
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
-                                    drawerContent={<CustOrderPreview counter={counter} />} />}
+                                    drawerContent={
+                                        <CustOrderPreview counter={counter} />
+                                    }
+                                />}
                         />
                         <Route path={ROUTE.CUSTOMER.BROWSE}
                             element={
@@ -114,7 +117,10 @@ const CustomerClient = ({ container, userType, userInfo }) => {
                                     navOpen={navOpen}
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
-                                    drawerContent={<OrderCreate />} />}
+                                    drawerContent={
+                                        <OrderCreate />
+                                    }
+                                />}
                         />
                         <Route path='*' element={<></>} />
                     </Routes>
