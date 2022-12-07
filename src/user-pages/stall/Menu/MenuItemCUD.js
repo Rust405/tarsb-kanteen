@@ -8,17 +8,20 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import CircularProgress from '@mui/material/CircularProgress'
 
+import AddItemDialog from './AddItemDialog'
+
 import CurrencyInput from 'react-currency-input-field'
 import { useState, useEffect } from 'react'
 import { updateItemDetails } from '../../../utils/firebase'
 
 const MenuItemCUD = ({
-    setOpenNewItemDialog,
     selectedItem,
     stallID,
     setOpenErrSnack, setErrMsgs,
     setOpenSucSnack, setSucMsg
 }) => {
+    const [openNewItemDialog, setOpenNewItemDialog] = useState(false)
+
     const [isEditing, setIsEditing] = useState(false)
     const [isValidating, setIsValidating] = useState(false)
 
@@ -196,6 +199,15 @@ const MenuItemCUD = ({
                     </div>
                 }
             </Box>
+
+            {/* New Item Dialog */}
+            < AddItemDialog
+                openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog}
+                setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
+                setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                stallID={stallID}
+            />
+
         </div >
     )
 }

@@ -17,7 +17,6 @@ import Menu from './Menu'
 import GenerateSummary from './GenerateSummary'
 import StallUserSettings from './StallUserSettings'
 import StallSettings from './StallSettings'
-import AddItemDialog from './Menu/AddItemDialog'
 
 import NotFound from '../../error-pages/NotFound'
 
@@ -65,8 +64,6 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
         }
     }, [stallSnapshot])
 
-    //Add New Item Dialog
-    const [openNewItemDialog, setOpenNewItemDialog] = useState(false)
 
     //Error snackbar
     const [openErrSnack, setOpenErrSnack] = useState(false)
@@ -86,7 +83,7 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
 
     //MENU PAGE
     const [selectedItem, setSelectedItem] = useState(null)
-    
+
 
     return (
         <div className="stall-client">
@@ -154,7 +151,6 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                                     container={container}
                                     drawerContent={
                                         <MenuItemCUD
-                                            setOpenNewItemDialog={setOpenNewItemDialog}
                                             selectedItem={selectedItem}
                                             stallID={stallID}
                                             setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
@@ -167,14 +163,6 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                     </Routes>
                 </div>
             </Box >
-
-            {/* New Item Dialog */}
-            < AddItemDialog
-                openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog}
-                setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
-                setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
-                stallID={stallID}
-            />
 
             {/* Success snackbar */}
             < Snackbar open={openSucSnack} autoHideDuration={5000} onClose={handleCloseSucSnack} >
