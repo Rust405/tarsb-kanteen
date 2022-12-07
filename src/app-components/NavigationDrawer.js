@@ -27,25 +27,26 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import LogoutIcon from '@mui/icons-material/Logout'
 
 import { logout } from '../utils/firebase'
+import { ROUTE } from '../constants'
 
 const drawerWidth = 240
 
 const customer = {
     pages: ['My Orders', 'Browse', 'Settings'],
     icons: [<FastfoodIcon />, <MenuBookIcon />, <SettingsIcon />],
-    links: ['/customer/myorders', '/customer/browse', '/customer/usersettings']
+    links: [ROUTE.CUSTOMER.MYORDERS, ROUTE.CUSTOMER.BROWSE, ROUTE.CUSTOMER.USERSETTINGS]
 }
 
 const stallOwner = {
     pages: ['Queue', 'Menu', 'Stall', 'Generate Summary', 'Settings'],
     icons: [<ListAltIcon />, <MenuBookIcon />, <StorefrontIcon />, <PrintIcon />, <SettingsIcon />],
-    links: ['/stall/queue', '/stall/menu', '/stall/stallsettings', '/stall/generatesummary', '/stall/usersettings']
+    links: [ROUTE.STALL.QUEUE, ROUTE.STALL.MENU, ROUTE.STALL.STALLSETTINGS, ROUTE.STALL.GENERATESUMMARY, ROUTE.STALL.USERSETTINGS]
 }
 
 const stallStaff = {
     pages: ['Queue', 'Menu', 'Generate Summary', 'Settings'],
     icons: [<ListAltIcon />, <MenuBookIcon />, <PrintIcon />, <SettingsIcon />],
-    links: ['/stall/queue', '/stall/menu', '/stall/generatesummary', '/stall/usersettings']
+    links: [ROUTE.STALL.QUEUE, ROUTE.STALL.MENU, ROUTE.STALL.GENERATESUMMARY, ROUTE.STALL.USERSETTINGS]
 }
 
 const NavigationDrawer = ({
@@ -102,7 +103,7 @@ const NavigationDrawer = ({
                         (page, index) => (
                             <ListItem key={index} disablePadding>
                                 <ListItemButton
-                                    selected={pathName === navOption.links[index]}
+                                    selected={pathName === `/${navOption.links[index]}`}
                                     component={Link}
                                     to={navOption.links[index]}
                                     onClick={handleDrawerToggle}

@@ -97,7 +97,7 @@ const MenuItemCUD = ({
 
     const handleDeleteItem = () => {
         //TODO:
-        console.log("Delete")
+        alert("Not yet implemented")
     }
 
     return (

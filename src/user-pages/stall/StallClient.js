@@ -28,6 +28,7 @@ import MenuItemCUD from './Menu/MenuItemCUD'
 import { db, auth, logout } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
 import { Alert } from '../../utils/reusableConstants'
+import { ROUTE } from '../../constants'
 
 const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
@@ -114,13 +115,13 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                     <Box component="main" sx={{ flexGrow: 1, p: 2, overflow: 'auto', maxHeight: 'calc(100vh - 80px)' }}>
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
-                            <Route path="/stall/queue" element={<Queue />} />
-                            <Route path="/stall/menu" element={<Menu stallID={stallID} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />} />
-                            <Route path="/stall/generatesummary" element={<GenerateSummary />} />
-                            <Route path="/stall/usersettings" element={<StallUserSettings />} />
+                            <Route path={ROUTE.STALL.QUEUE} element={<Queue />} />
+                            <Route path={ROUTE.STALL.MENU} element={<Menu stallID={stallID} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />} />
+                            <Route path={ROUTE.STALL.GENERATESUMMARY} element={<GenerateSummary />} />
+                            <Route path={ROUTE.STALL.USERSETTINGS} element={<StallUserSettings />} />
                             {staffRole === 'owner' &&
                                 <Route
-                                    path="/stall/stallsettings"
+                                    path={ROUTE.STALL.STALLSETTINGS}
                                     element={<StallSettings stallSnapshot={stallSnapshot} stallDocRef={stallDocRef} stallID={stallID}
                                         setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
                                         setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg} />}
@@ -133,7 +134,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
 
                 <div className="multi-purpose-sidebar">
                     <Routes>
-                        <Route path='/stall/queue'
+                        <Route path={ROUTE.STALL.QUEUE}
                             element={
                                 <MultiPurposeSidebar
                                     sidebarOpen={sidebarOpen}
@@ -142,7 +143,7 @@ const StallClient = ({ container, userType, staffRole, stallID, userInfo }) => {
                                     container={container}
                                     drawerContent={< StallOrderPreview />} />}
                         />
-                        <Route path='/stall/menu'
+                        <Route path={ROUTE.STALL.MENU}
                             element={
                                 <MultiPurposeSidebar
                                     sidebarOpen={sidebarOpen}

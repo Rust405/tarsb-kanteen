@@ -14,6 +14,8 @@ import StallClient from './user-pages/stall/StallClient'
 import NewStallUser from './user-pages/stall/NewStallUser'
 
 import { Alert } from './utils/reusableConstants'
+import { ROUTE } from './constants'
+
 import useOnlineStatus from 'react-online-hook'
 import Offline from './error-pages/Offline'
 
@@ -70,7 +72,7 @@ function App(props) {
 
   function redirectUser() {
     if (userType === 'customer') {
-      if (pathName === '/') navigate('/customer/myorders', { replace: true })
+      if (pathName === '/') navigate(ROUTE.CUSTOMER.MYORDERS, { replace: true })
     }
     else if (userType === 'stallUser') {
       setIsSearchingStaff(true)
@@ -85,7 +87,7 @@ function App(props) {
             setStaffRole(result.staffRole)
             setIsSearchingStaff(false)
 
-            if (pathName === '/') navigate('/stall/queue', { replace: true })
+            if (pathName === '/') navigate(ROUTE.STALL.QUEUE, { replace: true })
           }
         })
     }
