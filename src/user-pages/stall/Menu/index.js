@@ -17,6 +17,7 @@ import currency from 'currency.js'
 const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     const [menuSnapshot, setMenuSnapshot] = useState(null)
     const [updatedItems, setUpdatedItems] = useState([])
+    const [deletedItems, setDeletedItems] = useState([])
 
     const menuRef = collection(db, "stalls", stallID, 'menu')
     const q = query(menuRef, orderBy('menuItemName'))
@@ -26,9 +27,11 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
             setMenuSnapshot(snapshot.docs)
 
             setUpdatedItems([])
+            setDeletedItems([])
 
             snapshot.docChanges().forEach(change => {
                 if (change.type === "modified") { setUpdatedItems([...updatedItems, change.doc]) }
+                if (change.type === "removed") { setDeletedItems([...deletedItems, change.doc]) }
             })
         })
         return () => {
@@ -37,9 +40,8 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         }
     }, [])
 
-    //TODO: handle deleted item
 
-    //update selectedItem if modified externally
+    //update selectedItem if modified 
     useEffect(() => {
         if (selectedItem) {
             const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
@@ -48,6 +50,16 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
             }
         }
     }, [updatedItems])
+
+    //set selectedItem to null if deleted
+    useEffect(() => {
+        if (selectedItem) {
+            const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
+            if (deletedDoc) {
+                setSelectedItem(null)
+            }
+        }
+    }, [deletedItems])
 
     const [disableSwitch, setDisableSwitch] = useState(false)
     const handleAvailabilityToggle = (menuItemID, isAvailable) => {

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, updateDoc, connectFirestoreEmulator } from "firebase/firestore"
+import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, updateDoc, connectFirestoreEmulator, deleteDoc } from "firebase/firestore"
 import { getAuth, GoogleAuthProvider, signOut, signInWithRedirect } from "firebase/auth"
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions"
 
@@ -83,4 +83,10 @@ export const toggleItemAvail = async (itemDocRef, isAvailable) => {
 }
 
 export const updateItemDetails = httpsCallable(functions, 'updateItemDetails')
+
+export const deleteMenuItem = async (stallID, itemID) => {
+  await deleteDoc(doc(db, "stalls", stallID, "menu", itemID))
+}
+
+
 

@@ -17,16 +17,6 @@ import { unregisterStall } from '../../../utils/firebase'
 const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName, stallID }) => {
     const [confirmation, setConfirmation] = useState('')
 
-    const handleUnregisterStall = () => {
-        setIsUnregistering(true)
-        unregisterStall({ stallID: stallID })
-            .catch(err => {
-                console.warn(err)
-                setOpenErrSnack(true)
-                setIsUnregistering(false)
-            })
-    }
-
     const [isUnregistering, setIsUnregistering] = useState(false)
     const [openErrSnack, setOpenErrSnack] = useState(false)
     const handleCloseErrSnack = (event, reason) => {
@@ -40,13 +30,25 @@ const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName, stallID }
         setOpenDialog(false)
     }
 
+    const handleUnregisterStall = () => {
+        setIsUnregistering(true)
+        setOpenErrSnack(false)
+
+        unregisterStall({ stallID: stallID })
+            .catch(err => {
+                console.warn(err)
+                setOpenErrSnack(true)
+                setIsUnregistering(false)
+            })
+    }
+
     return (
         <div className="unregister-stall-dialog">
-            <Dialog open={openDialog} onClose={handleCloseDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-                <DialogTitle id="alert-dialog-title">Unregister Stall? </DialogTitle>
+            <Dialog open={openDialog} onClose={handleCloseDialog} >
+                <DialogTitle>Unregister Stall? </DialogTitle>
 
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
+                    <DialogContentText>
                         Before your proceed, please note that all users
                         associated with the stall (incluyding yourself) will be automatically logged out.
                         This process cannot be undone.

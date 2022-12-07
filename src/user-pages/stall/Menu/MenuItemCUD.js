@@ -13,6 +13,7 @@ import AddItemDialog from './AddItemDialog'
 import CurrencyInput from 'react-currency-input-field'
 import { useState, useEffect } from 'react'
 import { updateItemDetails } from '../../../utils/firebase'
+import DeleteItemDialog from './DeleteItemDialog'
 
 const MenuItemCUD = ({
     selectedItem,
@@ -21,6 +22,7 @@ const MenuItemCUD = ({
     setOpenSucSnack, setSucMsg
 }) => {
     const [openNewItemDialog, setOpenNewItemDialog] = useState(false)
+    const [openDeleteItemDialog, setOpenDeleteItemDialog] = useState(false)
 
     const [isEditing, setIsEditing] = useState(false)
     const [isValidating, setIsValidating] = useState(false)
@@ -39,7 +41,10 @@ const MenuItemCUD = ({
 
     //disable editing and update fields to latest if selected item changes
     const { id: selectedID } = selectedItem ? selectedItem : { id: null }
-    useEffect(() => { handleRemoveChanges() }, [selectedID])
+    useEffect(() => {
+        if (!selectedID) setOpenDeleteItemDialog(false)
+        handleRemoveChanges()
+    }, [selectedID])
 
     //only update fields to latest if not editing/validating
     const { data: selectedData } = selectedItem ? selectedItem : { data: null }
@@ -98,14 +103,11 @@ const MenuItemCUD = ({
         setIsEditing(false)
     }
 
-    const handleDeleteItem = () => {
-        //TODO:
-        alert("Not yet implemented")
-    }
-
     return (
         <div className="menu-item-cud">
             <Box sx={{ overflow: 'auto' }} >
+
+                {/* Add New Item */}
                 <Box sx={{ m: 2 }} display="flex" justifyContent="center">
                     <Button variant="contained"
                         onClick={() => {
@@ -191,7 +193,7 @@ const MenuItemCUD = ({
                             <Button
                                 variant="outlined" color="error"
                                 disabled={isValidating || isEditing}
-                                onClick={handleDeleteItem}
+                                onClick={() => setOpenDeleteItemDialog(true)}
                             >
                                 Delete Item
                             </Button>
@@ -201,13 +203,21 @@ const MenuItemCUD = ({
             </Box>
 
             {/* New Item Dialog */}
-            < AddItemDialog
+            <AddItemDialog
                 openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog}
                 setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
                 setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
                 stallID={stallID}
             />
 
+            {/* Delete Item Dialog */}
+            {selectedItem &&
+                <DeleteItemDialog
+                    openDeleteItemDialog={openDeleteItemDialog} setOpenDeleteItemDialog={setOpenDeleteItemDialog} selectedItem={selectedItem}
+                    setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
+                    stallID={stallID}
+                />
+            }
         </div >
     )
 }
