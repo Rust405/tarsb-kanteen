@@ -249,7 +249,7 @@ const StallSettings = ({
                 </Stack>
             </Box>
 
-            <UnregisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} stallName={stallSnapshot.stallName} stallID={stallID} />
+            <UnregisterStallDialog openDialog={openDialog} setOpenDialog={setOpenDialog} stallName={stallSnapshot.stallName} stallID={stallID} setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs} />
         </div>
     )
 }

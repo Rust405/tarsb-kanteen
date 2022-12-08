@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import { useEffect, useState } from 'react'
 import { deleteMenuItem } from '../../../utils/firebase'
 
-const delay = 2
+const delay = 2 //seconds
 
 const DeleteItemDialog = ({
     openDeleteItemDialog, setOpenDeleteItemDialog,
