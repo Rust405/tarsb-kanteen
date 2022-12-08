@@ -19,4 +19,4 @@ const OrderCreate = () => {
     );
 }
 
-export default OrderCreate;
+export default OrderCreate

@@ -1,18 +1,21 @@
-// import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
 
-const MyOrders = ({ handleIncCounter }) => {
+const MyOrders = () => {
 
     return (
         <div className="my-orders">
-            <Button
-                variant="contained"
-                onClick={handleIncCounter}
-            >
-                Increment
-            </Button>
+                  <Typography paragraph>
+                MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
+                MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
+                MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
+                MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
+                MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
+                MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
+                MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
+                MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
+            </Typography>
         </div>
-    );
+    )
 }
 
 export default MyOrders

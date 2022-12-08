@@ -55,15 +55,7 @@ const CustomerClient = ({ container, userInfo }) => {
         setOpenSucSnack(false)
     }
 
-    //props passing test
-    const [counter, setCounter] = useState(1)
-    const handleIncCounter = () => {
-        setCounter(counter + 1)
-    }
-    //end props passing test
-
-
-
+    
     return (
         <div className="customer-client">
             <Box sx={{ display: 'flex' }}>
@@ -88,7 +80,7 @@ const CustomerClient = ({ container, userInfo }) => {
                     <Box component="main" sx={{ flexGrow: 1, p: 2, overflow: 'auto', maxHeight: 'calc(100vh - 80px)' }}>
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
-                            <Route path={ROUTE.CUSTOMER.MYORDERS} element={<MyOrders handleIncCounter={handleIncCounter} />} />
+                            <Route path={ROUTE.CUSTOMER.MYORDERS} element={<MyOrders />} />
                             <Route path={ROUTE.CUSTOMER.BROWSE} element={<Browse />} />
                             <Route path={ROUTE.CUSTOMER.USERSETTINGS} element={<CustomerUserSettings />} />
                             <Route path="*" element={<NotFound />} />
@@ -106,7 +98,7 @@ const CustomerClient = ({ container, userInfo }) => {
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
                                     drawerContent={
-                                        <CustOrderPreview counter={counter} />
+                                        <CustOrderPreview />
                                     }
                                 />}
                         />
