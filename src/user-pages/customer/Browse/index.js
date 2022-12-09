@@ -64,6 +64,13 @@ const Browse = () => {
     //TODO: handle stall update
     //TODO: hanlde stall delete
 
+    //TODO: remove selected item from order if deleted, or disabled
+    //TODO: update selected item details if updated
+
+    //TODO: separate out unavailable and non-coooking into 2 other lists?
+
+    //TODO: figure out how to handle preorders :(
+
     //Note: dont disable selection if stall is closed cuz preorders
     //But make sure somehow preorder is not placed in an impossible time
 
@@ -116,7 +123,6 @@ const Browse = () => {
 
                 {!menuSnapshot && <Typography sx={{ p: 2 }}>Loading menu items...</Typography>}
 
-
                 {menuSnapshot &&
                     <Box sx={{ p: 2 }}>
                         {/* No Menu */}
@@ -128,6 +134,7 @@ const Browse = () => {
                                 {menuSnapshot.map(
                                     doc => (
                                         <ListItemButton
+                                            disabled={!doc.data().isAvailable}
                                             key={doc.id}
                                             sx={{
                                                 m: '12px 0',
