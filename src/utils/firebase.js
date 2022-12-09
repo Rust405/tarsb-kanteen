@@ -20,9 +20,7 @@ const app = initializeApp(firebaseConfig)
 export const db = getFirestore(app)
 
 const provider = new GoogleAuthProvider()
-provider.setCustomParameters({
-  prompt: 'select_account'
-})
+provider.setCustomParameters({ prompt: 'select_account' })
 
 export const auth = getAuth()
 
@@ -52,6 +50,7 @@ export const signInWithGoogle = async () => {
 
 export const logout = () => signOut(auth)
 
+//[START Stall functions]
 export const findStallUser = async (email) => {
   const queryOwner = query(collection(db, "stalls"), where("ownerEmail", "==", email))
   const queryStaff = query(collection(db, "stalls"), where("staffEmails", "array-contains", email))
@@ -87,6 +86,6 @@ export const updateItemDetails = httpsCallable(functions, 'updateItemDetails')
 export const deleteMenuItem = async (stallID, itemID) => {
   await deleteDoc(doc(db, "stalls", stallID, "menu", itemID))
 }
-
+//[END Stall functions]
 
 

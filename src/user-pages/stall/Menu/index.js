@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography'
 import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 import Stack from '@mui/material/Stack'
@@ -19,10 +19,9 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     const [updatedItems, setUpdatedItems] = useState([])
     const [deletedItems, setDeletedItems] = useState([])
 
-    const menuRef = collection(db, "stalls", stallID, 'menu')
-    const q = query(menuRef, orderBy('menuItemName'))
-
     useEffect(() => {
+        const q = query(collection(db, "stalls", stallID, 'menu'), orderBy('menuItemName'))
+
         const unsubscribe = onSnapshot(q, snapshot => {
             setMenuSnapshot(snapshot.docs)
 
@@ -95,10 +94,8 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                         <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
                             {menuSnapshot.map(
                                 doc => (
-                                    <ListItem
-                                        button
+                                    <ListItemButton
                                         key={doc.id}
-                                        ContainerComponent="div"
                                         sx={{
                                             m: '12px 0',
                                             border: '2px solid lightgray',
@@ -127,7 +124,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                                     onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)} />
                                             </Stack>
                                         </ListItemSecondaryAction>
-                                    </ListItem>
+                                    </ListItemButton>
                                 )
                             )}
                         </List>
