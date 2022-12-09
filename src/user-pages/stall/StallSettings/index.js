@@ -144,7 +144,7 @@ const StallSettings = ({
 
     return (
         <div className="stall-settings">
-            <Box sx={{ width: "100%", maxWidth: "540px" }}>
+            <Box sx={{ p: 2, width: "100%", maxWidth: "540px" }}>
                 <Stack spacing={2}>
                     <div>
                         <Typography variant="h6" gutterBottom>Stall Status</Typography>
