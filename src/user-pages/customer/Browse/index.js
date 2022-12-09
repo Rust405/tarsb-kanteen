@@ -6,13 +6,14 @@ import Select from '@mui/material/Select'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import { useState, useEffect } from 'react'
 import { db } from '../../../utils/firebase'
 import { capitalizeFirstLetter } from '../../../utils/tools'
 import { collection, orderBy, query, onSnapshot } from 'firebase/firestore'
+
+import currency from 'currency.js'
 
 const Browse = () => {
 
@@ -21,7 +22,7 @@ const Browse = () => {
 
     const [menuSnapshot, setMenuSnapshot] = useState(null)
 
-    //stall collection
+    //Stall collection
     useEffect(() => {
         const q = query(collection(db, "stalls"), orderBy('stallName'))
 
@@ -35,7 +36,7 @@ const Browse = () => {
         }
     }, [])
 
-    //menu subcollection
+    //Menu subcollection
     useEffect(() => {
         if (selectedStall) {
             const q = query(collection(db, "stalls", selectedStall.id, 'menu'), orderBy('menuItemName'))
@@ -45,6 +46,7 @@ const Browse = () => {
             })
             return () => {
                 unsubscribe()
+                setMenuSnapshot(null)
             }
         }
     }, [selectedStall])
@@ -62,69 +64,91 @@ const Browse = () => {
     //TODO: handle stall update
     //TODO: hanlde stall delete
 
+    //Note: dont disable selection if stall is closed cuz preorders
+    //But make sure somehow preorder is not placed in an impossible time
+
+    // TODO: make stall selector box sticky
 
     return (
         <div className="browse">
-            {/* Loading */}
-            {!stallsSnapshot &&
-                <Box display="flex" justifyContent="center" sx={{ p: 2 }}>
-                    <CircularProgress />
-                </Box>
-            }
+
+            {/* Loading stalls */}
+            {!stallsSnapshot && <Box display="flex" justifyContent="center" sx={{ p: 2 }}><CircularProgress /></Box>}
 
             {/* No stalls */}
-            {stallsSnapshot && stallsSnapshot.length === 0 &&
-                <Typography sx={{ p: 2 }}>There are currently no stalls registered.</Typography>
-            }
+            {stallsSnapshot && stallsSnapshot.length === 0 && <Typography sx={{ p: 2 }}>There are currently no stalls registered.</Typography>}
 
-            {stallsSnapshot && stallsSnapshot.length !== 0 && selectedStall &&
-                <div>
-                    <Box sx={{ display: { xs: 'block', sm: 'flex' }, borderBottom: '2px solid lightgray', p: 1 }}>
-                        <Box sx={{ p: 1, width: '100%' }}>
-                            <FormControl fullWidth>
-                                <Select
-                                    value={selectedStall}
-                                    onChange={e => setSelectedStall(e.target.value)}
-                                    onClose={() => setTimeout(() => { document.activeElement.blur() }, 0)}
-                                >
-                                    {stallsSnapshot.map(stallDoc =>
-                                        <MenuItem value={stallDoc} key={stallDoc.id}>{stallDoc.data().stallName}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
-                        </Box>
-
-
-                        <Box sx={{ p: 1, width: '100%' }}>
-                            <Typography>Status: <Box
-                                component="span"
-                                sx={{
-                                    color: selectedStall.data().status === "open" ? 'green' : 'red',
-                                    fontWeight: 'bold'
-                                }}>
-                                {capitalizeFirstLetter(selectedStall.data().status)}
-                            </Box>
-                            </Typography>
-
-                            {/* TODO: */}
-                            <Typography>Wait time for new orders: {"10"} - {"20"} min(s)</Typography>
-                        </Box>
-
+            {/* Have stalls */}
+            {stallsSnapshot && stallsSnapshot.length !== 0 && selectedStall && <div>
+                {/* Stall Selector */}
+                <Box sx={{ display: { xs: 'block', sm: 'flex' }, borderBottom: '2px solid lightgray', p: 1 }}>
+                    {/* Stall select dropdown */}
+                    <Box sx={{ p: 1, width: '100%' }}>
+                        <FormControl fullWidth>
+                            <Select
+                                value={selectedStall}
+                                onChange={e => setSelectedStall(e.target.value)}
+                                onClose={() => setTimeout(() => { document.activeElement.blur() }, 0)}
+                            >
+                                {stallsSnapshot.map(stallDoc =>
+                                    <MenuItem value={stallDoc} key={stallDoc.id}>{stallDoc.data().stallName}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
                     </Box>
 
-                    {/* Menu */}
+                    {/* Stall Info */}
+                    <Box sx={{ p: 1, width: '100%' }}>
+                        <Typography>Status: <Box
+                            component="span"
+                            sx={{
+                                color: selectedStall.data().status === "open" ? 'green' : 'red',
+                                fontWeight: 'bold'
+                            }}>
+                            {capitalizeFirstLetter(selectedStall.data().status)}
+                        </Box>
+                        </Typography>
+
+                        {/* TODO: calculate wait time for stall */}
+                        <Typography>Wait time for new orders: TODO min(s)</Typography>
+                    </Box>
+                </Box>
+
+                {!menuSnapshot && <Typography sx={{ p: 2 }}>Loading menu items...</Typography>}
+
+
+                {menuSnapshot &&
                     <Box sx={{ p: 2 }}>
-                        {menuSnapshot.length === 0 &&
-                            <Typography>No menu items found. This stall has not listed any menu items.</Typography>
-                        }
+                        {/* No Menu */}
+                        {menuSnapshot.length === 0 && <Typography>No menu items found. This stall has not listed any menu items.</Typography>}
 
+                        {/* Menu list */}
                         {menuSnapshot.length !== 0 &&
-                            <div>Something</div>
+                            <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
+                                {menuSnapshot.map(
+                                    doc => (
+                                        <ListItemButton
+                                            key={doc.id}
+                                            sx={{
+                                                m: '12px 0',
+                                                border: '2px solid lightgray',
+                                                borderRadius: '8px',
+
+                                            }}
+                                            onClick={() => console.log("CLicked")}
+                                        >
+                                            <ListItemText
+                                                primary={`${doc.data().menuItemName} (est. ${doc.data().estWaitTime} min)`}
+                                                secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                            />
+                                        </ListItemButton>
+                                    )
+                                )}
+                            </List>
                         }
                     </Box>
-
-                </div>
-            }
+                }
+            </div>}
 
         </div>
     )

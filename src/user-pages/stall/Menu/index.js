@@ -79,17 +79,14 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     return (
         <div className="menu">
             <Box sx={{ p: 2 }}>
-                {!menuSnapshot &&
-                    <Box display="flex" justifyContent="center">
-                        <CircularProgress />
-                    </Box>
-                }
+                {/* Loading */}
+                {!menuSnapshot && <Box display="flex" justifyContent="center"><CircularProgress /></Box>}
 
                 {menuSnapshot && <div>
-                    {menuSnapshot.length === 0 &&
-                        <Typography>No menu items found. Start adding menu items with "Add New Item".</Typography>
-                    }
+                    {/* No Menu */}
+                    {menuSnapshot.length === 0 && <Typography>No menu items found. Start adding menu items with "Add New Item".</Typography>}
 
+                    {/* Menu List */}
                     {menuSnapshot.length !== 0 &&
                         <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
                             {menuSnapshot.map(
