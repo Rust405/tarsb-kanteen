@@ -88,7 +88,18 @@ const Browse = () => {
             {/* Have stalls */}
             {stallsSnapshot && stallsSnapshot.length !== 0 && selectedStall && <div>
                 {/* Stall Selector */}
-                <Box sx={{ display: { xs: 'block', sm: 'flex' }, borderBottom: '2px solid lightgray', p: 1 }}>
+                <Box
+                    sx={{
+                        display: { xs: 'block', sm: 'flex' },
+                        borderBottom: '2px solid lightgray',
+                        p: 1,
+                        position: '-webkit-sticky',
+                        position: 'sticky',
+                        top: 0,
+                        backgroundColor: 'white',
+                        zIndex:1
+                    }}
+                >
                     {/* Stall select dropdown */}
                     <Box sx={{ p: 1, width: '100%' }}>
                         <FormControl fullWidth>
@@ -130,7 +141,11 @@ const Browse = () => {
 
                         {/* Menu list */}
                         {menuSnapshot.length !== 0 &&
-                            <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
+                            <List
+                                sx={{
+                                    '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' }
+                                }}
+                            >
                                 {menuSnapshot.map(
                                     doc => (
                                         <ListItemButton
@@ -146,7 +161,7 @@ const Browse = () => {
                                         >
                                             <ListItemText
                                                 primary={
-                                                    doc.data().menuItemName +  ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
+                                                    doc.data().menuItemName + ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
                                                 }
                                                 secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
                                             />

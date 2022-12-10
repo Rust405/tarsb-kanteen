@@ -88,7 +88,11 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
 
                     {/* Menu List */}
                     {menuSnapshot.length !== 0 &&
-                        <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
+                        <List
+                            sx={{
+                                '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' }
+                            }}
+                        >
                             {menuSnapshot.map(
                                 doc => (
                                     <ListItemButton
