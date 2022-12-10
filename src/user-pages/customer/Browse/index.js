@@ -148,7 +148,7 @@ const Browse = () => {
                         {menuSnapshot.length !== 0 &&
                             <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
 
-                                {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable) &&
+                                {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
                                     < Divider textAlign='left'>Requires Waiting</Divider>
                                 }
 
@@ -171,7 +171,7 @@ const Browse = () => {
                                         )
                                     )}
 
-                                {menuSnapshot.filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable) > 0 &&
+                                {menuSnapshot.filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
                                     <Divider textAlign='left'>Does Not Require Waiting</Divider>
                                 }
 
