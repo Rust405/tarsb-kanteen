@@ -84,8 +84,6 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         setSelectedItem({ id: doc.id, data: doc.data() })
     }
 
-    //TODO: separate cooking and non-cooking???
-
     return (
         <div className="menu">
             <Box sx={{ p: 2 }}>
