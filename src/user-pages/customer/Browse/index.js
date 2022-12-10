@@ -42,7 +42,6 @@ const Browse = () => {
         return () => {
             unsubscribe()
             setSelectedStall('')
-            setSelectedItems([])
         }
     }, [])
 
@@ -57,6 +56,7 @@ const Browse = () => {
             return () => {
                 unsubscribe()
                 setMenuSnapshot(null)
+                setSelectedItems([])
             }
         }
     }, [selectedStall])
@@ -71,8 +71,27 @@ const Browse = () => {
         }
     }, [stallsSnapshot])
 
+    const handleSelect = (doc) => {
+        if (selectedItems.some(item => item.id === doc.id)) {
+            setSelectedItems(selectedItems.filter(item => item.id !== doc.id))
+            return
+        }
+
+        if (doc.data().isRequireWaiting && selectedItems.some(item => item.data.isRequireWaiting)) {
+            setSelectedItems(
+                [
+                    ...selectedItems.filter(item => !item.data.isRequireWaiting),
+                    { id: doc.id, data: doc.data() }
+                ])
+            return
+        }
+
+        setSelectedItems([...selectedItems, { id: doc.id, data: doc.data() }])
+    }
+
     //TODO: handle stall update
-    //TODO: hanlde stall delete
+    //TODO: hanlde stall unregister
+    //TODO: hanlde stall registered
 
     //TODO: remove selected item from order if deleted, or disabled
     //TODO: update selected item details if updated
@@ -161,7 +180,8 @@ const Browse = () => {
                                             <ListItemButton
                                                 key={doc.id}
                                                 sx={itemStyle}
-                                                onClick={() => console.log("Clicked")}
+                                                selected={selectedItems.some(item => item.id === doc.id)}
+                                                onClick={() => handleSelect(doc)}
                                             >
                                                 <ListItemText
                                                     primary={doc.data().menuItemName + ` (est. ${doc.data().estWaitTime} min)`}
@@ -182,7 +202,8 @@ const Browse = () => {
                                             <ListItemButton
                                                 key={doc.id}
                                                 sx={itemStyle}
-                                                onClick={() => console.log("Clicked")}
+                                                selected={selectedItems.some(item => item.id === doc.id)}
+                                                onClick={() => handleSelect(doc)}
                                             >
                                                 <ListItemText
                                                     primary={doc.data().menuItemName}

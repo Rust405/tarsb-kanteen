@@ -78,9 +78,10 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
     const handleSelect = (doc) => {
         if (selectedItem && selectedItem.id === doc.id) {
             setSelectedItem(null)
-        } else {
-            setSelectedItem({ id: doc.id, data: doc.data() })
+            return
         }
+
+        setSelectedItem({ id: doc.id, data: doc.data() })
     }
 
     //TODO: separate cooking and non-cooking???
