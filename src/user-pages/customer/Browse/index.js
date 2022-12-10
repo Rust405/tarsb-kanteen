@@ -145,7 +145,9 @@ const Browse = () => {
                                             onClick={() => console.log("CLicked")}
                                         >
                                             <ListItemText
-                                                primary={`${doc.data().menuItemName} (est. ${doc.data().estWaitTime} min)`}
+                                                primary={
+                                                    doc.data().menuItemName +  ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
+                                                }
                                                 secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
                                             />
                                         </ListItemButton>
