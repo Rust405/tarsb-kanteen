@@ -93,7 +93,7 @@ const Browse = () => {
     //TODO: hanlde stall unregister
     //TODO: hanlde stall registered
 
-    //TODO: remove selected item from order if deleted, or disabled
+    //TODO: remove selected item from order if deleted, or suddenly unavailable
     //TODO: update selected item details if updated
 
     //TODO: figure out how to handle preorders :(
