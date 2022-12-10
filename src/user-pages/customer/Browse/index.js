@@ -74,8 +74,6 @@ const Browse = () => {
     //TODO: remove selected item from order if deleted, or disabled
     //TODO: update selected item details if updated
 
-    //TODO: separate out unavailable and non-coooking into 2 other lists?
-
     //TODO: figure out how to handle preorders :(
 
     //Note: dont disable selection if stall is closed cuz preorders
@@ -109,6 +107,7 @@ const Browse = () => {
                     <Box sx={{ p: 1, width: '100%' }}>
                         <FormControl fullWidth>
                             <Select
+                                MenuProps={{ sx: { "&& .Mui-selected": { borderLeft: '4px solid #3f50b5' } } }}
                                 value={selectedStall}
                                 onChange={e => setSelectedStall(e.target.value)}
                                 onClose={() => setTimeout(() => { document.activeElement.blur() }, 0)}
