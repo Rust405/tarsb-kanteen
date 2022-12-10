@@ -22,14 +22,13 @@ const itemStyle = {
     borderRadius: '8px',
 }
 
-const Browse = () => {
+const Browse = ({ selectedItems, setSelectedItems }) => {
 
     const [stallsSnapshot, setStallsSnapshot] = useState(null)
     const [selectedStall, setSelectedStall] = useState('')
 
     const [menuSnapshot, setMenuSnapshot] = useState(null)
 
-    const [selectedItems, setSelectedItems] = useState([])
 
     //Stall collection
     useEffect(() => {
@@ -192,7 +191,7 @@ const Browse = () => {
                                     )}
 
                                 {menuSnapshot.filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
-                                    <Divider textAlign='left'>Does Not Require Waiting</Divider>
+                                    <Divider textAlign='left'>Immediately Available</Divider>
                                 }
 
                                 {menuSnapshot

@@ -142,7 +142,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                 )}
 
                             {menuSnapshot.filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
-                                < Divider textAlign='left'>Does Not Require Waiting</Divider>
+                                < Divider textAlign='left'>Immediately Available</Divider>
                             }
 
                             {menuSnapshot

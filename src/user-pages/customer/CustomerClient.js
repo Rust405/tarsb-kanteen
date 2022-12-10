@@ -55,7 +55,10 @@ const CustomerClient = ({ container, userInfo }) => {
         setOpenSucSnack(false)
     }
 
-    
+    //BROWSE page
+    const [selectedItems, setSelectedItems] = useState([])
+
+
     return (
         <div className="customer-client">
             <Box sx={{ display: 'flex' }}>
@@ -81,7 +84,7 @@ const CustomerClient = ({ container, userInfo }) => {
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
                             <Route path={ROUTE.CUSTOMER.MYORDERS} element={<MyOrders />} />
-                            <Route path={ROUTE.CUSTOMER.BROWSE} element={<Browse />} />
+                            <Route path={ROUTE.CUSTOMER.BROWSE} element={<Browse selectedItems={selectedItems} setSelectedItems={setSelectedItems} />} />
                             <Route path={ROUTE.CUSTOMER.USERSETTINGS} element={<CustomerUserSettings />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
@@ -110,7 +113,7 @@ const CustomerClient = ({ container, userInfo }) => {
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
                                     drawerContent={
-                                        <OrderCreate />
+                                        <OrderCreate selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
                                     }
                                 />}
                         />
