@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack'
 import Switch from '@mui/material/Switch'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
 
 import { collection, onSnapshot, query, orderBy, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
@@ -62,7 +63,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
 
     const [disableSwitch, setDisableSwitch] = useState(false)
     const handleAvailabilityToggle = (menuItemID, isAvailable) => {
-        const itemDocRef = doc(menuRef, menuItemID)
+        const itemDocRef = doc(collection(db, "stalls", stallID, 'menu'), menuItemID)
         setDisableSwitch(menuItemID)
 
         if (isAvailable) {
