@@ -1,8 +1,8 @@
 import Typography from '@mui/material/Typography'
 import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 import Stack from '@mui/material/Stack'
 import Switch from '@mui/material/Switch'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -89,11 +89,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
 
                     {/* Menu List */}
                     {menuSnapshot.length !== 0 &&
-                        <List
-                            sx={{
-                                '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' }
-                            }}
-                        >
+                        <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }}  >
                             {menuSnapshot.filter(doc => doc.data().isRequireWaiting).length > 0 &&
                                 <Divider textAlign='left'>Requires Waiting</Divider>
                             }
@@ -102,37 +98,45 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                 .filter(doc => doc.data().isRequireWaiting)
                                 .map(
                                     doc => (
-                                        <ListItemButton
-                                            key={doc.id}
-                                            sx={{
-                                                m: '12px 0',
-                                                border: '2px solid lightgray',
-                                                borderRadius: '8px',
+                                        <ListItem key={doc.id}>
+                                            <ListItemButton
+                                                sx={{
+                                                    border: '2px solid lightgray',
+                                                    borderRadius: '8px',
+                                                }}
+                                                selected={selectedItem && selectedItem.id === doc.id}
+                                                onClick={() => {
+                                                    if (selectedItem && selectedItem.id === doc.id) {
+                                                        setSelectedItem(null)
+                                                    } else {
+                                                        setSelectedItem({ id: doc.id, data: doc.data() })
+                                                    }
+                                                }}
+                                            >
+                                                <ListItemText
+                                                    primary={doc.data().menuItemName}
+                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                />
+                                            </ListItemButton>
 
-                                            }}
-                                            selected={selectedItem && selectedItem.id === doc.id}
-                                            onClick={() => {
-                                                if (selectedItem && selectedItem.id === doc.id) {
-                                                    setSelectedItem(null)
-                                                } else {
-                                                    setSelectedItem({ id: doc.id, data: doc.data() })
-                                                }
-                                            }}>
-                                            <ListItemText
-                                                primary={doc.data().menuItemName}
-                                                secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                            />
+                                            <Stack
+                                                sx={{
+                                                    m: '0 8px',
+                                                    width: '96px',
+                                                    border: '2px solid lightgray',
+                                                    borderRadius: '8px',
+                                                }}
+                                                alignItems="center"
+                                            >
+                                                <Switch
+                                                    disabled={disableSwitch === doc.id}
+                                                    checked={doc.data().isAvailable}
+                                                    onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
+                                                />
+                                                <Typography variant="caption">{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
+                                            </Stack>
 
-                                            <ListItemSecondaryAction>
-                                                <Stack direction="row" alignItems="center" spacing={1}>
-                                                    <Typography>{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
-                                                    <Switch
-                                                        disabled={disableSwitch === doc.id}
-                                                        checked={doc.data().isAvailable}
-                                                        onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)} />
-                                                </Stack>
-                                            </ListItemSecondaryAction>
-                                        </ListItemButton>
+                                        </ListItem>
                                     )
                                 )}
 
@@ -144,37 +148,44 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                 .filter(doc => !doc.data().isRequireWaiting)
                                 .map(
                                     doc => (
-                                        <ListItemButton
-                                            key={doc.id}
-                                            sx={{
-                                                m: '12px 0',
-                                                border: '2px solid lightgray',
-                                                borderRadius: '8px',
+                                        <ListItem key={doc.id}>
+                                            <ListItemButton
+                                                sx={{
+                                                    border: '2px solid lightgray',
+                                                    borderRadius: '8px',
 
-                                            }}
-                                            selected={selectedItem && selectedItem.id === doc.id}
-                                            onClick={() => {
-                                                if (selectedItem && selectedItem.id === doc.id) {
-                                                    setSelectedItem(null)
-                                                } else {
-                                                    setSelectedItem({ id: doc.id, data: doc.data() })
-                                                }
-                                            }}>
-                                            <ListItemText
-                                                primary={doc.data().menuItemName}
-                                                secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                            />
+                                                }}
+                                                selected={selectedItem && selectedItem.id === doc.id}
+                                                onClick={() => {
+                                                    if (selectedItem && selectedItem.id === doc.id) {
+                                                        setSelectedItem(null)
+                                                    } else {
+                                                        setSelectedItem({ id: doc.id, data: doc.data() })
+                                                    }
+                                                }}>
+                                                <ListItemText
+                                                    primary={doc.data().menuItemName}
+                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                />
+                                            </ListItemButton>
 
-                                            <ListItemSecondaryAction>
-                                                <Stack direction="row" alignItems="center" spacing={1}>
-                                                    <Typography>{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
-                                                    <Switch
-                                                        disabled={disableSwitch === doc.id}
-                                                        checked={doc.data().isAvailable}
-                                                        onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)} />
-                                                </Stack>
-                                            </ListItemSecondaryAction>
-                                        </ListItemButton>
+                                            <Stack
+                                                sx={{
+                                                    m: '0 8px',
+                                                    width: '96px',
+                                                    border: '2px solid lightgray',
+                                                    borderRadius: '8px',
+                                                }}
+                                                alignItems="center"
+                                            >
+                                                <Switch
+                                                    disabled={disableSwitch === doc.id}
+                                                    checked={doc.data().isAvailable}
+                                                    onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
+                                                />
+                                                <Typography variant="caption">{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
+                                            </Stack>
+                                        </ListItem>
                                     )
                                 )}
 

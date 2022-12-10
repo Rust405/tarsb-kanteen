@@ -159,7 +159,7 @@ const Browse = () => {
                                             <ListItemButton
                                                 key={doc.id}
                                                 sx={itemStyle}
-                                                onClick={() => console.log("CLicked")}
+                                                onClick={() => console.log("Clicked")}
                                             >
                                                 <ListItemText
                                                     primary={doc.data().menuItemName + ` (est. ${doc.data().estWaitTime} min)`}
