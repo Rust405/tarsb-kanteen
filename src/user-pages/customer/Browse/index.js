@@ -7,6 +7,7 @@ import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import CircularProgress from '@mui/material/CircularProgress'
+import Divider from '@mui/material/Divider'
 
 import { useState, useEffect } from 'react'
 import { db } from '../../../utils/firebase'
@@ -14,6 +15,12 @@ import { capitalizeFirstLetter } from '../../../utils/tools'
 import { collection, orderBy, query, onSnapshot } from 'firebase/firestore'
 
 import currency from 'currency.js'
+
+const itemStyle = {
+    m: '12px 0',
+    border: '2px solid lightgray',
+    borderRadius: '8px',
+}
 
 const Browse = () => {
 
@@ -74,8 +81,6 @@ const Browse = () => {
     //Note: dont disable selection if stall is closed cuz preorders
     //But make sure somehow preorder is not placed in an impossible time
 
-    // TODO: make stall selector box sticky
-
     return (
         <div className="browse">
 
@@ -97,7 +102,7 @@ const Browse = () => {
                         position: 'sticky',
                         top: 0,
                         backgroundColor: 'white',
-                        zIndex:1
+                        zIndex: 1
                     }}
                 >
                     {/* Stall select dropdown */}
@@ -141,40 +146,84 @@ const Browse = () => {
 
                         {/* Menu list */}
                         {menuSnapshot.length !== 0 &&
-                            <List
-                                sx={{
-                                    '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' }
-                                }}
-                            >
-                                {menuSnapshot.map(
-                                    doc => (
-                                        <ListItemButton
-                                            disabled={!doc.data().isAvailable}
-                                            key={doc.id}
-                                            sx={{
-                                                m: '12px 0',
-                                                border: '2px solid lightgray',
-                                                borderRadius: '8px',
+                            <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
 
-                                            }}
-                                            onClick={() => console.log("CLicked")}
-                                        >
-                                            <ListItemText
-                                                primary={
-                                                    doc.data().menuItemName + ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
-                                                }
-                                                secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                            />
-                                        </ListItemButton>
-                                    )
-                                )}
+                                {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable) &&
+                                    < Divider textAlign='left'>Requires Waiting</Divider>
+                                }
+
+                                {menuSnapshot
+                                    .filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable)
+                                    .map(
+                                        doc => (
+                                            <ListItemButton
+                                                key={doc.id}
+                                                sx={itemStyle}
+                                                onClick={() => console.log("CLicked")}
+                                            >
+                                                <ListItemText
+                                                    primary={
+                                                        doc.data().menuItemName + ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
+                                                    }
+                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                />
+                                            </ListItemButton>
+                                        )
+                                    )}
+
+                                {menuSnapshot.filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable) > 0 &&
+                                    <Divider textAlign='left'>Does Not Require Waiting</Divider>
+                                }
+
+                                {menuSnapshot
+                                    .filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable)
+                                    .map(
+                                        doc => (
+                                            <ListItemButton
+                                                key={doc.id}
+                                                sx={itemStyle}
+                                                onClick={() => console.log("CLicked")}
+                                            >
+                                                <ListItemText
+                                                    primary={
+                                                        doc.data().menuItemName + ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
+                                                    }
+                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                />
+                                            </ListItemButton>
+                                        )
+                                    )}
+
+                                {menuSnapshot.filter(doc => !doc.data().isAvailable).length > 0 &&
+                                    <Divider textAlign='left'>Currently Unavailable</Divider>
+                                }
+
+                                {menuSnapshot
+                                    .filter(doc => !doc.data().isAvailable)
+                                    .map(
+                                        doc => (
+                                            <ListItemButton
+                                                disabled
+                                                key={doc.id}
+                                                sx={itemStyle}
+                                            >
+                                                <ListItemText
+                                                    primary={
+                                                        doc.data().menuItemName + ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
+                                                    }
+                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                />
+                                            </ListItemButton>
+                                        )
+                                    )}
+
                             </List>
                         }
                     </Box>
                 }
             </div>}
 
-        </div>
+        </div >
     )
 }
 
