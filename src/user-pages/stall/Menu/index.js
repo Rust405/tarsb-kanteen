@@ -153,7 +153,6 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                                 sx={{
                                                     border: '2px solid lightgray',
                                                     borderRadius: '8px',
-
                                                 }}
                                                 selected={selectedItem && selectedItem.id === doc.id}
                                                 onClick={() => {
