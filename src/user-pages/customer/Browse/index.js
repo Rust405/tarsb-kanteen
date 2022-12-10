@@ -29,6 +29,8 @@ const Browse = () => {
 
     const [menuSnapshot, setMenuSnapshot] = useState(null)
 
+    const [selectedItems, setSelectedItems] = useState([])
+
     //Stall collection
     useEffect(() => {
         const q = query(collection(db, "stalls"), orderBy('stallName'))
@@ -40,6 +42,7 @@ const Browse = () => {
         return () => {
             unsubscribe()
             setSelectedStall('')
+            setSelectedItems([])
         }
     }, [])
 

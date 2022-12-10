@@ -75,6 +75,14 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
         }
     }
 
+    const handleSelect = (doc) => {
+        if (selectedItem && selectedItem.id === doc.id) {
+            setSelectedItem(null)
+        } else {
+            setSelectedItem({ id: doc.id, data: doc.data() })
+        }
+    }
+
     //TODO: separate cooking and non-cooking???
 
     return (
@@ -105,13 +113,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                                     borderRadius: '8px',
                                                 }}
                                                 selected={selectedItem && selectedItem.id === doc.id}
-                                                onClick={() => {
-                                                    if (selectedItem && selectedItem.id === doc.id) {
-                                                        setSelectedItem(null)
-                                                    } else {
-                                                        setSelectedItem({ id: doc.id, data: doc.data() })
-                                                    }
-                                                }}
+                                                onClick={() => handleSelect(doc)}
                                             >
                                                 <ListItemText
                                                     primary={doc.data().menuItemName}
@@ -155,13 +157,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                                     borderRadius: '8px',
                                                 }}
                                                 selected={selectedItem && selectedItem.id === doc.id}
-                                                onClick={() => {
-                                                    if (selectedItem && selectedItem.id === doc.id) {
-                                                        setSelectedItem(null)
-                                                    } else {
-                                                        setSelectedItem({ id: doc.id, data: doc.data() })
-                                                    }
-                                                }}>
+                                                onClick={() => handleSelect(doc)}>
                                                 <ListItemText
                                                     primary={doc.data().menuItemName}
                                                     secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
