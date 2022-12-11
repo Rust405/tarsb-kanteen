@@ -44,8 +44,6 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
 
     useEffect(() => { if (selectedItems.length === 0) resetFields() }, [selectedItems])
 
-    //TODO: remove weekends
-
     //IF pickup today, minTime = now + 30 min, ELSE anyday use earliest
     useEffect(() => {
         if (dayjs().isSame(pickupDateTime, 'day')) {
