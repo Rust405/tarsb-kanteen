@@ -61,19 +61,20 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
     useEffect(() => {
         if (!isPreorder) return
 
-        //IF current time passed latestpickuptime, THEN set to next day earliest, BUT if next day is weekend, THEN increment to next day
-        if (dayjs().diff(latestPickupTime.add(30, 'minute')) > 0) {
-            let nextDayEarliest = earliestPickupTime.add(1, 'day')
-
-            while (nextDayEarliest.day() === 0 || nextDayEarliest.day() === 6) {
-                nextDayEarliest = nextDayEarliest.add(1, 'day')
-            }
-
-            setMinDate(nextDayEarliest)
-            setPickupDateTime(nextDayEarliest)
-        } else {
+        if (dayjs().diff(latestPickupTime.add(30, 'minute')) < 0) {
             setPickupDateTime(dayjs().add(30, 'minute'))
+            return
         }
+
+        //IF current time passed latestpickuptime, THEN set to next day earliest, WHILE next day is weekend, increment next day
+        let nextDayEarliest = earliestPickupTime.add(1, 'day')
+
+        while (nextDayEarliest.day() === 0 || nextDayEarliest.day() === 6) {
+            nextDayEarliest = nextDayEarliest.add(1, 'day')
+        }
+
+        setMinDate(nextDayEarliest)
+        setPickupDateTime(nextDayEarliest)
     }, [isPreorder])
 
     return (
