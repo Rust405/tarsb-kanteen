@@ -9,6 +9,7 @@ import Checkbox from '@mui/material/Checkbox'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import dayjs from 'dayjs'
+import 'dayjs/locale/en-sg'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
@@ -16,20 +17,64 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import currency from 'currency.js'
 import { useState, useEffect } from 'react'
 
+const earliestPickupTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T08:00`)
+const latestPickupTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
+
 const OrderCreate = ({ selectedItems, setSelectedItems }) => {
-
-    const today = new Date().toLocaleDateString("en-MY")
-
     const [remark, setRemark] = useState('')
     const [isTakeaway, setIsTakeaway] = useState(false)
     const [isPreorder, setIsPreorder] = useState(false)
-    const [pickupDateTime, setpickupDateTime] = useState(dayjs('2014-08-18T21:11:54'))
+    const [pickupDateTime, setPickupDateTime] = useState(dayjs().add(30, 'minute'))
+
+    const [minTime, setMinTime] = useState(earliestPickupTime)
+    const [minDate, setMinDate] = useState(dayjs())
+
+    const [isValid, setIsValid] = useState(true)
 
     const handlePlaceOrder = () => {
         alert("Not yet implemented.")
     }
 
-    //TODO: date time limitsssss, low date is 30 minutes today, max is uh idk
+    const resetFields = () => {
+        setSelectedItems([])
+        setRemark('')
+        setIsTakeaway(false)
+        setIsPreorder(false)
+    }
+
+    useEffect(() => { if (selectedItems.length === 0) resetFields() }, [selectedItems])
+
+    //TODO: remove weekends
+
+    //IF pickup today, minTime = now + 30 min, ELSE anyday use earliest
+    useEffect(() => {
+        if (dayjs().isSame(pickupDateTime, 'day')) {
+            setMinTime(dayjs().add(30, 'minute'))
+        }
+        else {
+            setMinTime(earliestPickupTime)
+        }
+    }, [pickupDateTime])
+
+
+    //update pickup date time everytime isPreorder toggled
+    useEffect(() => {
+        if (!isPreorder) return
+
+        //IF current time passed latestpickuptime, THEN set to next day earliest, BUT if next day is weekend, THEN increment to next day
+        if (dayjs().diff(latestPickupTime.add(30, 'minute')) > 0) {
+            let nextDayEarliest = earliestPickupTime.add(1, 'day')
+
+            while (nextDayEarliest.day() === 0 || nextDayEarliest.day() === 6) {
+                nextDayEarliest = nextDayEarliest.add(1, 'day')
+            }
+
+            setMinDate(nextDayEarliest)
+            setPickupDateTime(nextDayEarliest)
+        } else {
+            setPickupDateTime(dayjs().add(30, 'minute'))
+        }
+    }, [isPreorder])
 
     return (
         <div className="order-create">
@@ -38,7 +83,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
                     <Typography variant="h6" align="center">New<br />Order</Typography>
                 </Box>
 
-                <Typography align="center">{today}</Typography>
+                <Typography align="center">{dayjs().format('DD/MM/YYYY')}</Typography>
 
                 <Divider />
 
@@ -61,7 +106,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
                                 onChange={e => setRemark(e.target.value)}
                                 label="Remark (optional)"
                                 multiline
-                                rows={3}
+                                rows={2}
                             />
                         </Box>
 
@@ -93,12 +138,21 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
                             />
 
                             {isPreorder &&
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'en-sg'} >
                                     <DateTimePicker
                                         label="Pickup Time & Date"
                                         value={pickupDateTime}
-                                        onChange={v => setpickupDateTime(v)}
-                                        renderInput={(params) => <TextField {...params} />} />
+                                        onChange={v => setPickupDateTime(v)}
+                                        onError={(reason, value) => reason ? setIsValid(false) : setIsValid(true)}
+                                        renderInput={(params) => <TextField {...params} />}
+                                        minDate={minDate}
+                                        maxDate={minDate.add(7, 'day')}
+                                        minTime={minTime}
+                                        maxTime={latestPickupTime}
+                                        shouldDisableDate={date => {
+                                            return date.day() === 0 || date.day() === 6
+                                        }}
+                                    />
                                 </LocalizationProvider>
                             }
 
@@ -106,6 +160,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
 
                         <Stack sx={{ m: 2 }} spacing={2}>
                             <Button
+                                disabled={isPreorder && !isValid}
                                 variant="contained"
                                 onClick={handlePlaceOrder}
                             >
@@ -115,7 +170,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
                             <Button
                                 variant="outlined"
                                 color="error"
-                                onClick={() => setSelectedItems([])}>
+                                onClick={resetFields}>
                                 Clear Order
                             </Button>
                         </Stack>
