@@ -20,7 +20,7 @@ import { useState, useEffect } from 'react'
 const earliestPickupTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T08:00`)
 const latestPickupTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
 
-const OrderCreate = ({ selectedItems, setSelectedItems }) => {
+const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
     const [remark, setRemark] = useState('')
     const [isTakeaway, setIsTakeaway] = useState(false)
     const [isPreOrder, setIsPreOrder] = useState(false)
@@ -32,7 +32,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
     const [isValid, setIsValid] = useState(true)
 
     const handlePlaceOrder = () => {
-        let order = { orderItems: selectedItems, isTakeaway: isTakeaway, isPreOrder: isPreOrder }
+        let order = { selectedStallID: selectedStall.id, orderItems: selectedItems, isTakeaway: isTakeaway, isPreOrder: isPreOrder }
 
         if (remark !== '') {
             order.remarkCustomer = remark

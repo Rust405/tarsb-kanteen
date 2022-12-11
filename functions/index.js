@@ -396,3 +396,12 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
 
     return { success: isSuccess, message: messageArray }
 })
+
+exports.createOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    //verify if customer check custom claims
+
+    //check stall open or not if not preorder
+
+    //validate pickup timestamp
+    
+})

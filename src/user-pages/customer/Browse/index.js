@@ -22,13 +22,9 @@ const itemStyle = {
     borderRadius: '8px',
 }
 
-const Browse = ({ selectedItems, setSelectedItems }) => {
-
+const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedStall }) => {
     const [stallsSnapshot, setStallsSnapshot] = useState(null)
-    const [selectedStall, setSelectedStall] = useState('')
-
     const [menuSnapshot, setMenuSnapshot] = useState(null)
-
 
     //Stall collection
     useEffect(() => {

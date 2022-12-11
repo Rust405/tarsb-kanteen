@@ -57,7 +57,7 @@ const CustomerClient = ({ container, userInfo }) => {
 
     //BROWSE page
     const [selectedItems, setSelectedItems] = useState([])
-
+    const [selectedStall, setSelectedStall] = useState('')
 
     return (
         <div className="customer-client">
@@ -84,7 +84,13 @@ const CustomerClient = ({ container, userInfo }) => {
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
                             <Route path={ROUTE.CUSTOMER.MYORDERS} element={<MyOrders />} />
-                            <Route path={ROUTE.CUSTOMER.BROWSE} element={<Browse selectedItems={selectedItems} setSelectedItems={setSelectedItems} />} />
+                            <Route
+                                path={ROUTE.CUSTOMER.BROWSE}
+                                element={
+                                    <Browse selectedItems={selectedItems} setSelectedItems={setSelectedItems}
+                                        selectedStall={selectedStall} setSelectedStall={setSelectedStall}
+                                    />}
+                            />
                             <Route path={ROUTE.CUSTOMER.USERSETTINGS} element={<CustomerUserSettings />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
@@ -113,7 +119,7 @@ const CustomerClient = ({ container, userInfo }) => {
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
                                     drawerContent={
-                                        <OrderCreate selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
+                                        <OrderCreate selectedItems={selectedItems} setSelectedItems={setSelectedItems} selectedStall={selectedStall} />
                                     }
                                 />}
                         />
