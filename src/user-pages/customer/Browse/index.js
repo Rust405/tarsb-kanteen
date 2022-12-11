@@ -95,9 +95,6 @@ const Browse = ({ selectedItems, setSelectedItems }) => {
     //TODO: remove selected item from order if deleted, or suddenly unavailable
     //TODO: update selected item details if updated
 
-    //TODO: figure out how to handle preorders :(
-
-    //Note: dont disable selection if stall is closed cuz preorders
     //But make sure somehow preorder is not placed in an impossible time
 
     return (

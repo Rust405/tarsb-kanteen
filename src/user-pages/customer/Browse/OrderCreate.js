@@ -23,8 +23,8 @@ const latestPickupTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
 const OrderCreate = ({ selectedItems, setSelectedItems }) => {
     const [remark, setRemark] = useState('')
     const [isTakeaway, setIsTakeaway] = useState(false)
-    const [isPreorder, setIsPreorder] = useState(false)
-    const [pickupDateTime, setPickupDateTime] = useState(dayjs().add(30, 'minute'))
+    const [isPreOrder, setIsPreOrder] = useState(false)
+    const [pickupTimestamp, setPickupTimestamp] = useState(dayjs().add(30, 'minute'))
 
     const [minTime, setMinTime] = useState(earliestPickupTime)
     const [minDate, setMinDate] = useState(dayjs())
@@ -32,36 +32,46 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
     const [isValid, setIsValid] = useState(true)
 
     const handlePlaceOrder = () => {
-        alert("Not yet implemented.")
+        let order = { orderItems: selectedItems, isTakeaway: isTakeaway }
+
+        if (remark !== '') {
+            order.remarkCustomer = remark
+        }
+        if (isPreOrder) {
+            order.isPreOrder = true
+            order.pickupTimestamp = pickupTimestamp
+        }
+
+        console.log(order)
     }
 
     const resetFields = () => {
         setSelectedItems([])
         setRemark('')
         setIsTakeaway(false)
-        setIsPreorder(false)
+        setIsPreOrder(false)
     }
 
     useEffect(() => { if (selectedItems.length === 0) resetFields() }, [selectedItems])
 
     //IF pickup today, minTime = now + 30 min, ELSE anyday use earliest
     useEffect(() => {
-        if (dayjs().isSame(pickupDateTime, 'day')) {
+        if (dayjs().isSame(pickupTimestamp, 'day')) {
             setMinTime(dayjs().add(30, 'minute'))
         }
         else {
             setMinTime(earliestPickupTime)
         }
-    }, [pickupDateTime])
+    }, [pickupTimestamp])
 
 
-    //update pickup date time everytime isPreorder toggled
+    //update pickup date time everytime isPreOrder toggled
     useEffect(() => {
-        if (!isPreorder) return
+        if (!isPreOrder) return
 
         //IF current time + 30 not passed latestpickuptime, THEN set pickuptime as current time + 30 (e.g. can only place preorder for today if before 1630)
         if (dayjs().add(30, 'minute').diff(latestPickupTime) < 0) {
-            setPickupDateTime(dayjs().add(30, 'minute'))
+            setPickupTimestamp(dayjs().add(30, 'minute'))
             return
         }
 
@@ -73,8 +83,8 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
         }
 
         setMinDate(nextDayEarliest)
-        setPickupDateTime(nextDayEarliest)
-    }, [isPreorder])
+        setPickupTimestamp(nextDayEarliest)
+    }, [isPreOrder])
 
     return (
         <div className="order-create">
@@ -130,19 +140,19 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
 
                             <FormControlLabel
                                 control={
-                                    <Checkbox checked={isPreorder} onChange={e => setIsPreorder(e.target.checked)} />
+                                    <Checkbox checked={isPreOrder} onChange={e => setIsPreOrder(e.target.checked)} />
                                 }
                                 labelPlacement="start"
                                 label="Pre-order?"
                                 disabled={false}
                             />
 
-                            {isPreorder &&
+                            {isPreOrder &&
                                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'en-sg'} >
                                     <DateTimePicker
                                         label="Pickup Time & Date"
-                                        value={pickupDateTime}
-                                        onChange={v => setPickupDateTime(v)}
+                                        value={pickupTimestamp}
+                                        onChange={v => setPickupTimestamp(v)}
                                         onError={(reason, value) => reason ? setIsValid(false) : setIsValid(true)}
                                         renderInput={(params) => <TextField {...params} />}
                                         minDate={minDate}
@@ -160,7 +170,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems }) => {
 
                         <Stack sx={{ m: 2 }} spacing={2}>
                             <Button
-                                disabled={isPreorder && !isValid}
+                                disabled={isPreOrder && !isValid}
                                 variant="contained"
                                 onClick={handlePlaceOrder}
                             >
