@@ -46,21 +46,23 @@ function App(props) {
 
   useEffect(() => {
     if (user) {
-      createUserIfNotExists(user)
-
-      setIsFetchingUserType(true)
-      
-      fetchUserType()
-        .then(fetchedUserType => {
-          setUserType(fetchedUserType)
-          setIsFetchingUserType(false)
-          setOpenSnack(true)
-        })
+      authenticateUser()
     } else {
       setUserType(null)
       setStaffRole(null)
     }
   }, [user])
+
+  function authenticateUser() {
+    createUserIfNotExists(user)
+    setIsFetchingUserType(true)
+    fetchUserType()
+      .then(fetchedUserType => {
+        setUserType(fetchedUserType)
+        setIsFetchingUserType(false)
+        setOpenSnack(true)
+      })
+  }
 
   async function fetchUserType() {
     let tokenResult = await auth.currentUser.getIdTokenResult()
