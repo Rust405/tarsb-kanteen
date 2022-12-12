@@ -55,7 +55,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
 
     //IF pickup today, minTime = now + 30 min, ELSE anyday use earliest
     useEffect(() => {
-        if (dayjs().isSame(pickupTimestamp, 'day')) {
+        if (pickupTimestamp.isSame(dayjs(), 'day')) {
             setMinTime(dayjs().add(30, 'minute'))
         }
         else {
@@ -63,21 +63,33 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
         }
     }, [pickupTimestamp])
 
-    function isWeekend(date) {
-        return date.day() === 0 || date.day() === 6
-    }
+    function isWeekend(date) { return date.day() === 0 || date.day() === 6 }
 
     //update pickup date time everytime isPreOrder toggled
-    useEffect(() => {
-        if (!isPreOrder) return
+    useEffect(() => { if (isPreOrder) updatePickup() }, [isPreOrder])
 
-        //IF current time + 30 not passed latestpickuptime, THEN set pickuptime as current time + 30 (e.g. can only place preorder for today if before 1630)
+    function updatePickup() {
+        //IF today is weekend, THEN increment until monday earliest
+        if (isWeekend(dayjs())) {
+            let mondayEarliest = earliestOrderTime
+
+            while (isWeekend(mondayEarliest)) {
+                mondayEarliest = mondayEarliest.add(1, 'day')
+            }
+
+            setMinDate(mondayEarliest)
+            setPickupTimestamp(mondayEarliest)
+            return
+        }
+
+        //IF today is weekday and now is 30 min before latestOrderTime, THEN set pickuptime to 30 minutes from now
         if (dayjs().add(30, 'minute').diff(latestOrderTime) < 0) {
             setPickupTimestamp(dayjs().add(30, 'minute'))
             return
         }
 
-        //OTHERWISE set to next day earliest, WHILE next day is weekend, increment next day 
+        //ELSE today is weekday and 30 min after now is after latestOrderTime, THEN set pickuptime to nextdayearliest
+        //BUT IF nextday is weekend, THEN incremenet until Monday earliest
         let nextDayEarliest = earliestOrderTime.add(1, 'day')
 
         while (isWeekend(nextDayEarliest)) {
@@ -86,7 +98,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
 
         setMinDate(nextDayEarliest)
         setPickupTimestamp(nextDayEarliest)
-    }, [isPreOrder])
+    }
 
     return (
         <div className="order-create">
@@ -119,6 +131,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
                                 label="Remark (optional)"
                                 multiline
                                 rows={2}
+                                inputProps={{ maxLength: 50 }}
                             />
                         </Box>
 
@@ -132,8 +145,9 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
 
                         <Stack sx={{ m: 2 }}>
                             <FormControlLabel
+                                style={{ pointerEvents: "none" }}
                                 control={
-                                    <Checkbox checked={isTakeaway} onChange={e => setIsTakeaway(e.target.checked)} />
+                                    <Checkbox checked={isTakeaway} onChange={e => setIsTakeaway(e.target.checked)} style={{ pointerEvents: "auto" }} />
                                 }
                                 labelPlacement="start"
                                 label="Takeaway?"
@@ -141,8 +155,9 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
                             />
 
                             <FormControlLabel
+                                style={{ pointerEvents: "none" }}
                                 control={
-                                    <Checkbox checked={isPreOrder} onChange={e => setIsPreOrder(e.target.checked)} />
+                                    <Checkbox checked={isPreOrder} onChange={e => setIsPreOrder(e.target.checked)} style={{ pointerEvents: "auto" }} />
                                 }
                                 labelPlacement="start"
                                 label="Pre-order?"
@@ -155,8 +170,9 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
                                         label="Pickup Time & Date"
                                         value={pickupTimestamp}
                                         onChange={v => setPickupTimestamp(v)}
-                                        onError={(reason, value) => reason ? setIsValid(false) : setIsValid(true)}
-                                        renderInput={(params) => <TextField {...params} />}
+                                        onAccept={() => setIsValid(true)}
+                                        onError={(reason, value) => { if (reason) setIsValid(false) }}
+                                        renderInput={(params) => <TextField {...params} error={!isValid} />}
                                         minDate={minDate}
                                         maxDate={minDate.add(7, 'day')}
                                         minTime={minTime}

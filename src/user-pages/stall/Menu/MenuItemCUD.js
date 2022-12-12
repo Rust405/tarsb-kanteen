@@ -147,8 +147,9 @@ const MenuItemCUD = ({
                             />
 
                             <FormControlLabel
+                                style={{ pointerEvents: "none" }}
                                 control={
-                                    <Checkbox checked={itemRequireWaiting} onChange={e => setItemRequireWaiting(e.target.checked)} />
+                                    <Checkbox checked={itemRequireWaiting} onChange={e => setItemRequireWaiting(e.target.checked)} style={{ pointerEvents: "auto" }} />
                                 }
                                 labelPlacement="start"
                                 label="Require waiting?"
