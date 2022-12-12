@@ -69,27 +69,13 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
     useEffect(() => { if (isPreOrder) updatePickup() }, [isPreOrder])
 
     function updatePickup() {
-        //IF today is weekend, THEN increment until monday earliest
-        if (isWeekend(dayjs())) {
-            let mondayEarliest = earliestOrderTime
-
-            while (isWeekend(mondayEarliest)) {
-                mondayEarliest = mondayEarliest.add(1, 'day')
-            }
-
-            setMinDate(mondayEarliest)
-            setPickupTimestamp(mondayEarliest)
-            return
-        }
-
-        //IF today is weekday and now is 30 min before latestOrderTime, THEN set pickuptime to 30 minutes from now
-        if (dayjs().add(30, 'minute').diff(latestOrderTime) < 0) {
+        //IF today is weekday AND now is at least 30 min before latestOrderTime, THEN set pickuptime to 30 minutes from now
+        if (!isWeekend(dayjs()) && dayjs().add(30, 'minute').diff(latestOrderTime) < 0) {
             setPickupTimestamp(dayjs().add(30, 'minute'))
             return
         }
 
-        //ELSE today is weekday and 30 min after now is after latestOrderTime, THEN set pickuptime to nextdayearliest
-        //BUT IF nextday is weekend, THEN incremenet until Monday earliest
+        //ELSE set pickuptime to nextdayEarliest, BUT IF nextday is weekend, THEN incremenet until Monday earliest
         let nextDayEarliest = earliestOrderTime.add(1, 'day')
 
         while (isWeekend(nextDayEarliest)) {
@@ -171,7 +157,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
                                         value={pickupTimestamp}
                                         onChange={v => setPickupTimestamp(v)}
                                         onAccept={() => setIsValid(true)}
-                                        onError={(reason, value) => { if (reason) setIsValid(false) }}
+                                        onError={(reason, value) => reason ? setIsValid(false) : setIsValid(true)}
                                         renderInput={(params) => <TextField {...params} error={!isValid} />}
                                         minDate={minDate}
                                         maxDate={minDate.add(7, 'day')}
