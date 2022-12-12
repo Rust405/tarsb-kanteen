@@ -17,8 +17,8 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import currency from 'currency.js'
 import { useState, useEffect } from 'react'
 
-const earliestPickupTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T08:00`)
-const latestPickupTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
+const earliestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T08:00`)
+const latestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
 
 const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
     const [remark, setRemark] = useState('')
@@ -26,7 +26,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
     const [isPreOrder, setIsPreOrder] = useState(false)
     const [pickupTimestamp, setPickupTimestamp] = useState(dayjs().add(30, 'minute'))
 
-    const [minTime, setMinTime] = useState(earliestPickupTime)
+    const [minTime, setMinTime] = useState(earliestOrderTime)
     const [minDate, setMinDate] = useState(dayjs())
 
     const [isValid, setIsValid] = useState(true)
@@ -59,7 +59,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
             setMinTime(dayjs().add(30, 'minute'))
         }
         else {
-            setMinTime(earliestPickupTime)
+            setMinTime(earliestOrderTime)
         }
     }, [pickupTimestamp])
 
@@ -69,13 +69,13 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
         if (!isPreOrder) return
 
         //IF current time + 30 not passed latestpickuptime, THEN set pickuptime as current time + 30 (e.g. can only place preorder for today if before 1630)
-        if (dayjs().add(30, 'minute').diff(latestPickupTime) < 0) {
+        if (dayjs().add(30, 'minute').diff(latestOrderTime) < 0) {
             setPickupTimestamp(dayjs().add(30, 'minute'))
             return
         }
 
         //OTHERWISE set to next day earliest, WHILE next day is weekend, increment next day 
-        let nextDayEarliest = earliestPickupTime.add(1, 'day')
+        let nextDayEarliest = earliestOrderTime.add(1, 'day')
 
         while (nextDayEarliest.day() === 0 || nextDayEarliest.day() === 6) {
             nextDayEarliest = nextDayEarliest.add(1, 'day')
@@ -157,7 +157,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
                                         minDate={minDate}
                                         maxDate={minDate.add(7, 'day')}
                                         minTime={minTime}
-                                        maxTime={latestPickupTime}
+                                        maxTime={latestOrderTime}
                                         shouldDisableDate={date => {
                                             return date.day() === 0 || date.day() === 6
                                         }}
@@ -169,7 +169,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
 
                         <Stack sx={{ m: 2 }} spacing={2}>
                             <Button
-                                disabled={isPreOrder && !isValid}
+                                disabled={(isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0)}
                                 variant="contained"
                                 onClick={handlePlaceOrder}
                             >

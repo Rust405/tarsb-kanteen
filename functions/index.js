@@ -403,5 +403,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     //check stall open or not if not preorder
 
     //validate pickup timestamp
+
+    //add user id to order
     
 })
