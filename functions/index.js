@@ -407,8 +407,17 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         )
     }
 
+    let isSuccess = true
+    let messageArray = []
 
-    //check stall open or not if not preorder
+    let stallID = data.stallID
+    let order = data.order
+    order.customerID = context.auth.token.uid
+
+    console.log(order.customerID)
+
+    //IF stall is closed AND order is not a preorder
+
 
     //validate pickup timestamp
 

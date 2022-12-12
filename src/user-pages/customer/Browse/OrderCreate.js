@@ -16,6 +16,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 
 import currency from 'currency.js'
 import { useState, useEffect } from 'react'
+import { createOrder } from '../../../utils/firebase'
 
 const earliestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T08:00`)
 const latestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
@@ -32,7 +33,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
     const [isValid, setIsValid] = useState(true)
 
     const handlePlaceOrder = () => {
-        let order = { selectedStallID: selectedStall.id, orderItems: selectedItems, isTakeaway: isTakeaway, isPreOrder: isPreOrder }
+        let order = { orderItems: selectedItems, isTakeaway: isTakeaway, isPreOrder: isPreOrder }
 
         if (remark !== '') {
             order.remarkCustomer = remark
@@ -41,7 +42,10 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
             order.pickupTimestamp = pickupTimestamp
         }
 
-        console.log(order)
+        createOrder({ stallID: selectedStall.id, order: order })
+            .then(result => {
+
+            })
     }
 
     const resetFields = () => {
