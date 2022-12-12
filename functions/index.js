@@ -422,6 +422,8 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     order.customerID = context.auth.token.uid
 
     let now = dayjs(Date.now())
+    let earliestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T08:00`)
+    let latestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T17:00`)
 
     //IF stall is closed AND order is not a preorder
     const stallStatus = (await stallsRef.doc(stallID).get()).data().status
@@ -431,9 +433,6 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     }
 
     //IF SOMEHOW order is created outside of stall hours
-    let earliestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T08:00`)
-    let latestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T17:00`)
-
     if ((!isPreOrder && now.diff(earliestOrderTime) < 0) || (!isPreOrder && now.diff(latestOrderTime) > 0)) {
         isSuccess = false
         messageArray.push(`Order cannot be created outside of stall operational hours.`)
