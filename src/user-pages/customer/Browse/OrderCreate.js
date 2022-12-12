@@ -63,6 +63,9 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
         }
     }, [pickupTimestamp])
 
+    function isWeekend(date) {
+        return date.day() === 0 || date.day() === 6
+    }
 
     //update pickup date time everytime isPreOrder toggled
     useEffect(() => {
@@ -77,7 +80,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
         //OTHERWISE set to next day earliest, WHILE next day is weekend, increment next day 
         let nextDayEarliest = earliestOrderTime.add(1, 'day')
 
-        while (nextDayEarliest.day() === 0 || nextDayEarliest.day() === 6) {
+        while (isWeekend(nextDayEarliest)) {
             nextDayEarliest = nextDayEarliest.add(1, 'day')
         }
 
@@ -158,9 +161,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
                                         maxDate={minDate.add(7, 'day')}
                                         minTime={minTime}
                                         maxTime={latestOrderTime}
-                                        shouldDisableDate={date => {
-                                            return date.day() === 0 || date.day() === 6
-                                        }}
+                                        shouldDisableDate={date => isWeekend(date)}
                                     />
                                 </LocalizationProvider>
                             }
