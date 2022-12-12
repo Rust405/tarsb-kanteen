@@ -428,6 +428,9 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         messageArray.push(`The stall is currently closed. You may place a pre-order instead.`)
     }
 
+    //IF SOMEHOW order is created outside of stall hours
+    //TODO:
+
     //IF SOMEHOW order is somehow empty
     if (order.orderItems.length === 0) {
         isSuccess = false
@@ -458,8 +461,8 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     //Validate for pre-order
     if (order.isPreOrder) {
         let pickupTimestamp = dayjs(order.pickupTimestamp)
-        const earliestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T08:00`)
-        const latestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
+        const earliestOrderTime = dayjs(`${pickupTimestamp .format('YYYY-MM-DD')}T08:00`)
+        const latestOrderTime = dayjs(`${pickupTimestamp .format('YYYY-MM-DD')}T17:00`)
 
         // IF SOMEHOW preorder is placed on a weekend
         if (isWeekend(pickupTimestamp)) {
@@ -473,8 +476,14 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
             messageArray.push(`Pre-order can only be placed at a minimum 30 minutes from now.`)
         }
 
-        //IF SOMEHOW preorder is placed outside of stall hours
+        console.log("earliest violate", pickupTimestamp.diff(earliestOrderTime) < 0)
+        console.log("latest violate", pickupTimestamp.diff(latestOrderTime) > 0)
 
+        //IF SOMEHOW preorder is placed outside of stall hours
+        if (pickupTimestamp.diff(earliestOrderTime) < 0 || pickupTimestamp.diff(latestOrderTime) > 0) {
+            isSuccess = false
+            messageArray.push(`Pre-order cannot be placed outside of stall operational hours.`)
+        }
 
         //IF SOMEHOW preorder is placed 7 days ahead of earliestOrderTime
 

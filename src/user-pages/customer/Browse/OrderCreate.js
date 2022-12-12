@@ -39,7 +39,13 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
             order.remarkCustomer = remark
         }
         if (isPreOrder) {
-            order.pickupTimestamp = pickupTimestamp.toDate()
+            if (pickupTimestamp.isValid()) {
+                order.pickupTimestamp = pickupTimestamp.toDate()
+            } else {
+                //TODO: error snack date problem
+
+                return
+            }
         }
 
         createOrder({ stallID: selectedStall.id, order: order })
@@ -60,7 +66,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
 
     //IF pickup today, minTime = now + 30 min, ELSE anyday use earliest
     useEffect(() => {
-        if (pickupTimestamp.isSame(dayjs(), 'day')) {
+        if (pickupTimestamp.isSame(dayjs(), 'day') && pickupTimestamp.diff(earliestOrderTime) > 0) {
             setMinTime(dayjs().add(30, 'minute'))
         }
         else {
@@ -74,9 +80,15 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
     useEffect(() => { if (isPreOrder) updatePickup() }, [isPreOrder])
 
     function updatePickup() {
-        //IF today is weekday AND now is at least 30 min before latestOrderTime, THEN set pickuptime to 30 minutes from now
-        if (!isWeekend(dayjs()) && dayjs().add(30, 'minute').diff(latestOrderTime) < 0) {
+        //IF today is weekday AND now is at least 30 min before latestOrderTime AND has passed earliestOrderTime, THEN set pickuptime to 30 minutes from now
+        if (!isWeekend(dayjs()) && dayjs().add(30, 'minute').diff(latestOrderTime) < 0 && dayjs().diff(earliestOrderTime) > 0) {
             setPickupTimestamp(dayjs().add(30, 'minute'))
+            return
+        }
+
+        //IF today is weekday AND now is at least 30 minutes before earliestOrderTime, THEN set pickuptime to today earliestOrderTime
+        if (!isWeekend(dayjs()) && dayjs().add(30, 'minute').diff(earliestOrderTime) < 0) {
+            setPickupTimestamp(earliestOrderTime)
             return
         }
 
@@ -162,7 +174,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
                                         value={pickupTimestamp}
                                         onChange={v => setPickupTimestamp(v)}
                                         onAccept={() => setIsValid(true)}
-                                        onError={(reason, value) => reason ? setIsValid(false) : setIsValid(true)}
+                                        onError={(reason, value) => { reason ? setIsValid(false) : setIsValid(true) }}
                                         renderInput={(params) => <TextField {...params} error={!isValid} />}
                                         minDate={minDate}
                                         maxDate={minDate.add(7, 'day')}
@@ -177,7 +189,9 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
 
                         <Stack sx={{ m: 2 }} spacing={2}>
                             <Button
-                                disabled={(isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0) || (!isPreOrder && isWeekend(dayjs()))}
+                                disabled={
+                                    (isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(earliestOrderTime) < 0) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0) || (!isPreOrder && isWeekend(dayjs()))
+                                }
                                 variant="contained"
                                 onClick={handlePlaceOrder}
                             >
