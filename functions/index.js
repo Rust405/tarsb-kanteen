@@ -4,6 +4,9 @@ const { getAuth } = require('firebase-admin/auth')
 const { getFirestore } = require('firebase-admin/firestore')
 const firebase_tools = require('firebase-tools')
 
+const dayjs = require('dayjs')
+dayjs.locale('en-sg')
+
 initializeApp()
 
 const db = getFirestore()
@@ -397,6 +400,8 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
     return { success: isSuccess, message: messageArray }
 })
 
+function isWeekend(date) { return date.day() === 0 || date.day() === 6 }
+
 exports.createOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     //verify user
     if (context.auth.token.userType !== 'customer') {
@@ -414,15 +419,65 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     let order = data.order
     order.customerID = context.auth.token.uid
 
-    console.log(order.customerID)
-
     //IF stall is closed AND order is not a preorder
+    const stallStatus = (await stallsRef.doc(stallID).get()).data().status
+    if (stallStatus === 'closed' && !order.isPreOrder) {
+        isSuccess = false
+        messageArray.push(`The stall is currently closed. You may place a pre-order instead.`)
+    }
+
+    //IF SOMEHOW order is somehow empty
+    if (order.orderItems.length === 0) {
+        isSuccess = false
+        messageArray.push(`Order must contain at least one menu item.`)
+    }
+
+    //IF SOMEHOW order contains more than one cooking item
+    if (order.orderItems.length !== 0) {
+        let waitingItemCtr = 0
+
+        order.orderItems.forEach(item => {
+            if (item.isRequireWaiting) {
+                waitingItemCtr += 1
+            }
+        })
+
+        if (waitingItemCtr > 1) {
+            messageArray.push(`Order can only contain a maximum 1 item that requires waiting.`)
+        }
+    }
+
+    //IF SOMEHOW order (not pre-order) is created on a weekend
+    if (isWeekend(order.orderTimestamp) && !order.isPreOrder) {
+        isSuccess = false
+        messageArray.push(`Order cannot be created on a weekend.`)
+    }
+
+    //Validate for pre-order
+    if (order.isPreOrder) {
+        let pickupTimestamp = order.pickupTimestamp
+        const earliestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T08:00`)
+        const latestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
+
+        //IF SOMEHOW preorder is placed on a weekend
+        if (isWeekend(pickupTimestamp)) {
+            isSuccess = false
+            messageArray.push(`Pre-order cannot be placed on a weekend.`)
+        }
+
+        //IF SOMEHOW preorder is placed in the past
+
+        //IF SOMEHOW preorder is placed outside of stall hours
 
 
-    //validate pickup timestamp
+
+        //IF SOMEHOW preorder is placed 7 days ahead of earliestOrderTime
+
+    }
 
     //add user id to order
 
-    // add order number?
+    //add order number?
 
+    return { success: isSuccess, message: messageArray }
 })

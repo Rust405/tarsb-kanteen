@@ -33,7 +33,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
     const [isValid, setIsValid] = useState(true)
 
     const handlePlaceOrder = () => {
-        let order = { orderItems: selectedItems, isTakeaway: isTakeaway, isPreOrder: isPreOrder }
+        let order = { orderItems: selectedItems, isTakeaway: isTakeaway, isPreOrder: isPreOrder, orderTimestamp: dayjs() }
 
         if (remark !== '') {
             order.remarkCustomer = remark
@@ -44,7 +44,8 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
 
         createOrder({ stallID: selectedStall.id, order: order })
             .then(result => {
-
+                let response = result.data
+                console.log(response.message)
             })
     }
 
@@ -176,7 +177,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
 
                         <Stack sx={{ m: 2 }} spacing={2}>
                             <Button
-                                disabled={(isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0)}
+                                disabled={(isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0) || (!isPreOrder && isWeekend(dayjs()))}
                                 variant="contained"
                                 onClick={handlePlaceOrder}
                             >
