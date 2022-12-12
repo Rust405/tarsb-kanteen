@@ -6,7 +6,7 @@ import Snackbar from '@mui/material/Snackbar'
 import Login from './Login'
 import Loading from './Loading'
 
-import { auth, findStallUser } from './utils/firebase'
+import { auth, createUserIfNotExists, findStallUser } from './utils/firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
 
 import CustomerClient from './user-pages/customer/CustomerClient'
@@ -46,7 +46,10 @@ function App(props) {
 
   useEffect(() => {
     if (user) {
+      createUserIfNotExists(user)
+
       setIsFetchingUserType(true)
+      
       fetchUserType()
         .then(fetchedUserType => {
           setUserType(fetchedUserType)

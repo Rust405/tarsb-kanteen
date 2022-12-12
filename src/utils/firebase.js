@@ -33,9 +33,10 @@ if (useEmulators) {
 }
 
 export const signInWithGoogle = async () => {
-  const res = await signInWithRedirect(auth, provider)
-  const user = res.user
+  await signInWithRedirect(auth, provider)
+}
 
+export const createUserIfNotExists = async (user) => {
   const docRef = doc(db, "users", user.uid)
   const docSnap = await getDoc(docRef)
 
