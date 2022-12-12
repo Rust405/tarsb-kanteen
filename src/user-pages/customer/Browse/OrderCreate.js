@@ -33,13 +33,13 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
     const [isValid, setIsValid] = useState(true)
 
     const handlePlaceOrder = () => {
-        let order = { orderItems: selectedItems, isTakeaway: isTakeaway, isPreOrder: isPreOrder, orderTimestamp: dayjs() }
+        let order = { orderItems: selectedItems, isTakeaway: isTakeaway, isPreOrder: isPreOrder }
 
         if (remark !== '') {
             order.remarkCustomer = remark
         }
         if (isPreOrder) {
-            order.pickupTimestamp = pickupTimestamp
+            order.pickupTimestamp = pickupTimestamp.toDate()
         }
 
         createOrder({ stallID: selectedStall.id, order: order })

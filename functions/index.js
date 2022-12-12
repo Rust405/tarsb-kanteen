@@ -400,7 +400,9 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
     return { success: isSuccess, message: messageArray }
 })
 
-function isWeekend(date) { return date.day() === 0 || date.day() === 6 }
+function isWeekend(date) {
+    return date.day() === 0 || date.day() === 6
+}
 
 exports.createOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     //verify user
@@ -448,30 +450,34 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     }
 
     //IF SOMEHOW order (not pre-order) is created on a weekend
-    if (isWeekend(order.orderTimestamp) && !order.isPreOrder) {
+    if (isWeekend(dayjs()) && !order.isPreOrder) {
         isSuccess = false
         messageArray.push(`Order cannot be created on a weekend.`)
     }
 
     //Validate for pre-order
     if (order.isPreOrder) {
-        let pickupTimestamp = order.pickupTimestamp
+        let pickupTimestamp = dayjs(order.pickupTimestamp)
         const earliestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T08:00`)
         const latestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
 
-        //IF SOMEHOW preorder is placed on a weekend
+        // IF SOMEHOW preorder is placed on a weekend
         if (isWeekend(pickupTimestamp)) {
             isSuccess = false
             messageArray.push(`Pre-order cannot be placed on a weekend.`)
         }
 
-        //IF SOMEHOW preorder is placed in the past
+        // IF SOMEHOW preorder is placed in the past (before 30 minutes after current time)
+        if (pickupTimestamp.diff(dayjs().add(30, 'minute')) < 0) {
+            isSuccess = false
+            messageArray.push(`Pre-order can only be placed at a minimum 30 minutes from now.`)
+        }
 
         //IF SOMEHOW preorder is placed outside of stall hours
 
 
-
         //IF SOMEHOW preorder is placed 7 days ahead of earliestOrderTime
+
 
     }
 
