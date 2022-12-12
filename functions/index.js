@@ -5,7 +5,6 @@ const { getFirestore } = require('firebase-admin/firestore')
 const firebase_tools = require('firebase-tools')
 
 const dayjs = require('dayjs')
-dayjs.locale('en-sg')
 
 initializeApp()
 
@@ -419,7 +418,10 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
 
     let stallID = data.stallID
     let order = data.order
+    let isPreOrder = order.isPreOrder
     order.customerID = context.auth.token.uid
+
+    let now = dayjs(Date.now())
 
     //IF stall is closed AND order is not a preorder
     const stallStatus = (await stallsRef.doc(stallID).get()).data().status
@@ -429,7 +431,13 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     }
 
     //IF SOMEHOW order is created outside of stall hours
-    //TODO:
+    let earliestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T08:00`)
+    let latestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T17:00`)
+
+    if ((!isPreOrder && now.diff(earliestOrderTime) < 0) || (!isPreOrder && now.diff(latestOrderTime) > 0)) {
+        isSuccess = false
+        messageArray.push(`Order cannot be created outside of stall operational hours.`)
+    }
 
     //IF SOMEHOW order is somehow empty
     if (order.orderItems.length === 0) {
@@ -453,16 +461,16 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     }
 
     //IF SOMEHOW order (not pre-order) is created on a weekend
-    if (isWeekend(dayjs()) && !order.isPreOrder) {
+    if (isWeekend(now) && !order.isPreOrder) {
         isSuccess = false
         messageArray.push(`Order cannot be created on a weekend.`)
     }
 
     //Validate for pre-order
-    if (order.isPreOrder) {
+    if (isPreOrder) {
         let pickupTimestamp = dayjs(order.pickupTimestamp)
-        const earliestOrderTime = dayjs(`${pickupTimestamp .format('YYYY-MM-DD')}T08:00`)
-        const latestOrderTime = dayjs(`${pickupTimestamp .format('YYYY-MM-DD')}T17:00`)
+        earliestOrderTime = dayjs(`${pickupTimestamp.format('YYYY-MM-DD')}T08:00`)
+        latestOrderTime = dayjs(`${pickupTimestamp.format('YYYY-MM-DD')}T17:00`)
 
         // IF SOMEHOW preorder is placed on a weekend
         if (isWeekend(pickupTimestamp)) {
@@ -471,7 +479,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         }
 
         // IF SOMEHOW preorder is placed in the past (before 30 minutes after current time)
-        if (pickupTimestamp.diff(dayjs().add(30, 'minute')) < 0) {
+        if (pickupTimestamp.diff(now.add(30, 'minute')) < 0) {
             isSuccess = false
             messageArray.push(`Pre-order can only be placed at a minimum 30 minutes from now.`)
         }
