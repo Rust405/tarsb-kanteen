@@ -10,6 +10,10 @@
 
 #firebase emulator
 /emulator-data
+firebase-debug.log
+ui-debug.log
+pubsub-debug.log
+firestore-debug.log
 
 # production
 /build

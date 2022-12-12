@@ -88,4 +88,10 @@ export const deleteMenuItem = async (stallID, itemID) => {
 }
 //[END Stall functions]
 
+//[START Customer functions]
+export const createOrder = httpsCallable(functions, 'createOrder ')
+
+
+//[END Customer functions]
+
 

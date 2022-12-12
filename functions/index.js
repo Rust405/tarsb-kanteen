@@ -398,12 +398,20 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
 })
 
 exports.createOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    //verify if customer check custom claims
+    //verify user
+    if (context.auth.token.userType !== 'customer') {
+        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+        throw new functions.https.HttpsError(
+            'permission-denied',
+            'Must be a customer to create order.'
+        )
+    }
+
 
     //check stall open or not if not preorder
 
     //validate pickup timestamp
 
     //add user id to order
-    
+
 })
