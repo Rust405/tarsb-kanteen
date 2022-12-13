@@ -5,6 +5,9 @@ const { getFirestore } = require('firebase-admin/firestore')
 const firebase_tools = require('firebase-tools')
 const dayjs = require('dayjs')
 
+const utc = require("dayjs/plugin/utc")
+dayjs.extend(utc)
+
 const earliestOrder = '07:00'
 const latestOrder = '17:00'
 
@@ -423,12 +426,9 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     let isPreOrder = order.isPreOrder
     order.customerID = context.auth.token.uid
 
-    let now = dayjs()
+    let now = dayjs().utcOffset(8)
     let earliestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T${earliestOrder}`)
     let latestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T${latestOrder}`)
-
-    //FIXME: 
-    console.log('now', now.toDate())
 
     //IF stall is closed AND order is not a preorder
     const stallStatus = (await stallsRef.doc(stallID).get()).data().status
