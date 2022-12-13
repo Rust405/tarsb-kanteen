@@ -189,9 +189,9 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
 
                         <Stack sx={{ m: 2 }} spacing={2}>
                             <Button
-                                // disabled={
-                                //     (isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(earliestOrderTime) < 0) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0) || (!isPreOrder && isWeekend(dayjs()))
-                                // }
+                                disabled={
+                                    (isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(earliestOrderTime) < 0) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0) || (!isPreOrder && isWeekend(dayjs()))
+                                }
                                 variant="contained"
                                 onClick={handlePlaceOrder}
                             >
