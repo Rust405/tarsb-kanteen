@@ -66,23 +66,23 @@ export const findStallUser = async (email) => {
   return null
 }
 
-export const registerStall = httpsCallable(functions, 'registerStall')
+export const registerStall = httpsCallable(functions, 'stallFunctions-registerStall')
 
 export const toggleStallStatus = async (stallDocRef, status) => {
   await updateDoc(stallDocRef, { status: status })
 }
 
-export const updateStallDetails = httpsCallable(functions, 'updateStallDetails')
+export const updateStallDetails = httpsCallable(functions, 'stallFunctions-updateStallDetails')
 
-export const unregisterStall = httpsCallable(functions, 'unregisterStall')
+export const unregisterStall = httpsCallable(functions, 'stallFunctions-unregisterStall')
 
-export const addMenuItem = httpsCallable(functions, 'addMenuItem')
+export const addMenuItem = httpsCallable(functions, 'stallFunctions-addMenuItem')
 
 export const toggleItemAvail = async (itemDocRef, isAvailable) => {
   await updateDoc(itemDocRef, { isAvailable: isAvailable })
 }
 
-export const updateItemDetails = httpsCallable(functions, 'updateItemDetails')
+export const updateItemDetails = httpsCallable(functions, 'stallFunctions-updateItemDetails')
 
 export const deleteMenuItem = async (stallID, itemID) => {
   await deleteDoc(doc(db, "stalls", stallID, "menu", itemID))
@@ -90,7 +90,7 @@ export const deleteMenuItem = async (stallID, itemID) => {
 //[END Stall functions]
 
 //[START Customer functions]
-export const createOrder = httpsCallable(functions, 'createOrder ')
+export const createOrder = httpsCallable(functions, 'customerFunctions-createOrder ')
 
 
 //[END Customer functions]
