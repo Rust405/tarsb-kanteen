@@ -1,8 +1,8 @@
 const functions = require('firebase-functions')
-const { initializeApp } = require('firebase-admin/app')
-const { getAuth } = require('firebase-admin/auth')
-const { getFirestore } = require('firebase-admin/firestore')
+const { getFirestore, Timestamp } = require('firebase-admin/firestore')
+
 const dayjs = require('dayjs')
+const { addDoc } = require('firebase/firestore')
 
 const earliestOrder = '07:00'
 const latestOrder = '17:00'
@@ -107,19 +107,20 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     }
 
     if (isSuccess) {
-        order.orderTimestamp = dayjs().add(8, 'hour').toDate()
+        order.orderTimestamp = Timestamp.fromDate(dayjs().toDate())
         order.customerID = context.auth.token.uid
         order.orderStatus = 'In Queue'
-        order.remarkStall = 'test'
-        order.cookingStartTime = 'test'
-        order.cookingEndTime = 'test'
+        order.remarkStall = ''
 
-        // if (isPreOrder) {
-        //     order.pickupTimestamp = 'test'
-        // } 
+        order.cookingStartTime = Timestamp.now()
+        order.cookingEndTime = Timestamp.now()
 
-        //add order
-        console.log(order)
+        if (isPreOrder) {
+            order.pickupTimestamp = Timestamp.fromDate(dayjs(order.pickupTimestamp).toDate())
+        }
+
+        const res = await stallsRef.doc(stallID).collection('orders').add(order)
+        messageArray.push(res.id)
     }
 
     return { success: isSuccess, message: messageArray }
