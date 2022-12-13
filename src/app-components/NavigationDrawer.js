@@ -32,19 +32,19 @@ import { ROUTE } from '../constants'
 const drawerWidth = 240
 
 const customer = {
-    pages: ['My Orders', 'Browse', 'Settings'],
+    pages: ['My Orders', 'Browse', 'Settings & Info'],
     icons: [<FastfoodIcon />, <MenuBookIcon />, <SettingsIcon />],
     links: [ROUTE.CUSTOMER.MYORDERS, ROUTE.CUSTOMER.BROWSE, ROUTE.CUSTOMER.USERSETTINGS]
 }
 
 const stallOwner = {
-    pages: ['Queue', 'Menu', 'Stall', 'Generate Summary', 'Settings'],
+    pages: ['Queue', 'Menu', 'Stall', 'Generate Summary', 'Settings & Info'],
     icons: [<ListAltIcon />, <MenuBookIcon />, <StorefrontIcon />, <PrintIcon />, <SettingsIcon />],
     links: [ROUTE.STALL.QUEUE, ROUTE.STALL.MENU, ROUTE.STALL.STALLSETTINGS, ROUTE.STALL.GENERATESUMMARY, ROUTE.STALL.USERSETTINGS]
 }
 
 const stallStaff = {
-    pages: ['Queue', 'Menu', 'Generate Summary', 'Settings'],
+    pages: ['Queue', 'Menu', 'Generate Summary', 'Settings & Info'],
     icons: [<ListAltIcon />, <MenuBookIcon />, <PrintIcon />, <SettingsIcon />],
     links: [ROUTE.STALL.QUEUE, ROUTE.STALL.MENU, ROUTE.STALL.GENERATESUMMARY, ROUTE.STALL.USERSETTINGS]
 }

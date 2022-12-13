@@ -70,6 +70,9 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         }
     }
 
+    //IF order contains at least one unavailable item
+    //TODO: 
+
     //IF SOMEHOW order (not pre-order) is created on a weekend
     if (isWeekend(now) && !order.isPreOrder) {
         isSuccess = false
