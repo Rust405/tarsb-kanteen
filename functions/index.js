@@ -5,9 +5,6 @@ const { getFirestore } = require('firebase-admin/firestore')
 const firebase_tools = require('firebase-tools')
 const dayjs = require('dayjs')
 
-const utc = require("dayjs/plugin/utc")
-dayjs.extend(utc)
-
 const earliestOrder = '07:00'
 const latestOrder = '17:00'
 
@@ -426,7 +423,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     let isPreOrder = order.isPreOrder
     order.customerID = context.auth.token.uid
 
-    let now = dayjs().utcOffset(8)
+    let now = dayjs().add(8, 'hour') //GMT + 8
     let earliestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T${earliestOrder}`)
     let latestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T${latestOrder}`)
 
@@ -472,7 +469,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
 
     //Validate for pre-order
     if (isPreOrder) {
-        let pickupTimestamp = dayjs(order.pickupTimestamp)
+        let pickupTimestamp = dayjs(order.pickupTimestamp).add(8, 'hour') //GMT + 8
         earliestOrderTime = dayjs(`${pickupTimestamp.format('YYYY-MM-DD')}T${earliestOrder}`)
         latestOrderTime = dayjs(`${pickupTimestamp.format('YYYY-MM-DD')}T${latestOrder}`)
 
@@ -483,13 +480,10 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         }
 
         // IF SOMEHOW preorder is placed in the past (before 30 minutes after current time)
-        if (pickupTimestamp.diff(now.add(30, 'minute')) < 0) {
+        if (pickupTimestamp.diff(now.add(30, 'minute'), 'minute') < 0) {
             isSuccess = false
             messageArray.push(`Pre-order can only be placed at a minimum 30 minutes from now.`)
         }
-
-        console.log("earliest violate", pickupTimestamp.diff(earliestOrderTime) < 0)
-        console.log("latest violate", pickupTimestamp.diff(latestOrderTime) > 0)
 
         //IF SOMEHOW preorder is placed outside of stall hours
         if (pickupTimestamp.diff(earliestOrderTime) < 0 || pickupTimestamp.diff(latestOrderTime) > 0) {
@@ -497,10 +491,9 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
             messageArray.push(`Pre-order cannot be placed outside of stall operational hours.`)
         }
 
-        //TODO: test
         //IF SOMEHOW preorder is placed 7 days ahead of earliestOrderTime
         let latestDate = dayjs(`${now.format('YYYY-MM-DD')}T${latestOrder}`).add(7, 'day')
-        if (pickupTimestamp.diff(latestDate, 'day') > 0) {
+        if (pickupTimestamp.diff(latestDate) > 0) {
             isSuccess = false
             messageArray.push(`Pre-order can only be placed at a maximum 1 week from today.`)
         }
