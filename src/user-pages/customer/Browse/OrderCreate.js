@@ -18,7 +18,7 @@ import currency from 'currency.js'
 import { useState, useEffect } from 'react'
 import { createOrder } from '../../../utils/firebase'
 
-const earliestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T08:00`)
+const earliestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T07:00`)
 const latestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
 
 const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {

@@ -3,8 +3,10 @@ const { initializeApp } = require('firebase-admin/app')
 const { getAuth } = require('firebase-admin/auth')
 const { getFirestore } = require('firebase-admin/firestore')
 const firebase_tools = require('firebase-tools')
-
 const dayjs = require('dayjs')
+
+const earliestOrder = '07:00'
+const latestOrder = '17:00'
 
 initializeApp()
 
@@ -421,9 +423,12 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     let isPreOrder = order.isPreOrder
     order.customerID = context.auth.token.uid
 
-    let now = dayjs(Date.now())
-    let earliestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T08:00`)
-    let latestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T17:00`)
+    let now = dayjs()
+    let earliestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T${earliestOrder}`)
+    let latestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T${latestOrder}`)
+
+    //FIXME: 
+    console.log('now', now.toDate())
 
     //IF stall is closed AND order is not a preorder
     const stallStatus = (await stallsRef.doc(stallID).get()).data().status
@@ -468,8 +473,8 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     //Validate for pre-order
     if (isPreOrder) {
         let pickupTimestamp = dayjs(order.pickupTimestamp)
-        earliestOrderTime = dayjs(`${pickupTimestamp.format('YYYY-MM-DD')}T08:00`)
-        latestOrderTime = dayjs(`${pickupTimestamp.format('YYYY-MM-DD')}T17:00`)
+        earliestOrderTime = dayjs(`${pickupTimestamp.format('YYYY-MM-DD')}T${earliestOrder}`)
+        latestOrderTime = dayjs(`${pickupTimestamp.format('YYYY-MM-DD')}T${latestOrder}`)
 
         // IF SOMEHOW preorder is placed on a weekend
         if (isWeekend(pickupTimestamp)) {
@@ -492,8 +497,15 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
             messageArray.push(`Pre-order cannot be placed outside of stall operational hours.`)
         }
 
+        //TODO: test
         //IF SOMEHOW preorder is placed 7 days ahead of earliestOrderTime
+        let latestDate = dayjs(`${now.format('YYYY-MM-DD')}T${latestOrder}`).add(7, 'day')
+        if (pickupTimestamp.diff(latestDate, 'day') > 0) {
+            isSuccess = false
+            messageArray.push(`Pre-order can only be placed at a maximum 1 week from today.`)
+        }
 
+        //IF ?
 
     }
 
