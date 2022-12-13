@@ -30,13 +30,12 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     let stallID = data.stallID
     let order = data.order
     let isPreOrder = order.isPreOrder
-    order.customerID = context.auth.token.uid
 
     let now = dayjs().add(8, 'hour') //GMT + 8
     let earliestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T${earliestOrder}`)
     let latestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T${latestOrder}`)
 
-    //IF stall is closed AND order is not a preorder
+    //IF stall is closed AND order is a regular order 
     const stallStatus = (await stallsRef.doc(stallID).get()).data().status
     if (stallStatus === 'closed' && !order.isPreOrder) {
         isSuccess = false
@@ -49,31 +48,27 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         messageArray.push(`Order cannot be created outside of stall operational hours.`)
     }
 
-    //IF SOMEHOW order is somehow empty
+    //IF SOMEHOW order is empty
     if (order.orderItems.length === 0) {
         isSuccess = false
         messageArray.push(`Order must contain at least one menu item.`)
     }
 
-    //IF SOMEHOW order contains more than one cooking item
-    if (order.orderItems.length !== 0) {
-        let waitingItemCtr = 0
-
-        order.orderItems.forEach(item => {
-            if (item.isRequireWaiting) {
-                waitingItemCtr += 1
-            }
-        })
-
-        if (waitingItemCtr > 1) {
-            messageArray.push(`Order can only contain a maximum 1 item that requires waiting.`)
-        }
+    //IF SOMEHOW order contains more than one waiting item
+    let waitingItems = order.orderItems.filter(item => item.isRequireWaiting)
+    if (waitingItems.length > 1) {
+        isSuccess = false
+        messageArray.push(`Order can only contain a maximum 1 item that requires waiting.`)
     }
 
     //IF order contains at least one unavailable item
-    //TODO: 
+    let unavailableItems = order.orderItems.filter(item => item.isAvailable === false)
+    if (unavailableItems.length > 0) {
+        isSuccess = false
+        messageArray.push(`Order cannot contain any unavailable items.`)
+    }
 
-    //IF SOMEHOW order (not pre-order) is created on a weekend
+    //IF SOMEHOW regular order is created on a weekend
     if (isWeekend(now) && !order.isPreOrder) {
         isSuccess = false
         messageArray.push(`Order cannot be created on a weekend.`)
@@ -109,14 +104,23 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
             isSuccess = false
             messageArray.push(`Pre-order can only be placed at a maximum 1 week from today.`)
         }
-
-        //IF ?
-
     }
 
-    //add user id to order
+    if (isSuccess) {
+        order.orderTimestamp = dayjs().add(8, 'hour').toDate()
+        order.customerID = context.auth.token.uid
+        order.orderStatus = 'In Queue'
+        order.remarkStall = 'test'
+        order.cookingStartTime = 'test'
+        order.cookingEndTime = 'test'
 
-    //add order number?
+        // if (isPreOrder) {
+        //     order.pickupTimestamp = 'test'
+        // } 
+
+        //add order
+        console.log(order)
+    }
 
     return { success: isSuccess, message: messageArray }
 })
