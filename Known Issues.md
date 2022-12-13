@@ -8,4 +8,6 @@
 
 5. Profile image may return 403 when running locally on localhost. This does not happen if 127.0.0.1 is used instead. (Solved, create a .env.local file in root and add HOST=127.0.0.1 so that every npm start run uses 127.0.0.1)
 
-6. Modify and Update order feature dropped due to time constraint.
+6. Modify and Update order feature dropped. (Time constraint).
+
+7. Fixed (unmodifiable) stall operational hours. (Time constraint).
