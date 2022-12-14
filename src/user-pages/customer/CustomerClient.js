@@ -58,6 +58,7 @@ const CustomerClient = ({ container, userInfo }) => {
     //BROWSE page
     const [selectedItems, setSelectedItems] = useState([])
     const [selectedStall, setSelectedStall] = useState('')
+    const [isValidating, setIsValidating] = useState(false)
 
     return (
         <div className="customer-client">
@@ -89,6 +90,7 @@ const CustomerClient = ({ container, userInfo }) => {
                                 element={
                                     <Browse selectedItems={selectedItems} setSelectedItems={setSelectedItems}
                                         selectedStall={selectedStall} setSelectedStall={setSelectedStall}
+                                        isValidating={isValidating}
                                     />}
                             />
                             <Route path={ROUTE.CUSTOMER.USERSETTINGS} element={<CustomerUserSettings />} />
@@ -120,6 +122,7 @@ const CustomerClient = ({ container, userInfo }) => {
                                     container={container}
                                     drawerContent={
                                         <OrderCreate selectedItems={selectedItems} setSelectedItems={setSelectedItems} selectedStall={selectedStall}
+                                            isValidating={isValidating} setIsValidating={setIsValidating}
                                             setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
                                             setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg} />
                                     }

@@ -26,10 +26,10 @@ const latestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
 const OrderCreate = ({
     selectedItems, setSelectedItems,
     selectedStall,
+    isValidating, setIsValidating,
     setOpenSucSnack, setSucMsg,
     setOpenErrSnack, setErrMsgs,
 }) => {
-    const [isValidating, setIsValidating] = useState(false)
 
     const [remark, setRemark] = useState('')
     const [isTakeaway, setIsTakeaway] = useState(false)

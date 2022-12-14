@@ -22,7 +22,7 @@ const itemStyle = {
     borderRadius: '8px',
 }
 
-const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedStall }) => {
+const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedStall, isValidating }) => {
     const [stallsSnapshot, setStallsSnapshot] = useState(null)
     const [menuSnapshot, setMenuSnapshot] = useState(null)
 
@@ -121,6 +121,7 @@ const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedSta
                     <Box sx={{ p: 1, width: '100%' }}>
                         <FormControl fullWidth>
                             <Select
+                                disabled={isValidating}
                                 MenuProps={{ sx: { "&& .Mui-selected": { borderLeft: '4px solid #3f50b5' } } }}
                                 value={selectedStall}
                                 onChange={e => setSelectedStall(e.target.value)}
@@ -170,6 +171,7 @@ const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedSta
                                     .map(
                                         doc => (
                                             <ListItemButton
+                                                disabled={isValidating}
                                                 key={doc.id}
                                                 sx={itemStyle}
                                                 selected={selectedItems.some(item => item.id === doc.id)}
@@ -192,6 +194,7 @@ const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedSta
                                     .map(
                                         doc => (
                                             <ListItemButton
+                                                disabled={isValidating}
                                                 key={doc.id}
                                                 sx={itemStyle}
                                                 selected={selectedItems.some(item => item.id === doc.id)}
