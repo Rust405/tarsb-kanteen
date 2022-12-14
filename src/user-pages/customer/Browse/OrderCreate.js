@@ -7,6 +7,8 @@ import Stack from '@mui/material/Stack'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import CircularProgress from '@mui/material/CircularProgress'
+import IconButton from '@mui/material/IconButton'
+import RefreshIcon from '@mui/icons-material/Refresh'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/en-sg'
@@ -76,7 +78,7 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
     //update pickup date time everytime isPreOrder toggled
     useEffect(() => { if (isPreOrder) updatePickup() }, [isPreOrder])
 
-    function updatePickup() {
+    const updatePickup = () => {
         //IF today is weekday AND now is at least 30 min before latestOrderTime AND has passed earliestOrderTime, THEN set pickuptime to 30 minutes from now
         if (!isWeekend(dayjs()) && dayjs().add(30, 'minute').diff(latestOrderTime) < 0 && dayjs().diff(earliestOrderTime) > 0) {
             setPickupTimestamp(dayjs().add(30, 'minute'))
@@ -165,21 +167,27 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
                             />
 
                             {isPreOrder &&
-                                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'en-sg'} >
-                                    <DateTimePicker
-                                        label="Pickup Time & Date"
-                                        value={pickupTimestamp}
-                                        onChange={v => setPickupTimestamp(v)}
-                                        onAccept={() => setIsValid(true)}
-                                        onError={(reason, value) => { reason ? setIsValid(false) : setIsValid(true) }}
-                                        renderInput={(params) => <TextField {...params} error={!isValid} />}
-                                        minDate={minDate}
-                                        maxDate={minDate.add(7, 'day')}
-                                        minTime={minTime}
-                                        maxTime={latestOrderTime}
-                                        shouldDisableDate={date => isWeekend(date)}
-                                    />
-                                </LocalizationProvider>
+                                <Stack direction="row" alignItems="center" spacing={2}>
+                                    <IconButton onClick={updatePickup}>
+                                        <RefreshIcon />
+                                    </IconButton>
+
+                                    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'en-sg'} >
+                                        <DateTimePicker
+                                            label="Pickup Time & Date"
+                                            value={pickupTimestamp}
+                                            onChange={v => setPickupTimestamp(v)}
+                                            onAccept={() => setIsValid(true)}
+                                            onError={(reason, value) => { reason ? setIsValid(false) : setIsValid(true) }}
+                                            renderInput={(params) => <TextField {...params} error={!isValid} />}
+                                            minDate={minDate}
+                                            maxDate={minDate.add(7, 'day')}
+                                            minTime={minTime}
+                                            maxTime={latestOrderTime}
+                                            shouldDisableDate={date => isWeekend(date)}
+                                        />
+                                    </LocalizationProvider>
+                                </Stack>
                             }
 
                         </Stack>
