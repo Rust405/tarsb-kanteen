@@ -2,10 +2,14 @@ const functions = require('firebase-functions')
 const { getFirestore, Timestamp } = require('firebase-admin/firestore')
 
 const dayjs = require('dayjs')
-const { addDoc } = require('firebase/firestore')
+const utc = require("dayjs/plugin/utc")
+const timezone = require("dayjs/plugin/timezone")
+dayjs.extend(timezone)
+dayjs.extend(utc)
 
 const earliestOrder = '07:00'
 const latestOrder = '17:00'
+const tz = 'Asia/Singapore'
 
 const db = getFirestore()
 const stallsRef = db.collection('stalls')
@@ -31,9 +35,9 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     let order = data.order
     let isPreOrder = order.isPreOrder
 
-    let now = dayjs().add(8, 'hour') //GMT + 8
-    let earliestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T${earliestOrder}`)
-    let latestOrderTime = dayjs(`${now.format('YYYY-MM-DD')}T${latestOrder}`)
+    let now = dayjs().tz(tz)
+    let earliestOrderTime = dayjs.tz(`${now.format('YYYY-MM-DD')}T${earliestOrder}`, tz)
+    let latestOrderTime = dayjs.tz(`${now.format('YYYY-MM-DD')}T${latestOrder}`, tz)
 
     //IF stall is closed AND order is a regular order 
     const stallStatus = (await stallsRef.doc(stallID).get()).data().status
@@ -76,9 +80,9 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
 
     //Validate for pre-order
     if (isPreOrder) {
-        let pickupTimestamp = dayjs(order.pickupTimestamp).add(8, 'hour') //GMT + 8
-        earliestOrderTime = dayjs(`${pickupTimestamp.format('YYYY-MM-DD')}T${earliestOrder}`)
-        latestOrderTime = dayjs(`${pickupTimestamp.format('YYYY-MM-DD')}T${latestOrder}`)
+        let pickupTimestamp = dayjs(order.pickupTimestamp).tz(tz)
+        earliestOrderTime = dayjs.tz(`${pickupTimestamp.format('YYYY-MM-DD')}T${earliestOrder}`, tz)
+        latestOrderTime = dayjs.tz(`${pickupTimestamp.format('YYYY-MM-DD')}T${latestOrder}`, tz)
 
         // IF SOMEHOW preorder is placed on a weekend
         if (isWeekend(pickupTimestamp)) {
