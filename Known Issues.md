@@ -11,5 +11,3 @@
 6. Modify and Update order feature dropped. (Time constraint).
 
 7. Fixed (unmodifiable) stall operational hours. (Time constraint).
-
-8. When validating, selectedItems can be changed. (Ignored, when validating the orderItems are already sent to cloud function for validation, the new selected items only apply to the next order. Fixing this behaviour so that selectedItems don't change while validating will require extra code)
