@@ -229,7 +229,7 @@ const OrderCreate = ({
                                     variant="contained"
                                     onClick={handlePlaceOrder}
                                 >
-                                    {isValidating ? "Validating..." : "Save Changes"}
+                                    {isValidating ? "Validating..." : "Place Order"}
                                 </Button>
                                 {isValidating &&
                                     <CircularProgress
