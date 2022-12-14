@@ -27,7 +27,7 @@ const ApplicationBar = ({ handleDrawerToggle }) => {
         <Typography variant="h6" noWrap component="div">TARSB Kanteen</Typography>
       </Toolbar>
     </AppBar>
-  );
+  )
 }
 
-export default ApplicationBar;
+export default ApplicationBar

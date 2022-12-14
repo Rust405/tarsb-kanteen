@@ -176,7 +176,9 @@ const NavigationDrawer = ({
                 disableSwipeToOpen={false}
                 ModalProps={{ keepMounted: true }}
                 sx={{
-                    display: { xs: 'block', sm: 'none' },
+                    display: {
+                        xs: 'block', sm: 'none'
+                    },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
                 }}
             >
@@ -186,4 +188,4 @@ const NavigationDrawer = ({
     );
 }
 
-export default NavigationDrawer;
+export default NavigationDrawer
