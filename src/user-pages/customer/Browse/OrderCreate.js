@@ -65,7 +65,7 @@ const OrderCreate = ({
                     setIsValidating(false)
                     setSucMsg(`Order has been created with ID: ${response.message}`)
                     setOpenSucSnack(true)
-                    setSelectedItems([])
+                    resetFields()
                 } else {
                     setOpenErrSnack(true)
                     setErrMsgs(response.message)
@@ -160,6 +160,7 @@ const OrderCreate = ({
                                 multiline
                                 rows={2}
                                 inputProps={{ maxLength: 50 }}
+                                disabled={isValidating}
                             />
                         </Box>
 
@@ -179,7 +180,7 @@ const OrderCreate = ({
                                 }
                                 labelPlacement="start"
                                 label="Takeaway?"
-                                disabled={false}
+                                disabled={isValidating}
                             />
 
                             <FormControlLabel
@@ -189,12 +190,12 @@ const OrderCreate = ({
                                 }
                                 labelPlacement="start"
                                 label="Pre-order?"
-                                disabled={false}
+                                disabled={isValidating}
                             />
 
                             {isPreOrder &&
                                 <Stack direction="row" alignItems="center" spacing={2}>
-                                    <IconButton onClick={updatePickup}>
+                                    <IconButton onClick={updatePickup} disabled={isValidating} >
                                         <RefreshIcon />
                                     </IconButton>
 
@@ -205,7 +206,7 @@ const OrderCreate = ({
                                             onChange={v => setPickupTimestamp(v)}
                                             onAccept={() => setIsValid(true)}
                                             onError={(reason, value) => { reason ? setIsValid(false) : setIsValid(true) }}
-                                            renderInput={(params) => <TextField {...params} error={!isValid} />}
+                                            renderInput={(params) => <TextField {...params} error={!isValid} disabled={isValidating} />}
                                             minDate={minDate}
                                             maxDate={minDate.add(7, 'day')}
                                             minTime={minTime}
@@ -222,7 +223,7 @@ const OrderCreate = ({
                         <Stack sx={{ m: 2 }} spacing={2}>
                             <Button
                                 disabled={
-                                    (isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(earliestOrderTime) < 0) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0) || (!isPreOrder && isWeekend(dayjs()))
+                                    (isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(earliestOrderTime) < 0) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0) || (!isPreOrder && isWeekend(dayjs())) || isValidating
                                 }
                                 variant="contained"
                                 onClick={handlePlaceOrder}
@@ -231,6 +232,7 @@ const OrderCreate = ({
                             </Button>
 
                             <Button
+                                disabled={isValidating}
                                 variant="outlined"
                                 color="error"
                                 onClick={resetFields}>

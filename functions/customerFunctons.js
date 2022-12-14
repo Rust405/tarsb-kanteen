@@ -78,13 +78,13 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         messageArray.push(`Order cannot be created on a weekend.`)
     }
 
-    //IF pickup date invalid RETURN early
-    if (!(order.pickupTimestamp instanceof Date) || isNaN(order.pickupTimestamp)) {
-        return { success: false, message: ['Invalid pickup date provided.'] }
-    }
-
     //Validate for pre-order
     if (isPreOrder) {
+        //IF pickup date invalid RETURN early
+        if (!(order.pickupTimestamp instanceof Date) || isNaN(order.pickupTimestamp)) {
+            return { success: false, message: ['Invalid pickup date provided.'] }
+        }
+
         let pickupTimestamp = dayjs(order.pickupTimestamp).tz(tz)
         earliestOrderTime = dayjs.tz(`${pickupTimestamp.format('YYYY-MM-DD')}T${earliestOrder}`, tz)
         latestOrderTime = dayjs.tz(`${pickupTimestamp.format('YYYY-MM-DD')}T${latestOrder}`, tz)
