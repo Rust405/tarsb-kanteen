@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react'
 import { db, toggleItemAvail } from '../../../utils/firebase'
 import currency from 'currency.js'
 
-const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
+const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
     const [menuSnapshot, setMenuSnapshot] = useState(null)
     const [updatedItems, setUpdatedItems] = useState([])
     const [deletedItems, setDeletedItems] = useState([])
@@ -107,6 +107,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                     doc => (
                                         <ListItem key={doc.id}>
                                             <ListItemButton
+                                                disabled={isValidating}
                                                 sx={{
                                                     border: '2px solid lightgray',
                                                     borderRadius: '8px',
@@ -130,7 +131,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                                 alignItems="center"
                                             >
                                                 <Switch
-                                                    disabled={disableSwitch === doc.id}
+                                                    disabled={disableSwitch === doc.id || isValidating}
                                                     checked={doc.data().isAvailable}
                                                     onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
                                                 />
@@ -151,6 +152,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                     doc => (
                                         <ListItem key={doc.id}>
                                             <ListItemButton
+                                                disabled={isValidating}
                                                 sx={{
                                                     border: '2px solid lightgray',
                                                     borderRadius: '8px',
@@ -173,7 +175,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                                 alignItems="center"
                                             >
                                                 <Switch
-                                                    disabled={disableSwitch === doc.id}
+                                                    disabled={disableSwitch === doc.id || isValidating}
                                                     checked={doc.data().isAvailable}
                                                     onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
                                                 />
@@ -193,6 +195,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                     doc => (
                                         <ListItem key={doc.id}>
                                             <ListItemButton
+                                                disabled={isValidating}
                                                 sx={{
                                                     border: '2px solid lightgray',
                                                     borderRadius: '8px',
@@ -215,7 +218,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem }) => {
                                                 alignItems="center"
                                             >
                                                 <Switch
-                                                    disabled={disableSwitch === doc.id}
+                                                    disabled={disableSwitch === doc.id || isValidating}
                                                     checked={doc.data().isAvailable}
                                                     onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
                                                 />

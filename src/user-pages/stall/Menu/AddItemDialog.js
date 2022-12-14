@@ -54,12 +54,11 @@ CustomDialogTitle.propTypes = { children: PropTypes.node, onClose: PropTypes.fun
 
 const AddItemDialog = ({
     openNewItemDialog, setOpenNewItemDialog,
+    isValidating, setIsValidating,
     setOpenSucSnack, setSucMsg,
     setOpenErrSnack, setErrMsgs,
     stallID
 }) => {
-    const [isValidating, setIsValidating] = useState(false)
-
     const [itemName, setItemName] = useState('')
     const [itemPrice, setItemPrice] = useState('0.00')
     const [itemRequireWaiting, setItemRequireWaiting] = useState(true)

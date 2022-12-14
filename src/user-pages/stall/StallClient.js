@@ -83,7 +83,7 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
 
     //MENU PAGE
     const [selectedItem, setSelectedItem] = useState(null)
-
+    const [isValidating, setIsValidating] = useState(false)
 
     return (
         <div className="stall-client">
@@ -112,7 +112,7 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
                             <Route path={ROUTE.STALL.QUEUE} element={<Queue />} />
-                            <Route path={ROUTE.STALL.MENU} element={<Menu stallID={stallID} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />} />
+                            <Route path={ROUTE.STALL.MENU} element={<Menu stallID={stallID} selectedItem={selectedItem} setSelectedItem={setSelectedItem} isValidating={isValidating} />} />
                             <Route path={ROUTE.STALL.GENERATESUMMARY} element={<GenerateSummary />} />
                             <Route path={ROUTE.STALL.USERSETTINGS} element={<StallUserSettings />} />
                             {staffRole === 'owner' &&
@@ -153,6 +153,7 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                                         <MenuItemCUD
                                             selectedItem={selectedItem}
                                             stallID={stallID}
+                                            isValidating={isValidating} setIsValidating={setIsValidating}
                                             setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
                                             setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
                                         />

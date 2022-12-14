@@ -18,14 +18,14 @@ import DeleteItemDialog from './DeleteItemDialog'
 const MenuItemCUD = ({
     selectedItem,
     stallID,
+    isValidating, setIsValidating,
     setOpenErrSnack, setErrMsgs,
-    setOpenSucSnack, setSucMsg
+    setOpenSucSnack, setSucMsg,
 }) => {
     const [openNewItemDialog, setOpenNewItemDialog] = useState(false)
     const [openDeleteItemDialog, setOpenDeleteItemDialog] = useState(false)
 
     const [isEditing, setIsEditing] = useState(false)
-    const [isValidating, setIsValidating] = useState(false)
 
     const [itemName, setItemName] = useState('')
     const [itemPrice, setItemPrice] = useState('0.00')
@@ -110,6 +110,7 @@ const MenuItemCUD = ({
                 {/* Add New Item */}
                 <Box sx={{ m: 2 }} display="flex" justifyContent="center">
                     <Button variant="contained"
+                        disabled={isValidating}
                         onClick={() => {
                             setOpenNewItemDialog(true)
                             handleRemoveChanges()
@@ -206,6 +207,7 @@ const MenuItemCUD = ({
             {/* New Item Dialog */}
             <AddItemDialog
                 openNewItemDialog={openNewItemDialog} setOpenNewItemDialog={setOpenNewItemDialog}
+                isValidating={isValidating} setIsValidating={setIsValidating}
                 setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
                 setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
                 stallID={stallID}
