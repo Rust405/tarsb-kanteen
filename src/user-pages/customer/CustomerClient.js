@@ -119,7 +119,9 @@ const CustomerClient = ({ container, userInfo }) => {
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
                                     drawerContent={
-                                        <OrderCreate selectedItems={selectedItems} setSelectedItems={setSelectedItems} selectedStall={selectedStall} />
+                                        <OrderCreate selectedItems={selectedItems} setSelectedItems={setSelectedItems} selectedStall={selectedStall}
+                                            setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                                            setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg} />
                                     }
                                 />}
                         />

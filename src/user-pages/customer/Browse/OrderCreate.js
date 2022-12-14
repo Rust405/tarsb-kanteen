@@ -23,7 +23,14 @@ import { createOrder } from '../../../utils/firebase'
 const earliestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T07:00`)
 const latestOrderTime = dayjs(`${dayjs().format('YYYY-MM-DD')}T17:00`)
 
-const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
+const OrderCreate = ({
+    selectedItems, setSelectedItems,
+    selectedStall,
+    setOpenSucSnack, setSucMsg,
+    setOpenErrSnack, setErrMsgs,
+}) => {
+    const [isValidating, setIsValidating] = useState(false)
+
     const [remark, setRemark] = useState('')
     const [isTakeaway, setIsTakeaway] = useState(false)
     const [isPreOrder, setIsPreOrder] = useState(false)
@@ -37,12 +44,16 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
     const handlePlaceOrder = () => {
         let order = { orderItems: selectedItems, isTakeaway: isTakeaway, isPreOrder: isPreOrder, remarkCustomer: remark }
 
+        setIsValidating(true)
+        setOpenErrSnack(false)
+
         if (isPreOrder) {
             if (pickupTimestamp.isValid()) {
                 order.pickupTimestamp = pickupTimestamp.toDate()
             } else {
-                //TODO: error snack date problem
-
+                setOpenErrSnack(true)
+                setErrMsgs(['Invalid pickup date provided.'])
+                setIsValidating(false)
                 return
             }
         }
@@ -50,7 +61,22 @@ const OrderCreate = ({ selectedItems, setSelectedItems, selectedStall }) => {
         createOrder({ stallID: selectedStall.id, order: order })
             .then(result => {
                 let response = result.data
-                console.log(response.message)
+                if (response.success) {
+                    setIsValidating(false)
+                    setSucMsg(`Order has been created with ID: ${response.message}`)
+                    setOpenSucSnack(true)
+                    setSelectedItems([])
+                } else {
+                    setOpenErrSnack(true)
+                    setErrMsgs(response.message)
+                    setIsValidating(false)
+                }
+            })
+            .catch(err => {
+                console.warn(err)
+                setOpenErrSnack(true)
+                setErrMsgs(['Unable to proceed. A server error has occured.'])
+                setIsValidating(false)
             })
     }
 
