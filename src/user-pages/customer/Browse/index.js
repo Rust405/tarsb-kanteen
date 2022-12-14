@@ -25,6 +25,8 @@ const itemStyle = {
 const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedStall, isValidating }) => {
     const [stallsSnapshot, setStallsSnapshot] = useState(null)
     const [menuSnapshot, setMenuSnapshot] = useState(null)
+    const [updatedItems, setUpdatedItems] = useState([])
+    const [deletedItems, setDeletedItems] = useState([])
 
     //Stall collection
     useEffect(() => {
@@ -47,6 +49,15 @@ const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedSta
 
             const unsubscribe = onSnapshot(q, snapshot => {
                 setMenuSnapshot(snapshot.docs)
+
+                setUpdatedItems([])
+                setDeletedItems([])
+
+                snapshot.docChanges().forEach(change => {
+                    if (change.type === "modified") { setUpdatedItems([...updatedItems, change.doc]) }
+                    if (change.type === "removed") { setDeletedItems([...deletedItems, change.doc]) }
+                })
+
             })
             return () => {
                 unsubscribe()
@@ -88,10 +99,27 @@ const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedSta
     //TODO: hanlde stall unregister
     //TODO: hanlde stall registered
 
-    //TODO: remove selected item from order if deleted, or suddenly unavailable
-    //TODO: update selected item details if updated
+    //updated selectedItems if modified, remove selectedItems if made unavailable
+    useEffect(() => {
+        const updatedDocs = []
 
-    //But make sure somehow preorder is not placed in an impossible time
+        selectedItems.forEach(selectedItem => {
+            let latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
+            if (latestDoc) {
+                if (latestDoc.data().isAvailable) {
+                    updatedDocs.push({ id: latestDoc.id, data: latestDoc.data() })
+                }
+            } else {
+                updatedDocs.push(selectedItem)
+            }
+        })
+
+        setSelectedItems(updatedDocs)
+
+    }, [updatedItems])
+
+    //TODO: remove selected item from order if deleted 
+
 
     return (
         <div className="browse">
