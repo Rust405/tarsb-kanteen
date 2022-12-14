@@ -55,6 +55,14 @@ const CustomerClient = ({ container, userInfo }) => {
         setOpenSucSnack(false)
     }
 
+    //Info snackbar
+    const [openInfoSnack, setOpenInfoSnack] = useState(false)
+    const [infoMsg, setInfoMsg] = useState('')
+    const handleCloseInfoSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenInfoSnack(false)
+    }
+
     //BROWSE page
     const [selectedItems, setSelectedItems] = useState([])
     const [selectedStall, setSelectedStall] = useState('')
@@ -90,6 +98,7 @@ const CustomerClient = ({ container, userInfo }) => {
                                 element={
                                     <Browse selectedItems={selectedItems} setSelectedItems={setSelectedItems}
                                         selectedStall={selectedStall} setSelectedStall={setSelectedStall}
+                                        setOpenInfoSnack={setOpenInfoSnack} setInfoMsg={setInfoMsg}
                                         isValidating={isValidating}
                                     />}
                             />
@@ -148,6 +157,13 @@ const CustomerClient = ({ container, userInfo }) => {
                         :
                         <div>{errMsgs[0]}</div>
                     }
+                </Alert>
+            </Snackbar >
+
+            {/* Info Snackbar */}
+            < Snackbar open={openInfoSnack} autoHideDuration={5000} onClose={handleCloseInfoSnack} >
+                <Alert onClose={handleCloseInfoSnack} severity="info" sx={{ width: '100%' }}>
+                    {infoMsg}
                 </Alert>
             </Snackbar >
         </div>)

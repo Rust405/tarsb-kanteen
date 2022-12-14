@@ -22,7 +22,12 @@ const itemStyle = {
     borderRadius: '8px',
 }
 
-const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedStall, isValidating }) => {
+const Browse = ({
+    selectedItems, setSelectedItems,
+    selectedStall, setSelectedStall,
+    setOpenInfoSnack, setInfoMsg,
+    isValidating
+}) => {
     const [stallsSnapshot, setStallsSnapshot] = useState(null)
     const [menuSnapshot, setMenuSnapshot] = useState(null)
     const [updatedItems, setUpdatedItems] = useState([])
@@ -99,13 +104,19 @@ const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedSta
     //TODO: hanlde stall unregister
     //TODO: hanlde stall registered
 
+    //TEST
+    useEffect(() => {
+        console.log(selectedItems)
+      },[selectedItems])
+
     //updated selectedItems if modified, remove selectedItems if made unavailable
     useEffect(() => {
         const updatedDocs = []
 
         selectedItems.forEach(selectedItem => {
-            const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
+            let latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
             if (latestDoc) {
+                //FIXME:
                 if (latestDoc.data().isAvailable) {
                     updatedDocs.push({ id: latestDoc.id, data: latestDoc.data() })
                 }
@@ -116,7 +127,11 @@ const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedSta
 
         setSelectedItems(updatedDocs)
 
-        //TODO: menu has been updated!
+        if (updatedDocs.length > 0) {
+            setOpenInfoSnack(false)
+            setInfoMsg('Some menu items have been updated or made unavailable by the stall!')
+            setOpenInfoSnack(true)
+        }
     }, [updatedItems])
 
     //remove selectedItem if removed
@@ -129,9 +144,14 @@ const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedSta
                 remainingDocs.push(selectedItem)
             }
         })
+
         setSelectedItems(remainingDocs)
 
-        //TODO: menu has been updated!
+        if (remainingDocs.length > 0) {
+            setOpenInfoSnack(false)
+            setInfoMsg('Some menu items have been removed by the stall!')
+            setOpenInfoSnack(true)
+        }
     }, [deletedItems])
 
     return (
