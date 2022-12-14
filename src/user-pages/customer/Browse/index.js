@@ -104,7 +104,7 @@ const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedSta
         const updatedDocs = []
 
         selectedItems.forEach(selectedItem => {
-            let latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
+            const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
             if (latestDoc) {
                 if (latestDoc.data().isAvailable) {
                     updatedDocs.push({ id: latestDoc.id, data: latestDoc.data() })
@@ -116,10 +116,23 @@ const Browse = ({ selectedItems, setSelectedItems, selectedStall, setSelectedSta
 
         setSelectedItems(updatedDocs)
 
+        //TODO: menu has been updated!
     }, [updatedItems])
 
-    //TODO: remove selected item from order if deleted 
+    //remove selectedItem if removed
+    useEffect(() => {
+        const remainingDocs = []
 
+        selectedItems.forEach(selectedItem => {
+            const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
+            if (!deletedDoc) {
+                remainingDocs.push(selectedItem)
+            }
+        })
+        setSelectedItems(remainingDocs)
+
+        //TODO: menu has been updated!
+    }, [deletedItems])
 
     return (
         <div className="browse">
