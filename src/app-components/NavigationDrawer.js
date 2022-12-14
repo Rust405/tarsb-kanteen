@@ -10,7 +10,6 @@ import List from '@mui/material/List'
 import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
-import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Tooltip from '@mui/material/Tooltip'
 import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
@@ -168,12 +167,14 @@ const NavigationDrawer = ({
             </Drawer>
 
             {/* Mobile Drawer */}
-            <SwipeableDrawer
+            <Drawer
+                variant="temporary"
                 container={container}
                 open={navOpen}
-                onOpen={handleDrawerToggle}
-                onClose={() => { handleDrawerToggle(); setOpenCollapse(false) }}
-                disableSwipeToOpen={false}
+                onClose={() => {
+                    handleDrawerToggle()
+                    setOpenCollapse(false)
+                }}
                 ModalProps={{ keepMounted: true }}
                 sx={{
                     display: {
@@ -183,7 +184,7 @@ const NavigationDrawer = ({
                 }}
             >
                 {drawer}
-            </SwipeableDrawer>
+            </Drawer>
         </div >
     );
 }

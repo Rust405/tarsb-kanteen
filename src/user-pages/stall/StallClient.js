@@ -134,7 +134,6 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                             element={
                                 <MultiPurposeSidebar
                                     sidebarOpen={sidebarOpen}
-                                    navOpen={navOpen}
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
                                     drawerContent={
@@ -146,7 +145,6 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                             element={
                                 <MultiPurposeSidebar
                                     sidebarOpen={sidebarOpen}
-                                    navOpen={navOpen}
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
                                     drawerContent={
