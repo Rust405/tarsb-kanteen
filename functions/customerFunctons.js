@@ -125,8 +125,6 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
 
         const res = await stallsRef.doc(stallID).collection('orders').add(order)
         messageArray.push(res.id)
-
-        //TODO: add order to order queue 
     }
 
     return { success: isSuccess, message: messageArray }
