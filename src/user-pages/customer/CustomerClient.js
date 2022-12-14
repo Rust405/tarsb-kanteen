@@ -105,6 +105,7 @@ const CustomerClient = ({ container, userInfo }) => {
                             element={
                                 <MultiPurposeSidebar
                                     sidebarOpen={sidebarOpen}
+                                    navOpen={navOpen}
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
                                     drawerContent={
@@ -116,6 +117,7 @@ const CustomerClient = ({ container, userInfo }) => {
                             element={
                                 <MultiPurposeSidebar
                                     sidebarOpen={sidebarOpen}
+                                    navOpen={navOpen}
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
                                     drawerContent={

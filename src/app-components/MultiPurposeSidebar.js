@@ -10,6 +10,7 @@ const drawerBleeding = 56
 
 const MultiPurposeSidebar = ({
     sidebarOpen,
+    navOpen,
     handleSidebarToggle,
     container,
     drawerContent
@@ -52,9 +53,8 @@ const MultiPurposeSidebar = ({
                     keepMounted: true
                 }}
                 sx={{
-                    zIndex: 1,
                     display: {
-                        xs: 'block',
+                        xs: !navOpen ? 'block' : 'none',
                         sm: 'none'
                     },
                     '& .MuiDrawer-paper': {
