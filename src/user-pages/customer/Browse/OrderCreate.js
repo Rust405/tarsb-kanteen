@@ -220,16 +220,31 @@ const OrderCreate = ({
                         </Stack>
 
 
-                        <Stack sx={{ m: 2 }} spacing={2}>
-                            <Button
-                                disabled={
-                                    (isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(earliestOrderTime) < 0) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0) || (!isPreOrder && isWeekend(dayjs())) || isValidating
+                        <Stack sx={{ m: 2 }} spacing={2} alignItems="center">
+                            <Box sx={{ position: 'relative' }}>
+                                <Button
+                                    disabled={
+                                        (isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(earliestOrderTime) < 0) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0) || (!isPreOrder && isWeekend(dayjs())) || isValidating
+                                    }
+                                    variant="contained"
+                                    onClick={handlePlaceOrder}
+                                >
+                                    {isValidating ? "Validating..." : "Save Changes"}
+                                </Button>
+                                {isValidating &&
+                                    <CircularProgress
+                                        size={24}
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            marginTop: '-12px',
+                                            marginLeft: '-12px',
+                                        }}
+                                    />
                                 }
-                                variant="contained"
-                                onClick={handlePlaceOrder}
-                            >
-                                Place Order
-                            </Button>
+                            </Box>
+
 
                             <Button
                                 disabled={isValidating}
