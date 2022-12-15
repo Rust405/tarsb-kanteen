@@ -37,8 +37,7 @@ const Browse = ({
     const [deletedItems, setDeletedItems] = useState([])
 
     //Stall collection
-    useEffect(() => fetchStalls(), [])
-    function fetchStalls() {
+    useEffect(function fetchStalls() {
         const q = query(collection(db, "stalls"), orderBy('stallName'))
 
         const unsubscribe = onSnapshot(q, snapshot => {
@@ -60,24 +59,27 @@ const Browse = ({
             unsubscribe()
             setSelectedStall('')
         }
-    }
+    }, [])
+
 
     //select first stall in stalls snapshot on load
-    useEffect(() => { if (stallsSnapshot && !selectedStall) { setSelectedStall(stallsSnapshot[0]) } }, [stallsSnapshot])
+    useEffect(() => { if (stallsSnapshot && !selectedStall) setSelectedStall(stallsSnapshot[0]) }, [stallsSnapshot])
 
     //update stall if updated
-    useEffect(() => { if (updatedStalls.length > 0) { handleStallUpdated() } }, [updatedStalls])
-    function handleStallUpdated() {
-        const latestStall = updatedStalls.find(doc => doc.id === selectedStall.id)
-        if (latestStall) {
-            setSelectedStall(latestStall)
+    useEffect(function handleStallUpdated() {
+        if (updatedStalls.length > 0) {
+            const latestStall = updatedStalls.find(doc => doc.id === selectedStall.id)
+            if (latestStall) {
+                setSelectedStall(latestStall)
+            }
         }
-    }
+    }, [updatedStalls])
 
+    //select first stall if selected stall is unregistered 
+    useEffect(function handleStallUnregister() {
+        if (updatedStalls.length > 0) {
 
-    //TODO: hanlde stall unregister 
-    useEffect(() => {
-
+        }
     }, [deletedStalls])
 
     //TODO: hanlde stall registered
@@ -87,72 +89,75 @@ const Browse = ({
 
 
     //Menu subcollection
-    useEffect(() => { if (selectedStall) { fetchMenu() } }, [selectedStall])
-    function fetchMenu() {
-        const q = query(collection(db, "stalls", selectedStall.id, 'menu'), orderBy('menuItemName'))
+    useEffect(function fetchMenu() {
+        if (selectedStall) {
+            const q = query(collection(db, "stalls", selectedStall.id, 'menu'), orderBy('menuItemName'))
 
-        const unsubscribe = onSnapshot(q, snapshot => {
-            setMenuSnapshot(snapshot.docs)
+            const unsubscribe = onSnapshot(q, snapshot => {
+                setMenuSnapshot(snapshot.docs)
 
-            setUpdatedItems([])
-            setDeletedItems([])
+                setUpdatedItems([])
+                setDeletedItems([])
 
-            snapshot.docChanges().forEach(change => {
-                if (change.type === "modified") { setUpdatedItems([...updatedItems, change.doc]) }
-                if (change.type === "removed") { setDeletedItems([...deletedItems, change.doc]) }
+                snapshot.docChanges().forEach(change => {
+                    if (change.type === "modified") { setUpdatedItems([...updatedItems, change.doc]) }
+                    if (change.type === "removed") { setDeletedItems([...deletedItems, change.doc]) }
+                })
+
             })
 
-        })
-
-        return () => {
-            unsubscribe()
-            setMenuSnapshot(null)
-            setSelectedItems([])
+            return () => {
+                unsubscribe()
+                setMenuSnapshot(null)
+                setSelectedItems([])
+            }
         }
-    }
+    }, [selectedStall])
 
     //updated selectedItems if modified, remove selectedItems if made unavailable
-    useEffect(() => { if (updatedItems.length > 0) { handleItemsUpdated() } }, [updatedItems])
-    function handleItemsUpdated() {
-        const updatedDocs = []
+    useEffect(function handleItemsUpdated() {
+        if (updatedItems.length > 0) {
+            const updatedDocs = []
 
-        selectedItems.forEach(selectedItem => {
-            const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
-            if (latestDoc) {
-                if (latestDoc.data().isAvailable) {
-                    updatedDocs.push({ id: latestDoc.id, data: latestDoc.data() })
+            selectedItems.forEach(selectedItem => {
+                const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
+                if (latestDoc) {
+                    if (latestDoc.data().isAvailable) {
+                        updatedDocs.push({ id: latestDoc.id, data: latestDoc.data() })
+                    }
+                } else {
+                    updatedDocs.push(selectedItem)
                 }
-            } else {
-                updatedDocs.push(selectedItem)
-            }
-        })
+            })
 
-        setSelectedItems(updatedDocs)
+            setSelectedItems(updatedDocs)
 
-        setOpenInfoSnack(false)
-        setInfoMsg('Some menu items have been updated or made unavailable by the stall!')
-        setOpenInfoSnack(true)
-    }
+            setOpenInfoSnack(false)
+            setInfoMsg('Some menu items have been updated or made unavailable by the stall!')
+            setOpenInfoSnack(true)
+        }
+    }, [updatedItems])
+
 
     //remove selectedItem if removed
-    useEffect(() => { if (deletedItems.length > 0) { handleItemsDeleted() } }, [deletedItems])
-    function handleItemsDeleted() {
-        const remainingDocs = []
+    useEffect(function handleItemsDeleted() {
+        if (deletedItems.length > 0) {
+            const remainingDocs = []
 
-        selectedItems.forEach(selectedItem => {
-            const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
-            if (!deletedDoc) {
-                remainingDocs.push(selectedItem)
-            }
-        })
+            selectedItems.forEach(selectedItem => {
+                const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
+                if (!deletedDoc) {
+                    remainingDocs.push(selectedItem)
+                }
+            })
 
-        setSelectedItems(remainingDocs)
+            setSelectedItems(remainingDocs)
 
-        setOpenInfoSnack(false)
-        setInfoMsg('Some menu items have been removed by the stall!')
-        setOpenInfoSnack(true)
-    }
-
+            setOpenInfoSnack(false)
+            setInfoMsg('Some menu items have been removed by the stall!')
+            setOpenInfoSnack(true)
+        }
+    }, [deletedItems])
 
     const handleSelect = (doc) => {
         if (selectedItems.some(item => item.id === doc.id)) {

@@ -20,8 +20,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
     const [updatedItems, setUpdatedItems] = useState([])
     const [deletedItems, setDeletedItems] = useState([])
 
-    useEffect(() => fetchMenu(), [])
-    function fetchMenu() {
+    useEffect(function fetchMenu() {
         const q = query(collection(db, "stalls", stallID, 'menu'), orderBy('menuItemName'))
 
         const unsubscribe = onSnapshot(q, snapshot => {
@@ -39,25 +38,27 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
             unsubscribe()
             setSelectedItem(null)
         }
-    }
+    }, [])
 
     //update selectedItem if modified 
-    useEffect(() => { if (updatedItems.length > 0 && selectedItem) { handleItemsUpdated() } }, [updatedItems])
-    function handleItemsUpdated() {
-        const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
-        if (latestDoc) {
-            setSelectedItem({ id: latestDoc.id, data: latestDoc.data() })
+    useEffect(function handleItemsUpdated() {
+        if (updatedItems.length > 0 && selectedItem) {
+            const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
+            if (latestDoc) {
+                setSelectedItem({ id: latestDoc.id, data: latestDoc.data() })
+            }
         }
-    }
+    }, [updatedItems])
 
     //set selectedItem to null if deleted
-    useEffect(() => { if (deletedItems.length > 0 && selectedItem) { handleItemsDeleted() } }, [deletedItems])
-    function handleItemsDeleted() {
-        const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
-        if (deletedDoc) {
-            setSelectedItem(null)
+    useEffect(function handleItemsDeleted() {
+        if (deletedItems.length > 0 && selectedItem) {
+            const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
+            if (deletedDoc) {
+                setSelectedItem(null)
+            }
         }
-    }
+    }, [deletedItems])
 
     const [disableSwitch, setDisableSwitch] = useState(false)
     const handleAvailabilityToggle = (menuItemID, isAvailable) => {
