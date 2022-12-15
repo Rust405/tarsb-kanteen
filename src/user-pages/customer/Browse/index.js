@@ -32,7 +32,6 @@ const Browse = ({
     const [menuSnapshot, setMenuSnapshot] = useState(null)
     const [updatedStalls, setUpdatedStalls] = useState([])
     const [deletedStalls, setDeletedStalls] = useState([])
-    const [addedStalls, setAddedStalls] = useState([])
     const [updatedItems, setUpdatedItems] = useState([])
     const [deletedItems, setDeletedItems] = useState([])
 
@@ -45,12 +44,10 @@ const Browse = ({
 
             setUpdatedStalls([])
             setDeletedStalls([])
-            setAddedStalls([])
 
             snapshot.docChanges().forEach(change => {
                 if (change.type === "modified") { setUpdatedStalls([...updatedStalls, change.doc]) }
                 if (change.type === "removed") { setDeletedStalls([...deletedStalls, change.doc]) }
-                if (change.type === 'added') { setAddedStalls([...addedStalls, change.doc]) }
             })
 
         })
@@ -78,15 +75,9 @@ const Browse = ({
     //select first stall if selected stall is unregistered 
     useEffect(function handleStallUnregister() {
         if (updatedStalls.length > 0) {
-
+       
         }
     }, [deletedStalls])
-
-    //TODO: hanlde stall registered
-    useEffect(() => {
-
-    }, [addedStalls])
-
 
     //Menu subcollection
     useEffect(function fetchMenu() {

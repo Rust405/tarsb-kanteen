@@ -48,17 +48,17 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
     //current working stall snapshot
     const [stallSnapshot, setStallSnapshot] = useState(null)
     useEffect(function fetchStalls() {
-        const unsubscribe = onSnapshot(stallDocRef, doc => 
+        const unsubscribe = onSnapshot(stallDocRef, doc =>
             setStallSnapshot(doc.data())
         )
         return () => unsubscribe()
     }, [])
 
-    //immediately logout user if removed from stall
+    //immediately logout user if removed from stall or stall is unregistered
     useEffect(() => {
         if (stallSnapshot) {
             let authEmail = auth.currentUser.email
-            if (!stallSnapshot.staffEmails.includes(authEmail) && stallSnapshot.ownerEmail !== authEmail) {
+            if ((!stallSnapshot.staffEmails.includes(authEmail) && stallSnapshot.ownerEmail !== authEmail) || stallSnapshot.ownerEmail === '') {
                 logout()
             }
         }
