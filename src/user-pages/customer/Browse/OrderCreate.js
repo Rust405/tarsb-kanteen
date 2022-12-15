@@ -81,7 +81,6 @@ const OrderCreate = ({
     }
 
     const resetFields = () => {
-        setSelectedItems([])
         setRemark('')
         setIsTakeaway(false)
         setIsPreOrder(false)
@@ -250,7 +249,10 @@ const OrderCreate = ({
                                 disabled={isValidating}
                                 variant="outlined"
                                 color="error"
-                                onClick={resetFields}>
+                                onClick={() => {
+                                    resetFields()
+                                    setSelectedItems([])
+                                }}>
                                 Clear Order
                             </Button>
                         </Stack>
