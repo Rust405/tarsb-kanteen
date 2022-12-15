@@ -30,8 +30,10 @@ const Browse = ({
 }) => {
     const [stallsSnapshot, setStallsSnapshot] = useState(null)
     const [menuSnapshot, setMenuSnapshot] = useState(null)
+
     const [updatedStalls, setUpdatedStalls] = useState([])
     const [deletedStalls, setDeletedStalls] = useState([])
+
     const [updatedItems, setUpdatedItems] = useState([])
     const [deletedItems, setDeletedItems] = useState([])
 
@@ -54,7 +56,7 @@ const Browse = ({
 
         return () => {
             unsubscribe()
-            setSelectedStall('')
+            setSelectedStall(null)
         }
     }, [])
 
@@ -68,14 +70,25 @@ const Browse = ({
             const latestStall = updatedStalls.find(doc => doc.id === selectedStall.id)
             if (latestStall) {
                 setSelectedStall(latestStall)
+
+                setOpenInfoSnack(false)
+                setInfoMsg('The stall you are accessing recently updated its information.')
+                setOpenInfoSnack(true)
             }
         }
     }, [updatedStalls])
 
     //select first stall if selected stall is unregistered 
     useEffect(function handleStallUnregister() {
-        if (updatedStalls.length > 0) {
-       
+        if (deletedStalls.length > 0) {
+            const deletedStall = deletedStalls.find(doc => doc.id === selectedStall.id)
+            if (deletedStall) {
+                setSelectedStall(stallsSnapshot[0])
+
+                setOpenInfoSnack(false)
+                setInfoMsg('The stall you were accessing was recently unregistered.')
+                setOpenInfoSnack(true)
+            }
         }
     }, [deletedStalls])
 
@@ -128,7 +141,6 @@ const Browse = ({
             setOpenInfoSnack(true)
         }
     }, [updatedItems])
-
 
     //remove selectedItem if removed
     useEffect(function handleItemsDeleted() {
@@ -198,10 +210,11 @@ const Browse = ({
                             <Select
                                 disabled={isValidating}
                                 MenuProps={{ sx: { "&& .Mui-selected": { borderLeft: '4px solid #3f50b5' } } }}
-                                value={selectedStall.id}
+                                value={
+                                    stallsSnapshot.find(doc => doc.id === selectedStall.id) ? selectedStall.id : ''
+                                }
                                 onChange={e => {
-                                    const stallDoc = stallsSnapshot.find(doc => doc.id === e.target.value)
-                                    setSelectedStall(stallDoc)
+                                    setSelectedStall(stallsSnapshot.find(doc => doc.id === e.target.value))
                                 }}
                                 onClose={() => setTimeout(() => { document.activeElement.blur() }, 0)}
                             >

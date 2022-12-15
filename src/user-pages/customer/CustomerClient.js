@@ -65,7 +65,7 @@ const CustomerClient = ({ container, userInfo }) => {
 
     //BROWSE page
     const [selectedItems, setSelectedItems] = useState([])
-    const [selectedStall, setSelectedStall] = useState('')
+    const [selectedStall, setSelectedStall] = useState(null)
     const [isValidating, setIsValidating] = useState(false)
 
     return (
