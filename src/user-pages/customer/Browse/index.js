@@ -104,30 +104,24 @@ const Browse = ({
     //TODO: hanlde stall unregister
     //TODO: hanlde stall registered
 
-    //TEST
-    useEffect(() => {
-        console.log(selectedItems)
-      },[selectedItems])
-
     //updated selectedItems if modified, remove selectedItems if made unavailable
     useEffect(() => {
-        const updatedDocs = []
+        if (updatedItems.length > 0) {
+            const updatedDocs = []
 
-        selectedItems.forEach(selectedItem => {
-            let latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
-            if (latestDoc) {
-                //FIXME:
-                if (latestDoc.data().isAvailable) {
-                    updatedDocs.push({ id: latestDoc.id, data: latestDoc.data() })
+            selectedItems.forEach(selectedItem => {
+                const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
+                if (latestDoc) {
+                    if (latestDoc.data().isAvailable) {
+                        updatedDocs.push({ id: latestDoc.id, data: latestDoc.data() })
+                    }
+                } else {
+                    updatedDocs.push(selectedItem)
                 }
-            } else {
-                updatedDocs.push(selectedItem)
-            }
-        })
+            })
 
-        setSelectedItems(updatedDocs)
+            setSelectedItems(updatedDocs)
 
-        if (updatedDocs.length > 0) {
             setOpenInfoSnack(false)
             setInfoMsg('Some menu items have been updated or made unavailable by the stall!')
             setOpenInfoSnack(true)
@@ -136,18 +130,18 @@ const Browse = ({
 
     //remove selectedItem if removed
     useEffect(() => {
-        const remainingDocs = []
+        if (deletedItems.length > 0) {
+            const remainingDocs = []
 
-        selectedItems.forEach(selectedItem => {
-            const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
-            if (!deletedDoc) {
-                remainingDocs.push(selectedItem)
-            }
-        })
+            selectedItems.forEach(selectedItem => {
+                const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
+                if (!deletedDoc) {
+                    remainingDocs.push(selectedItem)
+                }
+            })
 
-        setSelectedItems(remainingDocs)
+            setSelectedItems(remainingDocs)
 
-        if (remainingDocs.length > 0) {
             setOpenInfoSnack(false)
             setInfoMsg('Some menu items have been removed by the stall!')
             setOpenInfoSnack(true)

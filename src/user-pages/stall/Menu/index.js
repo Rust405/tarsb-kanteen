@@ -43,17 +43,18 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
 
     //update selectedItem if modified 
     useEffect(() => {
-        if (selectedItem) {
+        if (updatedItems.length > 0 && selectedItem) {
             const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
             if (latestDoc) {
                 setSelectedItem({ id: latestDoc.id, data: latestDoc.data() })
             }
+
         }
     }, [updatedItems])
 
     //set selectedItem to null if deleted
     useEffect(() => {
-        if (selectedItem) {
+        if (deletedItems.length > 0 && selectedItem) {
             const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
             if (deletedDoc) {
                 setSelectedItem(null)
