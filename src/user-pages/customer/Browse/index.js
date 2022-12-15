@@ -65,15 +65,15 @@ const Browse = ({
     //select first stall in stalls snapshot on load
     useEffect(() => { if (stallsSnapshot && !selectedStall) { setSelectedStall(stallsSnapshot[0]) } }, [stallsSnapshot])
 
-    //TODO: handle stall update
-    useEffect(() => {
-        if (updatedStalls.length > 0) {
-            const latestStall = updatedStalls.find(doc => doc.id === selectedStall.id)
-            if (latestStall) {
-                setSelectedStall(latestStall)
-            }
+    //update stall if updated
+    useEffect(() => { if (updatedStalls.length > 0) { handleStallUpdated() } }, [updatedStalls])
+    function handleStallUpdated() {
+        const latestStall = updatedStalls.find(doc => doc.id === selectedStall.id)
+        if (latestStall) {
+            setSelectedStall(latestStall)
         }
-    }, [updatedStalls])
+    }
+
 
     //TODO: hanlde stall unregister 
     useEffect(() => {
@@ -112,48 +112,47 @@ const Browse = ({
     }
 
     //updated selectedItems if modified, remove selectedItems if made unavailable
-    useEffect(() => {
-        if (updatedItems.length > 0) {
-            const updatedDocs = []
+    useEffect(() => { if (updatedItems.length > 0) { handleItemsUpdated() } }, [updatedItems])
+    function handleItemsUpdated() {
+        const updatedDocs = []
 
-            selectedItems.forEach(selectedItem => {
-                const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
-                if (latestDoc) {
-                    if (latestDoc.data().isAvailable) {
-                        updatedDocs.push({ id: latestDoc.id, data: latestDoc.data() })
-                    }
-                } else {
-                    updatedDocs.push(selectedItem)
+        selectedItems.forEach(selectedItem => {
+            const latestDoc = updatedItems.find(doc => doc.id === selectedItem.id)
+            if (latestDoc) {
+                if (latestDoc.data().isAvailable) {
+                    updatedDocs.push({ id: latestDoc.id, data: latestDoc.data() })
                 }
-            })
+            } else {
+                updatedDocs.push(selectedItem)
+            }
+        })
 
-            setSelectedItems(updatedDocs)
+        setSelectedItems(updatedDocs)
 
-            setOpenInfoSnack(false)
-            setInfoMsg('Some menu items have been updated or made unavailable by the stall!')
-            setOpenInfoSnack(true)
-        }
-    }, [updatedItems])
+        setOpenInfoSnack(false)
+        setInfoMsg('Some menu items have been updated or made unavailable by the stall!')
+        setOpenInfoSnack(true)
+    }
 
     //remove selectedItem if removed
-    useEffect(() => {
-        if (deletedItems.length > 0) {
-            const remainingDocs = []
+    useEffect(() => { if (deletedItems.length > 0) { handleItemsDeleted() } }, [deletedItems])
+    function handleItemsDeleted() {
+        const remainingDocs = []
 
-            selectedItems.forEach(selectedItem => {
-                const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
-                if (!deletedDoc) {
-                    remainingDocs.push(selectedItem)
-                }
-            })
+        selectedItems.forEach(selectedItem => {
+            const deletedDoc = deletedItems.find(doc => doc.id === selectedItem.id)
+            if (!deletedDoc) {
+                remainingDocs.push(selectedItem)
+            }
+        })
 
-            setSelectedItems(remainingDocs)
+        setSelectedItems(remainingDocs)
 
-            setOpenInfoSnack(false)
-            setInfoMsg('Some menu items have been removed by the stall!')
-            setOpenInfoSnack(true)
-        }
-    }, [deletedItems])
+        setOpenInfoSnack(false)
+        setInfoMsg('Some menu items have been removed by the stall!')
+        setOpenInfoSnack(true)
+    }
+
 
     const handleSelect = (doc) => {
         if (selectedItems.some(item => item.id === doc.id)) {
@@ -230,7 +229,7 @@ const Browse = ({
                         </Typography>
 
                         {/* TODO: calculate wait time for stall */}
-                        <Typography>Wait time for new orders: TODO min(s)</Typography>
+                        <Typography>Wait time for new orders: TODO: min(s)</Typography>
                     </Box>
                 </Box>
 
