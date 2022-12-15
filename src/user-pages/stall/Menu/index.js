@@ -48,7 +48,6 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
             if (latestDoc) {
                 setSelectedItem({ id: latestDoc.id, data: latestDoc.data() })
             }
-
         }
     }, [updatedItems])
 

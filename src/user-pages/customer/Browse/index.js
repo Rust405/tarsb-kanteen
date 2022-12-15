@@ -30,79 +30,86 @@ const Browse = ({
 }) => {
     const [stallsSnapshot, setStallsSnapshot] = useState(null)
     const [menuSnapshot, setMenuSnapshot] = useState(null)
+    const [updatedStalls, setUpdatedStalls] = useState([])
+    const [deletedStalls, setDeletedStalls] = useState([])
+    const [addedStalls, setAddedStalls] = useState([])
     const [updatedItems, setUpdatedItems] = useState([])
     const [deletedItems, setDeletedItems] = useState([])
 
     //Stall collection
-    useEffect(() => {
+    useEffect(() => fetchStalls(), [])
+    function fetchStalls() {
         const q = query(collection(db, "stalls"), orderBy('stallName'))
 
         const unsubscribe = onSnapshot(q, snapshot => {
             setStallsSnapshot(snapshot.docs)
+
+            setUpdatedStalls([])
+            setDeletedStalls([])
+            setAddedStalls([])
+
+            snapshot.docChanges().forEach(change => {
+                if (change.type === "modified") { setUpdatedStalls([...updatedStalls, change.doc]) }
+                if (change.type === "removed") { setDeletedStalls([...deletedStalls, change.doc]) }
+                if (change.type === 'added') { setAddedStalls([...addedStalls, change.doc]) }
+            })
+
         })
 
         return () => {
             unsubscribe()
             setSelectedStall('')
         }
-    }, [])
-
-    //Menu subcollection
-    useEffect(() => {
-        if (selectedStall) {
-            const q = query(collection(db, "stalls", selectedStall.id, 'menu'), orderBy('menuItemName'))
-
-            const unsubscribe = onSnapshot(q, snapshot => {
-                setMenuSnapshot(snapshot.docs)
-
-                setUpdatedItems([])
-                setDeletedItems([])
-
-                snapshot.docChanges().forEach(change => {
-                    if (change.type === "modified") { setUpdatedItems([...updatedItems, change.doc]) }
-                    if (change.type === "removed") { setDeletedItems([...deletedItems, change.doc]) }
-                })
-
-            })
-            return () => {
-                unsubscribe()
-                setMenuSnapshot(null)
-                setSelectedItems([])
-            }
-        }
-    }, [selectedStall])
-
-
-    //select first stall in stalls snapshot
-    useEffect(() => {
-        if (stallsSnapshot) {
-            if (!selectedStall) {
-                setSelectedStall(stallsSnapshot[0])
-            }
-        }
-    }, [stallsSnapshot])
-
-    const handleSelect = (doc) => {
-        if (selectedItems.some(item => item.id === doc.id)) {
-            setSelectedItems(selectedItems.filter(item => item.id !== doc.id))
-            return
-        }
-
-        if (doc.data().isRequireWaiting && selectedItems.some(item => item.data.isRequireWaiting)) {
-            setSelectedItems(
-                [
-                    ...selectedItems.filter(item => !item.data.isRequireWaiting),
-                    { id: doc.id, data: doc.data() }
-                ])
-            return
-        }
-
-        setSelectedItems([...selectedItems, { id: doc.id, data: doc.data() }])
     }
 
+    //select first stall in stalls snapshot on load
+    useEffect(() => { if (stallsSnapshot && !selectedStall) { setSelectedStall(stallsSnapshot[0]) } }, [stallsSnapshot])
+
     //TODO: handle stall update
+    useEffect(() => {
+        if (updatedStalls.length > 0) {
+            const latestStall = updatedStalls.find(doc => doc.id === selectedStall.id)
+            if (latestStall) {
+                setSelectedStall(latestStall)
+            }
+        }
+    }, [updatedStalls])
+
     //TODO: hanlde stall unregister 
+    useEffect(() => {
+
+    }, [deletedStalls])
+
     //TODO: hanlde stall registered
+    useEffect(() => {
+
+    }, [addedStalls])
+
+
+    //Menu subcollection
+    useEffect(() => { if (selectedStall) { fetchMenu() } }, [selectedStall])
+    function fetchMenu() {
+        const q = query(collection(db, "stalls", selectedStall.id, 'menu'), orderBy('menuItemName'))
+
+        const unsubscribe = onSnapshot(q, snapshot => {
+            setMenuSnapshot(snapshot.docs)
+
+            setUpdatedItems([])
+            setDeletedItems([])
+
+            snapshot.docChanges().forEach(change => {
+                if (change.type === "modified") { setUpdatedItems([...updatedItems, change.doc]) }
+                if (change.type === "removed") { setDeletedItems([...deletedItems, change.doc]) }
+            })
+
+        })
+
+        return () => {
+            unsubscribe()
+            setMenuSnapshot(null)
+            setSelectedItems([])
+        }
+    }
 
     //updated selectedItems if modified, remove selectedItems if made unavailable
     useEffect(() => {
@@ -148,6 +155,24 @@ const Browse = ({
         }
     }, [deletedItems])
 
+    const handleSelect = (doc) => {
+        if (selectedItems.some(item => item.id === doc.id)) {
+            setSelectedItems(selectedItems.filter(item => item.id !== doc.id))
+            return
+        }
+
+        if (doc.data().isRequireWaiting && selectedItems.some(item => item.data.isRequireWaiting)) {
+            setSelectedItems(
+                [
+                    ...selectedItems.filter(item => !item.data.isRequireWaiting),
+                    { id: doc.id, data: doc.data() }
+                ])
+            return
+        }
+
+        setSelectedItems([...selectedItems, { id: doc.id, data: doc.data() }])
+    }
+
     return (
         <div className="browse">
 
@@ -178,12 +203,15 @@ const Browse = ({
                             <Select
                                 disabled={isValidating}
                                 MenuProps={{ sx: { "&& .Mui-selected": { borderLeft: '4px solid #3f50b5' } } }}
-                                value={selectedStall}
-                                onChange={e => setSelectedStall(e.target.value)}
+                                value={selectedStall.id}
+                                onChange={e => {
+                                    const stallDoc = stallsSnapshot.find(doc => doc.id === e.target.value)
+                                    setSelectedStall(stallDoc)
+                                }}
                                 onClose={() => setTimeout(() => { document.activeElement.blur() }, 0)}
                             >
                                 {stallsSnapshot.map(stallDoc =>
-                                    <MenuItem value={stallDoc} key={stallDoc.id}>{stallDoc.data().stallName}</MenuItem>
+                                    <MenuItem value={stallDoc.id} key={stallDoc.id}>{stallDoc.data().stallName}</MenuItem>
                                 )}
                             </Select>
                         </FormControl>
