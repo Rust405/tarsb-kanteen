@@ -101,7 +101,7 @@ const Browse = ({
     }
 
     //TODO: handle stall update
-    //TODO: hanlde stall unregister
+    //TODO: hanlde stall unregister 
     //TODO: hanlde stall registered
 
     //updated selectedItems if modified, remove selectedItems if made unavailable
