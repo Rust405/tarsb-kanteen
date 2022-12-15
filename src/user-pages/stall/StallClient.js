@@ -47,9 +47,9 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
 
     //current working stall snapshot
     const [stallSnapshot, setStallSnapshot] = useState(null)
-    useEffect(() => {
-        const unsubscribe = onSnapshot(stallDocRef,
-            doc => setStallSnapshot(doc.data())
+    useEffect(function fetchStalls() {
+        const unsubscribe = onSnapshot(stallDocRef, doc => 
+            setStallSnapshot(doc.data())
         )
         return () => unsubscribe()
     }, [])
