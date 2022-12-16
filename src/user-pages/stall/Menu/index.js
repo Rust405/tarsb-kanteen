@@ -94,7 +94,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
                     {menuSnapshot.length === 0 && <Typography>No menu items found. Start adding menu items with "Add New Item".</Typography>}
 
                     {/* Menu List */}
-                    {menuSnapshot.length !== 0 &&
+                    {menuSnapshot.length > 0 &&
                         <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }}  >
                             {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
                                 <Divider textAlign='left'>Requires Waiting</Divider>

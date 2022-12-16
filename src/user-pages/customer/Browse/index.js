@@ -189,7 +189,7 @@ const Browse = ({
             {stallsSnapshot && stallsSnapshot.length === 0 && <Typography sx={{ p: 2 }}>There are currently no stalls registered.</Typography>}
 
             {/* Have stalls */}
-            {stallsSnapshot && stallsSnapshot.length !== 0 && selectedStall && <div>
+            {stallsSnapshot && stallsSnapshot.length > 0 && selectedStall && <div>
                 {/* Stall Selector */}
                 <Box
                     sx={{
@@ -249,7 +249,7 @@ const Browse = ({
                         {menuSnapshot.length === 0 && <Typography>No menu items found. This stall has not listed any menu items.</Typography>}
 
                         {/* Menu list */}
-                        {menuSnapshot.length !== 0 &&
+                        {menuSnapshot.length > 0 &&
                             <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
 
                                 {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&

@@ -1,30 +1,40 @@
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import { db } from '../../../utils/firebase'
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { auth, db } from '../../../utils/firebase'
+import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 
 const MyOrders = () => {
 
-    useEffect(function fetchOrders() {
+    const [orders, setOrders] = useState([])
 
+    useEffect(function fetchOrders() {
+        const q = query(
+            collection(db, "orders"),
+            where("customerID", "==", auth.currentUser.uid),
+            orderBy("orderTimestamp", "desc")
+        )
+
+        const unsubscribe = onSnapshot(q, snapshot => {
+            setOrders(snapshot.docs)
+        })
+
+        return () => {
+            unsubscribe()
+            setOrders([])
+        }
     }, [])
+
+    //test
+    useEffect(() => {
+        orders.map(doc => console.log(`${doc.id} - ${doc.data().orderStatus}`))
+    }, [orders])
 
     return (
         <div className="my-orders">
-
             <Box sx={{ p: 2 }}>
-                <Typography paragraph>
-                    MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
-                    MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
-                    MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
-                    MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
-                    MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
-                    MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
-                    MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
-                    MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders MyOrders
-                </Typography>
+
             </Box>
         </div>
     )
