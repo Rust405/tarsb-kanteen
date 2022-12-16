@@ -39,6 +39,12 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     let earliestOrderTime = dayjs.tz(`${now.format('YYYY-MM-DD')}T${earliestOrder}`, tz)
     let latestOrderTime = dayjs.tz(`${now.format('YYYY-MM-DD')}T${latestOrder}`, tz)
 
+    //IF stall doesn't exist / unregistered, RETURN early
+    const stallSnap = await stallsRef.doc(stallID).get()
+    if (!stallSnap.exists) {
+        return { success: false, message: [`Stall does not exist or has been recently unregistered.`]}
+    }
+
     //IF stall is closed AND order is a regular order 
     const stallStatus = (await stallsRef.doc(stallID).get()).data().status
     if (stallStatus === 'closed' && !order.isPreOrder) {
