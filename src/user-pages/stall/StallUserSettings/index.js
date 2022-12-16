@@ -19,7 +19,7 @@ const StallUserSettings = () => {
                 <List sx={{ listStyleType: 'disc', pl: 4 }} >
                     <ListItem sx={{ display: 'list-item' }}><Typography>Customers can create regular orders only while the stall is open.</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>Customers can create pre-orders anytime regardless of the stall status or time.</Typography></ListItem>
-                    <ListItem sx={{ display: 'list-item' }}><Typography>Customers can create regular orders only on weekdays from 7am to 5pm.</Typography></ListItem>
+                    <ListItem sx={{ display: 'list-item' }}><Typography>Customers can create regular orders only on weekdays from 7am to 5pm. The stall can close anytime to stop receiving orders during this period.</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>Customers can only set pickup for pre-orders to weekdays from 7am to 5pm.</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>Customers can only set pickup for pre-orders to a minimum 30 minutes from the time of order and a maximum 1 week from the day of order.</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>The stall can cancel an order at anytime. (Reason will be required)</Typography></ListItem>
