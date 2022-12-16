@@ -60,7 +60,6 @@ const Browse = ({
         }
     }, [])
 
-
     //select first stall in stalls snapshot on load
     useEffect(() => { if (stallsSnapshot && !selectedStall) setSelectedStall(stallsSnapshot[0]) }, [stallsSnapshot])
 

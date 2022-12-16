@@ -42,7 +42,13 @@ const OrderCreate = ({
     const [isValid, setIsValid] = useState(true)
 
     const handlePlaceOrder = () => {
-        let order = { orderItems: selectedItems, isTakeaway: isTakeaway, isPreOrder: isPreOrder, remarkCustomer: remark }
+        let order = {
+            orderItems: selectedItems,
+            isTakeaway: isTakeaway,
+            isPreOrder: isPreOrder,
+            remarkCustomer: remark,
+            stallID: selectedStall.id
+        }
 
         setIsValidating(true)
         setOpenErrSnack(false)
@@ -58,7 +64,7 @@ const OrderCreate = ({
             }
         }
 
-        createOrder({ stallID: selectedStall.id, order: order })
+        createOrder({ order: order })
             .then(result => {
                 let response = result.data
                 if (response.success) {

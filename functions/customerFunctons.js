@@ -31,7 +31,6 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     let isSuccess = true
     let messageArray = []
 
-    let stallID = data.stallID
     let order = data.order
     let isPreOrder = order.isPreOrder
 
@@ -40,13 +39,13 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     let latestOrderTime = dayjs.tz(`${now.format('YYYY-MM-DD')}T${latestOrder}`, tz)
 
     //IF stall doesn't exist / unregistered, RETURN early
-    const stallSnap = await stallsRef.doc(stallID).get()
+    const stallSnap = await stallsRef.doc(order.stallID).get()
     if (!stallSnap.exists) {
         return { success: false, message: [`Stall does not exist or has been recently unregistered.`]}
     }
 
     //IF stall is closed AND order is a regular order 
-    const stallStatus = (await stallsRef.doc(stallID).get()).data().status
+    const stallStatus = (await stallsRef.doc(order.stallID).get()).data().status
     if (stallStatus === 'closed' && !order.isPreOrder) {
         isSuccess = false
         messageArray.push(`The stall is currently closed. You may place a pre-order instead.`)
@@ -134,7 +133,10 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
             order.pickupTimestamp = Timestamp.fromDate(dayjs(order.pickupTimestamp).toDate())
         }
 
-        const res = await stallsRef.doc(stallID).collection('orders').add(order)
+        const res = await db.collection('orders').add(order)
+
+        //TODO: add to orderQueue, maybe copy id and status only, then when clicked will fetch live data
+
         messageArray.push(res.id)
     }
 
