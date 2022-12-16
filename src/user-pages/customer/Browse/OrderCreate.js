@@ -90,7 +90,7 @@ const OrderCreate = ({
 
     //IF pickup today, minTime = now + 30 min, ELSE anyday use earliest
     useEffect(() => {
-        if (pickupTimestamp.isSame(dayjs(), 'day') && pickupTimestamp.diff(earliestOrderTime) > 0) {
+        if (pickupTimestamp && pickupTimestamp.isSame(dayjs(), 'day') && pickupTimestamp.diff(earliestOrderTime) > 0) {
             setMinTime(dayjs().add(30, 'minute'))
         }
         else {

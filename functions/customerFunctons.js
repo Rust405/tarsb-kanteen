@@ -81,7 +81,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     //Validate for pre-order
     if (isPreOrder) {
         //IF pickup date invalid RETURN early
-        if (!(order.pickupTimestamp instanceof Date) || isNaN(order.pickupTimestamp)) {
+        if (new Date(order.pickupTimestamp).toString() === 'Invalid Date') {
             return { success: false, message: ['Invalid pickup date provided.'] }
         }
 
