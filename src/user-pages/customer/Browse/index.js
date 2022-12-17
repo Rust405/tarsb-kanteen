@@ -8,12 +8,16 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import CircularProgress from '@mui/material/CircularProgress'
 import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import RefreshIcon from '@mui/icons-material/Refresh'
+import Stack from '@mui/material/Stack'
 
 import { useState, useEffect } from 'react'
 import { db } from '../../../utils/firebase'
 import { capitalizeFirstLetter } from '../../../utils/tools'
-import { collection, orderBy, query, onSnapshot } from 'firebase/firestore'
+import { collection, orderBy, query, onSnapshot, limit, where, getDocs } from 'firebase/firestore'
 
+import dayjs from 'dayjs'
 import currency from 'currency.js'
 
 const itemStyle = {
@@ -36,6 +40,9 @@ const Browse = ({
 
     const [updatedItems, setUpdatedItems] = useState([])
     const [deletedItems, setDeletedItems] = useState([])
+
+    const [lastOrderSnap, setLastOrderSnap] = useState(null)
+    const [waitTime, setWaitTime] = useState(0)
 
     //Stall collection
     useEffect(function fetchStalls() {
@@ -94,9 +101,9 @@ const Browse = ({
     //Menu subcollection
     useEffect(function fetchMenu() {
         if (selectedStall) {
-            const q = query(collection(db, "stalls", selectedStall.id, 'menu'), orderBy('menuItemName'))
+            const queryStall = query(collection(db, "stalls", selectedStall.id, 'menu'), orderBy('menuItemName'))
 
-            const unsubscribe = onSnapshot(q, snapshot => {
+            const unsubscribeStall = onSnapshot(queryStall, snapshot => {
                 setMenuSnapshot(snapshot.docs)
 
                 setUpdatedItems([])
@@ -106,16 +113,34 @@ const Browse = ({
                     if (change.type === "modified") { setUpdatedItems([...updatedItems, change.doc]) }
                     if (change.type === "removed") { setDeletedItems([...deletedItems, change.doc]) }
                 })
+            })
 
+            const queryLastOrder = query(collection(db, "orders"), where("stallID", "==", selectedStall.id), where("orderStatus", "==", "In Queue"), where("isPreOrder", "==", false), orderBy("estCmpltTimestamp", "desc"), limit(1))
+
+            const unsubscribeLastOrder = onSnapshot(queryLastOrder, snapshot => {
+                setLastOrderSnap(snapshot.docs)
             })
 
             return () => {
-                unsubscribe()
+                unsubscribeStall()
+                unsubscribeLastOrder()
                 setMenuSnapshot(null)
                 setSelectedItems([])
             }
         }
     }, [selectedStall])
+
+    useEffect(() => { if (lastOrderSnap) updateWaitTime() }, [lastOrderSnap])
+
+    const updateWaitTime = () => {
+        const lastOrderDoc = lastOrderSnap.find(doc => doc)
+        if (lastOrderDoc) {
+            const difference = dayjs(lastOrderDoc.data().estCmpltTimestamp.toDate()).diff(dayjs(), 'minute')
+            difference > 0 ? setWaitTime(difference) : setWaitTime(0)
+        } else {
+            setWaitTime(0)
+        }
+    }
 
     //updated selectedItems if modified, remove selectedItems if made unavailable
     useEffect(function handleItemsUpdated() {
@@ -236,8 +261,12 @@ const Browse = ({
                         </Box>
                         </Typography>
 
-                        {/* TODO: calculate wait time for stall */}
-                        <Typography>Wait time for new orders: TODO: min(s)</Typography>
+                        <Stack direction="row" alignItems="center" >
+                            <Typography>Wait time for new orders: {waitTime} min(s)</Typography>
+                            <IconButton onClick={updateWaitTime} >
+                                <RefreshIcon />
+                            </IconButton>
+                        </Stack>
                     </Box>
                 </Box>
 

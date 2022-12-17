@@ -134,15 +134,16 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         } else {
             const estWaitTime = order.orderItems.reduce((acc, cur) => acc + cur.data.estWaitTime, 0)
             if (estWaitTime > 0) {
-                const lastOrder = await db.collection('orders')
+                //last order in queue to complete
+                const lastOrderSnap = await db.collection('orders')
                     .where("stallID", "==", order.stallID)
                     .where("orderStatus", "==", "In Queue")
                     .where("isPreOrder", "==", false)
-                    .orderBy('orderTimestamp', 'desc')
+                    .orderBy('estCmpltTimestamp', 'desc')
                     .limit(1)
                     .get()
 
-                const lastOrderDoc = lastOrder.docs.find(doc => doc)
+                const lastOrderDoc = lastOrderSnap.docs.find(doc => doc)
 
                 if (lastOrderDoc) {
                     const estComplete = dayjs(lastOrderDoc.data().estCmpltTimestamp.toDate()).add(estWaitTime, 'minute')
