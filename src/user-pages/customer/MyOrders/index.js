@@ -5,6 +5,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 
+import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { auth, db } from '../../../utils/firebase'
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
@@ -65,9 +66,9 @@ const MyOrders = () => {
                                         onClick={() => { }}
                                     >
                                         <ListItemText
-                                            primary={"Order #" + doc.id}
+                                            primary={`Order \"${doc.id}\"`}
                                             secondary={
-                                                doc.data().orderStatus
+                                                `${doc.data().orderStatus}, estimated to complete at around ${dayjs(doc.data().estCmpltTimestamp.toDate()).format('LT')}`
                                             }
                                         />
                                     </ListItemButton>
@@ -90,8 +91,10 @@ const MyOrders = () => {
                                         onClick={() => { }}
                                     >
                                         <ListItemText
-                                            primary={"Order #" + doc.id}
-                                            secondary={doc.data().orderStatus}
+                                            primary={`Order \"${doc.id}\"`}
+                                            secondary={
+                                                `Pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('LLLL')}`
+                                            }
                                         />
                                     </ListItemButton>
                                 ))
