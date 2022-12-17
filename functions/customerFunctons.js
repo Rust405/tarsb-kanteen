@@ -41,7 +41,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     //IF stall doesn't exist / unregistered, RETURN early
     const stallSnap = await stallsRef.doc(order.stallID).get()
     if (!stallSnap.exists) {
-        return { success: false, message: [`Stall does not exist or has been recently unregistered.`]}
+        return { success: false, message: [`Stall does not exist or has been recently unregistered.`] }
     }
 
     //IF stall is closed AND order is a regular order 
@@ -131,12 +131,33 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
 
         if (isPreOrder) {
             order.pickupTimestamp = Timestamp.fromDate(dayjs(order.pickupTimestamp).toDate())
+        } else {
+            const estWaitTime = order.orderItems.reduce((acc, cur) => acc + cur.data.estWaitTime, 0)
+            if (estWaitTime > 0) {
+                const lastOrder = await db.collection('orders')
+                    .where("stallID", "==", order.stallID)
+                    .where("orderStatus", "==", "In Queue")
+                    .where("isPreOrder", "==", false)
+                    .orderBy('orderTimestamp', 'desc')
+                    .limit(1)
+                    .get()
+
+                const lastOrderDoc = lastOrder.docs.find(doc => doc)
+
+                if (lastOrderDoc) {
+                    const estComplete = dayjs(lastOrderDoc.data().estCmpltTimestamp.toDate()).add(estWaitTime, 'minute')
+                    order.estCmpltTimestamp = Timestamp.fromDate(estComplete.toDate())
+                } else {
+                    const estComplete = now.add(estWaitTime, 'minute')
+                    order.estCmpltTimestamp = Timestamp.fromDate(estComplete.toDate())
+                }
+            } else {
+                order.estCmpltTimestamp = Timestamp.now()
+            }
         }
 
+        //Add order
         const res = await db.collection('orders').add(order)
-
-        //TODO: add to orderQueue, maybe copy id and status only, then when clicked will fetch live data
-
         messageArray.push(res.id)
     }
 
