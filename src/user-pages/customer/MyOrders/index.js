@@ -39,6 +39,24 @@ const MyOrders = ({
         }
     }, [])
 
+
+    const shortOrderString = (orderItems) => {
+        let orderString = orderItems[0].data.menuItemName
+
+        if (orderItems.length > 1) {
+            orderString += ` + ${orderItems.length - 1} other item(s)`
+        }
+
+        return orderString
+    }
+
+    const orderStatusString = (estCmpltDateTime, stallName) => {
+        return dayjs().diff(estCmpltDateTime) < 0 ?
+            `Estimated to complete at around ${dayjs(doc.data().estCmpltTimestamp.toDate()).format('LT')}`
+            :
+            `Order seems to be overdue. Try checking with \"${stallName}\".`
+    }
+
     return (
         <div className="my-orders">
             <Box sx={{ p: 2 }}>
@@ -51,6 +69,9 @@ const MyOrders = ({
                     {/* Orders */}
                     {ordersSnapshot.length > 0 &&
                         <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
+
+                            {/* Ready for pickup */}
+                            {/* TODO: ready to claim at stallName */}
 
                             {/* Regular orders */}
                             {ordersSnapshot.filter(doc => !doc.data().isPreOrder).length > 0 &&
@@ -68,9 +89,12 @@ const MyOrders = ({
                                         onClick={() => { }}
                                     >
                                         <ListItemText
-                                            primary={`Order \"${doc.id}\"`}
+                                            primary={shortOrderString(doc.data().orderItems)}
                                             secondary={
-                                                `${doc.data().orderStatus}, estimated to complete at around ${dayjs(doc.data().estCmpltTimestamp.toDate()).format('LT')}`
+                                                orderStatusString(
+                                                    dayjs(doc.data().estCmpltTimestamp.toDate()),
+                                                    doc.data().stallName
+                                                )
                                             }
                                         />
                                     </ListItemButton>
@@ -93,9 +117,9 @@ const MyOrders = ({
                                         onClick={() => { }}
                                     >
                                         <ListItemText
-                                            primary={`Order \"${doc.id}\"`}
+                                            primary={shortOrderString(doc.data().orderItems)}
                                             secondary={
-                                                `Pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('LLLL')}`
+                                                `Pickup at \"${doc.data().stallName}\" on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`
                                             }
                                         />
                                     </ListItemButton>
