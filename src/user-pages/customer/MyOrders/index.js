@@ -16,7 +16,9 @@ const itemStyle = {
     borderRadius: '8px',
 }
 
-const MyOrders = () => {
+const MyOrders = ({
+    selectedOrder, setSelectedOrder
+}) => {
 
     const [ordersSnapshot, setOrdersSnapshot] = useState(null)
 

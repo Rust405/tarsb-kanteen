@@ -69,6 +69,9 @@ const CustomerClient = ({ container, userInfo }) => {
     const [selectedStall, setSelectedStall] = useState(null)
     const [isValidating, setIsValidating] = useState(false)
 
+    //MYORDERS page
+    const [selectedOrder, setSelectedOrder] = useState(null)
+
     return (
         <div className="customer-client">
             <Box sx={{ display: 'flex' }}>
@@ -93,7 +96,7 @@ const CustomerClient = ({ container, userInfo }) => {
                     <Box component="main" sx={{ flexGrow: 1, overflow: 'auto', maxHeight: 'calc(100vh - 80px)' }}>
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
-                            <Route path={ROUTE.CUSTOMER.MYORDERS} element={<MyOrders />} />
+                            <Route path={ROUTE.CUSTOMER.MYORDERS} element={<MyOrders selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />} />
                             <Route
                                 path={ROUTE.CUSTOMER.BROWSE}
                                 element={
