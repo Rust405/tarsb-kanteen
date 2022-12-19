@@ -115,7 +115,7 @@ const Browse = ({
                 })
             })
 
-            const queryLastOrder = query(collection(db, "orders"), where("stallID", "==", selectedStall.id), where("orderStatus", "==", "In Queue"), where("isPreOrder", "==", false), orderBy("estCmpltTimestamp", "desc"), limit(1))
+            const queryLastOrder = query(collection(db, "orders"), where("stallID", "==", selectedStall.id), where("orderStatus", "==", "Placed"), where("isPreOrder", "==", false), orderBy("estCmpltTimestamp", "desc"), limit(1))
 
             const unsubscribeLastOrder = onSnapshot(queryLastOrder, snapshot => {
                 setLastOrderSnap(snapshot.docs)

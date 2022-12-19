@@ -122,6 +122,9 @@ const CustomerClient = ({ container, userInfo }) => {
                                     container={container}
                                     drawerContent={
                                         <CustOrderPreview selectedOrder={selectedOrder}
+                                            isValidating={isValidating} setIsValidating={setIsValidating}
+                                            setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                                            setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
                                         />
                                     }
                                 />}

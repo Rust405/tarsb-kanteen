@@ -4,10 +4,16 @@ import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 
+import dayjs from 'dayjs'
 import currency from 'currency.js'
+import CancelOrderDialog from './CancelOrderDialog'
+import { useState } from 'react'
 
 const CustOrderPreview = ({
-    selectedOrder
+    selectedOrder,
+    isValidating, setIsValidating,
+    setOpenErrSnack, setErrMsgs,
+    setOpenSucSnack, setSucMsg
 }) => {
 
     const remarkString = (remark) => {
@@ -18,9 +24,7 @@ const CustOrderPreview = ({
         return orderItems.reduce((acc, cur) => acc + cur.data.estWaitTime, 0)
     }
 
-    const handleCancelOrder = () => {
-        alert("Not yet implemented.")
-    }
+    const [openCancel, setOpenCancel] = useState(false)
 
     return (
         <div className="order-preview">
@@ -35,8 +39,11 @@ const CustOrderPreview = ({
                             <Typography variant="h6" align="center">Order<br />Preview</Typography>
                         </Box>
 
-                        <Typography align="center" sx={{ m: 2 }}>{`#${selectedOrder.id}`}</Typography>
+                        <Box display="flex" justifyContent="center" sx={{ m: 2 }}>
+                            <Button>Show Order ID</Button>
+                        </Box>
 
+                        <Typography align="center" sx={{ m: 2 }}>Placed on: {dayjs(selectedOrder.data.orderTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}</Typography>
 
                         <Divider />
 
@@ -76,16 +83,36 @@ const CustOrderPreview = ({
                             </Typography>
 
                             <Typography variant="caption">
-                                Est. cooking time: {estWaitTimeString(selectedOrder.data.orderItems)}
+                                {`Est. cooking time: ${estWaitTimeString(selectedOrder.data.orderItems)} min(s)`}
                             </Typography>
 
-                            <Button variant="outlined" color="error" onClick={handleCancelOrder}>
+                            <Button
+                                variant="outlined"
+                                color="error"
+                                disabled={
+                                    selectedOrder.data.orderStatus === "Cooking"
+                                    || selectedOrder.data.orderStatus === "Ready"
+                                    || selectedOrder.data.orderStatus === "Completed"
+                                    || selectedOrder.data.orderStatus === "Cancelled"
+                                    || selectedOrder.data.orderStatus === "Unclaimed"
+                                }
+                                onClick={() => setOpenCancel(true)}
+                            >
                                 Cancel Order
                             </Button>
                         </Stack>
+
+                        <CancelOrderDialog
+                            orderID={selectedOrder.id}
+                            openCancel={openCancel} setOpenCancel={setOpenCancel}
+                            isValidating={isValidating} setIsValidating={setIsValidating}
+                            setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                            setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg} />
                     </div>
                 }
             </Box>
+
+
         </div>
     )
 }

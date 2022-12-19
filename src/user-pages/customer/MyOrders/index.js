@@ -40,6 +40,10 @@ const MyOrders = ({
     }, [])
 
 
+    //TODO: handle selected update
+
+    //TODO: handle selected delete
+
     const shortOrderString = (orderItems) => {
         let orderString = orderItems[0].data.menuItemName
 
@@ -79,19 +83,34 @@ const MyOrders = ({
                     {ordersSnapshot.length > 0 &&
                         <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
 
-                            {/* TODO: Ready for pickup */}
-                            {/*  ready to claim at stallName */}
-
-                            {/* Regular orders */}
-                            {ordersSnapshot.filter(doc => !doc.data().isPreOrder).length > 0 &&
-                                < Divider textAlign='left'>Regular Orders</Divider>
-                            }
+                            {/* Ready for pickup */}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Ready').length > 0 && < Divider textAlign='left'>Ready To Claim</Divider>}
 
                             {ordersSnapshot
-                                .filter(doc => !doc.data().isPreOrder)
+                                .filter(doc => doc.data().orderStatus === 'Ready')
                                 .map(doc => (
                                     <ListItemButton
-                                        disabled={false}
+                                        key={doc.id}
+                                        sx={itemStyle}
+                                        selected={selectedOrder && selectedOrder.id === doc.id}
+                                        onClick={() => { handleSelect(doc) }}
+                                    >
+                                        <ListItemText
+                                            primary={shortOrderString(doc.data().orderItems)}
+                                            secondary={`${doc.data().isPreOrder ? 'Pre-Order' : 'Order'} ready to claim at \"${doc.data().stallName}\"`}
+                                        />
+                                    </ListItemButton>
+                                ))
+                            }
+
+
+                            {/* Regular orders */}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Regular Orders</Divider>}
+
+                            {ordersSnapshot
+                                .filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder)
+                                .map(doc => (
+                                    <ListItemButton
                                         key={doc.id}
                                         sx={itemStyle}
                                         selected={selectedOrder && selectedOrder.id === doc.id}
@@ -110,16 +129,14 @@ const MyOrders = ({
                                 ))
                             }
 
+
                             {/* Pre-orders */}
-                            {ordersSnapshot.filter(doc => doc.data().isPreOrder).length > 0 &&
-                                < Divider textAlign='left'>Pre-Orders</Divider>
-                            }
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Pre-Orders</Divider>}
 
                             {ordersSnapshot
-                                .filter(doc => doc.data().isPreOrder)
+                                .filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder)
                                 .map(doc => (
                                     <ListItemButton
-                                        disabled={false}
                                         key={doc.id}
                                         sx={itemStyle}
                                         selected={selectedOrder && selectedOrder.id === doc.id}
@@ -135,10 +152,47 @@ const MyOrders = ({
                                 ))
                             }
 
-                            {/* TODO: Completed Orders */}
 
-                            {/* TODO: Cancelled Orders */}
+                            {/* Completed Orders */}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Completed').length > 0 && < Divider textAlign='left'>Completed</Divider>}
 
+                            {ordersSnapshot
+                                .filter(doc => doc.data().orderStatus === 'Completed')
+                                .map(doc => (
+                                    <ListItemButton
+                                        key={doc.id}
+                                        sx={itemStyle}
+                                        selected={selectedOrder && selectedOrder.id === doc.id}
+                                        onClick={() => { handleSelect(doc) }}
+                                    >
+                                        <ListItemText
+                                            primary={shortOrderString(doc.data().orderItems)}
+                                            secondary={`Completed ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
+                                        />
+                                    </ListItemButton>
+                                ))
+                            }
+
+
+                            {/* Cancelled Orders */}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cancelled').length > 0 && < Divider textAlign='left'>Cancelled</Divider>}
+
+                            {ordersSnapshot
+                                .filter(doc => doc.data().orderStatus === 'Cancelled')
+                                .map(doc => (
+                                    <ListItemButton
+                                        key={doc.id}
+                                        sx={itemStyle}
+                                        selected={selectedOrder && selectedOrder.id === doc.id}
+                                        onClick={() => { handleSelect(doc) }}
+                                    >
+                                        <ListItemText
+                                            primary={shortOrderString(doc.data().orderItems)}
+                                            secondary={`Cancelled ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
+                                        />
+                                    </ListItemButton>
+                                ))
+                            }
                         </List>
                     }
                 </div>

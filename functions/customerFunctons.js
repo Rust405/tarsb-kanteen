@@ -13,6 +13,7 @@ const tz = 'Asia/Singapore'
 
 const db = getFirestore()
 const stallsRef = db.collection('stalls')
+const ordersRef = db.collection('orders')
 
 function isWeekend(date) {
     return date.day() === 0 || date.day() === 6
@@ -125,7 +126,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
     if (isSuccess) {
         order.orderTimestamp = Timestamp.fromDate(dayjs().toDate())
         order.customerID = context.auth.token.uid
-        order.orderStatus = 'In Queue'
+        order.orderStatus = 'Placed'
         order.remarkStall = ''
 
         order.cookingStartTime = Timestamp.now()
@@ -139,7 +140,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
                 //last order in queue to complete
                 const lastOrderSnap = await db.collection('orders')
                     .where("stallID", "==", order.stallID)
-                    .where("orderStatus", "==", "In Queue")
+                    .where("orderStatus", "==", "Placed")
                     .where("isPreOrder", "==", false)
                     .orderBy('estCmpltTimestamp', 'desc')
                     .limit(1)
@@ -172,7 +173,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         }
 
         //Add order
-        const res = await db.collection('orders').add(order)
+        const res = await ordersRef.add(order)
         messageArray.push(res.id)
     }
 
@@ -189,7 +190,53 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
         )
     }
 
+    let isSuccess = true
+    let messageArray = []
+
+    let orderID = data.orderID
+
+    //IF order doesn't exist, RETURN early
+    const orderDoc = await ordersRef.doc(orderID).get()
+    if (!orderDoc.exists) {
+        return { success: false, message: [`Order does not exist.`] }
+    }
+
+    //IF order is already cooking, already cancelled, ready, completed, unclaimed
+    let orderStatus = orderDoc.data().orderStatus
+    switch (orderStatus) {
+        case 'Cooking':
+            isSuccess = false
+            messageArray.push(`Order has already started cooking.`)
+            break
+        case 'Ready':
+            isSuccess = false
+            messageArray.push(`Order has already finished cooking.`)
+            break
+        case 'Completed':
+            isSuccess = false
+            messageArray.push(`Order had already been completed.`)
+            break
+        case 'Cancelled':
+            isSuccess = false
+            messageArray.push(`Order had already been cancelled.`)
+            break
+        case 'Unclaimed':
+            isSuccess = false
+            messageArray.push(`Order had already been marked unclaimed.`)
+            break
+        default:
+            isSuccess = true
+    }
 
 
+    //IF order is overdue
+    //TODO: 
+
+    //Cancel order
+    if (isSuccess) {
+        await ordersRef.doc(orderID).update({ orderStatus: 'Cancelled' })
+    }
+
+    return { success: isSuccess, message: messageArray }
 })
 
