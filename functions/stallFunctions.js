@@ -11,7 +11,7 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
         console.log(`${context.auth.token.email} made an unauthorized function call.`)
         throw new functions.https.HttpsError(
             'permission-denied',
-            'Must be a stall user to register stall.'
+            'Must be a verified stall user to register stall.'
         )
     }
 
@@ -117,7 +117,7 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
     if (!isStallOwner) {
         throw new functions.https.HttpsError(
             'permission-denied',
-            'Must be a stall owner to update stall details.'
+            'Must be a verified stall owner to update stall details.'
         )
     }
 
@@ -218,7 +218,7 @@ exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async
     if (!isStallOwner) {
         throw new functions.https.HttpsError(
             'permission-denied',
-            'Must be a stall owner to unregister stall.'
+            'Must be a verified stall owner to unregister stall.'
         )
     }
 
@@ -309,7 +309,7 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
         console.log(`${context.auth.token.email} made an unauthorized function call.`)
         throw new functions.https.HttpsError(
             'permission-denied',
-            'Must be a stall user to update menu item.'
+            'Must be a verified stall user to update menu item.'
         )
     }
 

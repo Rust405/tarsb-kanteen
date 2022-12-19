@@ -24,7 +24,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         console.log(`${context.auth.token.email} made an unauthorized function call.`)
         throw new functions.https.HttpsError(
             'permission-denied',
-            'Must be a customer to create order.'
+            'Must be a verified customer to create order.'
         )
     }
 
@@ -178,3 +178,18 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
 
     return { success: isSuccess, message: messageArray }
 })
+
+exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    //verify user
+    if (context.auth.token.userType !== 'customer') {
+        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+        throw new functions.https.HttpsError(
+            'permission-denied',
+            'Must be a verified customer to cancel order.'
+        )
+    }
+
+
+
+})
+
