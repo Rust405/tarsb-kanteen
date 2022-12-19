@@ -57,6 +57,15 @@ const MyOrders = ({
             `Order may be overdue. Try checking with \"${stallName}\".`
     }
 
+    const handleSelect = (doc) => {
+        if (selectedOrder && selectedOrder.id === doc.id) {
+            setSelectedOrder(null)
+            return
+        }
+
+        setSelectedOrder({ id: doc.id, data: doc.data() })
+    }
+
     return (
         <div className="my-orders">
             <Box sx={{ p: 2 }}>
@@ -70,8 +79,8 @@ const MyOrders = ({
                     {ordersSnapshot.length > 0 &&
                         <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
 
-                            {/* Ready for pickup */}
-                            {/* TODO: ready to claim at stallName */}
+                            {/* TODO: Ready for pickup */}
+                            {/*  ready to claim at stallName */}
 
                             {/* Regular orders */}
                             {ordersSnapshot.filter(doc => !doc.data().isPreOrder).length > 0 &&
@@ -85,8 +94,8 @@ const MyOrders = ({
                                         disabled={false}
                                         key={doc.id}
                                         sx={itemStyle}
-                                        selected={false}
-                                        onClick={() => { }}
+                                        selected={selectedOrder && selectedOrder.id === doc.id}
+                                        onClick={() => { handleSelect(doc) }}
                                     >
                                         <ListItemText
                                             primary={shortOrderString(doc.data().orderItems)}
@@ -113,8 +122,8 @@ const MyOrders = ({
                                         disabled={false}
                                         key={doc.id}
                                         sx={itemStyle}
-                                        selected={false}
-                                        onClick={() => { }}
+                                        selected={selectedOrder && selectedOrder.id === doc.id}
+                                        onClick={() => { handleSelect(doc) }}
                                     >
                                         <ListItemText
                                             primary={shortOrderString(doc.data().orderItems)}
@@ -125,6 +134,11 @@ const MyOrders = ({
                                     </ListItemButton>
                                 ))
                             }
+
+                            {/* TODO: Completed Orders */}
+
+                            {/* TODO: Cancelled Orders */}
+
                         </List>
                     }
                 </div>
