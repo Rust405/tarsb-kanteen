@@ -147,10 +147,22 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
 
                 const lastOrderDoc = lastOrderSnap.docs.find(doc => doc)
 
+                //if last order exists
                 if (lastOrderDoc) {
-                    const estComplete = dayjs(lastOrderDoc.data().estCmpltTimestamp.toDate()).add(estWaitTime, 'minute')
-                    order.estCmpltTimestamp = Timestamp.fromDate(estComplete.toDate())
+                    const lastOrderCmplt = dayjs(lastOrderDoc.data().estCmpltTimestamp.toDate())
+
+                    //if last order is overdue
+                    if (now.diff(lastOrderCmplt) > 0) {
+                        //calculate estCmpltTimestamp from now 
+                        const estComplete = now.add(estWaitTime, 'minute')
+                        order.estCmpltTimestamp = Timestamp.fromDate(estComplete.toDate())
+                    } else {
+                        //else calculate estCmpltTimestamp from last order
+                        const estComplete = lastOrderCmplt.add(estWaitTime, 'minute')
+                        order.estCmpltTimestamp = Timestamp.fromDate(estComplete.toDate())
+                    }
                 } else {
+                    //else calculate estCmpltTimestamp from now
                     const estComplete = now.add(estWaitTime, 'minute')
                     order.estCmpltTimestamp = Timestamp.fromDate(estComplete.toDate())
                 }
