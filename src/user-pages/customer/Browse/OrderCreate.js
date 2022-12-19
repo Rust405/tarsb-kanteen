@@ -140,7 +140,7 @@ const OrderCreate = ({
                     <Typography variant="h6" align="center">New<br />Order</Typography>
                 </Box>
 
-                <Typography align="center">{dayjs().format('DD/MM/YYYY')}</Typography>
+                <Typography align="center" sx={{ m: 2 }}>{dayjs().format('DD/MM/YYYY')}</Typography>
 
                 <Divider />
 

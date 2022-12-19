@@ -121,7 +121,8 @@ const CustomerClient = ({ container, userInfo }) => {
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
                                     drawerContent={
-                                        <CustOrderPreview />
+                                        <CustOrderPreview selectedOrder={selectedOrder}
+                                        />
                                     }
                                 />}
                         />
