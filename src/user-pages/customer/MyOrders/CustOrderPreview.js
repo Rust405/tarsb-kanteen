@@ -7,6 +7,8 @@ import Button from '@mui/material/Button'
 import dayjs from 'dayjs'
 import currency from 'currency.js'
 import CancelOrderDialog from './CancelOrderDialog'
+import OrderIDDisplay from './OrderIDDisplay'
+
 import { useState } from 'react'
 
 const CustOrderPreview = ({
@@ -25,6 +27,7 @@ const CustOrderPreview = ({
     }
 
     const [openCancel, setOpenCancel] = useState(false)
+    const [openIDDisplay, setOpenIDDisplay] = useState(false)
 
     return (
         <div className="order-preview">
@@ -40,7 +43,7 @@ const CustOrderPreview = ({
                         </Box>
 
                         <Box display="flex" justifyContent="center" sx={{ m: 2 }}>
-                            <Button>Show Order ID</Button>
+                            <Button onClick={() => setOpenIDDisplay(true)}>Show Order ID</Button>
                         </Box>
 
                         <Typography align="center" sx={{ m: 2 }}>Placed on: {dayjs(selectedOrder.data.orderTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}</Typography>
@@ -108,6 +111,10 @@ const CustOrderPreview = ({
                             isValidating={isValidating} setIsValidating={setIsValidating}
                             setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
                             setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg} />
+
+                        <OrderIDDisplay
+                            orderID={selectedOrder.id}
+                            openIDDisplay={openIDDisplay} setOpenIDDisplay={setOpenIDDisplay} />
                     </div>
                 }
             </Box>
