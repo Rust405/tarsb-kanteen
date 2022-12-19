@@ -52,9 +52,9 @@ const MyOrders = ({
 
     const orderStatusString = (estCmpltDateTime, stallName) => {
         return dayjs().diff(estCmpltDateTime) < 0 ?
-            `Estimated to complete at around ${dayjs(doc.data().estCmpltTimestamp.toDate()).format('LT')}`
+            `Estimated to complete at around ${estCmpltDateTime.format('LT')}`
             :
-            `Order seems to be overdue. Try checking with \"${stallName}\".`
+            `Order may be overdue. Try checking with \"${stallName}\".`
     }
 
     return (
