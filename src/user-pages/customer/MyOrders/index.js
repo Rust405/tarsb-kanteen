@@ -21,18 +21,23 @@ const MyOrders = ({
 }) => {
 
     const [ordersSnapshot, setOrdersSnapshot] = useState(null)
+    const [updatedOrders, setUpdatedOrders] = useState([])
+    const [deletedOrders, setDeletedOrders] = useState([])
 
     useEffect(function fetchOrders() {
-        const q = query(
-            collection(db, "orders"),
-            where("customerID", "==", auth.currentUser.uid),
-            orderBy("orderTimestamp", "desc")
-        )
+        const q = query(collection(db, "orders"), where("customerID", "==", auth.currentUser.uid), orderBy("orderTimestamp", "desc"))
 
         const unsubscribe = onSnapshot(q, snapshot => {
             setOrdersSnapshot(snapshot.docs)
-        })
 
+            setUpdatedOrders([])
+            setDeletedOrders([])
+
+            snapshot.docChanges().forEach(change => {
+                if (change.type === "modified") { setUpdatedOrders([...updatedOrders, change.doc]) }
+                if (change.type === "removed") { setDeletedOrders([...deletedOrders, change.doc]) }
+            })
+        })
         return () => {
             unsubscribe()
             setOrdersSnapshot(null)
@@ -40,9 +45,25 @@ const MyOrders = ({
     }, [])
 
 
-    //TODO: handle selected update
+    //updated selectedOrder if modified
+    useEffect(function handleOrdersUpdated() {
+        if (updatedOrders.length > 0 && selectedOrder) {
+            const latestDoc = updatedOrders.find(doc => doc.id === selectedOrder.id)
+            if (latestDoc) {
+                setSelectedOrder({ id: latestDoc.id, data: latestDoc.data() })
+            }
+        }
+    }, [updatedOrders])
 
-    //TODO: handle selected delete
+    //set selectedOrder to null if deleted
+    useEffect(function handleOrdersDeleted() {
+        if (deletedItems.length > 0 && selectedOrder) {
+            const deletedDoc = deletedItems.find(doc => doc.id === selectedOrder.id)
+            if (deletedDoc) {
+                setSelectedOrder(null)
+            }
+        }
+    }, [deletedOrders])
 
     const shortOrderString = (orderItems) => {
         let orderString = orderItems[0].data.menuItemName
