@@ -12,7 +12,7 @@ import OrderIDDisplay from './OrderIDDisplay'
 import { useState } from 'react'
 
 const CustOrderPreview = ({
-    selectedOrder,
+    selectedOrder, setSelectedOrder,
     isValidating, setIsValidating,
     setOpenErrSnack, setErrMsgs,
     setOpenSucSnack, setSucMsg
@@ -106,7 +106,7 @@ const CustOrderPreview = ({
                         </Stack>
 
                         <CancelOrderDialog
-                            orderID={selectedOrder.id}
+                            orderID={selectedOrder.id} setSelectedOrder={setSelectedOrder}
                             openCancel={openCancel} setOpenCancel={setOpenCancel}
                             isValidating={isValidating} setIsValidating={setIsValidating}
                             setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}

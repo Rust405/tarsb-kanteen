@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import { customerCancelOrder } from '../../../utils/firebase'
 
 const CancelOrderDialog = ({
-    orderID,
+    orderID, setSelectedOrder,
     openCancel, setOpenCancel,
     isValidating, setIsValidating,
     setOpenErrSnack, setErrMsgs,
@@ -31,6 +31,7 @@ const CancelOrderDialog = ({
                     setIsValidating(false)
                     setSucMsg(`Order #${orderID} has been successfully cancelled.`)
                     setOpenSucSnack(true)
+                    setSelectedOrder(null)
                     setOpenCancel(false)
                 } else {
                     setOpenErrSnack(true)
