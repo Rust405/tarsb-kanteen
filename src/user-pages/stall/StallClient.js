@@ -85,6 +85,9 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
     const [selectedItem, setSelectedItem] = useState(null)
     const [isValidating, setIsValidating] = useState(false)
 
+    //QUEUE PAGE
+    const [selectedOrder, setSelectedOrder] = useState(null)
+
     return (
         <div className="stall-client">
             <Box sx={{ display: 'flex' }}>
@@ -111,7 +114,7 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                     <Box component="main" sx={{ flexGrow: 1, overflow: 'auto', maxHeight: 'calc(100vh - 80px)' }}>
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
-                            <Route path={ROUTE.STALL.QUEUE} element={<Queue />} />
+                            <Route path={ROUTE.STALL.QUEUE} element={<Queue selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />} />
                             <Route path={ROUTE.STALL.MENU} element={<Menu stallID={stallID} selectedItem={selectedItem} setSelectedItem={setSelectedItem} isValidating={isValidating} />} />
                             <Route path={ROUTE.STALL.GENERATESUMMARY} element={<GenerateSummary />} />
                             <Route path={ROUTE.STALL.USERSETTINGS} element={<StallUserSettings />} />
@@ -137,7 +140,9 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                                     handleSidebarToggle={handleSidebarToggle}
                                     container={container}
                                     drawerContent={
-                                        < StallOrderPreview />
+                                        < StallOrderPreview
+
+                                        />
                                     }
                                 />}
                         />

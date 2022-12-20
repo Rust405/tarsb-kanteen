@@ -25,7 +25,10 @@ const MyOrders = ({
     const [deletedOrders, setDeletedOrders] = useState([])
 
     useEffect(function fetchOrders() {
-        const q = query(collection(db, "orders"), where("customerID", "==", auth.currentUser.uid), orderBy("orderTimestamp", "desc"))
+        const q = query(
+            collection(db, "orders"),
+            where("customerID", "==", auth.currentUser.uid),
+            orderBy("orderTimestamp", "desc"))
 
         const unsubscribe = onSnapshot(q, snapshot => {
             setOrdersSnapshot(snapshot.docs)
