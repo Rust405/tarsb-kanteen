@@ -57,7 +57,7 @@ const MyOrders = ({
     //set selectedOrder to null if deleted
     useEffect(function handleOrdersDeleted() {
         if (deletedOrders.length > 0 && selectedOrder) {
-            const deletedDoc = deletedItems.find(doc => doc.id === selectedOrder.id)
+            const deletedDoc = deletedOrders.find(doc => doc.id === selectedOrder.id)
             if (deletedDoc) {
                 setSelectedOrder(null)
             }
