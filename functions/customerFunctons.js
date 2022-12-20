@@ -227,10 +227,7 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
         default:
             isSuccess = true
     }
-
-
-    //IF order is overdue
-    //TODO: 
+    
 
     //Cancel order
     if (isSuccess) {
