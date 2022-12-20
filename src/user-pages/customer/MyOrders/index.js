@@ -44,7 +44,6 @@ const MyOrders = ({
         }
     }, [])
 
-
     //updated selectedOrder if modified
     useEffect(function handleOrdersUpdated() {
         if (updatedOrders.length > 0 && selectedOrder) {
@@ -57,7 +56,7 @@ const MyOrders = ({
 
     //set selectedOrder to null if deleted
     useEffect(function handleOrdersDeleted() {
-        if (deletedItems.length > 0 && selectedOrder) {
+        if (deletedOrders.length > 0 && selectedOrder) {
             const deletedDoc = deletedItems.find(doc => doc.id === selectedOrder.id)
             if (deletedDoc) {
                 setSelectedOrder(null)
