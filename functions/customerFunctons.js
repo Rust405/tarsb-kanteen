@@ -132,11 +132,11 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         order.cookingStartTime = Timestamp.now()
         order.cookingEndTime = Timestamp.now()
 
+        order.estWaitTime = order.orderItems.reduce((acc, cur) => acc + cur.data.estWaitTime, 0)
+
         if (isPreOrder) {
             order.pickupTimestamp = Timestamp.fromDate(dayjs(order.pickupTimestamp).toDate())
         } else {
-            order.estWaitTime = order.orderItems.reduce((acc, cur) => acc + cur.data.estWaitTime, 0)
-
             if (order.estWaitTime > 0) {
                 //last order in queue to complete
                 const lastOrderSnap = await db.collection('orders')

@@ -93,6 +93,10 @@ const Queue = ({
         setSelectedOrder({ id: doc.id, data: doc.data() })
     }
 
+    const handleReportUser = () => {
+
+    }
+
     return (
         <div className="queue">
             <Box sx={{ p: 2 }}>
@@ -157,7 +161,6 @@ const Queue = ({
                                                 primary={shortOrderString(doc.data().orderItems)}
                                             />
                                         </ListItemButton>
-
 
                                     </ListItem>
                                 ))
