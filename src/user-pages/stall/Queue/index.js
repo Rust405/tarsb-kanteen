@@ -1,9 +1,14 @@
 import Typography from '@mui/material/Typography'
 import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
+
+import FlagIcon from '@mui/icons-material/Flag'
 
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
@@ -77,13 +82,6 @@ const Queue = ({
         return orderString
     }
 
-    const orderStatusString = (estCmpltDateTime, stallName) => {
-        return dayjs().diff(estCmpltDateTime) < 0 ?
-            `Estimated to complete at around ${estCmpltDateTime.format('LT')}`
-            :
-            `Order may be overdue. Try checking with \"${stallName}\".`
-    }
-
     const handleSelect = (doc) => {
         if (selectedOrder && selectedOrder.id === doc.id) {
             setSelectedOrder(null)
@@ -112,67 +110,69 @@ const Queue = ({
                             {ordersSnapshot
                                 .filter(doc => doc.data().orderStatus === 'Ready')
                                 .map(doc => (
-                                    <ListItemButton
-                                        key={doc.id}
-                                        sx={itemStyle}
-                                        selected={selectedOrder && selectedOrder.id === doc.id}
-                                        onClick={() => { handleSelect(doc) }}
-                                    >
-                                        <ListItemText
-                                            primary={shortOrderString(doc.data().orderItems)}
-                                            secondary={`${doc.data().isPreOrder ? 'Pre-Order' : 'Order'} ready to claim at \"${doc.data().stallName}\"`}
-                                        />
-                                    </ListItemButton>
+                                    <ListItem key={doc.id}>
+                                        <ListItemButton
+                                            sx={itemStyle}
+                                            selected={selectedOrder && selectedOrder.id === doc.id}
+                                            onClick={() => { handleSelect(doc) }}
+                                        >
+                                            <ListItemText
+                                                primary={shortOrderString(doc.data().orderItems)}
+                                            />
+                                        </ListItemButton>
+
+                                        <Tooltip title="Report User">
+                                            <IconButton><FlagIcon /></IconButton>
+                                        </Tooltip>
+                                    </ListItem>
                                 ))
                             }
 
                             {/* Cooking */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cooking' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Regular Orders</Divider>}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cooking' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Cooking</Divider>}
 
                             {ordersSnapshot
                                 .filter(doc => doc.data().orderStatus === 'Cooking' && !doc.data().isPreOrder)
                                 .map(doc => (
-                                    <ListItemButton
-                                        key={doc.id}
-                                        sx={itemStyle}
-                                        selected={selectedOrder && selectedOrder.id === doc.id}
-                                        onClick={() => { handleSelect(doc) }}
-                                    >
-                                        <ListItemText
-                                            primary={shortOrderString(doc.data().orderItems)}
-                                            secondary={
-                                                orderStatusString(
-                                                    dayjs(doc.data().estCmpltTimestamp.toDate()),
-                                                    doc.data().stallName
-                                                )
-                                            }
-                                        />
-                                    </ListItemButton>
+                                    <ListItem key={doc.id}>
+                                        <ListItemButton
+                                            sx={itemStyle}
+                                            selected={selectedOrder && selectedOrder.id === doc.id}
+                                            onClick={() => { handleSelect(doc) }}
+                                        >
+                                            <ListItemText
+                                                primary={shortOrderString(doc.data().orderItems)}
+                                            />
+                                        </ListItemButton>
+
+                                        <Tooltip title="Report User">
+                                            <IconButton><FlagIcon /></IconButton>
+                                        </Tooltip>
+                                    </ListItem>
                                 ))
                             }
 
                             {/* Regular orders */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Regular Orders</Divider>}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Order Queue</Divider>}
 
                             {ordersSnapshot
                                 .filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder)
                                 .map(doc => (
-                                    <ListItemButton
-                                        key={doc.id}
-                                        sx={itemStyle}
-                                        selected={selectedOrder && selectedOrder.id === doc.id}
-                                        onClick={() => { handleSelect(doc) }}
-                                    >
-                                        <ListItemText
-                                            primary={shortOrderString(doc.data().orderItems)}
-                                            secondary={
-                                                orderStatusString(
-                                                    dayjs(doc.data().estCmpltTimestamp.toDate()),
-                                                    doc.data().stallName
-                                                )
-                                            }
-                                        />
-                                    </ListItemButton>
+                                    <ListItem key={doc.id}>
+                                        <ListItemButton
+                                            sx={itemStyle}
+                                            selected={selectedOrder && selectedOrder.id === doc.id}
+                                            onClick={() => { handleSelect(doc) }}
+                                        >
+                                            <ListItemText
+                                                primary={shortOrderString(doc.data().orderItems)}
+                                            />
+                                        </ListItemButton>
+
+                                        <Tooltip title="Report User">
+                                            <IconButton><FlagIcon /></IconButton>
+                                        </Tooltip>
+                                    </ListItem>
                                 ))
                             }
 
@@ -183,19 +183,22 @@ const Queue = ({
                             {ordersSnapshot
                                 .filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder)
                                 .map(doc => (
-                                    <ListItemButton
-                                        key={doc.id}
-                                        sx={itemStyle}
-                                        selected={selectedOrder && selectedOrder.id === doc.id}
-                                        onClick={() => { handleSelect(doc) }}
-                                    >
-                                        <ListItemText
-                                            primary={shortOrderString(doc.data().orderItems)}
-                                            secondary={
-                                                `Pickup at \"${doc.data().stallName}\" on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`
-                                            }
-                                        />
-                                    </ListItemButton>
+                                    <ListItem key={doc.id}>
+                                        <ListItemButton
+                                            sx={itemStyle}
+                                            selected={selectedOrder && selectedOrder.id === doc.id}
+                                            onClick={() => { handleSelect(doc) }}
+                                        >
+                                            <ListItemText
+                                                primary={shortOrderString(doc.data().orderItems)}
+                                                secondary={`Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`}
+                                            />
+                                        </ListItemButton>
+
+                                        <Tooltip title="Report User">
+                                            <IconButton><FlagIcon /></IconButton>
+                                        </Tooltip>
+                                    </ListItem>
                                 ))
                             }
 
@@ -204,8 +207,8 @@ const Queue = ({
                 </div>
                 }
 
-            </Box>
-        </div>
+            </Box >
+        </div >
     )
 }
 

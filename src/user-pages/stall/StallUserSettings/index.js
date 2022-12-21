@@ -23,6 +23,7 @@ const StallUserSettings = () => {
                     <ListItem sx={{ display: 'list-item' }}><Typography>Customers can only set pickup for pre-orders to weekdays from 7am to 5pm.</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>Customers can only set pickup for pre-orders to a minimum 30 minutes from the time of order and a maximum 1 week from the day of order.</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>The stall can cancel an order at anytime. (Reason will be required)</Typography></ListItem>
+                    <ListItem sx={{ display: 'list-item' }}><Typography>The stall can create a report on the customer. (Reason will be required)</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>Each order can contain a maximum 1 menu item that requires waiting (cooking).</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>If a menu item is made unavailable, it will be automatically removed only from any existing customers' order creation.</Typography></ListItem>
                 </List>

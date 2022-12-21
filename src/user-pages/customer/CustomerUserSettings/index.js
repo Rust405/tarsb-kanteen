@@ -26,6 +26,7 @@ const CustomerUserSettings = () => {
                     <ListItem sx={{ display: 'list-item' }}><Typography>Pickup for pre-orders is automatically set to 30 minutes from the time of order, it will automatically be set to the next weekday at 7am if required.</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>Orders can be cancelled by the stall at anytime. (Reason will be provided)</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>Orders can be cancelled by the customer anytime as long as cooking has not started.</Typography></ListItem>
+                    <ListItem sx={{ display: 'list-item' }}><Typography>The stall reserves the right to create a report on the customer when necessary.</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>Each order can contain a maximum 1 menu item that requires waiting (cooking).</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>Menu items can be automatically removed from order creation due to unavailability.</Typography></ListItem>
                     <ListItem sx={{ display: 'list-item' }}><Typography>Guest accounts for outsiders is currently not supported.</Typography></ListItem>
