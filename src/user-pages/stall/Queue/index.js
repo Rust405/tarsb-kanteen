@@ -7,7 +7,7 @@ import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
-import Button from '@mui/material/Button'\
+import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 
 import FlagIcon from '@mui/icons-material/Flag'
