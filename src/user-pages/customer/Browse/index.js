@@ -133,7 +133,7 @@ const Browse = ({
     useEffect(() => { if (lastOrderSnap) updateWaitTime() }, [lastOrderSnap])
 
     const updateWaitTime = () => {
-        const lastOrderDoc = lastOrderSnap.find(doc => doc)
+        const lastOrderDoc = lastOrderSnap[0]
         if (lastOrderDoc) {
             const difference = dayjs(lastOrderDoc.data().estCmpltTimestamp.toDate()).diff(dayjs(), 'minute')
             difference > 0 ? setWaitTime(difference) : setWaitTime(0)

@@ -147,7 +147,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
                     .limit(1)
                     .get()
 
-                const lastOrderDoc = lastOrderSnap.docs.find(doc => doc)
+                const lastOrderDoc = lastOrderSnap.docs[0]
 
                 //if last order exists
                 if (lastOrderDoc) {

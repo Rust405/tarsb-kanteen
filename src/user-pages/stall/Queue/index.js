@@ -8,7 +8,6 @@ import Divider from '@mui/material/Divider'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
-import Stack from '@mui/material/Stack'
 
 import FlagIcon from '@mui/icons-material/Flag'
 
@@ -16,6 +15,7 @@ import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { db } from '../../../utils/firebase'
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
+import ReportCustomerDialog from './ReportCustomerDialog'
 
 const itemStyle = {
     m: '12px 0',
@@ -24,7 +24,11 @@ const itemStyle = {
 }
 
 const Queue = ({
-    selectedOrder, setSelectedOrder
+    selectedOrder, setSelectedOrder,
+    isValidating, setIsValidating,
+    setOpenErrSnack, setErrMsgs,
+    setOpenSucSnack, setSucMsg,
+    stallID
 }) => {
 
     const [ordersSnapshot, setOrdersSnapshot] = useState(null)
@@ -93,8 +97,15 @@ const Queue = ({
         setSelectedOrder({ id: doc.id, data: doc.data() })
     }
 
-    const handleReportUser = () => {
+    const [openReportCustomer, setOpenReportCustomer] = useState(false)
 
+    const [reportData, setReportData] = useState(null)
+    const hanldeReportCustomer = (order) => {
+        setReportData({
+            customerID: order.data().customerID,
+            orderID: order.id
+        })
+        setOpenReportCustomer(true)
     }
 
     return (
@@ -117,8 +128,12 @@ const Queue = ({
                                 .filter(doc => doc.data().orderStatus === 'Ready')
                                 .map(doc => (
                                     <ListItem key={doc.id}>
-                                        <Tooltip title="Report User">
-                                            <IconButton sx={{ m: '4px' }}><FlagIcon /></IconButton>
+                                        <Tooltip title="Report Customer">
+                                            <IconButton
+                                                sx={{ m: '4px' }}
+                                                onClick={() => hanldeReportCustomer(doc)}>
+                                                <FlagIcon />
+                                            </IconButton>
                                         </Tooltip>
 
                                         <ListItemButton
@@ -148,9 +163,14 @@ const Queue = ({
                                 .filter(doc => doc.data().orderStatus === 'Cooking' && !doc.data().isPreOrder)
                                 .map(doc => (
                                     <ListItem key={doc.id}>
-                                        <Tooltip title="Report User">
-                                            <IconButton sx={{ m: '4px' }}><FlagIcon /></IconButton>
+                                        <Tooltip title="Report Customer">
+                                            <IconButton
+                                                sx={{ m: '4px' }}
+                                                onClick={() => hanldeReportCustomer(doc)}>
+                                                <FlagIcon />
+                                            </IconButton>
                                         </Tooltip>
+
 
                                         <ListItemButton
                                             sx={itemStyle}
@@ -166,15 +186,19 @@ const Queue = ({
                                 ))
                             }
 
-                            {/* Regular orders */}
+                            {/* Regular orders/ Order Queue */}
                             {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Order Queue</Divider>}
 
                             {ordersSnapshot
                                 .filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder)
                                 .map(doc => (
                                     <ListItem key={doc.id}>
-                                        <Tooltip title="Report User">
-                                            <IconButton sx={{ m: '4px' }}><FlagIcon /></IconButton>
+                                        <Tooltip title="Report Customer">
+                                            <IconButton
+                                                sx={{ m: '4px' }}
+                                                onClick={() => hanldeReportCustomer(doc)}>
+                                                <FlagIcon />
+                                            </IconButton>
                                         </Tooltip>
 
                                         <ListItemButton
@@ -205,8 +229,12 @@ const Queue = ({
                                 .filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder)
                                 .map(doc => (
                                     <ListItem key={doc.id}>
-                                        <Tooltip title="Report User">
-                                            <IconButton sx={{ m: '4px' }}><FlagIcon /></IconButton>
+                                        <Tooltip title="Report Customer">
+                                            <IconButton
+                                                sx={{ m: '4px' }}
+                                                onClick={() => hanldeReportCustomer(doc)}>
+                                                <FlagIcon />
+                                            </IconButton>
                                         </Tooltip>
 
                                         <ListItemButton
@@ -230,12 +258,58 @@ const Queue = ({
                                 ))
                             }
 
+                            {/* Cancelled */}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cancelled').length > 0 && < Divider textAlign='left'>Cancelled</Divider>}
+
+                            {ordersSnapshot
+                                .filter(doc => doc.data().orderStatus === 'Cancelled')
+                                .map(doc => (
+                                    <ListItem key={doc.id}>
+                                        <Tooltip title="Report Customer">
+                                            <IconButton
+                                                sx={{ m: '4px' }}
+                                                onClick={() => hanldeReportCustomer(doc)}>
+                                                <FlagIcon />
+                                            </IconButton>
+                                        </Tooltip>
+
+                                        <ListItemButton
+                                            sx={itemStyle}
+                                            selected={selectedOrder && selectedOrder.id === doc.id}
+                                            onClick={() => { handleSelect(doc) }}
+                                        >
+                                            <ListItemText
+                                                primary={shortOrderString(doc.data().orderItems)}
+                                            />
+                                        </ListItemButton>
+
+                                        <Button
+                                            sx={{ m: 2 }}
+                                            variant="contained"
+                                        >
+                                            Start Cooking
+                                        </Button>
+                                    </ListItem>
+                                ))
+                            }
+
                         </List>
                     }
+
+                    <ReportCustomerDialog
+                        stallID={stallID}
+                        reportData={reportData} setReportData={setReportData}
+                        openReportCustomer={openReportCustomer} setOpenReportCustomer={setOpenReportCustomer}
+                        isValidating={isValidating} setIsValidating={setIsValidating}
+                        setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                        setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
+                    />
+
                 </div>
                 }
 
             </Box >
+
         </div >
     )
 }

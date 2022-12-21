@@ -87,7 +87,11 @@ export const updateItemDetails = httpsCallable(functions, 'stallFunctions-update
 export const deleteMenuItem = async (stallID, itemID) => {
   await deleteDoc(doc(db, "stalls", stallID, "menu", itemID))
 }
+
+export const reportCustomer = httpsCallable(functions, 'stallFunctions-reportCustomer')
+
 //[END Stall functions]
+
 
 //[START Customer functions]
 export const createOrder = httpsCallable(functions, 'customerFunctions-createOrder')

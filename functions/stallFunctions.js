@@ -1,9 +1,14 @@
 const functions = require('firebase-functions')
 const firebase_tools = require('firebase-tools')
-const { getFirestore } = require('firebase-admin/firestore')
+const { getFirestore, Timestamp } = require('firebase-admin/firestore')
+
+const dayjs = require('dayjs')
+
+const reportMinDay = 3 //days, minimum before current stall can make another report on a customer
 
 const db = getFirestore()
 const stallsRef = db.collection('stalls')
+const reportsRef = db.collection('reports')
 
 exports.registerStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     //verify user
@@ -378,6 +383,46 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
         }
 
         await menuRef.doc(updatedDetails.menuItemID).update(updateObj)
+    }
+
+    return { success: isSuccess, message: messageArray }
+})
+
+exports.reportCustomer = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    //verify user
+    if (context.auth.token.userType !== 'stallUser') {
+        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+        throw new functions.https.HttpsError(
+            'permission-denied',
+            'Must be a verified stall user to update menu item.'
+        )
+    }
+
+    let isSuccess = true
+    let messageArray = []
+    let report = data.report
+
+    if (report.reason === '') {
+        isSuccess = false
+        messageArray.push(`Reason cannot be empty.`)
+    }
+
+    //IF the customer has already been reported by the current stall in the past 3 days
+    const existingReportSnap = await reportsRef.where("customerID", "==", report.customerID).where("stallID", "==", report.stallID).get()
+    const existingReportDoc = existingReportSnap.docs[0]
+    if (existingReportDoc) {
+        if (dayjs(existingReportDoc.data().reportTimestamp.toDate()).diff(dayjs(), 'day') < reportMinDay) {
+            isSuccess = false
+            messageArray.push(`The stall has already reported this customer in the past ${reportMinDay} days.`)
+        }
+    }
+
+    //Report customer
+    if (isSuccess) {
+        report.reportTimestamp = Timestamp.now()
+        report.stallUserID = context.auth.uid
+
+        await reportsRef.add(report)
     }
 
     return { success: isSuccess, message: messageArray }
