@@ -262,7 +262,7 @@ const Browse = ({
                         </Typography>
 
                         <Stack direction="row" alignItems="center" >
-                            <Typography>Wait time for new orders: {waitTime} min(s)</Typography>
+                            <Typography>Est. wait for new orders: {waitTime} min(s)</Typography>
                             <IconButton onClick={updateWaitTime} >
                                 <RefreshIcon />
                             </IconButton>

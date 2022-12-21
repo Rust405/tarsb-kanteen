@@ -135,8 +135,9 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         if (isPreOrder) {
             order.pickupTimestamp = Timestamp.fromDate(dayjs(order.pickupTimestamp).toDate())
         } else {
-            const estWaitTime = order.orderItems.reduce((acc, cur) => acc + cur.data.estWaitTime, 0)
-            if (estWaitTime > 0) {
+            order.estWaitTime = order.orderItems.reduce((acc, cur) => acc + cur.data.estWaitTime, 0)
+
+            if (order.estWaitTime > 0) {
                 //last order in queue to complete
                 const lastOrderSnap = await db.collection('orders')
                     .where("stallID", "==", order.stallID)
@@ -155,16 +156,16 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
                     //if last order is overdue
                     if (now.diff(lastOrderCmplt) > 0) {
                         //calculate estCmpltTimestamp from now 
-                        const estComplete = now.add(estWaitTime, 'minute')
+                        const estComplete = now.add(order.estWaitTime, 'minute')
                         order.estCmpltTimestamp = Timestamp.fromDate(estComplete.toDate())
                     } else {
                         //else calculate estCmpltTimestamp from last order
-                        const estComplete = lastOrderCmplt.add(estWaitTime, 'minute')
+                        const estComplete = lastOrderCmplt.add(order.estWaitTime, 'minute')
                         order.estCmpltTimestamp = Timestamp.fromDate(estComplete.toDate())
                     }
                 } else {
                     //else calculate estCmpltTimestamp from now
-                    const estComplete = now.add(estWaitTime, 'minute')
+                    const estComplete = now.add(order.estWaitTime, 'minute')
                     order.estCmpltTimestamp = Timestamp.fromDate(estComplete.toDate())
                 }
             } else {
@@ -227,7 +228,7 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
         default:
             isSuccess = true
     }
-    
+
 
     //Cancel order
     if (isSuccess) {

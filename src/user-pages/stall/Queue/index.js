@@ -7,6 +7,8 @@ import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
+import Button from '@mui/material/Button'\
+import Stack from '@mui/material/Stack'
 
 import FlagIcon from '@mui/icons-material/Flag'
 
@@ -98,19 +100,23 @@ const Queue = ({
 
                 {ordersSnapshot && <div>
                     {/* No Orders */}
-                    {ordersSnapshot.length === 0 && <Typography>You have not placed any orders.</Typography>}
+                    {ordersSnapshot.length === 0 && <Typography>There are currently no orders to display.</Typography>}
 
                     {/* Orders */}
                     {ordersSnapshot.length > 0 &&
                         <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
 
-                            {/* Ready for pickup */}
+                            {/* Ready to claim */}
                             {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Ready').length > 0 && < Divider textAlign='left'>Ready To Claim</Divider>}
 
                             {ordersSnapshot
                                 .filter(doc => doc.data().orderStatus === 'Ready')
                                 .map(doc => (
                                     <ListItem key={doc.id}>
+                                        <Tooltip title="Report User">
+                                            <IconButton sx={{ m: '4px' }}><FlagIcon /></IconButton>
+                                        </Tooltip>
+
                                         <ListItemButton
                                             sx={itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
@@ -121,9 +127,12 @@ const Queue = ({
                                             />
                                         </ListItemButton>
 
-                                        <Tooltip title="Report User">
-                                            <IconButton><FlagIcon /></IconButton>
-                                        </Tooltip>
+                                        <Button
+                                            sx={{ m: 2 }}
+                                            variant="contained"
+                                        >
+                                            Mark Claimed
+                                        </Button>
                                     </ListItem>
                                 ))
                             }
@@ -135,6 +144,10 @@ const Queue = ({
                                 .filter(doc => doc.data().orderStatus === 'Cooking' && !doc.data().isPreOrder)
                                 .map(doc => (
                                     <ListItem key={doc.id}>
+                                        <Tooltip title="Report User">
+                                            <IconButton sx={{ m: '4px' }}><FlagIcon /></IconButton>
+                                        </Tooltip>
+
                                         <ListItemButton
                                             sx={itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
@@ -145,9 +158,7 @@ const Queue = ({
                                             />
                                         </ListItemButton>
 
-                                        <Tooltip title="Report User">
-                                            <IconButton><FlagIcon /></IconButton>
-                                        </Tooltip>
+
                                     </ListItem>
                                 ))
                             }
@@ -159,6 +170,10 @@ const Queue = ({
                                 .filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder)
                                 .map(doc => (
                                     <ListItem key={doc.id}>
+                                        <Tooltip title="Report User">
+                                            <IconButton sx={{ m: '4px' }}><FlagIcon /></IconButton>
+                                        </Tooltip>
+
                                         <ListItemButton
                                             sx={itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
@@ -169,9 +184,12 @@ const Queue = ({
                                             />
                                         </ListItemButton>
 
-                                        <Tooltip title="Report User">
-                                            <IconButton><FlagIcon /></IconButton>
-                                        </Tooltip>
+                                        <Button
+                                            sx={{ m: 2 }}
+                                            variant="contained"
+                                        >
+                                            Start Cooking
+                                        </Button>
                                     </ListItem>
                                 ))
                             }
@@ -184,6 +202,10 @@ const Queue = ({
                                 .filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder)
                                 .map(doc => (
                                     <ListItem key={doc.id}>
+                                        <Tooltip title="Report User">
+                                            <IconButton sx={{ m: '4px' }}><FlagIcon /></IconButton>
+                                        </Tooltip>
+
                                         <ListItemButton
                                             sx={itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
@@ -195,9 +217,12 @@ const Queue = ({
                                             />
                                         </ListItemButton>
 
-                                        <Tooltip title="Report User">
-                                            <IconButton><FlagIcon /></IconButton>
-                                        </Tooltip>
+                                        <Button
+                                            sx={{ m: 2 }}
+                                            variant="contained"
+                                        >
+                                            Start Cooking
+                                        </Button>
                                     </ListItem>
                                 ))
                             }

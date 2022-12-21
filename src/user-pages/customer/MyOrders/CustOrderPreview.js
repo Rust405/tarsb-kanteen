@@ -22,10 +22,6 @@ const CustOrderPreview = ({
         return remark !== '' ? remark : '-'
     }
 
-    const estWaitTimeString = (orderItems) => {
-        return orderItems.reduce((acc, cur) => acc + cur.data.estWaitTime, 0)
-    }
-
     const [openCancel, setOpenCancel] = useState(false)
     const [openIDDisplay, setOpenIDDisplay] = useState(false)
 
@@ -85,9 +81,11 @@ const CustOrderPreview = ({
                                 {selectedOrder.data.isTakeaway ? 'Takeaway' : 'Dine-In'}
                             </Typography>
 
-                            <Typography variant="caption">
-                                {`Est. cooking time: ${estWaitTimeString(selectedOrder.data.orderItems)} min(s)`}
-                            </Typography>
+                            {!selectedOrder.data.isPreOrder &&
+                                <Typography variant="caption">
+                                    {`Est. cooking time: ${selectedOrder.data.estWaitTime} min(s)`}
+                                </Typography>
+                            }
 
                             <Button
                                 variant="outlined"
