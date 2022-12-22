@@ -11,3 +11,5 @@
 6. Modify and Update order feature dropped. (Time constraint).
 
 7. Fixed (unmodifiable) stall operational hours. (Time constraint).
+
+8. When a menu item is made unavailable, it is not removed from existing orders. (Ignored, although useful it will take longer to implement, orders can still be manually cancelled by stall users and menu items are removed from order creation automatically.)
