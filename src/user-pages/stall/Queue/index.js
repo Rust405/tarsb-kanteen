@@ -16,13 +16,10 @@ import { useTheme } from '@mui/material/styles'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { db } from '../../../utils/firebase'
+import { CUSTOMSTYLE } from '../../../constants'
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import ReportCustomerDialog from './ReportCustomerDialog'
 
-const itemStyle = {
-    border: '2px solid lightgray',
-    borderRadius: '8px',
-}
 
 const Queue = ({
     selectedOrder, setSelectedOrder,
@@ -140,7 +137,7 @@ const Queue = ({
                                         </Tooltip>
 
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
@@ -169,7 +166,7 @@ const Queue = ({
                                         </Tooltip>
 
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
@@ -198,7 +195,7 @@ const Queue = ({
                                         </Tooltip>
 
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
@@ -228,7 +225,7 @@ const Queue = ({
                                         </Tooltip>
 
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
@@ -258,7 +255,7 @@ const Queue = ({
                                         </Tooltip>
 
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >

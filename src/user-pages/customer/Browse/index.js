@@ -16,17 +16,13 @@ import Stack from '@mui/material/Stack'
 import { useState, useEffect } from 'react'
 import { db } from '../../../utils/firebase'
 import { capitalizeFirstLetter } from '../../../utils/tools'
-import { collection, orderBy, query, onSnapshot, limit, where, getDocs } from 'firebase/firestore'
+import { collection, orderBy, query, onSnapshot, limit, where } from 'firebase/firestore'
+import { CUSTOMSTYLE } from '../../../constants'
 
 import { useTheme } from '@mui/material/styles'
 
 import dayjs from 'dayjs'
 import currency from 'currency.js'
-
-const itemStyle = {
-    border: '2px solid lightgray',
-    borderRadius: '8px',
-}
 
 const Browse = ({
     selectedItems, setSelectedItems,
@@ -296,7 +292,7 @@ const Browse = ({
                                             <ListItem key={doc.id}>
                                                 <ListItemButton
                                                     disabled={isValidating}
-                                                    sx={itemStyle}
+                                                    sx={CUSTOMSTYLE.itemStyle}
                                                     selected={selectedItems.some(item => item.id === doc.id)}
                                                     onClick={() => handleSelect(doc)}
                                                 >
@@ -320,7 +316,7 @@ const Browse = ({
                                             <ListItem key={doc.id}>
                                                 <ListItemButton
                                                     disabled={isValidating}
-                                                    sx={itemStyle}
+                                                    sx={CUSTOMSTYLE.itemStyle}
                                                     selected={selectedItems.some(item => item.id === doc.id)}
                                                     onClick={() => handleSelect(doc)}
                                                 >
@@ -344,7 +340,7 @@ const Browse = ({
                                             <ListItem key={doc.id}>
                                                 <ListItemButton
                                                     disabled
-                                                    sx={itemStyle}
+                                                    sx={CUSTOMSTYLE.itemStyle}
                                                 >
                                                     <ListItemText
                                                         primary={

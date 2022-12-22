@@ -15,7 +15,15 @@ import { useEffect, useState } from 'react'
 import { useTheme } from '@mui/material/styles'
 
 import { db, toggleItemAvail } from '../../../utils/firebase'
+import { CUSTOMSTYLE } from '../../../constants'
 import currency from 'currency.js'
+
+const toggleStyle = {
+    m: '0 8px',
+    width: '96px',
+    border: '2px solid lightgray',
+    borderRadius: '8px',
+}
 
 const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
     const theme = useTheme()
@@ -111,10 +119,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
                                         <ListItem key={doc.id}>
                                             <ListItemButton
                                                 disabled={isValidating}
-                                                sx={{
-                                                    border: '2px solid lightgray',
-                                                    borderRadius: '8px',
-                                                }}
+                                                sx={CUSTOMSTYLE.itemStyle}
                                                 selected={selectedItem && selectedItem.id === doc.id}
                                                 onClick={() => handleSelect(doc)}
                                             >
@@ -125,12 +130,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
                                             </ListItemButton>
 
                                             <Stack
-                                                sx={{
-                                                    m: '0 8px',
-                                                    width: '96px',
-                                                    border: '2px solid lightgray',
-                                                    borderRadius: '8px',
-                                                }}
+                                                sx={toggleStyle}
                                                 alignItems="center"
                                             >
                                                 <Switch
@@ -156,10 +156,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
                                         <ListItem key={doc.id}>
                                             <ListItemButton
                                                 disabled={isValidating}
-                                                sx={{
-                                                    border: '2px solid lightgray',
-                                                    borderRadius: '8px',
-                                                }}
+                                                sx={CUSTOMSTYLE.itemStyle}
                                                 selected={selectedItem && selectedItem.id === doc.id}
                                                 onClick={() => handleSelect(doc)}>
                                                 <ListItemText
@@ -169,12 +166,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
                                             </ListItemButton>
 
                                             <Stack
-                                                sx={{
-                                                    m: '0 8px',
-                                                    width: '96px',
-                                                    border: '2px solid lightgray',
-                                                    borderRadius: '8px',
-                                                }}
+                                                sx={toggleStyle}
                                                 alignItems="center"
                                             >
                                                 <Switch
@@ -199,10 +191,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
                                         <ListItem key={doc.id}>
                                             <ListItemButton
                                                 disabled={isValidating}
-                                                sx={{
-                                                    border: '2px solid lightgray',
-                                                    borderRadius: '8px',
-                                                }}
+                                                sx={CUSTOMSTYLE.itemStyle}
                                                 selected={selectedItem && selectedItem.id === doc.id}
                                                 onClick={() => handleSelect(doc)}>
                                                 <ListItemText
@@ -212,12 +201,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
                                             </ListItemButton>
 
                                             <Stack
-                                                sx={{
-                                                    m: '0 8px',
-                                                    width: '96px',
-                                                    border: '2px solid lightgray',
-                                                    borderRadius: '8px',
-                                                }}
+                                                sx={toggleStyle}
                                                 alignItems="center"
                                             >
                                                 <Switch

@@ -12,12 +12,10 @@ import { useEffect, useState } from 'react'
 import { auth, db } from '../../../utils/firebase'
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 
+import { CUSTOMSTYLE } from '../../../constants'
+
 import { useTheme } from '@mui/material/styles'
 
-const itemStyle = {
-    border: '2px solid lightgray',
-    borderRadius: '8px',
-}
 
 const overdueTrigger = 5 //minutes, time past estCmpltTimestamp to trigger overdue message
 
@@ -125,7 +123,7 @@ const MyOrders = ({
                                 .map(doc => (
                                     <ListItem key={doc.id}>
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
@@ -146,7 +144,7 @@ const MyOrders = ({
                                 .map(doc => (
                                     <ListItem key={doc.id}>
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
@@ -172,7 +170,7 @@ const MyOrders = ({
                                 .map(doc => (
                                     <ListItem key={doc.id}>
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
@@ -199,7 +197,7 @@ const MyOrders = ({
                                 .map(doc => (
                                     <ListItem key={doc.id}>
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
@@ -223,7 +221,7 @@ const MyOrders = ({
                                 .map(doc => (
                                     <ListItem key={doc.id}>
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
@@ -245,7 +243,7 @@ const MyOrders = ({
                                 .map(doc => (
                                     <ListItem key={doc.id}>
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
@@ -266,7 +264,7 @@ const MyOrders = ({
                                 .map(doc => (
                                     <ListItem key={doc.id}>
                                         <ListItemButton
-                                            sx={itemStyle}
+                                            sx={CUSTOMSTYLE.itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
                                             onClick={() => { handleSelect(doc) }}
                                         >
