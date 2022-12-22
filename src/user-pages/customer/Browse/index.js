@@ -17,6 +17,8 @@ import { db } from '../../../utils/firebase'
 import { capitalizeFirstLetter } from '../../../utils/tools'
 import { collection, orderBy, query, onSnapshot, limit, where, getDocs } from 'firebase/firestore'
 
+import { useTheme } from '@mui/material/styles'
+
 import dayjs from 'dayjs'
 import currency from 'currency.js'
 
@@ -32,6 +34,8 @@ const Browse = ({
     setOpenInfoSnack, setInfoMsg,
     isValidating
 }) => {
+    const theme = useTheme()
+
     const [stallsSnapshot, setStallsSnapshot] = useState(null)
     const [menuSnapshot, setMenuSnapshot] = useState(null)
 
@@ -233,7 +237,7 @@ const Browse = ({
                         <FormControl fullWidth>
                             <Select
                                 disabled={isValidating}
-                                MenuProps={{ sx: { "&& .Mui-selected": { borderLeft: '4px solid #3f50b5' } } }}
+                                MenuProps={{ sx: { "&& .Mui-selected": { borderLeft: `4px solid ${theme.palette.primary.main}` } } }}
                                 value={
                                     stallsSnapshot.find(doc => doc.id === selectedStall.id) ? selectedStall.id : ''
                                 }
@@ -279,7 +283,7 @@ const Browse = ({
 
                         {/* Menu list */}
                         {menuSnapshot.length > 0 &&
-                            <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
+                            <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}` } }} >
 
                                 {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
                                     < Divider textAlign='left'>Requires Waiting</Divider>

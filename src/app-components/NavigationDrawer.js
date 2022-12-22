@@ -28,6 +28,8 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { logout } from '../utils/firebase'
 import { ROUTE } from '../constants'
 
+import { useTheme } from '@mui/material/styles'
+
 const drawerWidth = 240
 
 const customer = {
@@ -58,6 +60,7 @@ const NavigationDrawer = ({
     userInfo
 }) => {
     const { pathname: pathName } = useLocation()
+    const theme = useTheme()
 
     const displayName = userInfo.displayName
     const email = userInfo.email
@@ -78,7 +81,7 @@ const NavigationDrawer = ({
         <div>
             <Toolbar />
             <Box sx={{ overflow: 'auto' }}>
-                <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5', } }}>
+                <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}`, } }}>
                     {userType === 'stallUser' && <div>
                         <Box sx={{ m: 1 }} display="flex" justifyContent="center">
                             {stallStatus ?

@@ -12,10 +12,14 @@ import Divider from '@mui/material/Divider'
 import { collection, onSnapshot, query, orderBy, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 
+import { useTheme } from '@mui/material/styles'
+
 import { db, toggleItemAvail } from '../../../utils/firebase'
 import currency from 'currency.js'
 
 const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
+    const theme = useTheme()
+
     const [menuSnapshot, setMenuSnapshot] = useState(null)
     const [updatedItems, setUpdatedItems] = useState([])
     const [deletedItems, setDeletedItems] = useState([])
@@ -95,7 +99,7 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
 
                     {/* Menu List */}
                     {menuSnapshot.length > 0 &&
-                        <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }}  >
+                        <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}` } }}  >
                             {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
                                 <Divider textAlign='left'>Requires Waiting</Divider>
                             }

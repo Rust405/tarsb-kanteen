@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react'
 import { auth, db } from '../../../utils/firebase'
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 
+import { useTheme } from '@mui/material/styles'
+
 const itemStyle = {
     m: '12px 0',
     border: '2px solid lightgray',
@@ -19,6 +21,7 @@ const itemStyle = {
 const MyOrders = ({
     selectedOrder, setSelectedOrder
 }) => {
+    const theme = useTheme()
 
     const [ordersSnapshot, setOrdersSnapshot] = useState(null)
     const [updatedOrders, setUpdatedOrders] = useState([])
@@ -104,7 +107,11 @@ const MyOrders = ({
 
                     {/* Orders */}
                     {ordersSnapshot.length > 0 &&
-                        <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
+                        <List sx={{
+                            '&& .Mui-selected': {
+                                borderLeft: `4px solid ${theme.palette.primary.main}`
+                            }
+                        }} >
 
                             {/* Ready for pickup */}
                             {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Ready').length > 0 && < Divider textAlign='left'>Ready To Claim</Divider>}
@@ -221,8 +228,8 @@ const MyOrders = ({
                 </div>
                 }
 
-            </Box>
-        </div>
+            </Box >
+        </div >
     )
 }
 

@@ -11,6 +11,8 @@ import Button from '@mui/material/Button'
 
 import FlagIcon from '@mui/icons-material/Flag'
 
+import { useTheme } from '@mui/material/styles'
+
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { db } from '../../../utils/firebase'
@@ -30,6 +32,7 @@ const Queue = ({
     setOpenSucSnack, setSucMsg,
     stallID
 }) => {
+    const theme = useTheme()
 
     const [ordersSnapshot, setOrdersSnapshot] = useState(null)
     const [updatedOrders, setUpdatedOrders] = useState([])
@@ -119,7 +122,7 @@ const Queue = ({
 
                     {/* Orders */}
                     {ordersSnapshot.length > 0 &&
-                        <List sx={{ '&& .Mui-selected': { borderLeft: '4px solid #3f50b5' } }} >
+                        <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}` } }} >
 
                             {/* Ready to claim */}
                             {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Ready').length > 0 && < Divider textAlign='left'>Ready To Claim</Divider>}
