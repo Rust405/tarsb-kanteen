@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import FlagIcon from '@mui/icons-material/Flag'
 
@@ -41,7 +42,7 @@ const Queue = ({
         const q = query(
             collection(db, "orders"),
             where("customerID", "==", "ESIRlXUGSnS5QeAjCFYTOiEtjxi1"),
-            orderBy("orderTimestamp", "desc"))
+            orderBy("orderTimestamp", "asc"))
 
         const unsubscribe = onSnapshot(q, snapshot => {
             setOrdersSnapshot(snapshot.docs)
@@ -114,7 +115,7 @@ const Queue = ({
     return (
         <div className="queue">
             <Box sx={{ p: 2 }}>
-                {!ordersSnapshot && <Typography sx={{ p: 2 }}>Loading menu items...</Typography>}
+                {!ordersSnapshot && <Box display="flex" justifyContent="center"><CircularProgress /></Box>}
 
                 {ordersSnapshot && <div>
                     {/* No Orders */}

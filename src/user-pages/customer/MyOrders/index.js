@@ -4,6 +4,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
@@ -100,7 +101,7 @@ const MyOrders = ({
     return (
         <div className="my-orders">
             <Box sx={{ p: 2 }}>
-                {!ordersSnapshot && <Typography sx={{ p: 2 }}>Loading menu items...</Typography>}
+                {!ordersSnapshot && <Box display="flex" justifyContent="center"><CircularProgress /></Box>}
 
                 {ordersSnapshot && <div>
                     {/* No Orders */}

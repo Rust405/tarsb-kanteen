@@ -26,8 +26,12 @@ const StallOrderPreview = ({
     const [openIDDisplay, setOpenIDDisplay] = useState(false)
 
     const orderActionText = (order) => {
-        let actionText = 'test'
-
+        let actionText
+        if (order.estWaitTime > 0 && order.orderStatus === 'Placed') {
+            actionText = 'Start Cooking'
+        }else if(order.estWaitTime === 0 && order.orderStatus === 'Placed') {
+            actionText = 'Complete Order'
+        }
 
 
         return actionText
