@@ -69,7 +69,7 @@ const OrderCreate = ({
                 let response = result.data
                 if (response.success) {
                     setIsValidating(false)
-                    setSucMsg(`Order has been created with ID: #${response.message}`)
+                    setSucMsg(`Order has been placed with ID: #${response.message}`)
                     setOpenSucSnack(true)
                     resetFields()
                 } else {
@@ -229,7 +229,11 @@ const OrderCreate = ({
                             <Box sx={{ position: 'relative' }}>
                                 <Button
                                     disabled={
-                                        (isPreOrder && !isValid) || (!isPreOrder && dayjs().diff(earliestOrderTime) < 0) || (!isPreOrder && dayjs().diff(latestOrderTime) > 0) || (!isPreOrder && isWeekend(dayjs())) || isValidating
+                                        (isPreOrder && !isValid)
+                                        || (!isPreOrder && dayjs().diff(earliestOrderTime) < 0)
+                                        || (!isPreOrder && dayjs().diff(latestOrderTime) > 0)
+                                        || (!isPreOrder && isWeekend(dayjs()))
+                                        || isValidating
                                     }
                                     variant="contained"
                                     onClick={handlePlaceOrder}

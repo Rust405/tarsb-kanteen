@@ -87,20 +87,11 @@ const CustOrderPreview = ({
                                 </Typography>
                             }
 
-                            <Button
-                                variant="outlined"
-                                color="error"
-                                disabled={
-                                    selectedOrder.data.orderStatus === "Cooking"
-                                    || selectedOrder.data.orderStatus === "Ready"
-                                    || selectedOrder.data.orderStatus === "Completed"
-                                    || selectedOrder.data.orderStatus === "Cancelled"
-                                    || selectedOrder.data.orderStatus === "Unclaimed"
-                                }
-                                onClick={() => setOpenCancel(true)}
-                            >
-                                Cancel Order
-                            </Button>
+                            {selectedOrder.data.orderStatus === 'Placed' &&
+                                <Button variant="outlined" color="error" onClick={() => setOpenCancel(true)}      >
+                                    Cancel Order
+                                </Button>
+                            }
                         </Stack>
 
                         <CancelOrderDialog

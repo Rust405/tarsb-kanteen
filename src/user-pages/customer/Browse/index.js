@@ -4,6 +4,7 @@ import FormControl from '@mui/material/FormControl'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -23,7 +24,6 @@ import dayjs from 'dayjs'
 import currency from 'currency.js'
 
 const itemStyle = {
-    m: '12px 0',
     border: '2px solid lightgray',
     borderRadius: '8px',
 }
@@ -293,18 +293,19 @@ const Browse = ({
                                     .filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable)
                                     .map(
                                         doc => (
-                                            <ListItemButton
-                                                disabled={isValidating}
-                                                key={doc.id}
-                                                sx={itemStyle}
-                                                selected={selectedItems.some(item => item.id === doc.id)}
-                                                onClick={() => handleSelect(doc)}
-                                            >
-                                                <ListItemText
-                                                    primary={doc.data().menuItemName + ` (est. ${doc.data().estWaitTime} min)`}
-                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                                />
-                                            </ListItemButton>
+                                            <ListItem key={doc.id}>
+                                                <ListItemButton
+                                                    disabled={isValidating}
+                                                    sx={itemStyle}
+                                                    selected={selectedItems.some(item => item.id === doc.id)}
+                                                    onClick={() => handleSelect(doc)}
+                                                >
+                                                    <ListItemText
+                                                        primary={doc.data().menuItemName + ` (est. ${doc.data().estWaitTime} min)`}
+                                                        secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                    />
+                                                </ListItemButton>
+                                            </ListItem>
                                         )
                                     )}
 
@@ -316,18 +317,19 @@ const Browse = ({
                                     .filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable)
                                     .map(
                                         doc => (
-                                            <ListItemButton
-                                                disabled={isValidating}
-                                                key={doc.id}
-                                                sx={itemStyle}
-                                                selected={selectedItems.some(item => item.id === doc.id)}
-                                                onClick={() => handleSelect(doc)}
-                                            >
-                                                <ListItemText
-                                                    primary={doc.data().menuItemName}
-                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                                />
-                                            </ListItemButton>
+                                            <ListItem key={doc.id}>
+                                                <ListItemButton
+                                                    disabled={isValidating}
+                                                    sx={itemStyle}
+                                                    selected={selectedItems.some(item => item.id === doc.id)}
+                                                    onClick={() => handleSelect(doc)}
+                                                >
+                                                    <ListItemText
+                                                        primary={doc.data().menuItemName}
+                                                        secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                    />
+                                                </ListItemButton>
+                                            </ListItem>
                                         )
                                     )}
 
@@ -339,18 +341,19 @@ const Browse = ({
                                     .filter(doc => !doc.data().isAvailable)
                                     .map(
                                         doc => (
-                                            <ListItemButton
-                                                disabled
-                                                key={doc.id}
-                                                sx={itemStyle}
-                                            >
-                                                <ListItemText
-                                                    primary={
-                                                        doc.data().menuItemName + ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
-                                                    }
-                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                                />
-                                            </ListItemButton>
+                                            <ListItem key={doc.id}>
+                                                <ListItemButton
+                                                    disabled
+                                                    sx={itemStyle}
+                                                >
+                                                    <ListItemText
+                                                        primary={
+                                                            doc.data().menuItemName + ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
+                                                        }
+                                                        secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                    />
+                                                </ListItemButton>
+                                            </ListItem>
                                         )
                                     )}
 

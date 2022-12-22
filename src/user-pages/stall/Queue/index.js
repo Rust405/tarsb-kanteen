@@ -20,7 +20,6 @@ import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestor
 import ReportCustomerDialog from './ReportCustomerDialog'
 
 const itemStyle = {
-    m: '12px 0',
     border: '2px solid lightgray',
     borderRadius: '8px',
 }
@@ -169,7 +168,6 @@ const Queue = ({
                                             </IconButton>
                                         </Tooltip>
 
-
                                         <ListItemButton
                                             sx={itemStyle}
                                             selected={selectedOrder && selectedOrder.id === doc.id}
@@ -244,7 +242,7 @@ const Queue = ({
                                 ))
                             }
 
-                            {/* Cancelled */}
+                            {/* Cancelled Orders*/}
                             {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cancelled').length > 0 && < Divider textAlign='left'>Cancelled</Divider>}
 
                             {ordersSnapshot

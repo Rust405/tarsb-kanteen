@@ -25,16 +25,53 @@ const StallOrderPreview = ({
     const [openCancel, setOpenCancel] = useState(false)
     const [openIDDisplay, setOpenIDDisplay] = useState(false)
 
-    const orderActionText = (order) => {
-        let actionText
-        if (order.estWaitTime > 0 && order.orderStatus === 'Placed') {
-            actionText = 'Start Cooking'
-        }else if(order.estWaitTime === 0 && order.orderStatus === 'Placed') {
-            actionText = 'Complete Order'
+    const handleStartCooking = () => {
+        alert("handleStartCooking")
+    }
+
+    const handleMarkReady = () => {
+        alert("handleMarkReady")
+    }
+
+    const handleEndCooking = () => {
+        alert("handleEndCooking")
+    }
+
+    const handleMarkClaimed = () => {
+        alert("handleMarkClaimed")
+    }
+
+    const handleMarkUnclaimed = () => {
+        alert("handleMarkUnclaimed")
+    }
+
+    const primaryOrderActionText = (order) => {
+        switch (order.orderStatus) {
+            case 'Placed':
+                return order.estWaitTime > 0 ? 'Start Cooking' : 'Mark Ready'
+            case 'Cooking':
+                return 'End Cooking'
+            case 'Ready':
+                return 'Mark Claimed'
+            default:
+                return ''
         }
+    }
 
-
-        return actionText
+    const primaryOrderAction = (order) => {
+        switch (order.orderStatus) {
+            case 'Placed':
+                order.estWaitTime > 0 ? handleStartCooking() : handleMarkReady()
+                break
+            case 'Cooking':
+                handleEndCooking()
+                break
+            case 'Ready':
+                handleMarkClaimed()
+                break
+            default:
+                return
+        }
     }
 
     return (
@@ -93,20 +130,28 @@ const StallOrderPreview = ({
                                 {selectedOrder.data.isTakeaway ? 'Takeaway' : 'Dine-In'}
                             </Typography>
 
+                            {/* Primary Order Action */}
                             <Button
                                 variant="contained"
+                                onClick={() => primaryOrderAction(selectedOrder.data)}
                             >
-                                {orderActionText(selectedOrder.data)}
+                                {primaryOrderActionText(selectedOrder.data)}
                             </Button>
 
-                            <Button
-                                variant="outlined"
-                                color="error"
-                                disabled={selectedOrder.data.orderStatus === "Cancelled"}
-                                onClick={() => setOpenCancel(true)}
-                            >
-                                Cancel Order
-                            </Button>
+                            {/* Secondary Order Action */}
+                            {selectedOrder.data.orderStatus === "Ready" &&
+                                <Button variant="contained" onClick={handleMarkUnclaimed} >Mark Unclaimed</Button>
+                            }
+
+                            {(selectedOrder.data.orderStatus === "Placed" || selectedOrder.data.orderStatus === "Cooking") &&
+                                <Button
+                                    variant="outlined"
+                                    color="error"
+                                    onClick={() => setOpenCancel(true)}
+                                >
+                                    Cancel Order
+                                </Button>
+                            }
                         </Stack>
 
                         <CancelOrderDialog
