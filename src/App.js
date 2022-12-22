@@ -17,17 +17,6 @@ import { ROUTE, CUSTOMCOMPONENT } from './constants'
 
 import useOnlineStatus from 'react-online-hook'
 import Offline from './error-pages/Offline'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { orange } from '@mui/material/colors'
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: orange[700],
-      contrastText: 'white'
-    }
-  }
-})
 
 function App(props) {
   const { window } = props
@@ -115,42 +104,40 @@ function App(props) {
   if (isSearchingStaff) return <Loading loadingMsg="Seraching database for stall user..." />
 
   return (
-    <ThemeProvider theme={theme}>
-      <div className="App">
+    <div className="App">
 
-        {/* Login Page */}
-        {!user && !userType && <Login />}
+      {/* Login Page */}
+      {!user && !userType && <Login />}
 
-        {/* New Stall User Landing Page */}
-        {isNewStallUser && <NewStallUser setIsNewStallUser={setIsNewStallUser} email={user.email} />}
+      {/* New Stall User Landing Page */}
+      {isNewStallUser && <NewStallUser setIsNewStallUser={setIsNewStallUser} email={user.email} />}
 
-        {/* Customer Client */}
-        {user && userType === 'customer' &&
-          <CustomerClient
-            container={container}
-            userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />
-        }
+      {/* Customer Client */}
+      {user && userType === 'customer' &&
+        <CustomerClient
+          container={container}
+          userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />
+      }
 
-        {/* StallUser Client */}
-        {user && userType === 'stallUser' && staffRole &&
-          <StallClient
-            container={container}
-            staffRole={staffRole}
-            stallID={stallID}
-            userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />
-        }
+      {/* StallUser Client */}
+      {user && userType === 'stallUser' && staffRole &&
+        <StallClient
+          container={container}
+          staffRole={staffRole}
+          stallID={stallID}
+          userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />
+      }
 
-        {/* Logged In Snackbar */}
-        {user && userType && staffRole &&
-          <Snackbar open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack} >
-            <CUSTOMCOMPONENT.Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
-              Logged in with {user.email}
-            </CUSTOMCOMPONENT.Alert>
-          </Snackbar>
-        }
+      {/* Logged In Snackbar */}
+      {user && userType && staffRole &&
+        <Snackbar open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack} >
+          <CUSTOMCOMPONENT.Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+            Logged in with {user.email}
+          </CUSTOMCOMPONENT.Alert>
+        </Snackbar>
+      }
 
-      </div >
-    </ThemeProvider>
+    </div >
   )
 }
 
