@@ -7,7 +7,6 @@ import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
-import Button from '@mui/material/Button'
 
 import FlagIcon from '@mui/icons-material/Flag'
 
@@ -111,6 +110,7 @@ const Queue = ({
         setOpenReportCustomer(true)
     }
 
+
     return (
         <div className="queue">
             <Box sx={{ p: 2 }}>
@@ -149,12 +149,6 @@ const Queue = ({
                                             />
                                         </ListItemButton>
 
-                                        <Button
-                                            sx={{ m: 2 }}
-                                            variant="contained"
-                                        >
-                                            Mark Claimed
-                                        </Button>
                                     </ListItem>
                                 ))
                             }
@@ -214,12 +208,6 @@ const Queue = ({
                                             />
                                         </ListItemButton>
 
-                                        <Button
-                                            sx={{ m: 2 }}
-                                            variant="contained"
-                                        >
-                                            Start Cooking
-                                        </Button>
                                     </ListItem>
                                 ))
                             }
@@ -251,12 +239,6 @@ const Queue = ({
                                             />
                                         </ListItemButton>
 
-                                        <Button
-                                            sx={{ m: 2 }}
-                                            variant="contained"
-                                        >
-                                            Start Cooking
-                                        </Button>
                                     </ListItem>
                                 ))
                             }
@@ -286,12 +268,6 @@ const Queue = ({
                                             />
                                         </ListItemButton>
 
-                                        <Button
-                                            sx={{ m: 2 }}
-                                            variant="contained"
-                                        >
-                                            Start Cooking
-                                        </Button>
                                     </ListItem>
                                 ))
                             }
