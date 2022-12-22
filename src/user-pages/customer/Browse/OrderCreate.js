@@ -69,7 +69,7 @@ const OrderCreate = ({
                 let response = result.data
                 if (response.success) {
                     setIsValidating(false)
-                    setSucMsg(`Order has been created with ID: ${response.message}`)
+                    setSucMsg(`Order has been created with ID: #${response.message}`)
                     setOpenSucSnack(true)
                     resetFields()
                 } else {

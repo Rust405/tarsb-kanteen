@@ -57,6 +57,7 @@ const Queue = ({
         return () => {
             unsubscribe()
             setOrdersSnapshot(null)
+            setSelectedOrder(null)
         }
     }, [])
 

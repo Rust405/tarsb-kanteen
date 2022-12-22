@@ -47,6 +47,7 @@ const MyOrders = ({
         return () => {
             unsubscribe()
             setOrdersSnapshot(null)
+            setSelectedOrder(null)
         }
     }, [])
 

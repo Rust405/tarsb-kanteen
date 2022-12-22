@@ -9,6 +9,7 @@ const reportMinDay = 3 //days, minimum before current stall can make another rep
 const db = getFirestore()
 const stallsRef = db.collection('stalls')
 const reportsRef = db.collection('reports')
+const ordersRef = db.collection('orders')
 
 exports.registerStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     //verify user
@@ -423,6 +424,56 @@ exports.reportCustomer = functions.region('asia-southeast1').https.onCall(async 
         report.stallUserID = context.auth.uid
 
         await reportsRef.add(report)
+    }
+
+    return { success: isSuccess, message: messageArray }
+})
+
+exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    //verify user
+    if (context.auth.token.userType !== 'stallUser') {
+        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+        throw new functions.https.HttpsError(
+            'permission-denied',
+            'Must be a verified stall user to cancel order.'
+        )
+    }
+
+    let isSuccess = true
+    let messageArray = []
+
+    let orderID = data.orderID
+    let remarkStall = data.remarkStall
+
+    //IF order doesn't exist, RETURN early
+    const orderDoc = await ordersRef.doc(orderID).get()
+    if (!orderDoc.exists) {
+        return { success: false, message: [`Order does not exist.`] }
+    }
+
+    //IF reason is empty
+    if (remarkStall === '') {
+        isSuccess = false
+        messageArray.push(`Reason cannot be empty.`)
+    }
+
+    //IF order is already cancelled or mark unclaimed
+    switch (orderDoc.data().orderStatus) {
+        case 'Cancelled':
+            isSuccess = false
+            messageArray.push(`Order had already been cancelled.`)
+            break
+        case 'Unclaimed':
+            isSuccess = false
+            messageArray.push(`Order had already been marked unclaimed.`)
+            break
+        default:
+            isSuccess = true
+    }
+
+    //Cancel order
+    if (isSuccess) {
+        await ordersRef.doc(orderID).update({ orderStatus: 'Cancelled' })
     }
 
     return { success: isSuccess, message: messageArray }

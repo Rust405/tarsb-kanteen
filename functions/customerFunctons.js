@@ -203,8 +203,7 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
     }
 
     //IF order is already cooking, already cancelled, ready, completed, unclaimed
-    let orderStatus = orderDoc.data().orderStatus
-    switch (orderStatus) {
+    switch (orderDoc.data().orderStatus) {
         case 'Cooking':
             isSuccess = false
             messageArray.push(`Order has already started cooking.`)

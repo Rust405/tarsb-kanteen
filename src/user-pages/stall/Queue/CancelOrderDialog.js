@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 
 import { useState } from 'react'
+import { stallCancelOrder } from '../../../utils/firebase'
 
 const CancelOrderDialog = ({
     orderID, setSelectedOrder,
@@ -17,7 +18,7 @@ const CancelOrderDialog = ({
     setOpenSucSnack, setSucMsg
 }) => {
 
-    const [stallRemark, setStallRemark] = useState('')
+    const [remarkStall, setRemarkStall] = useState('')
 
     const handleCloseCancel = () => {
         if (isValidating) return
@@ -29,28 +30,27 @@ const CancelOrderDialog = ({
         setIsValidating(true)
         setOpenErrSnack(false)
 
-        //TODO: stall cancel order
-        // customerCancelOrder({ orderID: orderID })
-        // .then(result => {
-        //     let response = result.data
-        //     if (response.success) {
-        //         setIsValidating(false)
-        //         setSucMsg(`Order #${orderID} has been successfully cancelled.`)
-        //         setOpenSucSnack(true)
-        //         setSelectedOrder(null)
-        //         setOpenCancel(false)
-        //     } else {
-        //         setOpenErrSnack(true)
-        //         setErrMsgs(response.message)
-        //         setIsValidating(false)
-        //     }
-        // })
-        // .catch(err => {
-        //     console.warn(err)
-        //     setOpenErrSnack(true)
-        //     setErrMsgs(['Unable to proceed. A server error has occured.'])
-        //     setIsValidating(false)
-        // })
+        stallCancelOrder({ orderID: orderID, remarkStall: remarkStall })
+            .then(result => {
+                let response = result.data
+                if (response.success) {
+                    setIsValidating(false)
+                    setSucMsg(`Order #${orderID} has been successfully cancelled.`)
+                    setOpenSucSnack(true)
+                    setSelectedOrder(null)
+                    setOpenCancel(false)
+                } else {
+                    setOpenErrSnack(true)
+                    setErrMsgs(response.message)
+                    setIsValidating(false)
+                }
+            })
+            .catch(err => {
+                console.warn(err)
+                setOpenErrSnack(true)
+                setErrMsgs(['Unable to proceed. A server error has occured.'])
+                setIsValidating(false)
+            })
     }
 
     return (
@@ -71,7 +71,7 @@ const CancelOrderDialog = ({
                             multiline
                             rows={2}
                             label="Reason (required)"
-                            value={stallRemark} onChange={(e) => setStallRemark(e.target.value)}
+                            value={remarkStall} onChange={(e) => setRemarkStall(e.target.value)}
                         />
                     </Stack>
                 </DialogContent>
@@ -79,7 +79,7 @@ const CancelOrderDialog = ({
                 <DialogActions>
                     <Button onClick={handleCloseCancel} disabled={isValidating}>Cancel</Button>
 
-                    <Button onClick={handleCancelOrder} disabled={stallRemark === '' || isValidating} autoFocus>Proceed</Button>
+                    <Button onClick={handleCancelOrder} disabled={remarkStall === '' || isValidating} autoFocus>Proceed</Button>
                 </DialogActions>
 
             </Dialog>

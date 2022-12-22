@@ -26,9 +26,9 @@ const StallOrderPreview = ({
     const [openIDDisplay, setOpenIDDisplay] = useState(false)
 
     const orderActionText = (order) => {
-        let actionText ='test'
+        let actionText = 'test'
 
-     
+
 
         return actionText
     }
@@ -98,13 +98,7 @@ const StallOrderPreview = ({
                             <Button
                                 variant="outlined"
                                 color="error"
-                                disabled={
-                                    selectedOrder.data.orderStatus === "Cooking"
-                                    || selectedOrder.data.orderStatus === "Ready"
-                                    || selectedOrder.data.orderStatus === "Completed"
-                                    || selectedOrder.data.orderStatus === "Cancelled"
-                                    || selectedOrder.data.orderStatus === "Unclaimed"
-                                }
+                                disabled={selectedOrder.data.orderStatus === "Cancelled"}
                                 onClick={() => setOpenCancel(true)}
                             >
                                 Cancel Order
