@@ -23,7 +23,7 @@ import { orange } from '@mui/material/colors'
 const theme = createTheme({
   palette: {
     primary: {
-      main: orange[500],
+      main: orange[700],
       contrastText: 'white'
     }
   }
