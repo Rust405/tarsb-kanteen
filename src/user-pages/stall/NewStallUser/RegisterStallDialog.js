@@ -24,7 +24,7 @@ import InfoIcon from '@mui/icons-material/Info'
 import CloseIcon from '@mui/icons-material/Close'
 import RemoveIcon from '@mui/icons-material/Remove'
 
-import { Alert } from '../../../constants/components'
+import { CUSTOMCOMPONENT } from '../../../constants'
 
 const CustomDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': { padding: theme.spacing(2) },
@@ -198,13 +198,13 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
             {/* Error messages snackbar */}
             <Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}>
-                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
+                <CUSTOMCOMPONENT.Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
                     {errMsgs.length > 1 ?
                         errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
                         :
                         <div>{errMsgs[0]}</div>
                     }
-                </Alert>
+                </CUSTOMCOMPONENT.Alert>
             </Snackbar>
         </div>
     );

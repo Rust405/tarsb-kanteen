@@ -1,9 +1,9 @@
-import React from 'react'
+import { forwardRef } from 'react'
 import MuiAlert from '@mui/material/Alert'
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 
-export const Alert = React.forwardRef(function Alert(props, ref) {
+export const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 })
 

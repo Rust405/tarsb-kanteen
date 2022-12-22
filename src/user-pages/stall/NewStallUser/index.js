@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip'
 import InfoIcon from '@mui/icons-material/Info'
 import RegisterStallDialog from './RegisterStallDialog'
 
-import { Alert, Item } from '../../../constants/components'
+import { CUSTOMCOMPONENT } from '../../../constants'
 
 const NewStallUser = ({ setIsNewStallUser, email }) => {
     const navigate = useNavigate()
@@ -45,13 +45,13 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
             <Box sx={{ width: '100%' }} display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
                 <Stack sx={{ m: 2 }} spacing={4}>
                     {/* Are you a stall staff? */}
-                    <Item>
+                    <CUSTOMCOMPONENT.Item>
                         <Typography variant="h5" sx={{ fontWeight: 'bold' }} gutterBottom>Are you a stall staff?</Typography>
                         <Typography variant="body2" >Please inform your corresponding stall owner to add your Google account email address for access.</Typography>
-                    </Item>
+                    </CUSTOMCOMPONENT.Item>
 
                     {/* Are you a stall owner? */}
-                    <Item>
+                    <CUSTOMCOMPONENT.Item>
                         <Typography variant="h5" sx={{ fontWeight: 'bold' }} gutterBottom>Are you a stall owner?</Typography>
                         <Typography variant="body2" >Please enter the <strong>Stall Registration Code</strong> you received from the <strong>Administration Office</strong> before proceeding to register your stall.</Typography>
 
@@ -62,15 +62,15 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
                                 <Button variant="contained" size="small" onClick={() => setOpenDialog(true)} disabled={regCodeInput !== stallRegCode}>Register Stall</Button>
                             </Stack>
                         </Box>
-                    </Item>
+                    </CUSTOMCOMPONENT.Item>
 
                     {/* Info for customer */}
-                    <Item>
+                    <CUSTOMCOMPONENT.Item>
                         <Stack direction="row" alignItems="center" spacing={1}>
                             <InfoIcon />
                             <Typography variant="caption">If you are a customer, unfortunately we currently do not support guest accounts, you may order at the stalls physically.</Typography>
                         </Stack>
-                    </Item>
+                    </CUSTOMCOMPONENT.Item>
 
                     {/* Logout button */}
                     <Box display="flex" justifyContent="center">
@@ -83,9 +83,9 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
 
             {/* New stall user snackbar */}
             <Snackbar open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack} >
-                <Alert onClose={handleCloseSnack} severity="info" sx={{ width: '100%' }}>
+                <CUSTOMCOMPONENT.Alert onClose={handleCloseSnack} severity="info" sx={{ width: '100%' }}>
                     New user detected
-                </Alert>
+                </CUSTOMCOMPONENT.Alert>
             </Snackbar>
 
             {/* Register Stall Dialog */}

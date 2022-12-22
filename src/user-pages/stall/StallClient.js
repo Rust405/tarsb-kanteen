@@ -26,8 +26,8 @@ import MenuItemCUD from './Menu/MenuItemCUD'
 
 import { db, auth, logout } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
-import { Alert } from '../../constants/components'
-import { ROUTE } from '../../constants'
+
+import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
 
 const StallClient = ({ container, staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
@@ -178,21 +178,21 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
 
             {/* Success snackbar */}
             < Snackbar open={openSucSnack} autoHideDuration={5000} onClose={handleCloseSucSnack} >
-                <Alert onClose={handleCloseSucSnack} severity="success" sx={{ width: '100%' }}>
+                <CUSTOMCOMPONENT.Alert onClose={handleCloseSucSnack} severity="success" sx={{ width: '100%' }}>
                     {sucMsg}
-                </Alert>
+                </CUSTOMCOMPONENT.Alert>
             </Snackbar >
 
             {/* Error messages snackbar */}
             < Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}>
-                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
+                <CUSTOMCOMPONENT.Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
                     {errMsgs.length > 1 ?
                         errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
                         :
                         <div>{errMsgs[0]}</div>
                     }
-                </Alert>
+                </CUSTOMCOMPONENT.Alert>
             </Snackbar >
         </div >
     )

@@ -13,8 +13,7 @@ import CustomerClient from './user-pages/customer/CustomerClient'
 import StallClient from './user-pages/stall/StallClient'
 import NewStallUser from './user-pages/stall/NewStallUser'
 
-import { Alert } from './constants/components'
-import { ROUTE } from './constants'
+import { ROUTE, CUSTOMCOMPONENT } from './constants'
 
 import useOnlineStatus from 'react-online-hook'
 import Offline from './error-pages/Offline'
@@ -144,9 +143,9 @@ function App(props) {
         {/* Logged In Snackbar */}
         {user && userType && staffRole &&
           <Snackbar open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack} >
-            <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+            <CUSTOMCOMPONENT.Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
               Logged in with {user.email}
-            </Alert>
+            </CUSTOMCOMPONENT.Alert>
           </Snackbar>
         }
 

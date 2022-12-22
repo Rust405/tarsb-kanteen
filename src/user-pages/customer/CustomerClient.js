@@ -19,8 +19,7 @@ import CustomerUserSettings from './CustomerUserSettings'
 
 import NotFound from '../../error-pages/NotFound'
 
-import { Alert } from '../../constants/components'
-import { ROUTE } from '../../constants'
+import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
 
 //sidebar
 import CustOrderPreview from './MyOrders/CustOrderPreview'
@@ -152,28 +151,28 @@ const CustomerClient = ({ container, userInfo }) => {
 
             {/* Success snackbar */}
             < Snackbar open={openSucSnack} autoHideDuration={5000} onClose={handleCloseSucSnack} >
-                <Alert onClose={handleCloseSucSnack} severity="success" sx={{ width: '100%' }}>
+                <CUSTOMCOMPONENT.Alert onClose={handleCloseSucSnack} severity="success" sx={{ width: '100%' }}>
                     {sucMsg}
-                </Alert>
+                </CUSTOMCOMPONENT.Alert>
             </Snackbar >
 
             {/* Error messages snackbar */}
             < Snackbar open={openErrSnack} autoHideDuration={5000 * errMsgs.length} onClose={handleCloseErrSnack}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}>
-                <Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
+                <CUSTOMCOMPONENT.Alert onClose={handleCloseErrSnack} severity="error" sx={{ width: '100%' }}>
                     {errMsgs.length > 1 ?
                         errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
                         :
                         <div>{errMsgs[0]}</div>
                     }
-                </Alert>
+                </CUSTOMCOMPONENT.Alert>
             </Snackbar >
 
             {/* Info Snackbar */}
             < Snackbar open={openInfoSnack} autoHideDuration={5000} onClose={handleCloseInfoSnack} >
-                <Alert onClose={handleCloseInfoSnack} severity="info" sx={{ width: '100%' }}>
+                <CUSTOMCOMPONENT.Alert onClose={handleCloseInfoSnack} severity="info" sx={{ width: '100%' }}>
                     {infoMsg}
-                </Alert>
+                </CUSTOMCOMPONENT.Alert>
             </Snackbar >
         </div>)
 }
