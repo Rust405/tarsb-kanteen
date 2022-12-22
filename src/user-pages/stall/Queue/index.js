@@ -110,7 +110,6 @@ const Queue = ({
         setOpenReportCustomer(true)
     }
 
-
     return (
         <div className="queue">
             <Box sx={{ p: 2 }}>

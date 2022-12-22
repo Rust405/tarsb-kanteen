@@ -149,7 +149,10 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                                     container={container}
                                     drawerContent={
                                         < StallOrderPreview
-
+                                            selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder}
+                                            isValidating={isValidating} setIsValidating={setIsValidating}
+                                            setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                                            setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
                                         />
                                     }
                                 />}

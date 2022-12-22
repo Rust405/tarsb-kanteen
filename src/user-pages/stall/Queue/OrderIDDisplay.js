@@ -10,11 +10,11 @@ const OrderIDDisplay = ({ orderID, openIDDisplay, setOpenIDDisplay }) => {
     return (
         <div className="order-id-preview">
             <Dialog open={openIDDisplay} onClose={() => setOpenIDDisplay(false)}  >
-                <DialogTitle>Your Order ID:</DialogTitle>
+                <DialogTitle>Order ID:</DialogTitle>
 
                 <DialogContent>
                     <Typography variant="h5">{orderID}</Typography>
-                    <Typography variant="caption">Show this to the stall when requested.</Typography>
+                    <Typography variant="caption">Request the customer to show their order ID.</Typography>
                 </DialogContent>
 
                 <DialogActions>
