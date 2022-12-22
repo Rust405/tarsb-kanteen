@@ -151,7 +151,7 @@ const Queue = ({
                             }
 
                             {/* Cooking */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cooking' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Cooking</Divider>}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cooking' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>In Kitchen</Divider>}
 
                             {ordersSnapshot
                                 .filter(doc => doc.data().orderStatus === 'Cooking' && !doc.data().isPreOrder)
@@ -180,7 +180,7 @@ const Queue = ({
                             }
 
                             {/* Regular orders/ Order Queue */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Order Queue</Divider>}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Main Order Queue</Divider>}
 
                             {ordersSnapshot
                                 .filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder)
