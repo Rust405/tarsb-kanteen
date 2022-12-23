@@ -356,7 +356,7 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
         }
         if (updatedDetails.isRequireWaiting !== undefined) {
             updateObj.isRequireWaiting = updatedDetails.isRequireWaiting
-            updatedDetails.isRequireWaiting ? updateObj.estWaitTime = 5 : updateObj.estWaitTime = 0
+            updateObj.estWaitTime = updatedDetails.isRequireWaiting ? 5 : 0
         }
 
         await menuRef.doc(updatedDetails.menuItemID).update(updateObj)
@@ -444,4 +444,9 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
 exports.markOrderReady = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     verifyStallUser(context.auth.token)
 
+    let orderID = data.orderID
+
+    await ordersRef.doc(orderID).update({ orderSTatus: 'Ready' })
+
+    //TODO: send notification
 })

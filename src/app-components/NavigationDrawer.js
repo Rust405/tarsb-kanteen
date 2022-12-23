@@ -70,7 +70,7 @@ const NavigationDrawer = ({
     if (userType === 'customer') {
         navOption = customer
     } else if (userType === 'stallUser') {
-        staffRole === 'owner' ? navOption = stallOwner : navOption = stallStaff
+        navOption = staffRole === 'owner' ? stallOwner : stallStaff
     }
 
     //logout collapse
