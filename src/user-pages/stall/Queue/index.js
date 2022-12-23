@@ -20,6 +20,7 @@ import { CUSTOMSTYLE } from '../../../constants'
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import ReportCustomerDialog from './ReportCustomerDialog'
 
+const overdueTrigger = 5 //minutes, time past estCmpltTimestamp to trigger overdue message
 
 const Queue = ({
     selectedOrder, setSelectedOrder,
@@ -113,6 +114,13 @@ const Queue = ({
         setOpenReportCustomer(true)
     }
 
+    const orderStatusString = (estCmpltDateTime) => {
+        return dayjs().diff(estCmpltDateTime, 'minute') < overdueTrigger ?
+            `Estimated to be ready at around ${estCmpltDateTime.format('HH:mm')}`
+            :
+            `Order may be overdue.`
+    }
+
     return (
         <div className="queue">
             <Box sx={{ p: 2 }}>
@@ -177,6 +185,7 @@ const Queue = ({
                                         >
                                             <ListItemText
                                                 primary={shortOrderString(doc.data().orderItems)}
+                                                secondary={orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))}
                                             />
                                         </ListItemButton>
 
@@ -206,6 +215,7 @@ const Queue = ({
                                         >
                                             <ListItemText
                                                 primary={shortOrderString(doc.data().orderItems)}
+                                                secondary={orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))}
                                             />
                                         </ListItemButton>
 

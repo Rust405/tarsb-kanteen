@@ -84,7 +84,7 @@ const MyOrders = ({
 
     const orderStatusString = (estCmpltDateTime, stallName) => {
         return dayjs().diff(estCmpltDateTime, 'minute') < overdueTrigger ?
-            `Estimated to complete at around ${estCmpltDateTime.format('HH:mm')}`
+            `Estimated to be ready at around ${estCmpltDateTime.format('HH:mm')}`
             :
             `Order may be overdue. Try checking with \"${stallName}\".`
     }
