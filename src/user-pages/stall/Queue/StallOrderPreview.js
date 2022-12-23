@@ -9,7 +9,7 @@ import currency from 'currency.js'
 import CancelOrderDialog from './CancelOrderDialog'
 import OrderIDDisplay from './OrderIDDisplay'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { orderMarkClaimed, orderMarkReady, orderMarkUnclaimed, orderStartCooking } from '../../../utils/firebase'
 
 const StallOrderPreview = ({
@@ -25,6 +25,11 @@ const StallOrderPreview = ({
 
     const [openCancel, setOpenCancel] = useState(false)
     const [openIDDisplay, setOpenIDDisplay] = useState(false)
+
+    useEffect(function closeDialogs() {
+        setOpenCancel(false)
+        setOpenIDDisplay(false)
+    }, [selectedOrder])
 
     const handleMarkClaimed = () => {
         setIsValidating(true)
@@ -155,7 +160,7 @@ const StallOrderPreview = ({
                         </Box>
 
                         <Box display="flex" justifyContent="center" sx={{ m: 2 }}>
-                            <Button onClick={() => setOpenIDDisplay(true)}>Verify Order</Button>
+                            <Button disabled={isValidating} onClick={() => setOpenIDDisplay(true)}>Verify Order</Button>
                         </Box>
 
                         <Typography align="center" sx={{ m: 2 }}>Placed on: {dayjs(selectedOrder.data.orderTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}</Typography>
