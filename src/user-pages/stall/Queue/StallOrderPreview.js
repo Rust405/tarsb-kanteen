@@ -113,10 +113,23 @@ const StallOrderPreview = ({
     }
 
     const handleEndCooking = () => {
+        setIsValidating(true)
+        setOpenErrSnack(false)
 
         const orderID = selectedOrder.id
 
         orderEndCooking({ orderID: orderID })
+            .then(() => {
+                setIsValidating(false)
+                setSucMsg(`Order #${orderID} has been marked ready to claim.`)
+                setOpenSucSnack(true)
+            })
+            .catch(err => {
+                console.warn(err)
+                setOpenErrSnack(true)
+                setErrMsgs(['Unable to proceed. A server error has occured.'])
+                setIsValidating(false)
+            })
     }
 
     const primaryOrderActionText = (order) => {
