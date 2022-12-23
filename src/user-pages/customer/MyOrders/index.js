@@ -151,10 +151,10 @@ const MyOrders = ({
                                             <ListItemText
                                                 primary={shortOrderString(doc.data().orderItems)}
                                                 secondary={
-                                                    orderStatusString(
-                                                        dayjs(doc.data().estCmpltTimestamp.toDate()),
-                                                        doc.data().stallName
-                                                    )
+                                                    doc.data().isPreOrder ?
+                                                        `Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`
+                                                        :
+                                                        orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))
                                                 }
                                             />
                                         </ListItemButton>

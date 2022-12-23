@@ -156,6 +156,7 @@ const Queue = ({
                                         >
                                             <ListItemText
                                                 primary={shortOrderString(doc.data().orderItems)}
+                                                secondary={doc.data().isPreOrder && `Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`}
                                             />
                                         </ListItemButton>
 
@@ -185,7 +186,12 @@ const Queue = ({
                                         >
                                             <ListItemText
                                                 primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))}
+                                                secondary={
+                                                    doc.data().isPreOrder ?
+                                                        `Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`
+                                                        :
+                                                        orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))
+                                                }
                                             />
                                         </ListItemButton>
 

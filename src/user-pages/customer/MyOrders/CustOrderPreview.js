@@ -49,10 +49,6 @@ const CustOrderPreview = ({
 
                         <Typography align="center" sx={{ m: 2 }}>Placed on: {dayjs(selectedOrder.data.orderTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}</Typography>
 
-                        {selectedOrder.data.isPreOrder &&
-                            <Typography align="center" sx={{ m: 2 }}>Pickup on: {dayjs(selectedOrder.data.pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}</Typography>
-                        }
-
                         <Divider />
 
                         <Box sx={{ m: 2 }}>
