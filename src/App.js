@@ -101,7 +101,7 @@ function App(props) {
   //Loading pages
   if (loading) return <Loading loadingMsg="Authenticating with Google..." />
   if (isFetchingUserType) return <Loading loadingMsg="Setting user... (This may take a while for new users)" />
-  if (isSearchingStaff) return <Loading loadingMsg="Seraching database for stall user..." />
+  if (isSearchingStaff) return <Loading loadingMsg="Searching database for stall user..." />
 
   return (
     <div className="App">
