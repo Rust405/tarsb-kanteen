@@ -15,13 +15,25 @@ import NewStallUser from './user-pages/stall/NewStallUser'
 
 import { ROUTE, CUSTOMCOMPONENT } from './constants'
 
-import useOnlineStatus from 'react-online-hook'
 import Offline from './error-pages/Offline'
 
 function App() {
   const navigate = useNavigate()
   const { pathname: pathName } = useLocation()
-  const { isOnline } = useOnlineStatus()
+
+  //online/offline
+  const [isOnline, setIsOnline] = useState(navigator.onLine)
+  const setOnline = () => setIsOnline(true)
+  const setOffline = () => setIsOnline(false)
+
+  useEffect(function registerLineListener() {
+    window.addEventListener('offline', setOffline)
+    window.addEventListener('online', setOnline)
+    return () => {
+      window.removeEventListener('offline', setOffline)
+      window.removeEventListener('online', setOnline)
+    }
+  }, [])
 
   //Snackbar log in success
   const [openSnack, setOpenSnack] = useState(false)
