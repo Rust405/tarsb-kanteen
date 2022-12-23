@@ -18,9 +18,7 @@ import { ROUTE, CUSTOMCOMPONENT } from './constants'
 import useOnlineStatus from 'react-online-hook'
 import Offline from './error-pages/Offline'
 
-function App(props) {
-  const { window } = props
-  const container = window !== undefined ? () => window().document.body : undefined
+function App() {
   const navigate = useNavigate()
   const { pathname: pathName } = useLocation()
   const { isOnline } = useOnlineStatus()
@@ -115,14 +113,12 @@ function App(props) {
       {/* Customer Client */}
       {user && userType === 'customer' &&
         <CustomerClient
-          container={container}
           userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />
       }
 
       {/* StallUser Client */}
       {user && userType === 'stallUser' && staffRole &&
         <StallClient
-          container={container}
           staffRole={staffRole}
           stallID={stallID}
           userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />

@@ -25,7 +25,7 @@ import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
 import CustOrderPreview from './MyOrders/CustOrderPreview'
 import OrderCreate from './Browse/OrderCreate'
 
-const CustomerClient = ({ container, userInfo }) => {
+const CustomerClient = ({ userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -84,7 +84,6 @@ const CustomerClient = ({ container, userInfo }) => {
                     <NavigationDrawer
                         navOpen={navOpen}
                         handleDrawerToggle={handleDrawerToggle}
-                        container={container}
                         userType={'customer'}
                         userInfo={userInfo}
                     />
@@ -118,7 +117,6 @@ const CustomerClient = ({ container, userInfo }) => {
                                 <MultiPurposeSidebar
                                     sidebarOpen={sidebarOpen}
                                     handleSidebarToggle={handleSidebarToggle}
-                                    container={container}
                                     drawerContent={
                                         <CustOrderPreview
                                             selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder}
@@ -134,7 +132,6 @@ const CustomerClient = ({ container, userInfo }) => {
                                 <MultiPurposeSidebar
                                     sidebarOpen={sidebarOpen}
                                     handleSidebarToggle={handleSidebarToggle}
-                                    container={container}
                                     drawerContent={
                                         <OrderCreate selectedItems={selectedItems} setSelectedItems={setSelectedItems} selectedStall={selectedStall}
                                             isValidating={isValidating} setIsValidating={setIsValidating}

@@ -11,7 +11,6 @@ const drawerBleeding = 56
 const MultiPurposeSidebar = ({
     sidebarOpen,
     handleSidebarToggle,
-    container,
     drawerContent
 }) => {
     return (
@@ -41,7 +40,6 @@ const MultiPurposeSidebar = ({
             {/* Mobile Drawer */}
 
             <SwipeableDrawer
-                container={container}
                 anchor="bottom"
                 open={sidebarOpen}
                 onOpen={handleSidebarToggle}

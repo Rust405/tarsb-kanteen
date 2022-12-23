@@ -29,7 +29,7 @@ import { doc, onSnapshot } from "firebase/firestore"
 
 import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
 
-const StallClient = ({ container, staffRole, stallID, userInfo }) => {
+const StallClient = ({ staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -101,7 +101,6 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                     <NavigationDrawer
                         navOpen={navOpen}
                         handleDrawerToggle={handleDrawerToggle}
-                        container={container}
                         userType={'stallUser'}
                         staffRole={staffRole}
                         stallStatus={stallSnapshot ? stallSnapshot.status : null}
@@ -146,7 +145,6 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                                 <MultiPurposeSidebar
                                     sidebarOpen={sidebarOpen}
                                     handleSidebarToggle={handleSidebarToggle}
-                                    container={container}
                                     drawerContent={
                                         < StallOrderPreview
                                             selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder}
@@ -162,7 +160,6 @@ const StallClient = ({ container, staffRole, stallID, userInfo }) => {
                                 <MultiPurposeSidebar
                                     sidebarOpen={sidebarOpen}
                                     handleSidebarToggle={handleSidebarToggle}
-                                    container={container}
                                     drawerContent={
                                         <MenuItemCUD
                                             selectedItem={selectedItem}

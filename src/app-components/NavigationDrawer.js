@@ -53,7 +53,6 @@ const stallStaff = {
 const NavigationDrawer = ({
     navOpen,
     handleDrawerToggle,
-    container,
     userType,
     staffRole,
     stallStatus,
@@ -172,7 +171,6 @@ const NavigationDrawer = ({
             {/* Mobile Drawer */}
             <Drawer
                 variant="temporary"
-                container={container}
                 open={navOpen}
                 onClose={() => {
                     handleDrawerToggle()
