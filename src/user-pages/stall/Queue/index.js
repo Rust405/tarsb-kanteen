@@ -164,10 +164,10 @@ const Queue = ({
                             }
 
                             {/* Cooking */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cooking' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>In Kitchen</Divider>}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cooking').length > 0 && < Divider textAlign='left'>In Kitchen</Divider>}
 
                             {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Cooking' && !doc.data().isPreOrder)
+                                .filter(doc => doc.data().orderStatus === 'Cooking')
                                 .map(doc => (
                                     <ListItem key={doc.id}>
                                         <Tooltip title="Report Customer">
