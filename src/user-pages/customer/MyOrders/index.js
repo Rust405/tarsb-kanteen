@@ -32,7 +32,7 @@ const MyOrders = ({
         const q = query(
             collection(db, "orders"),
             where("customerID", "==", auth.currentUser.uid),
-            orderBy("orderTimestamp", "desc"))
+            orderBy("estCmpltTimestamp", "asc"))
 
         const unsubscribe = onSnapshot(q, snapshot => {
             setOrdersSnapshot(snapshot.docs)

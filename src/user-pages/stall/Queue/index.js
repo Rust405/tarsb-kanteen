@@ -39,7 +39,7 @@ const Queue = ({
         const q = query(
             collection(db, "orders"),
             where("stallID", "==", stallID),
-            orderBy("orderTimestamp", "asc"))
+            orderBy("estCmpltTimestamp", "asc"))
 
         const unsubscribe = onSnapshot(q, snapshot => {
             setOrdersSnapshot(snapshot.docs)

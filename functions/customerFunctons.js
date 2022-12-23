@@ -136,6 +136,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
 
         if (isPreOrder) {
             order.pickupTimestamp = Timestamp.fromDate(dayjs(order.pickupTimestamp).toDate())
+            order.estCmpltTimestamp = order.pickupTimestamp
         } else {
             if (order.estWaitTime > 0) {
                 //last order in queue to complete
@@ -176,6 +177,8 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         //Add order
         const res = await ordersRef.add(order)
         messageArray.push(res.id)
+
+        //TODO: send notification to stall
     }
 
     return { success: isSuccess, message: messageArray }
