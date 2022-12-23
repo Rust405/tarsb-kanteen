@@ -446,7 +446,39 @@ exports.orderMarkReady = functions.region('asia-southeast1').https.onCall(async 
 
     let orderID = data.orderID
 
-    await ordersRef.doc(orderID).update({ orderStatus: 'Ready' })
+    await ordersRef.doc(orderID).update({
+        orderStatus: 'Ready'
+    })
 
     //TODO: send notification
+
+})
+
+exports.orderStartCooking = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    verifyStallUser(context.auth.token)
+
+    let orderID = data.orderID
+
+    await ordersRef.doc(orderID).update({
+        cookingStartTime: Timestamp.now(),
+        orderStatus: 'Cooking'
+    })
+
+    //TODO: send notification
+
+})
+
+exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    verifyStallUser(context.auth.token)
+
+    let orderID = data.orderID
+
+    //cooking end time
+
+    //calculate estWaitTime
+
+    //update menu item estWaitTime
+
+    //TODO: send notification
+
 })

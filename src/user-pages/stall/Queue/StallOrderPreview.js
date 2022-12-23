@@ -10,7 +10,7 @@ import CancelOrderDialog from './CancelOrderDialog'
 import OrderIDDisplay from './OrderIDDisplay'
 
 import { useState } from 'react'
-import { orderMarkClaimed, orderMarkReady, orderMarkUnclaimed } from '../../../utils/firebase'
+import { orderMarkClaimed, orderMarkReady, orderMarkUnclaimed, orderStartCooking } from '../../../utils/firebase'
 
 const StallOrderPreview = ({
     selectedOrder, setSelectedOrder,
@@ -27,10 +27,14 @@ const StallOrderPreview = ({
     const [openIDDisplay, setOpenIDDisplay] = useState(false)
 
     const handleMarkClaimed = () => {
+        setIsValidating(true)
+        setOpenErrSnack(false)
+
         const orderID = selectedOrder.id
 
         orderMarkClaimed(orderID)
             .then(() => {
+                setIsValidating(false)
                 setSucMsg(`Order #${orderID} has been marked claimed.`)
                 setOpenSucSnack(true)
             })
@@ -38,14 +42,19 @@ const StallOrderPreview = ({
                 console.warn(err)
                 setOpenErrSnack(true)
                 setErrMsgs(['Unable to proceed. A server error has occured.'])
+                setIsValidating(false)
             })
     }
 
     const handleMarkUnclaimed = () => {
+        setIsValidating(true)
+        setOpenErrSnack(false)
+
         const orderID = selectedOrder.id
 
         orderMarkUnclaimed(orderID)
             .then(() => {
+                setIsValidating(false)
                 setSucMsg(`Order #${orderID} has been marked unclaimed.`)
                 setOpenSucSnack(true)
             })
@@ -53,14 +62,19 @@ const StallOrderPreview = ({
                 console.warn(err)
                 setOpenErrSnack(true)
                 setErrMsgs(['Unable to proceed. A server error has occured.'])
+                setIsValidating(false)
             })
     }
 
     const handleMarkReady = () => {
+        setIsValidating(true)
+        setOpenErrSnack(false)
+
         const orderID = selectedOrder.id
 
         orderMarkReady({ orderID: orderID })
             .then(() => {
+                setIsValidating(false)
                 setSucMsg(`Order #${orderID} has been marked ready to claim.`)
                 setOpenSucSnack(true)
             })
@@ -68,12 +82,29 @@ const StallOrderPreview = ({
                 console.warn(err)
                 setOpenErrSnack(true)
                 setErrMsgs(['Unable to proceed. A server error has occured.'])
+                setIsValidating(false)
             })
     }
 
     const handleStartCooking = () => {
-        alert("handleStartCooking")
-        //cloud function cuz start cook time and send notification
+        setIsValidating(true)
+        setOpenErrSnack(false)
+
+        const orderID = selectedOrder.id
+
+        orderStartCooking({ orderID: orderID })
+            .then(() => {
+                setIsValidating(false)
+                setSucMsg(`Order #${orderID} has been marked started cooking.`)
+                setOpenSucSnack(true)
+            })
+            .catch(err => {
+                console.warn(err)
+                setOpenErrSnack(true)
+                setErrMsgs(['Unable to proceed. A server error has occured.'])
+                setIsValidating(false)
+            })
+
     }
 
     const handleEndCooking = () => {
@@ -169,6 +200,7 @@ const StallOrderPreview = ({
                             {/* Primary Order Action */}
                             <Button
                                 variant="contained"
+                                disabled={isValidating}
                                 onClick={() => primaryOrderAction(selectedOrder.data)}
                             >
                                 {primaryOrderActionText(selectedOrder.data)}
@@ -176,13 +208,19 @@ const StallOrderPreview = ({
 
                             {/* Secondary Order Action */}
                             {selectedOrder.data.orderStatus === "Ready" &&
-                                <Button onClick={handleMarkUnclaimed} >Mark Unclaimed</Button>
+                                <Button
+                                    disabled={isValidating}
+                                    onClick={handleMarkUnclaimed}>
+                                    Mark Unclaimed
+                                </Button>
                             }
 
+                            {/* Cancel Order Button */}
                             {(selectedOrder.data.orderStatus === "Placed" || selectedOrder.data.orderStatus === "Cooking") &&
                                 <Button
                                     variant="outlined"
                                     color="error"
+                                    disabled={isValidating}
                                     onClick={() => setOpenCancel(true)}
                                 >
                                     Cancel Order

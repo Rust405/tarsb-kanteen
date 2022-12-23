@@ -106,6 +106,10 @@ export const orderMarkUnclaimed = async (orderID) => {
 
 export const orderMarkReady = httpsCallable(functions, 'stallFunctions-orderMarkReady')
 
+export const orderStartCooking = httpsCallable(functions, 'stallFunctions-orderStartCooking')
+
+
+
 //[END Stall functions]
 
 
