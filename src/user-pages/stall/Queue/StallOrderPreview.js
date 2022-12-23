@@ -31,7 +31,7 @@ const StallOrderPreview = ({
         setOpenIDDisplay(false)
     }, [selectedOrder])
 
-    const handleMarkClaimed = () => {
+    function handleMarkClaimed() {
         setIsValidating(true)
         setOpenErrSnack(false)
 
@@ -51,7 +51,7 @@ const StallOrderPreview = ({
             })
     }
 
-    const handleMarkUnclaimed = () => {
+    function handleMarkUnclaimed() {
         setIsValidating(true)
         setOpenErrSnack(false)
 
@@ -71,7 +71,7 @@ const StallOrderPreview = ({
             })
     }
 
-    const handleMarkReady = () => {
+    function handleMarkReady() {
         setIsValidating(true)
         setOpenErrSnack(false)
 
@@ -91,7 +91,7 @@ const StallOrderPreview = ({
             })
     }
 
-    const handleStartCooking = () => {
+    function handleStartCooking() {
         setIsValidating(true)
         setOpenErrSnack(false)
 
@@ -112,7 +112,7 @@ const StallOrderPreview = ({
 
     }
 
-    const handleEndCooking = () => {
+    function handleEndCooking() {
         setIsValidating(true)
         setOpenErrSnack(false)
 
@@ -132,7 +132,7 @@ const StallOrderPreview = ({
             })
     }
 
-    const primaryOrderActionText = (order) => {
+    function primaryOrderActionText(order) {
         switch (order.orderStatus) {
             case 'Placed':
                 return order.estWaitTime > 0 ? 'Start Cooking' : 'Mark Ready'
