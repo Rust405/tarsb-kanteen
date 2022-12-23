@@ -10,7 +10,7 @@ import CancelOrderDialog from './CancelOrderDialog'
 import OrderIDDisplay from './OrderIDDisplay'
 
 import { useState } from 'react'
-import { orderMarkClaimed, orderMarkUnclaimed } from '../../../utils/firebase'
+import { orderMarkClaimed, orderMarkReady, orderMarkUnclaimed } from '../../../utils/firebase'
 
 const StallOrderPreview = ({
     selectedOrder, setSelectedOrder,
@@ -31,7 +31,7 @@ const StallOrderPreview = ({
 
         orderMarkClaimed(orderID)
             .then(() => {
-                setSucMsg(`Order #${orderID} has been mark claimed.`)
+                setSucMsg(`Order #${orderID} has been marked claimed.`)
                 setOpenSucSnack(true)
             })
             .catch(err => {
@@ -46,7 +46,7 @@ const StallOrderPreview = ({
 
         orderMarkUnclaimed(orderID)
             .then(() => {
-                setSucMsg(`Order #${orderID} has been mark unclaimed.`)
+                setSucMsg(`Order #${orderID} has been marked unclaimed.`)
                 setOpenSucSnack(true)
             })
             .catch(err => {
@@ -57,8 +57,18 @@ const StallOrderPreview = ({
     }
 
     const handleMarkReady = () => {
-        alert("handleMarkReady")
-        //cloud function cuz send notification
+        const orderID = selectedOrder.id
+
+        orderMarkReady({ orderID: orderID })
+            .then(() => {
+                setSucMsg(`Order #${orderID} has been marked ready to claim.`)
+                setOpenSucSnack(true)
+            })
+            .catch(err => {
+                console.warn(err)
+                setOpenErrSnack(true)
+                setErrMsgs(['Unable to proceed. A server error has occured.'])
+            })
     }
 
     const handleStartCooking = () => {

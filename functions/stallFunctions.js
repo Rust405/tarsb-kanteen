@@ -441,12 +441,12 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
     return { success: isSuccess, message: messageArray }
 })
 
-exports.markOrderReady = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+exports.orderMarkReady = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     verifyStallUser(context.auth.token)
 
     let orderID = data.orderID
 
-    await ordersRef.doc(orderID).update({ orderSTatus: 'Ready' })
+    await ordersRef.doc(orderID).update({ orderStatus: 'Ready' })
 
     //TODO: send notification
 })
