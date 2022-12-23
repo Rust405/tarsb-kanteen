@@ -166,7 +166,7 @@ const StallOrderPreview = ({
 
                             {/* Secondary Order Action */}
                             {selectedOrder.data.orderStatus === "Ready" &&
-                                <Button variant="contained" onClick={handleMarkUnclaimed} >Mark Unclaimed</Button>
+                                <Button onClick={handleMarkUnclaimed} >Mark Unclaimed</Button>
                             }
 
                             {(selectedOrder.data.orderStatus === "Placed" || selectedOrder.data.orderStatus === "Cooking") &&

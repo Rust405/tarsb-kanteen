@@ -11,15 +11,40 @@ const stallsRef = db.collection('stalls')
 const reportsRef = db.collection('reports')
 const ordersRef = db.collection('orders')
 
-exports.registerStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    //verify user
-    if (context.auth.token.userType !== 'stallUser') {
-        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+function verifyStallUser(token) {
+    if (token.userType !== 'stallUser') {
+        console.log(`${token.email} made an unauthorized function call.`)
         throw new functions.https.HttpsError(
             'permission-denied',
-            'Must be a verified stall user to register stall.'
+            'Must be a verified stall user to call this function.'
         )
     }
+}
+
+async function verifyStallOwner(stallID, token) {
+    const ownerEmail = (await stallsRef.doc(stallID).get()).data().ownerEmail
+
+    if (token.userType !== 'stallUser' || token.email !== ownerEmail) {
+        console.log(`${token.email} made an unauthorized function call.`)
+        throw new functions.https.HttpsError(
+            'permission-denied',
+            'Must be a verified stall owner to call this function.'
+        )
+    }
+}
+
+async function deleteCollection(path) {
+    await firebase_tools.firestore
+        .delete(path, {
+            project: process.env.GCLOUD_PROJECT,
+            recursive: true,
+            force: true,
+            token: functions.config().ci.token
+        })
+}
+
+exports.registerStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    verifyStallUser(context.auth.token)
 
     let newStall = data.newStall
     newStall.stallName = newStall.stallName.trim()
@@ -99,17 +124,6 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     return { success: isSuccess, message: messageArray }
 })
 
-async function verifyStallOwner(stallID, token) {
-    const ownerEmail = (await stallsRef.doc(stallID).get()).data().ownerEmail
-
-    if (token.userType !== 'stallUser' || token.email !== ownerEmail) {
-        console.log(`${token.email} made an unauthorized function call.`)
-        return false
-    }
-
-    return true
-}
-
 exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     let updatedDetails = data.updatedDetails
 
@@ -118,14 +132,7 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
 
     const oldStallDetails = (await stallsRef.doc(updatedDetails.stallID).get()).data()
 
-    //verify user
-    const isStallOwner = await verifyStallOwner(updatedDetails.stallID, context.auth.token)
-    if (!isStallOwner) {
-        throw new functions.https.HttpsError(
-            'permission-denied',
-            'Must be a verified stall owner to update stall details.'
-        )
-    }
+    await verifyStallOwner(updatedDetails.stallID, context.auth.token)
 
     //perform validation if change in stallName
     if (updatedDetails.stallName !== undefined) {
@@ -219,14 +226,7 @@ exports.updateStallDetails = functions.region('asia-southeast1').https.onCall(as
 exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     let stallID = data.stallID
 
-    //verify user
-    const isStallOwner = await verifyStallOwner(stallID, context.auth.token)
-    if (!isStallOwner) {
-        throw new functions.https.HttpsError(
-            'permission-denied',
-            'Must be a verified stall owner to unregister stall.'
-        )
-    }
+    await verifyStallOwner(stallID, context.auth.token)
 
     // delete emails which automatically signs users out
     await stallsRef.doc(stallID).update({ ownerEmail: '', staffEmails: [] })
@@ -240,25 +240,8 @@ exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async
     //TODO: delete orders related to stall?
 })
 
-async function deleteCollection(path) {
-    await firebase_tools.firestore
-        .delete(path, {
-            project: process.env.GCLOUD_PROJECT,
-            recursive: true,
-            force: true,
-            token: functions.config().ci.token
-        })
-}
-
 exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    //verify user
-    if (context.auth.token.userType !== 'stallUser') {
-        console.log(`${context.auth.token.email} made an unauthorized function call.`)
-        throw new functions.https.HttpsError(
-            'permission-denied',
-            'Must be a stall user to add menu item.'
-        )
-    }
+    verifyStallUser(context.auth.token)
 
     let newItem = data.newItem
     let stallID = data.stallID
@@ -310,14 +293,7 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
 })
 
 exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    //verify user
-    if (context.auth.token.userType !== 'stallUser') {
-        console.log(`${context.auth.token.email} made an unauthorized function call.`)
-        throw new functions.https.HttpsError(
-            'permission-denied',
-            'Must be a verified stall user to update menu item.'
-        )
-    }
+    verifyStallUser(context.auth.token)
 
     const stallID = data.stallID
     let updatedDetails = data.updatedDetails
@@ -390,14 +366,7 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
 })
 
 exports.reportCustomer = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    //verify user
-    if (context.auth.token.userType !== 'stallUser') {
-        console.log(`${context.auth.token.email} made an unauthorized function call.`)
-        throw new functions.https.HttpsError(
-            'permission-denied',
-            'Must be a verified stall user to update menu item.'
-        )
-    }
+    verifyStallUser(context.auth.token)
 
     let isSuccess = true
     let messageArray = []
@@ -430,14 +399,7 @@ exports.reportCustomer = functions.region('asia-southeast1').https.onCall(async 
 })
 
 exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    //verify user
-    if (context.auth.token.userType !== 'stallUser') {
-        console.log(`${context.auth.token.email} made an unauthorized function call.`)
-        throw new functions.https.HttpsError(
-            'permission-denied',
-            'Must be a verified stall user to cancel order.'
-        )
-    }
+    verifyStallUser(context.auth.token)
 
     let isSuccess = true
     let messageArray = []
@@ -477,4 +439,9 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
     }
 
     return { success: isSuccess, message: messageArray }
+})
+
+exports.markOrderReady = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    verifyStallUser(context.auth.token)
+
 })

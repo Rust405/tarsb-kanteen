@@ -104,6 +104,8 @@ export const orderMarkUnclaimed = async (orderID) => {
   await updateDoc(orderDocRef, { orderStatus: 'Unclaimed' })
 }
 
+export const orderMarkReady = httpsCallable(functions, 'stallFunctions-orderMarkReady')
+
 //[END Stall functions]
 
 
