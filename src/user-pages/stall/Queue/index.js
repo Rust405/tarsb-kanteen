@@ -39,6 +39,8 @@ const Queue = ({
         const q = query(
             collection(db, "orders"),
             where("stallID", "==", stallID),
+            where("orderStatus", "!=", 'Completed'),
+            orderBy("orderStatus"),
             orderBy("estCmpltTimestamp", "asc"))
 
         const unsubscribe = onSnapshot(q, snapshot => {
@@ -282,9 +284,39 @@ const Queue = ({
                                         >
                                             <ListItemText
                                                 primary={shortOrderString(doc.data().orderItems)}
+                                                secondary={`Cancelled ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
                                             />
                                         </ListItemButton>
 
+                                    </ListItem>
+                                ))
+                            }
+
+                            {/* Unclaimed Orders*/}
+                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Unclaimed').length > 0 && < Divider textAlign='left'>Unclaimed Orders</Divider>}
+
+                            {ordersSnapshot
+                                .filter(doc => doc.data().orderStatus === 'Unclaimed')
+                                .map(doc => (
+                                    <ListItem key={doc.id}>
+                                        <Tooltip title="Report Customer">
+                                            <IconButton
+                                                sx={{ m: '4px' }}
+                                                onClick={() => hanldeReportCustomer(doc)}>
+                                                <FlagIcon />
+                                            </IconButton>
+                                        </Tooltip>
+
+                                        <ListItemButton
+                                            sx={CUSTOMSTYLE.itemStyle}
+                                            selected={selectedOrder && selectedOrder.id === doc.id}
+                                            onClick={() => { handleSelect(doc) }}
+                                        >
+                                            <ListItemText
+                                                primary={shortOrderString(doc.data().orderItems)}
+                                                secondary={`Unclaimed ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
+                                            />
+                                        </ListItemButton>
                                     </ListItem>
                                 ))
                             }

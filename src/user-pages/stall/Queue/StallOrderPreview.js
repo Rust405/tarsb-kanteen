@@ -218,13 +218,15 @@ const StallOrderPreview = ({
                             </Typography>
 
                             {/* Primary Order Action */}
-                            <Button
-                                variant="contained"
-                                disabled={isValidating}
-                                onClick={() => primaryOrderAction(selectedOrder.data)}
-                            >
-                                {primaryOrderActionText(selectedOrder.data)}
-                            </Button>
+                            {selectedOrder.data.orderStatus !== 'Cancelled' && selectedOrder.data.orderStatus !== 'Unclaimed' &&
+                                <Button
+                                    variant="contained"
+                                    disabled={isValidating}
+                                    onClick={() => primaryOrderAction(selectedOrder.data)}
+                                >
+                                    {primaryOrderActionText(selectedOrder.data)}
+                                </Button>
+                            }
 
                             {/* Secondary Order Action */}
                             {selectedOrder.data.orderStatus === "Ready" &&
