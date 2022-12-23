@@ -19,15 +19,18 @@ function isWeekend(date) {
     return date.day() === 0 || date.day() === 6
 }
 
-exports.createOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    //verify user
-    if (context.auth.token.userType !== 'customer') {
-        console.log(`${context.auth.token.email} made an unauthorized function call.`)
+function verifyCustomer(token) {
+    if (token.userType !== 'customer') {
+        console.log(`${token.email} made an unauthorized function call.`)
         throw new functions.https.HttpsError(
             'permission-denied',
-            'Must be a verified customer to create order.'
+            'Must be a verified customer to call this function.'
         )
     }
+}
+
+exports.createOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    verifyCustomer(context.auth.token)
 
     let isSuccess = true
     let messageArray = []
@@ -182,14 +185,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
 })
 
 exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
-    //verify user
-    if (context.auth.token.userType !== 'customer') {
-        console.log(`${context.auth.token.email} made an unauthorized function call.`)
-        throw new functions.https.HttpsError(
-            'permission-denied',
-            'Must be a verified customer to cancel order.'
-        )
-    }
+    verifyCustomer(context.auth.token)
 
     let isSuccess = true
     let messageArray = []
