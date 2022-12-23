@@ -489,18 +489,17 @@ exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async
 
     const cookDuration = now.diff(cookingStartTime, 'minute')
 
-    //IF cookDuration are within limits
+    //update order
+    await ordersRef.doc(orderID).update({ orderStatus: 'Ready' })
+
+    //IF cookDuration are within limits, calculate new estWaitTime and update Item
     if (cookDuration > minCookDuration && cookDuration < maxCookDuration) {
-        const average = (cookDuration + orderDoc.data().estWaitTime) / 2
+        let newEstWaitTime = Math.round((cookDuration + orderDoc.data().estWaitTime) / 2)
 
-        //update order
-        await ordersRef.doc(orderID).update({
-
-        })
-
-        //update item
+        //update item estWaitTime
 
     }
+
 
     //TODO: send notification
 

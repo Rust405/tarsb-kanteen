@@ -38,7 +38,7 @@ const Queue = ({
     useEffect(function fetchOrders() {
         const q = query(
             collection(db, "orders"),
-            where("customerID", "==", "ESIRlXUGSnS5QeAjCFYTOiEtjxi1"),
+            where("stallID", "==", stallID),
             orderBy("orderTimestamp", "asc"))
 
         const unsubscribe = onSnapshot(q, snapshot => {
