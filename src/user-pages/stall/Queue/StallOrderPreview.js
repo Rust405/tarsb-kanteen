@@ -10,6 +10,7 @@ import CancelOrderDialog from './CancelOrderDialog'
 import OrderIDDisplay from './OrderIDDisplay'
 
 import { useState } from 'react'
+import { orderMarkClaimed, orderMarkUnclaimed } from '../../../utils/firebase'
 
 const StallOrderPreview = ({
     selectedOrder, setSelectedOrder,
@@ -25,24 +26,49 @@ const StallOrderPreview = ({
     const [openCancel, setOpenCancel] = useState(false)
     const [openIDDisplay, setOpenIDDisplay] = useState(false)
 
-    const handleStartCooking = () => {
-        alert("handleStartCooking")
+    const handleMarkClaimed = () => {
+        const orderID = selectedOrder.id
+
+        orderMarkClaimed(orderID)
+            .then(() => {
+                setSucMsg(`Order #${orderID} has been mark claimed.`)
+                setOpenSucSnack(true)
+            })
+            .catch(err => {
+                console.warn(err)
+                setOpenErrSnack(true)
+                setErrMsgs(['Unable to proceed. A server error has occured.'])
+            })
+    }
+
+    const handleMarkUnclaimed = () => {
+        const orderID = selectedOrder.id
+
+        orderMarkUnclaimed(orderID)
+            .then(() => {
+                setSucMsg(`Order #${orderID} has been mark unclaimed.`)
+                setOpenSucSnack(true)
+            })
+            .catch(err => {
+                console.warn(err)
+                setOpenErrSnack(true)
+                setErrMsgs(['Unable to proceed. A server error has occured.'])
+            })
     }
 
     const handleMarkReady = () => {
         alert("handleMarkReady")
+        //cloud function cuz send notification
+    }
+
+    const handleStartCooking = () => {
+        alert("handleStartCooking")
+        //cloud function cuz start cook time and send notification
     }
 
     const handleEndCooking = () => {
         alert("handleEndCooking")
-    }
-
-    const handleMarkClaimed = () => {
-        alert("handleMarkClaimed")
-    }
-
-    const handleMarkUnclaimed = () => {
-        alert("handleMarkUnclaimed")
+        //cloud function cuz end cook time and set estwaittime and send notification
     }
 
     const primaryOrderActionText = (order) => {

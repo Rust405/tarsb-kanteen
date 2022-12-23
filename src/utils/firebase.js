@@ -92,6 +92,18 @@ export const reportCustomer = httpsCallable(functions, 'stallFunctions-reportCus
 
 export const stallCancelOrder = httpsCallable(functions, 'stallFunctions-cancelOrder')
 
+export const orderMarkClaimed = async (orderID) => {
+  const orderDocRef = doc(db, "orders", orderID)
+
+  await updateDoc(orderDocRef, { orderStatus: 'Completed' })
+}
+
+export const orderMarkUnclaimed = async (orderID) => {
+  const orderDocRef = doc(db, "orders", orderID)
+
+  await updateDoc(orderDocRef, { orderStatus: 'Unclaimed' })
+}
+
 //[END Stall functions]
 
 

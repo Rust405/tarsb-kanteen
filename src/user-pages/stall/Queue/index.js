@@ -63,6 +63,11 @@ const Queue = ({
         if (updatedOrders.length > 0 && selectedOrder) {
             const latestDoc = updatedOrders.find(doc => doc.id === selectedOrder.id)
             if (latestDoc) {
+                if (latestDoc.data().orderStatus === 'Completed' || latestDoc.data().orderStatus === 'Unclaimed') {
+                    setSelectedOrder(null)
+                    return
+                }
+
                 setSelectedOrder({ id: latestDoc.id, data: latestDoc.data() })
             }
         }
