@@ -71,6 +71,7 @@ const OrderCreate = ({
                     setIsValidating(false)
                     setSucMsg(`Order has been placed with ID: #${response.message}`)
                     setOpenSucSnack(true)
+                    setSelectedItems([])
                     resetFields()
                 } else {
                     setOpenErrSnack(true)
