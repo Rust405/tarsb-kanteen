@@ -132,9 +132,6 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         order.orderStatus = 'Placed'
         order.remarkStall = ''
 
-        order.cookingStartTime = Timestamp.now()
-        order.cookingEndTime = Timestamp.now()
-
         order.estWaitTime = order.orderItems.reduce((acc, cur) => acc + cur.data.estWaitTime, 0)
 
         if (isPreOrder) {

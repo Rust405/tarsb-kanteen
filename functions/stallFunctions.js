@@ -3,8 +3,17 @@ const firebase_tools = require('firebase-tools')
 const { getFirestore, Timestamp } = require('firebase-admin/firestore')
 
 const dayjs = require('dayjs')
+const utc = require("dayjs/plugin/utc")
+const timezone = require("dayjs/plugin/timezone")
+dayjs.extend(timezone)
+dayjs.extend(utc)
+
+const tz = 'Asia/Singapore'
 
 const reportMinDay = 3 //days, minimum before current stall can make another report on a customer
+const defaultEstWaitTime = 5 //minutes, the default estWaitTime when item is created or isRequireWaiting toggled
+const minCookDuration = 3 //minutes (Maggi recommendation), if cook duration is less than this, estWaitTime is not changed
+const maxCookDuration = 15 //minutes (Average for stir fry dishes), if cook duration is greater than this, estWaitTime is not changed
 
 const db = getFirestore()
 const stallsRef = db.collection('stalls')
@@ -249,7 +258,7 @@ exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (da
     newItem.menuItemName = newItem.menuItemName.trim()
     newItem.lowercaseMenuItemName = newItem.menuItemName.trim().toLowerCase()
     newItem.isAvailable = true
-    newItem.isRequireWaiting ? newItem.estWaitTime = 5 : newItem.estWaitTime = 0
+    newItem.estWaitTime = newItem.isRequireWaiting ? defaultEstWaitTime : 0
 
     let isSuccess = true
     let messageArray = []
@@ -356,7 +365,7 @@ exports.updateItemDetails = functions.region('asia-southeast1').https.onCall(asy
         }
         if (updatedDetails.isRequireWaiting !== undefined) {
             updateObj.isRequireWaiting = updatedDetails.isRequireWaiting
-            updateObj.estWaitTime = updatedDetails.isRequireWaiting ? 5 : 0
+            updateObj.estWaitTime = updatedDetails.isRequireWaiting ? defaultEstWaitTime : 0
         }
 
         await menuRef.doc(updatedDetails.menuItemID).update(updateObj)
@@ -444,7 +453,7 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
 exports.orderMarkReady = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     verifyStallUser(context.auth.token)
 
-    let orderID = data.orderID
+    const orderID = data.orderID
 
     await ordersRef.doc(orderID).update({
         orderStatus: 'Ready'
@@ -457,7 +466,7 @@ exports.orderMarkReady = functions.region('asia-southeast1').https.onCall(async 
 exports.orderStartCooking = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     verifyStallUser(context.auth.token)
 
-    let orderID = data.orderID
+    const orderID = data.orderID
 
     await ordersRef.doc(orderID).update({
         cookingStartTime: Timestamp.now(),
@@ -471,13 +480,27 @@ exports.orderStartCooking = functions.region('asia-southeast1').https.onCall(asy
 exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     verifyStallUser(context.auth.token)
 
-    let orderID = data.orderID
+    const orderID = data.orderID
 
-    //cooking end time
+    const now = dayjs().tz(tz)
 
-    //calculate estWaitTime
+    const orderDoc = await ordersRef.doc(orderID).get()
+    const cookingStartTime = dayjs(orderDoc.data().cookingStartTime.toDate()).tz(tz)
 
-    //update menu item estWaitTime
+    const cookDuration = now.diff(cookingStartTime, 'minute')
+
+    //IF cookDuration are within limits
+    if (cookDuration > minCookDuration && cookDuration < maxCookDuration) {
+        const average = (cookDuration + orderDoc.data().estWaitTime) / 2
+
+        //update order
+        await ordersRef.doc(orderID).update({
+
+        })
+
+        //update item
+
+    }
 
     //TODO: send notification
 

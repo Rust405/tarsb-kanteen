@@ -10,7 +10,7 @@ import CancelOrderDialog from './CancelOrderDialog'
 import OrderIDDisplay from './OrderIDDisplay'
 
 import { useEffect, useState } from 'react'
-import { orderMarkClaimed, orderMarkReady, orderMarkUnclaimed, orderStartCooking } from '../../../utils/firebase'
+import { orderEndCooking, orderMarkClaimed, orderMarkReady, orderMarkUnclaimed, orderStartCooking } from '../../../utils/firebase'
 
 const StallOrderPreview = ({
     selectedOrder, setSelectedOrder,
@@ -113,8 +113,10 @@ const StallOrderPreview = ({
     }
 
     const handleEndCooking = () => {
-        alert("handleEndCooking")
-        //cloud function cuz end cook time and set estwaittime and send notification
+
+        const orderID = selectedOrder.id
+
+        orderEndCooking({ orderID: orderID })
     }
 
     const primaryOrderActionText = (order) => {
