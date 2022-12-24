@@ -61,9 +61,7 @@ const NavigationDrawer = ({
     const { pathname: pathName } = useLocation()
     const theme = useTheme()
 
-    const displayName = userInfo.displayName
-    const email = userInfo.email
-    const photoURL = userInfo.photoURL
+    const { displayName, email, photoURL } = userInfo
 
     let navOption
     if (userType === 'customer') {
