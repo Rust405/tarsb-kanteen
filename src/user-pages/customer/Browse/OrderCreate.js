@@ -146,7 +146,7 @@ const OrderCreate = ({
                 <Divider />
 
                 {selectedItems.length > 0 &&
-                    <div>
+                    <>
                         <Box sx={{ m: 2 }}>
                             {selectedItems.map(
                                 item => (
@@ -267,7 +267,7 @@ const OrderCreate = ({
                                 Clear Order
                             </Button>
                         </Stack>
-                    </div>
+                    </>
                 }
 
                 {

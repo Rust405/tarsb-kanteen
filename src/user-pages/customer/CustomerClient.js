@@ -162,7 +162,7 @@ const CustomerClient = ({ userInfo }) => {
                     {errMsgs.length > 1 ?
                         errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
                         :
-                        <div>{errMsgs[0]}</div>
+                        <Typography>{errMsgs[0]}</Typography>
                     }
                 </CUSTOMCOMPONENT.Alert>
             </Snackbar >

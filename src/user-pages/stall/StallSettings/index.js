@@ -146,7 +146,7 @@ const StallSettings = ({
         <div className="stall-settings">
             <Box sx={{ p: 2, width: "100%", maxWidth: "540px" }}>
                 <Stack spacing={2}>
-                    <div>
+                    <>
                         <Typography variant="h6" gutterBottom>Stall Status</Typography>
 
                         <Stack direction="row" alignItems="center" spacing={2}>
@@ -159,11 +159,11 @@ const StallSettings = ({
                                 The stall is now {stallSnapshot.status === 'open' ? "open and is accepting" : "closed and is not accepting"} orders.
                             </Typography>
                         </Stack>
-                    </div>
+                    </>
 
                     <Divider />
 
-                    <div>
+                    <>
                         <Typography variant="h6" gutterBottom>Stall Details {isEditing && "(Editing)"}</Typography>
 
                         <Stack spacing={2}>
@@ -239,7 +239,7 @@ const StallSettings = ({
                             }
 
                         </Stack>
-                    </div>
+                    </>
 
                     <Divider />
 

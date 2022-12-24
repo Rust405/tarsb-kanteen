@@ -127,7 +127,7 @@ const MenuItemCUD = ({
 
                 {/* Update Item Form */}
                 {selectedItem &&
-                    <div>
+                    <>
                         <Box display="flex" justifyContent="center">
                             <Typography variant="h6" align="center">Update<br />Menu Item Details</Typography>
                         </Box>
@@ -200,7 +200,7 @@ const MenuItemCUD = ({
                                 Delete Item
                             </Button>
                         </Stack>
-                    </div>
+                    </>
                 }
             </Box>
 

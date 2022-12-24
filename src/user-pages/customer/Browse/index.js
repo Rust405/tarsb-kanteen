@@ -214,150 +214,152 @@ const Browse = ({
             {stallsSnapshot && stallsSnapshot.length === 0 && <Typography sx={{ p: 2 }}>There are currently no stalls registered.</Typography>}
 
             {/* Have stalls */}
-            {stallsSnapshot && stallsSnapshot.length > 0 && selectedStall && <div>
-                {/* Stall Selector */}
-                <Box
-                    sx={{
-                        display: { xs: 'block', sm: 'flex' },
-                        borderBottom: '2px solid lightgray',
-                        p: 1,
-                        position: '-webkit-sticky',
-                        position: 'sticky',
-                        top: 0,
-                        backgroundColor: 'white',
-                        zIndex: 1
-                    }}
-                >
-                    {/* Stall select dropdown */}
-                    <Box sx={{ p: 1, width: '100%' }}>
-                        <FormControl fullWidth>
-                            <Select
-                                disabled={isValidating}
-                                MenuProps={{ sx: { "&& .Mui-selected": { borderLeft: `4px solid ${theme.palette.primary.main}` } } }}
-                                value={
-                                    stallsSnapshot.find(doc => doc.id === selectedStall.id) ? selectedStall.id : ''
-                                }
-                                onChange={e => {
-                                    setSelectedStall(stallsSnapshot.find(doc => doc.id === e.target.value))
-                                }}
-                                onClose={() => setTimeout(() => { document.activeElement.blur() }, 0)}
-                            >
-                                {stallsSnapshot.map(stallDoc =>
-                                    <MenuItem value={stallDoc.id} key={stallDoc.id}>{stallDoc.data().stallName}</MenuItem>
-                                )}
-                            </Select>
-                        </FormControl>
-                    </Box>
-
-                    {/* Stall Info */}
-                    <Box sx={{ p: 1, width: '100%' }}>
-                        <Typography>Status: <Box
-                            component="span"
-                            sx={{
-                                color: selectedStall.data().status === "open" ? 'green' : 'red',
-                                fontWeight: 'bold'
-                            }}>
-                            {capitalizeFirstLetter(selectedStall.data().status)}
+            {stallsSnapshot && stallsSnapshot.length > 0 && selectedStall &&
+                <>
+                    {/* Stall Selector */}
+                    <Box
+                        sx={{
+                            display: { xs: 'block', sm: 'flex' },
+                            borderBottom: '2px solid lightgray',
+                            p: 1,
+                            position: '-webkit-sticky',
+                            position: 'sticky',
+                            top: 0,
+                            backgroundColor: 'white',
+                            zIndex: 1
+                        }}
+                    >
+                        {/* Stall select dropdown */}
+                        <Box sx={{ p: 1, width: '100%' }}>
+                            <FormControl fullWidth>
+                                <Select
+                                    disabled={isValidating}
+                                    MenuProps={{ sx: { "&& .Mui-selected": { borderLeft: `4px solid ${theme.palette.primary.main}` } } }}
+                                    value={
+                                        stallsSnapshot.find(doc => doc.id === selectedStall.id) ? selectedStall.id : ''
+                                    }
+                                    onChange={e => {
+                                        setSelectedStall(stallsSnapshot.find(doc => doc.id === e.target.value))
+                                    }}
+                                    onClose={() => setTimeout(() => { document.activeElement.blur() }, 0)}
+                                >
+                                    {stallsSnapshot.map(stallDoc =>
+                                        <MenuItem value={stallDoc.id} key={stallDoc.id}>{stallDoc.data().stallName}</MenuItem>
+                                    )}
+                                </Select>
+                            </FormControl>
                         </Box>
-                        </Typography>
 
-                        <Stack direction="row" alignItems="center" >
-                            <Typography>Est. wait for new orders: {waitTime} min(s)</Typography>
-                            <IconButton onClick={updateWaitTime} >
-                                <RefreshIcon />
-                            </IconButton>
-                        </Stack>
+                        {/* Stall Info */}
+                        <Box sx={{ p: 1, width: '100%' }}>
+                            <Typography>Status: <Box
+                                component="span"
+                                sx={{
+                                    color: selectedStall.data().status === "open" ? 'green' : 'red',
+                                    fontWeight: 'bold'
+                                }}>
+                                {capitalizeFirstLetter(selectedStall.data().status)}
+                            </Box>
+                            </Typography>
+
+                            <Stack direction="row" alignItems="center" >
+                                <Typography>Est. wait for new orders: {waitTime} min(s)</Typography>
+                                <IconButton onClick={updateWaitTime} >
+                                    <RefreshIcon />
+                                </IconButton>
+                            </Stack>
+                        </Box>
                     </Box>
-                </Box>
 
-                {!menuSnapshot && <Typography sx={{ p: 2 }}>Loading menu items...</Typography>}
+                    {!menuSnapshot && <Typography sx={{ p: 2 }}>Loading menu items...</Typography>}
 
-                {menuSnapshot &&
-                    <Box sx={{ p: 2 }}>
-                        {/* No Menu */}
-                        {menuSnapshot.length === 0 && <Typography>No menu items found. This stall has not listed any menu items.</Typography>}
+                    {menuSnapshot &&
+                        <Box sx={{ p: 2 }}>
+                            {/* No Menu */}
+                            {menuSnapshot.length === 0 && <Typography>No menu items found. This stall has not listed any menu items.</Typography>}
 
-                        {/* Menu list */}
-                        {menuSnapshot.length > 0 &&
-                            <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}` } }} >
+                            {/* Menu list */}
+                            {menuSnapshot.length > 0 &&
+                                <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}` } }} >
 
-                                {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
-                                    < Divider textAlign='left'>Requires Waiting</Divider>
-                                }
+                                    {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
+                                        < Divider textAlign='left'>Requires Waiting</Divider>
+                                    }
 
-                                {menuSnapshot
-                                    .filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable)
-                                    .map(
-                                        doc => (
-                                            <ListItem key={doc.id}>
-                                                <ListItemButton
-                                                    disabled={isValidating}
-                                                    sx={CUSTOMSTYLE.itemStyle}
-                                                    selected={selectedItems.some(item => item.id === doc.id)}
-                                                    onClick={() => handleSelect(doc)}
-                                                >
-                                                    <ListItemText
-                                                        primary={doc.data().menuItemName + ` (est. ${doc.data().estWaitTime} min)`}
-                                                        secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                                    />
-                                                </ListItemButton>
-                                            </ListItem>
-                                        )
-                                    )}
+                                    {menuSnapshot
+                                        .filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable)
+                                        .map(
+                                            doc => (
+                                                <ListItem key={doc.id}>
+                                                    <ListItemButton
+                                                        disabled={isValidating}
+                                                        sx={CUSTOMSTYLE.itemStyle}
+                                                        selected={selectedItems.some(item => item.id === doc.id)}
+                                                        onClick={() => handleSelect(doc)}
+                                                    >
+                                                        <ListItemText
+                                                            primary={doc.data().menuItemName + ` (est. ${doc.data().estWaitTime} min)`}
+                                                            secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                        />
+                                                    </ListItemButton>
+                                                </ListItem>
+                                            )
+                                        )}
 
-                                {menuSnapshot.filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
-                                    <Divider textAlign='left'>Immediately Available</Divider>
-                                }
+                                    {menuSnapshot.filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
+                                        <Divider textAlign='left'>Immediately Available</Divider>
+                                    }
 
-                                {menuSnapshot
-                                    .filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable)
-                                    .map(
-                                        doc => (
-                                            <ListItem key={doc.id}>
-                                                <ListItemButton
-                                                    disabled={isValidating}
-                                                    sx={CUSTOMSTYLE.itemStyle}
-                                                    selected={selectedItems.some(item => item.id === doc.id)}
-                                                    onClick={() => handleSelect(doc)}
-                                                >
-                                                    <ListItemText
-                                                        primary={doc.data().menuItemName}
-                                                        secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                                    />
-                                                </ListItemButton>
-                                            </ListItem>
-                                        )
-                                    )}
+                                    {menuSnapshot
+                                        .filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable)
+                                        .map(
+                                            doc => (
+                                                <ListItem key={doc.id}>
+                                                    <ListItemButton
+                                                        disabled={isValidating}
+                                                        sx={CUSTOMSTYLE.itemStyle}
+                                                        selected={selectedItems.some(item => item.id === doc.id)}
+                                                        onClick={() => handleSelect(doc)}
+                                                    >
+                                                        <ListItemText
+                                                            primary={doc.data().menuItemName}
+                                                            secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                        />
+                                                    </ListItemButton>
+                                                </ListItem>
+                                            )
+                                        )}
 
-                                {menuSnapshot.filter(doc => !doc.data().isAvailable).length > 0 &&
-                                    <Divider textAlign='left'>Currently Unavailable</Divider>
-                                }
+                                    {menuSnapshot.filter(doc => !doc.data().isAvailable).length > 0 &&
+                                        <Divider textAlign='left'>Currently Unavailable</Divider>
+                                    }
 
-                                {menuSnapshot
-                                    .filter(doc => !doc.data().isAvailable)
-                                    .map(
-                                        doc => (
-                                            <ListItem key={doc.id}>
-                                                <ListItemButton
-                                                    disabled
-                                                    sx={CUSTOMSTYLE.itemStyle}
-                                                >
-                                                    <ListItemText
-                                                        primary={
-                                                            doc.data().menuItemName + ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
-                                                        }
-                                                        secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                                    />
-                                                </ListItemButton>
-                                            </ListItem>
-                                        )
-                                    )}
+                                    {menuSnapshot
+                                        .filter(doc => !doc.data().isAvailable)
+                                        .map(
+                                            doc => (
+                                                <ListItem key={doc.id}>
+                                                    <ListItemButton
+                                                        disabled
+                                                        sx={CUSTOMSTYLE.itemStyle}
+                                                    >
+                                                        <ListItemText
+                                                            primary={
+                                                                doc.data().menuItemName + ` ${doc.data().isRequireWaiting ? `(est. ${doc.data().estWaitTime} min)` : ''}`
+                                                            }
+                                                            secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                        />
+                                                    </ListItemButton>
+                                                </ListItem>
+                                            )
+                                        )}
 
-                            </List>
-                        }
-                    </Box>
-                }
-            </div>}
+                                </List>
+                            }
+                        </Box>
+                    }
+                </>
+            }
 
         </div >
     )

@@ -128,212 +128,213 @@ const Queue = ({
             <Box sx={{ p: 2 }}>
                 {!ordersSnapshot && <Box display="flex" justifyContent="center"><CircularProgress /></Box>}
 
-                {ordersSnapshot && <div>
-                    {/* No Orders */}
-                    {ordersSnapshot.length === 0 && <Typography>There are currently no orders to display.</Typography>}
+                {ordersSnapshot &&
+                    <>
+                        {/* No Orders */}
+                        {ordersSnapshot.length === 0 && <Typography>There are currently no orders to display.</Typography>}
 
-                    {/* Orders */}
-                    {ordersSnapshot.length > 0 &&
-                        <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}` } }} >
+                        {/* Orders */}
+                        {ordersSnapshot.length > 0 &&
+                            <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}` } }} >
 
-                            {/* Ready to claim */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Ready').length > 0 && < Divider textAlign='left'>Ready To Claim</Divider>}
+                                {/* Ready to claim */}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Ready').length > 0 && < Divider textAlign='left'>Ready To Claim</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Ready')
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <Tooltip title="Report Customer">
-                                            <IconButton
-                                                sx={{ m: '4px' }}
-                                                onClick={() => hanldeReportCustomer(doc)}>
-                                                <FlagIcon />
-                                            </IconButton>
-                                        </Tooltip>
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Ready')
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <Tooltip title="Report Customer">
+                                                <IconButton
+                                                    sx={{ m: '4px' }}
+                                                    onClick={() => hanldeReportCustomer(doc)}>
+                                                    <FlagIcon />
+                                                </IconButton>
+                                            </Tooltip>
 
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={doc.data().isPreOrder && `Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`}
-                                            />
-                                        </ListItemButton>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={doc.data().isPreOrder && `Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`}
+                                                />
+                                            </ListItemButton>
 
-                                    </ListItem>
-                                ))
-                            }
+                                        </ListItem>
+                                    ))
+                                }
 
-                            {/* Cooking */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cooking').length > 0 && < Divider textAlign='left'>In Kitchen</Divider>}
+                                {/* Cooking */}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cooking').length > 0 && < Divider textAlign='left'>In Kitchen</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Cooking')
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <Tooltip title="Report Customer">
-                                            <IconButton
-                                                sx={{ m: '4px' }}
-                                                onClick={() => hanldeReportCustomer(doc)}>
-                                                <FlagIcon />
-                                            </IconButton>
-                                        </Tooltip>
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Cooking')
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <Tooltip title="Report Customer">
+                                                <IconButton
+                                                    sx={{ m: '4px' }}
+                                                    onClick={() => hanldeReportCustomer(doc)}>
+                                                    <FlagIcon />
+                                                </IconButton>
+                                            </Tooltip>
 
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={
-                                                    doc.data().isPreOrder ?
-                                                        `Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`
-                                                        :
-                                                        orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))
-                                                }
-                                            />
-                                        </ListItemButton>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={
+                                                        doc.data().isPreOrder ?
+                                                            `Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`
+                                                            :
+                                                            orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))
+                                                    }
+                                                />
+                                            </ListItemButton>
 
-                                    </ListItem>
-                                ))
-                            }
+                                        </ListItem>
+                                    ))
+                                }
 
-                            {/* Regular orders/ Order Queue */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Main Order Queue</Divider>}
+                                {/* Regular orders/ Order Queue */}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Main Order Queue</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder)
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <Tooltip title="Report Customer">
-                                            <IconButton
-                                                sx={{ m: '4px' }}
-                                                onClick={() => hanldeReportCustomer(doc)}>
-                                                <FlagIcon />
-                                            </IconButton>
-                                        </Tooltip>
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder)
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <Tooltip title="Report Customer">
+                                                <IconButton
+                                                    sx={{ m: '4px' }}
+                                                    onClick={() => hanldeReportCustomer(doc)}>
+                                                    <FlagIcon />
+                                                </IconButton>
+                                            </Tooltip>
 
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))}
-                                            />
-                                        </ListItemButton>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))}
+                                                />
+                                            </ListItemButton>
 
-                                    </ListItem>
-                                ))
-                            }
+                                        </ListItem>
+                                    ))
+                                }
 
 
-                            {/* Pre-orders */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Pre-Orders</Divider>}
+                                {/* Pre-orders */}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>Pre-Orders</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder)
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <Tooltip title="Report Customer">
-                                            <IconButton
-                                                sx={{ m: '4px' }}
-                                                onClick={() => hanldeReportCustomer(doc)}>
-                                                <FlagIcon />
-                                            </IconButton>
-                                        </Tooltip>
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder)
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <Tooltip title="Report Customer">
+                                                <IconButton
+                                                    sx={{ m: '4px' }}
+                                                    onClick={() => hanldeReportCustomer(doc)}>
+                                                    <FlagIcon />
+                                                </IconButton>
+                                            </Tooltip>
 
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={`Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`}
-                                            />
-                                        </ListItemButton>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={`Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`}
+                                                />
+                                            </ListItemButton>
 
-                                    </ListItem>
-                                ))
-                            }
+                                        </ListItem>
+                                    ))
+                                }
 
-                            {/* Cancelled Orders*/}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cancelled').length > 0 && < Divider textAlign='left'>Cancelled</Divider>}
+                                {/* Cancelled Orders*/}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cancelled').length > 0 && < Divider textAlign='left'>Cancelled</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Cancelled')
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <Tooltip title="Report Customer">
-                                            <IconButton
-                                                sx={{ m: '4px' }}
-                                                onClick={() => hanldeReportCustomer(doc)}>
-                                                <FlagIcon />
-                                            </IconButton>
-                                        </Tooltip>
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Cancelled')
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <Tooltip title="Report Customer">
+                                                <IconButton
+                                                    sx={{ m: '4px' }}
+                                                    onClick={() => hanldeReportCustomer(doc)}>
+                                                    <FlagIcon />
+                                                </IconButton>
+                                            </Tooltip>
 
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={`Cancelled ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
-                                            />
-                                        </ListItemButton>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={`Cancelled ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
+                                                />
+                                            </ListItemButton>
 
-                                    </ListItem>
-                                ))
-                            }
+                                        </ListItem>
+                                    ))
+                                }
 
-                            {/* Unclaimed Orders*/}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Unclaimed').length > 0 && < Divider textAlign='left'>Unclaimed Orders</Divider>}
+                                {/* Unclaimed Orders*/}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Unclaimed').length > 0 && < Divider textAlign='left'>Unclaimed Orders</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Unclaimed')
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <Tooltip title="Report Customer">
-                                            <IconButton
-                                                sx={{ m: '4px' }}
-                                                onClick={() => hanldeReportCustomer(doc)}>
-                                                <FlagIcon />
-                                            </IconButton>
-                                        </Tooltip>
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Unclaimed')
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <Tooltip title="Report Customer">
+                                                <IconButton
+                                                    sx={{ m: '4px' }}
+                                                    onClick={() => hanldeReportCustomer(doc)}>
+                                                    <FlagIcon />
+                                                </IconButton>
+                                            </Tooltip>
 
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={`Unclaimed ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))
-                            }
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={`Unclaimed ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    ))
+                                }
 
-                        </List>
-                    }
+                            </List>
+                        }
 
-                    <ReportCustomerDialog
-                        stallID={stallID}
-                        reportData={reportData} setReportData={setReportData}
-                        openReportCustomer={openReportCustomer} setOpenReportCustomer={setOpenReportCustomer}
-                        isValidating={isValidating} setIsValidating={setIsValidating}
-                        setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
-                        setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
-                    />
+                        <ReportCustomerDialog
+                            stallID={stallID}
+                            reportData={reportData} setReportData={setReportData}
+                            openReportCustomer={openReportCustomer} setOpenReportCustomer={setOpenReportCustomer}
+                            isValidating={isValidating} setIsValidating={setIsValidating}
+                            setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                            setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
+                        />
 
-                </div>
+                    </>
                 }
 
             </Box >

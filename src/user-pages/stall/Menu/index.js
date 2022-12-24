@@ -101,123 +101,124 @@ const Menu = ({ stallID, selectedItem, setSelectedItem, isValidating }) => {
                 {/* Loading */}
                 {!menuSnapshot && <Box display="flex" justifyContent="center"><CircularProgress /></Box>}
 
-                {menuSnapshot && <div>
-                    {/* No Menu */}
-                    {menuSnapshot.length === 0 && <Typography>No menu items found. Start adding menu items with "Add New Item".</Typography>}
+                {menuSnapshot &&
+                    <>
+                        {/* No Menu */}
+                        {menuSnapshot.length === 0 && <Typography>No menu items found. Start adding menu items with "Add New Item".</Typography>}
 
-                    {/* Menu List */}
-                    {menuSnapshot.length > 0 &&
-                        <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}` } }}  >
-                            {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
-                                <Divider textAlign='left'>Requires Waiting</Divider>
-                            }
+                        {/* Menu List */}
+                        {menuSnapshot.length > 0 &&
+                            <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}` } }}  >
+                                {menuSnapshot.filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
+                                    <Divider textAlign='left'>Requires Waiting</Divider>
+                                }
 
-                            {menuSnapshot
-                                .filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable)
-                                .map(
-                                    doc => (
-                                        <ListItem key={doc.id}>
-                                            <ListItemButton
-                                                disabled={isValidating}
-                                                sx={CUSTOMSTYLE.itemStyle}
-                                                selected={selectedItem && selectedItem.id === doc.id}
-                                                onClick={() => handleSelect(doc)}
-                                            >
-                                                <ListItemText
-                                                    primary={doc.data().menuItemName}
-                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                                />
-                                            </ListItemButton>
+                                {menuSnapshot
+                                    .filter(doc => doc.data().isRequireWaiting && doc.data().isAvailable)
+                                    .map(
+                                        doc => (
+                                            <ListItem key={doc.id}>
+                                                <ListItemButton
+                                                    disabled={isValidating}
+                                                    sx={CUSTOMSTYLE.itemStyle}
+                                                    selected={selectedItem && selectedItem.id === doc.id}
+                                                    onClick={() => handleSelect(doc)}
+                                                >
+                                                    <ListItemText
+                                                        primary={doc.data().menuItemName}
+                                                        secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                    />
+                                                </ListItemButton>
 
-                                            <Stack
-                                                sx={toggleStyle}
-                                                alignItems="center"
-                                            >
-                                                <Switch
-                                                    disabled={disableSwitch === doc.id || isValidating}
-                                                    checked={doc.data().isAvailable}
-                                                    onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
-                                                />
-                                                <Typography variant="caption">{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
-                                            </Stack>
+                                                <Stack
+                                                    sx={toggleStyle}
+                                                    alignItems="center"
+                                                >
+                                                    <Switch
+                                                        disabled={disableSwitch === doc.id || isValidating}
+                                                        checked={doc.data().isAvailable}
+                                                        onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
+                                                    />
+                                                    <Typography variant="caption">{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
+                                                </Stack>
 
-                                        </ListItem>
-                                    )
-                                )}
+                                            </ListItem>
+                                        )
+                                    )}
 
-                            {menuSnapshot.filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
-                                < Divider textAlign='left'>Immediately Available</Divider>
-                            }
+                                {menuSnapshot.filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable).length > 0 &&
+                                    < Divider textAlign='left'>Immediately Available</Divider>
+                                }
 
-                            {menuSnapshot
-                                .filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable)
-                                .map(
-                                    doc => (
-                                        <ListItem key={doc.id}>
-                                            <ListItemButton
-                                                disabled={isValidating}
-                                                sx={CUSTOMSTYLE.itemStyle}
-                                                selected={selectedItem && selectedItem.id === doc.id}
-                                                onClick={() => handleSelect(doc)}>
-                                                <ListItemText
-                                                    primary={doc.data().menuItemName}
-                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                                />
-                                            </ListItemButton>
+                                {menuSnapshot
+                                    .filter(doc => !doc.data().isRequireWaiting && doc.data().isAvailable)
+                                    .map(
+                                        doc => (
+                                            <ListItem key={doc.id}>
+                                                <ListItemButton
+                                                    disabled={isValidating}
+                                                    sx={CUSTOMSTYLE.itemStyle}
+                                                    selected={selectedItem && selectedItem.id === doc.id}
+                                                    onClick={() => handleSelect(doc)}>
+                                                    <ListItemText
+                                                        primary={doc.data().menuItemName}
+                                                        secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                    />
+                                                </ListItemButton>
 
-                                            <Stack
-                                                sx={toggleStyle}
-                                                alignItems="center"
-                                            >
-                                                <Switch
-                                                    disabled={disableSwitch === doc.id || isValidating}
-                                                    checked={doc.data().isAvailable}
-                                                    onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
-                                                />
-                                                <Typography variant="caption">{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
-                                            </Stack>
-                                        </ListItem>
-                                    )
-                                )}
+                                                <Stack
+                                                    sx={toggleStyle}
+                                                    alignItems="center"
+                                                >
+                                                    <Switch
+                                                        disabled={disableSwitch === doc.id || isValidating}
+                                                        checked={doc.data().isAvailable}
+                                                        onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
+                                                    />
+                                                    <Typography variant="caption">{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
+                                                </Stack>
+                                            </ListItem>
+                                        )
+                                    )}
 
-                            {menuSnapshot.filter(doc => !doc.data().isAvailable).length > 0 &&
-                                <Divider textAlign='left'>Currently Unavailable</Divider>
-                            }
+                                {menuSnapshot.filter(doc => !doc.data().isAvailable).length > 0 &&
+                                    <Divider textAlign='left'>Currently Unavailable</Divider>
+                                }
 
-                            {menuSnapshot
-                                .filter(doc => !doc.data().isAvailable)
-                                .map(
-                                    doc => (
-                                        <ListItem key={doc.id}>
-                                            <ListItemButton
-                                                disabled={isValidating}
-                                                sx={CUSTOMSTYLE.itemStyle}
-                                                selected={selectedItem && selectedItem.id === doc.id}
-                                                onClick={() => handleSelect(doc)}>
-                                                <ListItemText
-                                                    primary={doc.data().menuItemName}
-                                                    secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
-                                                />
-                                            </ListItemButton>
+                                {menuSnapshot
+                                    .filter(doc => !doc.data().isAvailable)
+                                    .map(
+                                        doc => (
+                                            <ListItem key={doc.id}>
+                                                <ListItemButton
+                                                    disabled={isValidating}
+                                                    sx={CUSTOMSTYLE.itemStyle}
+                                                    selected={selectedItem && selectedItem.id === doc.id}
+                                                    onClick={() => handleSelect(doc)}>
+                                                    <ListItemText
+                                                        primary={doc.data().menuItemName}
+                                                        secondary={currency(doc.data().price).format({ symbol: 'RM ' })}
+                                                    />
+                                                </ListItemButton>
 
-                                            <Stack
-                                                sx={toggleStyle}
-                                                alignItems="center"
-                                            >
-                                                <Switch
-                                                    disabled={disableSwitch === doc.id || isValidating}
-                                                    checked={doc.data().isAvailable}
-                                                    onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
-                                                />
-                                                <Typography variant="caption">{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
-                                            </Stack>
-                                        </ListItem>
-                                    )
-                                )}
+                                                <Stack
+                                                    sx={toggleStyle}
+                                                    alignItems="center"
+                                                >
+                                                    <Switch
+                                                        disabled={disableSwitch === doc.id || isValidating}
+                                                        checked={doc.data().isAvailable}
+                                                        onChange={() => handleAvailabilityToggle(doc.id, doc.data().isAvailable)}
+                                                    />
+                                                    <Typography variant="caption">{doc.data().isAvailable ? "Available" : "Unavailable"}</Typography>
+                                                </Stack>
+                                            </ListItem>
+                                        )
+                                    )}
 
-                        </List>
-                    }
-                </div>}
+                            </List>
+                        }
+                    </>}
 
             </Box >
         </div >

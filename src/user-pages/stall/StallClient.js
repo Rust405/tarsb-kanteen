@@ -6,6 +6,7 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import CircularProgress from '@mui/material/CircularProgress'
 import Snackbar from '@mui/material/Snackbar'
+import Typography from '@mui/material/Typography'
 
 import ApplicationBar from '../../app-components/ApplicationBar'
 import NavigationDrawer from '../../app-components/NavigationDrawer'
@@ -192,7 +193,7 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
                     {errMsgs.length > 1 ?
                         errMsgs.map((errMsg, i) => <Typography key={i}>{`• ${errMsg}`}</Typography>)
                         :
-                        <div>{errMsgs[0]}</div>
+                        <Typography>{errMsgs[0]}</Typography>
                     }
                 </CUSTOMCOMPONENT.Alert>
             </Snackbar >

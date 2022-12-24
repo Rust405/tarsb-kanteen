@@ -38,7 +38,7 @@ const CustOrderPreview = ({
                 }
 
                 {selectedOrder &&
-                    <div>
+                    <>
                         <Box display="flex" justifyContent="center">
                             <Typography variant="h6" align="center">Order<br />Preview</Typography>
                         </Box>
@@ -109,7 +109,7 @@ const CustOrderPreview = ({
                         <OrderIDDisplay
                             orderID={selectedOrder.id}
                             openIDDisplay={openIDDisplay} setOpenIDDisplay={setOpenIDDisplay} />
-                    </div>
+                    </>
                 }
             </Box>
 

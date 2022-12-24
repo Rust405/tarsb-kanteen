@@ -103,182 +103,183 @@ const MyOrders = ({
             <Box sx={{ p: 2 }}>
                 {!ordersSnapshot && <Box display="flex" justifyContent="center"><CircularProgress /></Box>}
 
-                {ordersSnapshot && <div>
-                    {/* No Orders */}
-                    {ordersSnapshot.length === 0 && <Typography>You have not placed any orders.</Typography>}
+                {ordersSnapshot &&
+                    <>
+                        {/* No Orders */}
+                        {ordersSnapshot.length === 0 && <Typography>You have not placed any orders.</Typography>}
 
-                    {/* Orders */}
-                    {ordersSnapshot.length > 0 &&
-                        <List sx={{
-                            '&& .Mui-selected': {
-                                borderLeft: `4px solid ${theme.palette.primary.main}`
-                            }
-                        }} >
+                        {/* Orders */}
+                        {ordersSnapshot.length > 0 &&
+                            <List sx={{
+                                '&& .Mui-selected': {
+                                    borderLeft: `4px solid ${theme.palette.primary.main}`
+                                }
+                            }} >
 
-                            {/* Ready for pickup */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Ready').length > 0 && < Divider textAlign='left'>Ready To Claim</Divider>}
+                                {/* Ready for pickup */}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Ready').length > 0 && < Divider textAlign='left'>Ready To Claim</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Ready')
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={`${doc.data().isPreOrder ? 'Pre-Order' : 'Order'} ready to claim at \"${doc.data().stallName}\"`}
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))
-                            }
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Ready')
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={`${doc.data().isPreOrder ? 'Pre-Order' : 'Order'} ready to claim at \"${doc.data().stallName}\"`}
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    ))
+                                }
 
-                            {/* Cooking */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cooking').length > 0 && < Divider textAlign='left'>In Kitchen</Divider>}
+                                {/* Cooking */}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cooking').length > 0 && < Divider textAlign='left'>In Kitchen</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Cooking')
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={
-                                                    doc.data().isPreOrder ?
-                                                        `Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`
-                                                        :
-                                                        orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))
-                                                }
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))
-                            }
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Cooking')
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={
+                                                        doc.data().isPreOrder ?
+                                                            `Scheduled for pickup on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`
+                                                            :
+                                                            orderStatusString(dayjs(doc.data().estCmpltTimestamp.toDate()))
+                                                    }
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    ))
+                                }
 
-                            {/* Placed Regular orders */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>My Regular Orders</Divider>}
+                                {/* Placed Regular orders */}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>My Regular Orders</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder)
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={
-                                                    orderStatusString(
-                                                        dayjs(doc.data().estCmpltTimestamp.toDate()),
-                                                        doc.data().stallName
-                                                    )
-                                                }
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))
-                            }
-
-
-                            {/* Placed Pre-orders */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>My Pre-Orders</Divider>}
-
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder)
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={
-                                                    `Pickup at \"${doc.data().stallName}\" on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`
-                                                }
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))
-                            }
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Placed' && !doc.data().isPreOrder)
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={
+                                                        orderStatusString(
+                                                            dayjs(doc.data().estCmpltTimestamp.toDate()),
+                                                            doc.data().stallName
+                                                        )
+                                                    }
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    ))
+                                }
 
 
-                            {/* Completed Orders */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Completed').length > 0 && < Divider textAlign='left'>Completed</Divider>}
+                                {/* Placed Pre-orders */}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder).length > 0 && < Divider textAlign='left'>My Pre-Orders</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Completed')
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={`Completed ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))
-                            }
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Placed' && doc.data().isPreOrder)
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={
+                                                        `Pickup at \"${doc.data().stallName}\" on ${dayjs(doc.data().pickupTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}`
+                                                    }
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    ))
+                                }
 
 
-                            {/* Cancelled Orders */}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cancelled').length > 0 && < Divider textAlign='left'>Cancelled</Divider>}
+                                {/* Completed Orders */}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Completed').length > 0 && < Divider textAlign='left'>Completed</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Cancelled')
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={`Cancelled ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))
-                            }
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Completed')
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={`Completed ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    ))
+                                }
 
-                            {/* Unclaimed Orders*/}
-                            {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Unclaimed').length > 0 && < Divider textAlign='left'>Unclaimed Orders</Divider>}
 
-                            {ordersSnapshot
-                                .filter(doc => doc.data().orderStatus === 'Unclaimed')
-                                .map(doc => (
-                                    <ListItem key={doc.id}>
-                                        <ListItemButton
-                                            sx={CUSTOMSTYLE.itemStyle}
-                                            selected={selectedOrder && selectedOrder.id === doc.id}
-                                            onClick={() => { handleSelect(doc) }}
-                                        >
-                                            <ListItemText
-                                                primary={shortOrderString(doc.data().orderItems)}
-                                                secondary={`Unclaimed ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))
-                            }
-                        </List>
-                    }
-                </div>
+                                {/* Cancelled Orders */}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Cancelled').length > 0 && < Divider textAlign='left'>Cancelled</Divider>}
+
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Cancelled')
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={`Cancelled ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    ))
+                                }
+
+                                {/* Unclaimed Orders*/}
+                                {ordersSnapshot.filter(doc => doc.data().orderStatus === 'Unclaimed').length > 0 && < Divider textAlign='left'>Unclaimed Orders</Divider>}
+
+                                {ordersSnapshot
+                                    .filter(doc => doc.data().orderStatus === 'Unclaimed')
+                                    .map(doc => (
+                                        <ListItem key={doc.id}>
+                                            <ListItemButton
+                                                sx={CUSTOMSTYLE.itemStyle}
+                                                selected={selectedOrder && selectedOrder.id === doc.id}
+                                                onClick={() => { handleSelect(doc) }}
+                                            >
+                                                <ListItemText
+                                                    primary={shortOrderString(doc.data().orderItems)}
+                                                    secondary={`Unclaimed ${doc.data().isPreOrder ? 'Pre-Order' : 'Order'}`}
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    ))
+                                }
+                            </List>
+                        }
+                    </>
                 }
 
             </Box >

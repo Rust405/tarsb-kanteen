@@ -33,19 +33,19 @@ import { useTheme } from '@mui/material/styles'
 const drawerWidth = 240
 
 const customer = {
-    pages: ['My Orders', 'Browse', 'Settings & Info'],
+    pageName: ['My Orders', 'Browse', 'Settings & Info'],
     icons: [<FastfoodIcon />, <MenuBookIcon />, <SettingsIcon />],
     links: [ROUTE.CUSTOMER.MYORDERS, ROUTE.CUSTOMER.BROWSE, ROUTE.CUSTOMER.USERSETTINGS]
 }
 
 const stallOwner = {
-    pages: ['Queue', 'Menu', 'Stall', 'Generate Summary', 'Settings & Info'],
+    pageName: ['Queue', 'Menu', 'Stall', 'Generate Summary', 'Settings & Info'],
     icons: [<ListAltIcon />, <MenuBookIcon />, <StorefrontIcon />, <PrintIcon />, <SettingsIcon />],
     links: [ROUTE.STALL.QUEUE, ROUTE.STALL.MENU, ROUTE.STALL.STALLSETTINGS, ROUTE.STALL.GENERATESUMMARY, ROUTE.STALL.USERSETTINGS]
 }
 
 const stallStaff = {
-    pages: ['Queue', 'Menu', 'Generate Summary', 'Settings & Info'],
+    pageName: ['Queue', 'Menu', 'Generate Summary', 'Settings & Info'],
     icons: [<ListAltIcon />, <MenuBookIcon />, <PrintIcon />, <SettingsIcon />],
     links: [ROUTE.STALL.QUEUE, ROUTE.STALL.MENU, ROUTE.STALL.GENERATESUMMARY, ROUTE.STALL.USERSETTINGS]
 }
@@ -77,30 +77,31 @@ const NavigationDrawer = ({
     const handleOpenLogout = () => setOpenCollapse(!openCollapse)
 
     const drawer = (
-        <div>
+        <>
             <Toolbar />
             <Box sx={{ overflow: 'auto' }}>
                 <List sx={{ '&& .Mui-selected': { borderLeft: `4px solid ${theme.palette.primary.main}`, } }}>
-                    {userType === 'stallUser' && <div>
-                        <Box sx={{ m: 1 }} display="flex" justifyContent="center">
-                            {stallStatus ?
-                                <Typography>Stall is currently  <Box
-                                    component="span"
-                                    sx={{
-                                        color: stallStatus === "open" ? 'green' : 'red',
-                                        fontWeight: 'bold'
-                                    }}>
-                                    {stallStatus}
-                                </Box>
-                                </Typography>
-                                :
-                                <Typography>Loading...</Typography>}
-                        </Box>
-                        <Divider />
-                    </div>
+                    {userType === 'stallUser' &&
+                        <>
+                            <Box sx={{ m: 1 }} display="flex" justifyContent="center">
+                                {stallStatus ?
+                                    <Typography>Stall is currently  <Box
+                                        component="span"
+                                        sx={{
+                                            color: stallStatus === "open" ? 'green' : 'red',
+                                            fontWeight: 'bold'
+                                        }}>
+                                        {stallStatus}
+                                    </Box>
+                                    </Typography>
+                                    :
+                                    <Typography>Loading...</Typography>}
+                            </Box>
+                            <Divider />
+                        </>
                     }
 
-                    {navOption.pages.map(
+                    {navOption.pageName.map(
                         (page, index) => (
                             <ListItem key={index} disablePadding>
                                 <ListItemButton
@@ -150,7 +151,7 @@ const NavigationDrawer = ({
                     </Collapse>
                 </List>
             </Box>
-        </div >)
+        </>)
 
     return (
         <div className="navigation-drawer">
