@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import Snackbar from '@mui/material/Snackbar'
-
 import Login from './Login'
 import Loading from './Loading'
 
@@ -35,12 +33,6 @@ function App() {
     }
   }, [])
 
-  //Snackbar log in success
-  const [openSnack, setOpenSnack] = useState(false)
-  const handleCloseSnack = (event, reason) => {
-    if (reason === 'clickaway') return
-    setOpenSnack(false)
-  }
 
   //user constants
   const [user, loading] = useAuthState(auth)
@@ -61,13 +53,15 @@ function App() {
     }
 
     createUserIfNotExists(user)
+
     setIsFetchingUserType(true)
+
     fetchUserType()
       .then(fetchedUserType => {
         setUserType(fetchedUserType)
         setIsFetchingUserType(false)
-        setOpenSnack(true)
       })
+
   }, [user])
 
 
@@ -132,15 +126,6 @@ function App() {
           staffRole={staffRole}
           stallID={stallID}
           userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />
-      }
-
-      {/* Logged In Snackbar */}
-      {user && userType &&
-        <Snackbar open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} >
-          <CUSTOMCOMPONENT.Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
-            Logged in with {user.email}
-          </CUSTOMCOMPONENT.Alert>
-        </Snackbar>
       }
 
     </div >
