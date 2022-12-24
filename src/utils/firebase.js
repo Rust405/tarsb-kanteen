@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app"
 import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, updateDoc, connectFirestoreEmulator, deleteDoc } from "firebase/firestore"
 import { getAuth, GoogleAuthProvider, signOut, signInWithRedirect } from "firebase/auth"
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions"
-import { getMessaging, getToken, onMessage } from "firebase/messaging"
+import { getMessaging, getToken } from "firebase/messaging"
 
 const useEmulators = true //set to true when testing, otherwise set to false in production
 
@@ -15,6 +15,8 @@ const firebaseConfig = {
   appId: '1:1003054218699:web:050c22fd2ec953898aca4e',
   measurementId: 'G-NPEZ8SK1Y4'
 }
+
+const vapidKey = 'BDOXep7kAlQRWJAXvdFjxXTLlydcHT0lVlv2HwVHATUJ8wqOef9rFkQf4AJgHHO94CacKMAWHXqKQUHI8hK7UcI'
 
 const app = initializeApp(firebaseConfig)
 
@@ -29,19 +31,19 @@ const functions = getFunctions(app, "asia-southeast1")
 
 const messaging = getMessaging(app)
 
-export const requestToken = async (setTokenFound, showRequestSnack) => {
-  return getToken(messaging, { vapidKey: 'BDOXep7kAlQRWJAXvdFjxXTLlydcHT0lVlv2HwVHATUJ8wqOef9rFkQf4AJgHHO94CacKMAWHXqKQUHI8hK7UcI' })
+export const requestFCMToken = async (setTokenFound, showRequestSnack) => {
+  return getToken(messaging, { vapidKey: vapidKey })
     .then(currentToken => {
       if (currentToken) {
         setTokenFound(true)
-        console.log("token", currentToken)
+        // console.log("token", currentToken)
         return
       }
 
       setTokenFound(false)
       showRequestSnack()
     })
-    .catch(err => {
+    .catch(() => {
       setTokenFound(false)
       showRequestSnack()
     })
@@ -141,4 +143,4 @@ export const customerCancelOrder = httpsCallable(functions, 'customerFunctions-c
 
 //[END Customer functions]
 
-export { db, auth }
+export { db, auth, messaging }

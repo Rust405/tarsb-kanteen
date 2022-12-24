@@ -25,8 +25,9 @@ import NotFound from '../../error-pages/NotFound'
 import StallOrderPreview from './Queue/StallOrderPreview'
 import MenuItemCUD from './Menu/MenuItemCUD'
 
-import { db, auth, logout, requestToken } from '../../utils/firebase'
+import { db, auth, logout, requestFCMToken, messaging } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
+import { onMessage } from 'firebase/messaging'
 
 import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
 
@@ -45,7 +46,7 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
         const unsubscribe = onSnapshot(stallDocRef, doc =>
             setStallSnapshot(doc.data())
         )
-        return () => unsubscribe()
+        return unsubscribe
     }, [])
 
     //immediately logout user if removed from stall or stall is unregistered
@@ -99,8 +100,15 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
 
     useEffect(() => {
         setIsFetchingToken(true)
-        requestToken(setTokenFound, showRequestSnack)
+        requestFCMToken(setTokenFound, showRequestSnack)
             .then(setIsFetchingToken(false))
+
+        const unsubMsg = onMessage(messaging, payload => {
+            console.log("title", payload.notification.title)
+            console.log("body", payload.notification.body)
+        })
+
+        return unsubMsg
     }, [])
 
     return (

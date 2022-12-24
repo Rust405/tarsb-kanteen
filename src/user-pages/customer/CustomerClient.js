@@ -24,7 +24,8 @@ import CustOrderPreview from './MyOrders/CustOrderPreview'
 import OrderCreate from './Browse/OrderCreate'
 
 import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
-import { requestToken } from '../../utils/firebase'
+import { messaging, requestFCMToken } from '../../utils/firebase'
+import { onMessage } from 'firebase/messaging'
 
 const CustomerClient = ({ userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
@@ -75,9 +76,17 @@ const CustomerClient = ({ userInfo }) => {
 
     useEffect(() => {
         setIsFetchingToken(true)
-        requestToken(setTokenFound, showRequestSnack)
+        requestFCMToken(setTokenFound, showRequestSnack)
             .then(setIsFetchingToken(false))
+
+        const unsubMsg = onMessage(messaging, payload => {
+            console.log("title", payload.notification.title)
+            console.log("body", payload.notification.body)
+        })
+
+        return unsubMsg
     }, [])
+
 
     return (
         <div className="customer-client">
