@@ -10,10 +10,16 @@ const drawerBleeding = 56
 
 const MultiPurposeSidebar = ({
     sidebarOpen,
-    handleSidebarToggle,
+    setSidebarOpen,
     drawerContent,
     bleedMsg
 }) => {
+
+    const handleSidebarToggle = (e) => {
+        if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
+        setSidebarOpen(!sidebarOpen)
+    }
+
     return (
         <div className="order-preview">
             {/* Desktop Drawer */}

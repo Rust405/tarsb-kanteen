@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
@@ -29,15 +29,8 @@ const CustomerClient = ({ userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
-    const handleDrawerToggle = (e) => {
-        if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
-        setNavOpen(!navOpen)
-    }
-
-    const handleSidebarToggle = (e) => {
-        if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
-        setSidebarOpen(!sidebarOpen)
-    }
+    const { pathname } = useLocation()
+    useEffect(() => setSidebarOpen(false), [pathname])
 
     //Error snackbar
     const [openErrSnack, setOpenErrSnack] = useState(false)
@@ -77,13 +70,12 @@ const CustomerClient = ({ userInfo }) => {
                 <CssBaseline />
 
                 <div className="application-bar">
-                    <ApplicationBar handleDrawerToggle={handleDrawerToggle} />
+                    <ApplicationBar navOpen={navOpen} setNavOpen={setNavOpen} />
                 </div>
 
                 <div className="navigation-drawer">
                     <NavigationDrawer
-                        navOpen={navOpen}
-                        handleDrawerToggle={handleDrawerToggle}
+                        navOpen={navOpen} setNavOpen={setNavOpen}
                         userType={'customer'}
                         userInfo={userInfo}
                     />
@@ -115,8 +107,7 @@ const CustomerClient = ({ userInfo }) => {
                         <Route path={ROUTE.CUSTOMER.MYORDERS}
                             element={
                                 <MultiPurposeSidebar
-                                    sidebarOpen={sidebarOpen}
-                                    handleSidebarToggle={handleSidebarToggle}
+                                    sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}
                                     drawerContent={
                                         <CustOrderPreview
                                             selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder}
@@ -131,8 +122,7 @@ const CustomerClient = ({ userInfo }) => {
                         <Route path={ROUTE.CUSTOMER.BROWSE}
                             element={
                                 <MultiPurposeSidebar
-                                    sidebarOpen={sidebarOpen}
-                                    handleSidebarToggle={handleSidebarToggle}
+                                    sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}
                                     drawerContent={
                                         <OrderCreate selectedItems={selectedItems} setSelectedItems={setSelectedItems} selectedStall={selectedStall}
                                             isValidating={isValidating} setIsValidating={setIsValidating}

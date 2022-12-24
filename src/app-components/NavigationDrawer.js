@@ -52,7 +52,7 @@ const stallStaff = {
 
 const NavigationDrawer = ({
     navOpen,
-    handleDrawerToggle,
+    setNavOpen,
     userType,
     staffRole,
     stallStatus,
@@ -62,6 +62,11 @@ const NavigationDrawer = ({
     const theme = useTheme()
 
     const { displayName, email, photoURL } = userInfo
+
+    const handleDrawerToggle = (e) => {
+        if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
+        setNavOpen(!navOpen)
+    }
 
     let navOption
     if (userType === 'customer') {

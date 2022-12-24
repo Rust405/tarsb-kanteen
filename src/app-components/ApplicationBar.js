@@ -10,10 +10,13 @@ import { useLocation } from 'react-router-dom'
 const pageName = ['My Orders', 'Browse', 'Settings & Info', 'Queue', 'Menu', 'Stall', 'Generate Summary', 'Settings & Info']
 const links = [ROUTE.CUSTOMER.MYORDERS, ROUTE.CUSTOMER.BROWSE, ROUTE.CUSTOMER.USERSETTINGS, ROUTE.STALL.QUEUE, ROUTE.STALL.MENU, ROUTE.STALL.STALLSETTINGS, ROUTE.STALL.GENERATESUMMARY, ROUTE.STALL.USERSETTINGS]
 
-const ApplicationBar = ({ handleDrawerToggle }) => {
+const ApplicationBar = ({ navOpen, setNavOpen }) => {
   const { pathname: pathName } = useLocation()
 
-
+  const handleDrawerToggle = (e) => {
+    if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
+    setNavOpen(!navOpen)
+  }
 
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>

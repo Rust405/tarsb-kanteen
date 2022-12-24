@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
@@ -34,15 +34,8 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
-    const handleDrawerToggle = (e) => {
-        if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
-        setNavOpen(!navOpen)
-    }
-
-    const handleSidebarToggle = (e) => {
-        if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
-        setSidebarOpen(!sidebarOpen)
-    }
+    const { pathname } = useLocation()
+    useEffect(() => setSidebarOpen(false), [pathname])
 
     const stallDocRef = doc(db, "stalls", stallID)
 
@@ -95,13 +88,12 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
                 <CssBaseline />
 
                 <div className="application-bar">
-                    <ApplicationBar handleDrawerToggle={handleDrawerToggle} />
+                    <ApplicationBar navOpen={navOpen} setNavOpen={setNavOpen} />
                 </div>
 
                 <div className="navigation-drawer">
                     <NavigationDrawer
-                        navOpen={navOpen}
-                        handleDrawerToggle={handleDrawerToggle}
+                        navOpen={navOpen} setNavOpen={setNavOpen}
                         userType={'stallUser'}
                         staffRole={staffRole}
                         stallStatus={stallSnapshot ? stallSnapshot.status : null}
@@ -144,8 +136,7 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
                         <Route path={ROUTE.STALL.QUEUE}
                             element={
                                 <MultiPurposeSidebar
-                                    sidebarOpen={sidebarOpen}
-                                    handleSidebarToggle={handleSidebarToggle}
+                                    sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}
                                     drawerContent={
                                         < StallOrderPreview
                                             selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder}
@@ -160,8 +151,7 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
                         <Route path={ROUTE.STALL.MENU}
                             element={
                                 <MultiPurposeSidebar
-                                    sidebarOpen={sidebarOpen}
-                                    handleSidebarToggle={handleSidebarToggle}
+                                    sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}
                                     drawerContent={
                                         <MenuItemCUD
                                             selectedItem={selectedItem}
