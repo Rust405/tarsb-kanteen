@@ -29,18 +29,20 @@ const functions = getFunctions(app, "asia-southeast1")
 
 const messaging = getMessaging(app)
 
-export const requestToken = (setTokenFound) => {
+export const requestToken = async (setTokenFound, showRequestSnack) => {
   return getToken(messaging, { vapidKey: process.env.REACT_APP_FIREBASE_VAPID_KEY })
-    .then((currentToken) => {
+    .then(currentToken => {
       if (currentToken) {
-        console.log('current token for client: ', currentToken)
         setTokenFound(true)
-      } else {
-        console.log('No registration token available. Request permission to generate one.')
-        setTokenFound(false)
+        return
       }
-    }).catch((err) => {
-      console.log('An error occurred while retrieving token. ', err);
+
+      setTokenFound(false)
+      showRequestSnack()
+    })
+    .catch(err => {
+      setTokenFound(false)
+      showRequestSnack()
     })
 }
 

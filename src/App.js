@@ -11,7 +11,7 @@ import CustomerClient from './user-pages/customer/CustomerClient'
 import StallClient from './user-pages/stall/StallClient'
 import NewStallUser from './user-pages/stall/NewStallUser'
 
-import { ROUTE, CUSTOMCOMPONENT } from './constants'
+import { ROUTE } from './constants'
 
 import Offline from './error-pages/Offline'
 
@@ -61,7 +61,6 @@ function App() {
         setUserType(fetchedUserType)
         setIsFetchingUserType(false)
       })
-
   }, [user])
 
 
@@ -128,7 +127,7 @@ function App() {
           userInfo={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }} />
       }
 
-    </div >
+    </div>
   )
 }
 

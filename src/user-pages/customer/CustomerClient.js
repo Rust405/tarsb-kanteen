@@ -19,11 +19,12 @@ import CustomerUserSettings from './CustomerUserSettings'
 
 import NotFound from '../../error-pages/NotFound'
 
-import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
-
 //sidebar
 import CustOrderPreview from './MyOrders/CustOrderPreview'
 import OrderCreate from './Browse/OrderCreate'
+
+import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
+import { requestToken } from '../../utils/firebase'
 
 const CustomerClient = ({ userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
@@ -64,6 +65,20 @@ const CustomerClient = ({ userInfo }) => {
     //MYORDERS page
     const [selectedOrder, setSelectedOrder] = useState(null)
 
+    // FCM / Push Notification
+    const [isTokenFound, setTokenFound] = useState(false)
+    const [isFetchingToken, setIsFetchingToken] = useState(false)
+    const showRequestSnack = () => {
+        setInfoMsg('Please allow notifications to receive push notifications on orders.')
+        setOpenInfoSnack(true)
+    }
+
+    useEffect(() => {
+        setIsFetchingToken(true)
+        requestToken(setTokenFound, showRequestSnack)
+            .then(setIsFetchingToken(false))
+    }, [])
+
     return (
         <div className="customer-client">
             <Box sx={{ display: 'flex' }}>
@@ -96,7 +111,7 @@ const CustomerClient = ({ userInfo }) => {
                                         isValidating={isValidating}
                                     />}
                             />
-                            <Route path={ROUTE.CUSTOMER.USERSETTINGS} element={<CustomerUserSettings />} />
+                            <Route path={ROUTE.CUSTOMER.USERSETTINGS} element={<CustomerUserSettings isTokenFound={isTokenFound} isFetchingToken={isFetchingToken} />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </Box>
@@ -163,6 +178,7 @@ const CustomerClient = ({ userInfo }) => {
                     {infoMsg}
                 </CUSTOMCOMPONENT.Alert>
             </Snackbar >
+
         </div>)
 }
 

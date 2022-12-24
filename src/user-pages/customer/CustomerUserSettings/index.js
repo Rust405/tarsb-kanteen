@@ -7,19 +7,16 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-const CustomerUserSettings = () => {
+const CustomerUserSettings = ({ isTokenFound, isFetchingToken }) => {
     return (
         <div className="user-settings">
             <Box sx={{ p: 2, maxWidth: "768px" }}>
                 <Typography variant="h6">Settings</Typography>
-                <Typography>
-                    Settings Setting Settings Settings Settings Setting Settings Settings Settings Setting Settings Settings
-                    Settings Setting Settings Settings Settings Setting Settings Settings Settings Setting Settings Settings
-                    Settings Setting Settings Settings Settings Setting Settings Settings Settings Setting Settings Settings
-                    Settings Setting Settings Settings Settings Setting Settings Settings Settings Setting Settings Settings
-                </Typography>
 
-
+                {!isFetchingToken &&
+                    <Typography>{`Notifications are ${isTokenFound ? 'enabled' : 'disabled'}.`}</Typography>
+                }
+                
                 <Typography variant="h6">Info</Typography>
 
                 <Accordion>

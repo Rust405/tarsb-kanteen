@@ -25,7 +25,7 @@ import NotFound from '../../error-pages/NotFound'
 import StallOrderPreview from './Queue/StallOrderPreview'
 import MenuItemCUD from './Menu/MenuItemCUD'
 
-import { db, auth, logout } from '../../utils/firebase'
+import { db, auth, logout, requestToken } from '../../utils/firebase'
 import { doc, onSnapshot } from "firebase/firestore"
 
 import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
@@ -58,6 +58,13 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
         }
     }, [stallSnapshot])
 
+    //Info snackbar
+    const [openInfoSnack, setOpenInfoSnack] = useState(false)
+    const [infoMsg, setInfoMsg] = useState('')
+    const handleCloseInfoSnack = (event, reason) => {
+        if (reason === 'clickaway') return
+        setOpenInfoSnack(false)
+    }
 
     //Error snackbar
     const [openErrSnack, setOpenErrSnack] = useState(false)
@@ -81,6 +88,20 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
 
     //QUEUE PAGE
     const [selectedOrder, setSelectedOrder] = useState(null)
+
+    // FCM / Push Notification
+    const [isTokenFound, setTokenFound] = useState(false)
+    const [isFetchingToken, setIsFetchingToken] = useState(false)
+    const showRequestSnack = () => {
+        setInfoMsg('Please allow notifications to receive push notifications on orders.')
+        setOpenInfoSnack(true)
+    }
+
+    useEffect(() => {
+        setIsFetchingToken(true)
+        requestToken(setTokenFound, showRequestSnack)
+            .then(setIsFetchingToken(false))
+    }, [])
 
     return (
         <div className="stall-client">
@@ -117,7 +138,7 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
                             } />
                             <Route path={ROUTE.STALL.MENU} element={<Menu stallID={stallID} selectedItem={selectedItem} setSelectedItem={setSelectedItem} isValidating={isValidating} />} />
                             <Route path={ROUTE.STALL.GENERATESUMMARY} element={<GenerateSummary />} />
-                            <Route path={ROUTE.STALL.USERSETTINGS} element={<StallUserSettings />} />
+                            <Route path={ROUTE.STALL.USERSETTINGS} element={<StallUserSettings isTokenFound={isTokenFound} isFetchingToken={isFetchingToken} />} />
                             {staffRole === 'owner' &&
                                 <Route
                                     path={ROUTE.STALL.STALLSETTINGS}
@@ -185,6 +206,13 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
                         :
                         <Typography>{errMsgs[0]}</Typography>
                     }
+                </CUSTOMCOMPONENT.Alert>
+            </Snackbar >
+
+            {/* Info Snackbar */}
+            < Snackbar open={openInfoSnack} autoHideDuration={5000} onClose={handleCloseInfoSnack} >
+                <CUSTOMCOMPONENT.Alert onClose={handleCloseInfoSnack} severity="info" sx={{ width: '100%' }}>
+                    {infoMsg}
                 </CUSTOMCOMPONENT.Alert>
             </Snackbar >
         </div >
