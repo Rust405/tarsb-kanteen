@@ -11,7 +11,8 @@ const drawerBleeding = 56
 const MultiPurposeSidebar = ({
     sidebarOpen,
     handleSidebarToggle,
-    drawerContent
+    drawerContent,
+    bleedMsg
 }) => {
     return (
         <div className="order-preview">
@@ -87,7 +88,7 @@ const MultiPurposeSidebar = ({
                             left: 'calc(50% - 15px)'
                         }}
                     />
-                    <Typography sx={{ p: 2, color: 'white' }}>TODO:</Typography>
+                    <Typography sx={{ p: 2, color: 'white' }}>{bleedMsg}</Typography>
                 </Box>
 
                 {/* Sidebar content */}

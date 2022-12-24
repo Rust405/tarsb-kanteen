@@ -153,6 +153,7 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
                                             setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
                                         />
                                     }
+                                    bleedMsg={selectedOrder ? 'Order Selected' : 'No Order Selected'}
                                 />}
                         />
                         <Route path={ROUTE.STALL.MENU}
@@ -169,6 +170,7 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
                                             setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
                                         />
                                     }
+                                    bleedMsg={selectedItem ? 'Item Selected' : 'No Item Selected'}
                                 />}
                         />
                         <Route path='*' element={<></>} />

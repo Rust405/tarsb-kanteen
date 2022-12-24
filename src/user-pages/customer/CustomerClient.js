@@ -125,6 +125,7 @@ const CustomerClient = ({ userInfo }) => {
                                             setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
                                         />
                                     }
+                                    bleedMsg={selectedOrder ? 'Order Selected' : 'No Order Selected'}
                                 />}
                         />
                         <Route path={ROUTE.CUSTOMER.BROWSE}
@@ -138,6 +139,7 @@ const CustomerClient = ({ userInfo }) => {
                                             setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
                                             setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg} />
                                     }
+                                    bleedMsg={`${(selectedItems.length > 0 ? selectedItems.length : 'No')} Item(s) Selected`}
                                 />}
                         />
                         <Route path='*' element={<></>} />
