@@ -17,12 +17,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 
-export const db = getFirestore(app)
+const db = getFirestore(app)
 
 const provider = new GoogleAuthProvider()
 provider.setCustomParameters({ prompt: 'select_account' })
 
-export const auth = getAuth()
+const auth = getAuth()
 
 const functions = getFunctions(app, "asia-southeast1")
 
@@ -120,4 +120,4 @@ export const customerCancelOrder = httpsCallable(functions, 'customerFunctions-c
 
 //[END Customer functions]
 
-
+export { db, auth }
