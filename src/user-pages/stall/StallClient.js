@@ -31,6 +31,9 @@ import { onMessage } from 'firebase/messaging'
 
 import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 const StallClient = ({ staffRole, stallID, userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -104,8 +107,12 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
             .then(setIsFetchingToken(false))
 
         const unsubMsg = onMessage(messaging, payload => {
-            console.log("title", payload.notification.title)
-            console.log("body", payload.notification.body)
+            toast.info(
+                <>
+                    <Typography sx={{ fontWeight: 'bold' }}>{payload.notification.title}</Typography>
+                    <Typography>{payload.notification.body}</Typography>
+                </>
+            )
         })
 
         return unsubMsg
@@ -223,6 +230,9 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
                     {infoMsg}
                 </CUSTOMCOMPONENT.Alert>
             </Snackbar >
+
+            {/* Push Notifications */}
+            <ToastContainer position="top-center" />
         </div >
     )
 }

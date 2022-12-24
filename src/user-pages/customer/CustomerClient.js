@@ -27,6 +27,9 @@ import { ROUTE, CUSTOMCOMPONENT } from '../../constants'
 import { messaging, requestFCMToken } from '../../utils/firebase'
 import { onMessage } from 'firebase/messaging'
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 const CustomerClient = ({ userInfo }) => {
     const [navOpen, setNavOpen] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -80,8 +83,12 @@ const CustomerClient = ({ userInfo }) => {
             .then(setIsFetchingToken(false))
 
         const unsubMsg = onMessage(messaging, payload => {
-            console.log("title", payload.notification.title)
-            console.log("body", payload.notification.body)
+            toast.info(
+                <>
+                    <Typography sx={{ fontWeight: 'bold' }}>{payload.notification.title}</Typography>
+                    <Typography>{payload.notification.body}</Typography>
+                </>
+            )
         })
 
         return unsubMsg
@@ -188,6 +195,8 @@ const CustomerClient = ({ userInfo }) => {
                 </CUSTOMCOMPONENT.Alert>
             </Snackbar >
 
+            {/* Push Notifications */}
+            <ToastContainer position="top-center" />
         </div>)
 }
 
