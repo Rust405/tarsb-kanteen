@@ -54,12 +54,12 @@ function App() {
   const [isNewStallUser, setIsNewStallUser] = useState(false)
 
   useEffect(() => {
-    if (user) {
-      authenticateUser()
-    } else {
+    if (!user) {
       setUserType(null)
       setStaffRole(null)
+      return
     }
+    authenticateUser()
   }, [user])
 
   function authenticateUser() {
@@ -137,8 +137,8 @@ function App() {
       }
 
       {/* Logged In Snackbar */}
-      {user && userType && staffRole &&
-        <Snackbar open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack} >
+      {user && userType &&
+        <Snackbar open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} >
           <CUSTOMCOMPONENT.Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
             Logged in with {user.email}
           </CUSTOMCOMPONENT.Alert>

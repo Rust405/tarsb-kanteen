@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app"
 import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, updateDoc, connectFirestoreEmulator, deleteDoc } from "firebase/firestore"
 import { getAuth, GoogleAuthProvider, signOut, signInWithRedirect } from "firebase/auth"
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions"
+import { getMessaging, getToken, onMessage } from "firebase/messaging"
 
 const useEmulators = true //set to true when testing, otherwise set to false in production
 
@@ -25,6 +26,23 @@ provider.setCustomParameters({ prompt: 'select_account' })
 const auth = getAuth()
 
 const functions = getFunctions(app, "asia-southeast1")
+
+const messaging = getMessaging(app)
+
+export const requestToken = (setTokenFound) => {
+  return getToken(messaging, { vapidKey: process.env.REACT_APP_FIREBASE_VAPID_KEY })
+    .then((currentToken) => {
+      if (currentToken) {
+        console.log('current token for client: ', currentToken)
+        setTokenFound(true)
+      } else {
+        console.log('No registration token available. Request permission to generate one.')
+        setTokenFound(false)
+      }
+    }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+    })
+}
 
 //emulators
 if (useEmulators) {
