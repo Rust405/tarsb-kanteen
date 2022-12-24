@@ -37,7 +37,6 @@ const CustomDialogTitle = ({ children, onClose, ...other }) => {
             {children}
             {onClose ? (
                 <IconButton
-                    aria-label="close"
                     onClick={onClose}
                     sx={{
                         position: 'absolute',
@@ -119,7 +118,7 @@ const RegisterStallDialog = ({ openDialog, setOpenDialog }) => {
 
     return (
         <div className="register-stall-dialog">
-            <CustomDialog onClose={handleCloseDialog} aria-labelledby="register-dialog-title" open={openDialog} >
+            <CustomDialog onClose={handleCloseDialog} open={openDialog} >
 
                 <CustomDialogTitle id="register-dialog-title" onClose={handleCloseDialog}>Register Stall</CustomDialogTitle>
 

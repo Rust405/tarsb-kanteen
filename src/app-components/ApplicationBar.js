@@ -11,7 +11,6 @@ const ApplicationBar = ({ handleDrawerToggle }) => {
       <Toolbar>
         <IconButton
           color="inherit"
-          aria-label="open drawer"
           edge="start"
           onClick={handleDrawerToggle}
           onKeyDown={handleDrawerToggle}
@@ -24,7 +23,12 @@ const ApplicationBar = ({ handleDrawerToggle }) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">TARSB Kanteen</Typography>
+
+        {/* Desktop Title */}
+        <Typography variant="h6" component="div" sx={{ display: { xs: 'none', sm: 'block' } }}>TARSB Kanteen</Typography>
+
+        {/* Mobile Title */}
+        <Typography variant="h6" component="div" sx={{ display: { xs: 'block', sm: 'none' } }}>Test</Typography>
       </Toolbar>
     </AppBar>
   )

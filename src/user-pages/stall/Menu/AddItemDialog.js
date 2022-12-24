@@ -34,7 +34,6 @@ const CustomDialogTitle = ({ children, onClose, ...other }) => {
             {children}
             {onClose ? (
                 <IconButton
-                    aria-label="close"
                     onClick={onClose}
                     sx={{
                         position: 'absolute',
@@ -105,7 +104,7 @@ const AddItemDialog = ({
 
     return (
         <div className="add-item-dialog">
-            <CustomDialog onClose={handleCloseDialog} aria-labelledby="register-dialog-title" open={openNewItemDialog} >
+            <CustomDialog onClose={handleCloseDialog} open={openNewItemDialog} >
 
                 <CustomDialogTitle id="register-dialog-title" onClose={handleCloseDialog}>Add New Menu Item</CustomDialogTitle>
 
