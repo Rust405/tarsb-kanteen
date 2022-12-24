@@ -9,8 +9,17 @@ const firebaseConfig = {
     messagingSenderId: '1003054218699',
     appId: '1:1003054218699:web:050c22fd2ec953898aca4e',
     measurementId: 'G-NPEZ8SK1Y4'
-  }
+}
 
 firebase.initializeApp(firebaseConfig)
 
 const messaging = firebase.messaging()
+
+messaging.onBackgroundMessage(payload => {
+    const notificationTitle = payload.notification.title
+    const notificationOptions = {
+        body: payload.notification.body,
+    }
+
+    self.registration.showNotification(notificationTitle, notificationOptions)
+})
