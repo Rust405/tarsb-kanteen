@@ -103,7 +103,7 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
 
                 <div className="main-content" style={{ width: '100%' }}>
                     <Toolbar />
-                    <Box component="main" sx={{ flexGrow: 1, overflow: 'auto', maxHeight: 'calc(100vh - 80px)' }}>
+                    <Box component="main" sx={{ flexGrow: 1, overflow: 'auto', height: { xs: 'calc(100vh - 56px - 56px)', sm: 'calc(100vh - 64px)' } }}>
                         <Routes>
                             <Route exact path="/" element={<CircularProgress />} />
                             <Route path={ROUTE.STALL.QUEUE} element={
