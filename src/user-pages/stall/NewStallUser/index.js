@@ -16,10 +16,11 @@ import RegisterStallDialog from './RegisterStallDialog'
 
 import { CUSTOMCOMPONENT } from '../../../constants'
 
+const stallRegCode = 'Kanteen2022' //can be improved
+
 const NewStallUser = ({ setIsNewStallUser, email }) => {
     const navigate = useNavigate()
 
-    const stallRegCode = process.env.REACT_APP_STALL_REG_CODE
     const [regCodeInput, setRegCodeInput] = useState('')
 
     useEffect(() => {
