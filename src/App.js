@@ -42,27 +42,24 @@ function App() {
     setOpenSnack(false)
   }
 
-  //user variables
+  //user constants
   const [user, loading] = useAuthState(auth)
   const [userType, setUserType] = useState(null)
   const [isFetchingUserType, setIsFetchingUserType] = useState(false)
 
-  //stall avariables
+  //stall constants
   const [stallID, setStallID] = useState(false)
   const [staffRole, setStaffRole] = useState(null)
   const [isSearchingStaff, setIsSearchingStaff] = useState(false)
   const [isNewStallUser, setIsNewStallUser] = useState(false)
 
-  useEffect(() => {
+  useEffect(function authenticateUser() {
     if (!user) {
       setUserType(null)
       setStaffRole(null)
       return
     }
-    authenticateUser()
-  }, [user])
 
-  function authenticateUser() {
     createUserIfNotExists(user)
     setIsFetchingUserType(true)
     fetchUserType()
@@ -71,7 +68,8 @@ function App() {
         setIsFetchingUserType(false)
         setOpenSnack(true)
       })
-  }
+  }, [user])
+
 
   async function fetchUserType() {
     let tokenResult = await auth.currentUser.getIdTokenResult()
