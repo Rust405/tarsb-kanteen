@@ -72,8 +72,7 @@ export const createUserIfNotExists = async (user) => {
   if (!docSnap.exists()) {
     setDoc(docRef, {
       email: user.email,
-      name: user.displayName,
-      reminderTiming: 10
+      name: user.displayName
     })
   }
 }

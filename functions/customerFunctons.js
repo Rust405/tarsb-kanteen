@@ -12,10 +12,14 @@ const earliestOrder = '07:00'
 const latestOrder = '17:00'
 const tz = 'Asia/Singapore'
 
+const reminderCron = '* 6-17 * * 1-5' //run every minute from 6am-5pm on weekdays
+const reminderMin = 10 //minutes, before pickuptime to remind about pre-order 
+
 const db = getFirestore()
 const usersRef = db.collection('users')
 const stallsRef = db.collection('stalls')
 const ordersRef = db.collection('orders')
+const remindersRef = db.collection('reminders')
 
 function isWeekend(date) {
     return date.day() === 0 || date.day() === 6
@@ -184,11 +188,27 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
             title: `A new ${isPreOrder ? 'pre-order' : 'order'} has been created.`,
             body: `New ${isPreOrder ? 'pre-order' : 'order'} created with ID: #${res.id}`
         }
-        sendNotification(order.stallID, notificationData)
+        sendToStall(order.stallID, notificationData)
+
+        //IF pre-order, create remidner doc
+        if (isPreOrder) { createPreorderReminder(res.id, order.customerID, order.stallID, order.pickupTimestamp) }
     }
 
     return { success: isSuccess, message: messageArray }
 })
+
+async function createPreorderReminder(orderID, customerID, stallID, pickupTimestamp) {
+    let pickup = dayjs(pickupTimestamp.toDate())
+    let reminderTimestamp = pickup.subtract(reminderMin, 'minute')
+
+    await remindersRef.add({
+        orderID: orderID,
+        customerID: customerID,
+        stallID: stallID,
+        pickupTimestamp, pickupTimestamp,
+        reminderTimestamp: Timestamp.fromDate(reminderTimestamp.toDate())
+    })
+}
 
 exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (data, context) => {
     verifyCustomer(context.auth.token)
@@ -239,13 +259,21 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
             title: `An order was cancelled by the customer.`,
             body: `Order #${orderID} has been cancelled.`
         }
-        sendNotification(orderDoc.data().stallID, notificationData)
+        sendToStall(orderDoc.data().stallID, notificationData)
+
+        //IF Preorder, remove reminder
+        if (orderDoc.data().isPreOrder) {
+            remindersRef.where("orderID", "==", orderID).get()
+                .then(reminder => {
+                    remindersRef.doc(reminder.id).delete()
+                })
+        }
     }
 
     return { success: isSuccess, message: messageArray }
 })
 
-async function sendNotification(stallID, notificationData) {
+async function sendToStall(stallID, notificationData) {
     const stallDoc = await stallsRef.doc(stallID).get()
 
     const ownerEmail = stallDoc.data().ownerEmail
@@ -256,7 +284,7 @@ async function sendNotification(stallID, notificationData) {
     //add ownerEmail fcmToken
     const ownerSnap = await usersRef.where("email", "==", ownerEmail).get()
     const ownerTokens = ownerSnap.docs[0].data().fcmTokens
-    if (ownerTokens && staffTokens.length > 0) {
+    if (ownerTokens && ownerTokens.length > 0) {
         fcmTokens = fcmTokens.concat(ownerTokens)
     }
 
@@ -287,3 +315,53 @@ async function sendNotification(stallID, notificationData) {
             console.log('Error sending message:', error)
         })
 }
+
+async function sendToCustomer(receiverUID, notificationData) {
+    const userDoc = await usersRef.doc(receiverUID).get()
+
+    const fcmTokens = userDoc.data().fcmTokens
+    if (!fcmTokens && fcmTokens.length < 0) {
+        console.log("fcmTokens not found.")
+        return
+    }
+
+    const message = {
+        data: notificationData,
+        tokens: fcmTokens
+    }
+
+    getMessaging().sendMulticast(message)
+        .then((response) => {
+            console.log('Successfully sent message:', response)
+        })
+        .catch((error) => {
+            console.log('Error sending message:', error)
+        })
+}
+
+exports.sendReminderNotification = functions.region('asia-southeast1').pubsub.schedule(reminderCron).timeZone('Asia/Singapore').onRun(async (context) => {
+    const unsentReminders = await remindersRef
+        .where("reminderTimestamp", "<=", Timestamp.now())
+        .get()
+
+    if (!unsentReminders.empty) {
+        unsentReminders.forEach(async unsentReminder => {
+            const stallReminder = {
+                title: `Reminder: Cook Pre-order #${unsentReminder.data().orderID}.`,
+                body: `Scheduled for pickup at ${dayjs(unsentReminder.data().reminderTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}.`
+            }
+            sendToStall(unsentReminder.data().stallID, stallReminder)
+
+            const customerReminder = {
+                title: `Reminder: Pick up Pre-order #${unsentReminder.data().orderID}.`,
+                body: `Scheduled for pickup at ${dayjs(unsentReminder.data().reminderTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}.`
+            }
+            sendToCustomer(unsentReminder.data().customerID, customerReminder)
+
+            await remindersRef.doc(unsentReminder.id).delete()
+        })
+    }
+
+
+    return null
+})

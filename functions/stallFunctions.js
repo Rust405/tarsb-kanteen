@@ -21,6 +21,7 @@ const usersRef = db.collection('users')
 const stallsRef = db.collection('stalls')
 const reportsRef = db.collection('reports')
 const ordersRef = db.collection('orders')
+const remindersRef = db.collection('reminders')
 
 function verifyStallUser(token) {
     if (token.userType !== 'stallUser') {
@@ -453,7 +454,15 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
             title: `Your order has been cancelled by the stall.`,
             body: `Reason: ${remarkStall}`
         }
-        sendNotification(orderDoc.data().customerID, notificationData)
+        sendToCustomer(orderDoc.data().customerID, notificationData)
+
+        //IF Preorder, remove reminder
+        if (orderDoc.data().isPreOrder) {
+            remindersRef.where("orderID", "==", orderID).get()
+                .then(reminder => {
+                    remindersRef.doc(reminder.id).delete()
+                })
+        }
     }
 
     return { success: isSuccess, message: messageArray }
@@ -475,7 +484,7 @@ exports.orderMarkReady = functions.region('asia-southeast1').https.onCall(async 
         title: `Your order is ready.`,
         body: `Order #${orderID} is ready to claim.`
     }
-    sendNotification(orderDoc.data().customerID, notificationData)
+    sendToCustomer(orderDoc.data().customerID, notificationData)
 })
 
 exports.orderStartCooking = functions.region('asia-southeast1').https.onCall(async (data, context) => {
@@ -495,7 +504,7 @@ exports.orderStartCooking = functions.region('asia-southeast1').https.onCall(asy
         title: `Your order is in the kitchen.`,
         body: `Order #${orderID} has started cooking.`
     }
-    sendNotification(orderDoc.data().customerID, notificationData)
+    sendToCustomer(orderDoc.data().customerID, notificationData)
 })
 
 exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async (data, context) => {
@@ -529,7 +538,7 @@ exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async
         title: `Your order is ready to claim.`,
         body: `Order #${orderID} is ready to claim.`
     }
-    sendNotification(orderDoc.data().customerID, notificationData)
+    sendToCustomer(orderDoc.data().customerID, notificationData)
 })
 
 exports.updateRemarkStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
@@ -560,13 +569,13 @@ exports.updateRemarkStall = functions.region('asia-southeast1').https.onCall(asy
             title: `The stall has updated your order's stall remark.`,
             body: `Order #${orderID} has its remark updated.`
         }
-        sendNotification(orderDoc.data().customerID, notificationData)
+        sendToCustomer(orderDoc.data().customerID, notificationData)
     }
 
     return { success: isSuccess, message: messageArray }
 })
 
-async function sendNotification(receiverUID, notificationData) {
+async function sendToCustomer(receiverUID, notificationData) {
     const userDoc = await usersRef.doc(receiverUID).get()
 
     const fcmTokens = userDoc.data().fcmTokens
