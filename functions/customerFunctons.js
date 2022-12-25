@@ -228,6 +228,8 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
     //Cancel order
     if (isSuccess) {
         await ordersRef.doc(orderID).update({ orderStatus: 'Cancelled' })
+
+         //TODO: send notification
     }
 
     return { success: isSuccess, message: messageArray }

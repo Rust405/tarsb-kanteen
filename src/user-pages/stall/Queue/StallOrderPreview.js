@@ -198,7 +198,7 @@ const StallOrderPreview = ({
                                     Customer Remark: {remarkString(selectedOrder.data.remarkCustomer)}
                                 </Typography>
                                 <Typography variant="caption">
-                                    Stall Remark: {remarkString(selectedOrder.data.remarkCustomer)}
+                                    Stall Remark: {remarkString(selectedOrder.data.remarkStall)}
                                 </Typography>
                             </Stack>
                         </Box>

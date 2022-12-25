@@ -1,6 +1,7 @@
 const functions = require('firebase-functions')
 const firebase_tools = require('firebase-tools')
 const { getFirestore, Timestamp } = require('firebase-admin/firestore')
+const { getMessaging } = require('firebase-admin/messaging')
 
 const dayjs = require('dayjs')
 const utc = require("dayjs/plugin/utc")
@@ -16,6 +17,7 @@ const minCookDuration = 3 //minutes (Maggi recommendation), if cook duration is 
 const maxCookDuration = 15 //minutes (Average for stir fry dishes), if cook duration is greater than this, estWaitTime is not changed
 
 const db = getFirestore()
+const usersRef = db.collection('users')
 const stallsRef = db.collection('stalls')
 const reportsRef = db.collection('reports')
 const ordersRef = db.collection('orders')
@@ -444,7 +446,13 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
 
     //Cancel order
     if (isSuccess) {
-        await ordersRef.doc(orderID).update({ orderStatus: 'Cancelled' })
+        await ordersRef.doc(orderID).update({ orderStatus: 'Cancelled', remarkStall: remarkStall })
+
+        const notification = {
+            title: `Your order has been cancelled by the stall.`,
+            body: `Order #${orderID} has been cancelled.`
+        }
+        sendNotification(orderDoc.data().customerID, notification)
     }
 
     return { success: isSuccess, message: messageArray }
@@ -507,3 +515,24 @@ exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async
     //TODO: send notification
 
 })
+
+async function sendNotification(receiverUID, notification) {
+    const userDoc = await usersRef.doc(receiverUID).get()
+
+    if (userDoc.exists) {
+        const fcmToken = userDoc.data().fcmToken
+
+        const message = {
+            notification: notification,
+            token: fcmToken
+        }
+
+        getMessaging().send(message)
+            .then((response) => {
+                console.log('Successfully sent message:', response)
+            })
+            .catch((error) => {
+                console.log('Error sending message:', error)
+            })
+    }
+}

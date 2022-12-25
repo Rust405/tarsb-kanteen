@@ -4,7 +4,7 @@ import { getAuth, GoogleAuthProvider, signOut, signInWithRedirect } from "fireba
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions"
 import { getMessaging, getToken } from "firebase/messaging"
 
-const useEmulators = true //set to true when testing, otherwise set to false in production
+const useEmulators = false //set to true when testing, otherwise set to false in production
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCZ4QPFiT_rsNCDdTJlqEL0P0-d0zzEo_Q',
@@ -33,10 +33,13 @@ const messaging = getMessaging(app)
 
 export const requestFCMToken = async (setTokenFound, showRequestSnack) => {
   return getToken(messaging, { vapidKey: vapidKey })
-    .then(currentToken => {
-      if (currentToken) {
+    .then(fcmToken => {
+      if (fcmToken) {
         setTokenFound(true)
-        // console.log("token", currentToken)
+
+        const userRef = doc(db, "users", auth.currentUser.uid)
+        updateDoc(userRef, { fcmToken: fcmToken })
+
         return
       }
 
