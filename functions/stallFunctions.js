@@ -416,7 +416,7 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
     let messageArray = []
 
     let orderID = data.orderID
-    let remarkStall = data.remarkStall
+    let remarkStall = data.remarkStall.trim()
 
     //IF order doesn't exist, RETURN early
     const orderDoc = await ordersRef.doc(orderID).get()
@@ -463,12 +463,18 @@ exports.orderMarkReady = functions.region('asia-southeast1').https.onCall(async 
 
     const orderID = data.orderID
 
-    await ordersRef.doc(orderID).update({
+    const orderRef = ordersRef.doc(orderID)
+    const orderDoc = await orderRef.get()
+
+    await orderRef.update({
         orderStatus: 'Ready'
     })
 
-    //TODO: send notification
-
+    const notification = {
+        title: `Your order is ready.`,
+        body: `Order #${orderID} is ready to claim.`
+    }
+    sendNotification(orderDoc.data().customerID, notification)
 })
 
 exports.orderStartCooking = functions.region('asia-southeast1').https.onCall(async (data, context) => {
@@ -476,13 +482,19 @@ exports.orderStartCooking = functions.region('asia-southeast1').https.onCall(asy
 
     const orderID = data.orderID
 
-    await ordersRef.doc(orderID).update({
+    const orderRef = ordersRef.doc(orderID)
+    const orderDoc = await orderRef.get()
+
+    await orderRef.update({
         cookingStartTime: Timestamp.now(),
         orderStatus: 'Cooking'
     })
 
-    //TODO: send notification
-
+    const notification = {
+        title: `Your order is in the kitchen.`,
+        body: `Order #${orderID} has started cooking.`
+    }
+    sendNotification(orderDoc.data().customerID, notification)
 })
 
 exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async (data, context) => {
@@ -512,8 +524,11 @@ exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async
         menuRef.doc(waitingItem.id).update({ estWaitTime: newEstWaitTime })
     }
 
-    //TODO: send notification
-
+    const notification = {
+        title: `Your order is ready to claim.`,
+        body: `Order #${orderID} is ready to claim.`
+    }
+    sendNotification(orderDoc.data().customerID, notification)
 })
 
 async function sendNotification(receiverUID, notification) {

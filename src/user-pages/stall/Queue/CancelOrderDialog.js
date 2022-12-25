@@ -30,7 +30,7 @@ const CancelOrderDialog = ({
         setIsValidating(true)
         setOpenErrSnack(false)
 
-        stallCancelOrder({ orderID: orderID, remarkStall: remarkStall })
+        stallCancelOrder({ orderID: orderID, remarkStall: remarkStall.trim() })
             .then(result => {
                 let response = result.data
                 if (response.success) {

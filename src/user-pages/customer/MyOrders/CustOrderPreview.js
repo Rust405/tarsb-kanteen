@@ -19,7 +19,7 @@ const CustOrderPreview = ({
 }) => {
 
     const remarkString = (remark) => {
-        return remark !== '' ? remark : '-'
+        return remark.length > 0 ? remark : '-'
     }
 
     const [openCancel, setOpenCancel] = useState(false)
