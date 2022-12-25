@@ -51,7 +51,7 @@ const MultiPurposeSidebar = ({
                 open={sidebarOpen}
                 onOpen={handleSidebarToggle}
                 onClose={handleSidebarToggle}
-                swipeAreaWidth={drawerBleeding}
+                swipeAreaWidth={sidebarOpen ? 0 : drawerBleeding}
                 disableSwipeToOpen={false}
                 ModalProps={{
                     keepMounted: true
