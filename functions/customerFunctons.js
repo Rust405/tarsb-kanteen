@@ -181,8 +181,8 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         messageArray.push(res.id)
 
         const notificationData = {
-            title: `A new order has been created.`,
-            body: `New order created with ID: #${res.id}`
+            title: `A new ${isPreOrder ? 'pre-order' : 'order'} has been created.`,
+            body: `New ${isPreOrder ? 'pre-order' : 'order'} created with ID: #${res.id}`
         }
         sendNotification(order.stallID, notificationData)
     }
