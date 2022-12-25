@@ -11,7 +11,7 @@ const Loading = ({ loadingMsg }) => {
                 transform: 'translate(-50%, -50%)'
             }}>
                 <Stack alignItems="center" spacing={2}>
-                    <Typography variant="body">{loadingMsg}</Typography>
+                    <Typography align="center" variant="body">{loadingMsg}</Typography>
                     <CircularProgress />
                 </Stack>
 

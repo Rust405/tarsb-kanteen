@@ -21,7 +21,7 @@ const Login = () => {
                 position: 'absolute', left: '50%', top: '50%',
                 transform: 'translate(-50%, -50%)'
             }}>
-                <Stack spacing={3}>
+                <Stack alignItems="center" spacing={3}>
                     <Typography variant='h2' align='center' sx={{ fontWeight: 'bold' }}>TARSB<br />Kanteen</Typography>
                     <Typography variant='body' align='center'>Log in with your Google account to get started!</Typography>
                     <Stack direction='row' alignItems='center' spacing={1}>

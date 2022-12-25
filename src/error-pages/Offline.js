@@ -11,7 +11,7 @@ const Offline = () => {
                 transform: 'translate(-50%, -50%)'
             }}>
                 <Stack alignItems="center" spacing={2}>
-                    <Typography variant="boduy">You are offline.</Typography>
+                    <Typography align="center" variant="boduy">You are offline.</Typography>
                     <CloudOffIcon />
                 </Stack>
             </Box>
