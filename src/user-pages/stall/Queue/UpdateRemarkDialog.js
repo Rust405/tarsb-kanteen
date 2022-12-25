@@ -64,6 +64,7 @@ const UpdateRemarkDialog = ({
                         </Typography>
 
                         <TextField
+                            inputProps={{ maxLength: 50 }}
                             multiline
                             rows={2}
                             label="New Stall Remark"

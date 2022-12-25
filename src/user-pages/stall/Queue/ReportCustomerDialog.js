@@ -77,6 +77,7 @@ const ReportCustomerDialog = ({
                         </Typography>
 
                         <TextField
+                            inputProps={{ maxLength: 150 }}
                             multiline
                             rows={2}
                             label="Reason (required)"

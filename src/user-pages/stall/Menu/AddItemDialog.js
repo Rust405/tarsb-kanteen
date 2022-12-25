@@ -111,7 +111,7 @@ const AddItemDialog = ({
                 <DialogContent dividers>
                     <Stack spacing={2}>
                         <TextField label="Item Name" value={itemName} disabled={isValidating}
-                            onChange={e => setItemName(e.target.value)} autoComplete='off' />
+                            onChange={e => setItemName(e.target.value)} autoComplete='off' inputProps={{ maxLength: 30 }} />
 
                         <CurrencyInput label="Item Price" autoComplete='off' customInput={TextField} disabled={isValidating}
                             value={itemPrice}

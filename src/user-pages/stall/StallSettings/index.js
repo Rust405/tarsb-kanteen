@@ -167,7 +167,7 @@ const StallSettings = ({
                         <Typography variant="h6" gutterBottom>Stall Details {isEditing && "(Editing)"}</Typography>
 
                         <Stack spacing={2}>
-                            <TextField label="Stall Name" size="small" autoComplete='off'
+                            <TextField inputProps={{ maxLength: 30 }} label="Stall Name" size="small" autoComplete='off'
                                 value={stallName} onChange={e => setStallName(e.target.value)} disabled={!isEditing || isValidating} />
 
                             <Typography>Staff Emails ({staffEmails.length === 0 ? "None" : staffEmails.length}) </Typography>

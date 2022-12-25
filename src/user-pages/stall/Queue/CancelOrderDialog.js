@@ -64,10 +64,11 @@ const CancelOrderDialog = ({
                             Once the order is cancelled, it cannot be undone.
                             A reason for cancellation is required, it will be viewed by the customer as a stall remark.
                         </Typography>
-                        
+
                         <Typography>(Existing stall remark will be overwritten)</Typography>
 
                         <TextField
+                            inputProps={{ maxLength: 50 }}
                             multiline
                             rows={2}
                             label="Reason (required)"

@@ -133,7 +133,7 @@ const MenuItemCUD = ({
                         </Box>
 
                         <Stack sx={{ m: 2 }} spacing={2}>
-                            <TextField label="Item Name" value={itemName} disabled={isValidating || !isEditing}
+                            <TextField inputProps={{ maxLength: 30}} label="Item Name" value={itemName} disabled={isValidating || !isEditing}
                                 onChange={e => setItemName(e.target.value)} autoComplete='off' />
 
                             <CurrencyInput label="Item Price" autoComplete='off' customInput={TextField} disabled={isValidating || !isEditing}
