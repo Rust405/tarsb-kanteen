@@ -1,5 +1,6 @@
 const functions = require('firebase-functions')
 const { getFirestore, Timestamp } = require('firebase-admin/firestore')
+const { getMessaging } = require('firebase-admin/messaging')
 
 const dayjs = require('dayjs')
 const utc = require("dayjs/plugin/utc")
@@ -12,6 +13,7 @@ const latestOrder = '17:00'
 const tz = 'Asia/Singapore'
 
 const db = getFirestore()
+const usersRef = db.collection('users')
 const stallsRef = db.collection('stalls')
 const ordersRef = db.collection('orders')
 
@@ -140,7 +142,7 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         } else {
             if (order.estWaitTime > 0) {
                 //last order in queue to complete
-                const lastOrderSnap = await db.collection('orders')
+                const lastOrderSnap = await ordersRef
                     .where("stallID", "==", order.stallID)
                     .where("orderStatus", "==", "Placed")
                     .where("isPreOrder", "==", false)
@@ -178,7 +180,11 @@ exports.createOrder = functions.region('asia-southeast1').https.onCall(async (da
         const res = await ordersRef.add(order)
         messageArray.push(res.id)
 
-        //TODO: send notification to stall
+        const notificationData = {
+            title: `A new order has been created.`,
+            body: `New order created with ID: #${res.id}`
+        }
+        sendNotification(order.stallID, notificationData)
     }
 
     return { success: isSuccess, message: messageArray }
@@ -229,9 +235,50 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
     if (isSuccess) {
         await ordersRef.doc(orderID).update({ orderStatus: 'Cancelled' })
 
-         //TODO: send notification
+        const notificationData = {
+            title: `An order was cancelled by the customer.`,
+            body: `Order #${orderID} has been cancelled.`
+        }
+        sendNotification(orderDoc.data().stallID, notificationData)
     }
 
     return { success: isSuccess, message: messageArray }
 })
 
+async function sendNotification(stallID, notificationData) {
+    const stallDoc = await stallsRef.doc(stallID).get()
+
+    const ownerEmail = stallDoc.data().ownerEmail
+    const staffEmails = stallDoc.data().staffEmails
+
+    const fcmTokens = []
+
+    //add ownerEmail fcmToken
+    const ownerSnap = await usersRef.where("email", "==", ownerEmail).get()
+    const ownerToken = ownerSnap.docs[0].data().fcmToken
+    if (ownerToken) {
+        fcmTokens.push(ownerToken)
+    }
+
+    //add staffEmails fcmToken
+    const staffSnap = await usersRef.where("email", "in", staffEmails).get()
+    staffSnap.forEach(user => {
+        const staffToken = user.data().fcmToken
+        if (staffToken) {
+            fcmTokens.push(staffToken)
+        }
+    })
+
+    const message = {
+        data: notificationData,
+        tokens: fcmTokens
+    }
+
+    getMessaging().sendMulticast(message)
+        .then((response) => {
+            console.log('Successfully sent message:', response)
+        })
+        .catch((error) => {
+            console.log('Error sending message:', error)
+        })
+}

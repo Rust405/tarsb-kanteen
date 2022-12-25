@@ -534,10 +534,6 @@ exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async
 
 async function sendNotification(receiverUID, notificationData) {
     const userDoc = await usersRef.doc(receiverUID).get()
-    if (!userDoc.exists) {
-        console.log("User does not exist!")
-        return
-    }
 
     const fcmToken = userDoc.data().fcmToken
     if (!fcmToken) {
