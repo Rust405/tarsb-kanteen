@@ -554,3 +554,18 @@ async function sendNotification(receiverUID, notificationData) {
             console.log('Error sending message:', error)
         })
 }
+
+//delete orders every weekday at by midnight, excluding pre-orders due in the future
+exports.ordersCleanup = functions.region('asia-southeast1').pubsub.schedule('59 23 * * 1-5').timeZone('Asia/Singapore').onRun(async (context) => {
+
+    const currentOrders = await ordersRef.where('estCmpltTimestamp', '<', Timestamp.now()).get()
+
+    const batch = db.batch()
+    currentOrders.forEach(doc => {
+        batch.delete(doc.ref)
+    })
+
+    await batch.commit()
+
+    return null
+})
