@@ -62,7 +62,7 @@ const CustOrderPreview = ({
                         <Divider />
 
                         <Box sx={{ m: 2 }}>
-                            <Stack>
+                            <Stack spacing={1}>
                                 <Typography variant="caption">
                                     Customer Remark: {remarkString(selectedOrder.data.remarkCustomer)}
                                 </Typography>

@@ -451,7 +451,7 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
 
         const notificationData = {
             title: `Your order has been cancelled by the stall.`,
-            body: `Order #${orderID} has been cancelled.`
+            body: `Reason: ${remarkStall}`
         }
         sendNotification(orderDoc.data().customerID, notificationData)
     }
@@ -530,6 +530,40 @@ exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async
         body: `Order #${orderID} is ready to claim.`
     }
     sendNotification(orderDoc.data().customerID, notificationData)
+})
+
+exports.updateRemarkStall = functions.region('asia-southeast1').https.onCall(async (data, context) => {
+    verifyStallUser(context.auth.token)
+
+    let isSuccess = true
+    let messageArray = []
+
+    let orderID = data.orderID
+    let remarkStall = data.remarkStall.trim()
+
+    //IF order doesn't exist, RETURN early
+    const orderDoc = await ordersRef.doc(orderID).get()
+    if (!orderDoc.exists) {
+        return { success: false, message: [`Order does not exist.`] }
+    }
+
+    //IF order is cancelled, AND IF reason is empty
+    if (orderDoc.data().orderStatus === 'Cancelled' && remarkStall === '') {
+        isSuccess = false
+        messageArray.push(`Remark cannot be empty for a cancelled order.`)
+    }
+
+    if (isSuccess) {
+        await ordersRef.doc(orderID).update({ remarkStall: remarkStall })
+
+        const notificationData = {
+            title: `The stall has updated your order's stall remark.`,
+            body: `Order #${orderID} has its remark updated.`
+        }
+        sendNotification(orderDoc.data().customerID, notificationData)
+    }
+
+    return { success: isSuccess, message: messageArray }
 })
 
 async function sendNotification(receiverUID, notificationData) {

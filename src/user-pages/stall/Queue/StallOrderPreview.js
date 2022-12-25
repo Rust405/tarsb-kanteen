@@ -11,6 +11,7 @@ import OrderIDDisplay from './OrderIDDisplay'
 
 import { useEffect, useState } from 'react'
 import { orderEndCooking, orderMarkClaimed, orderMarkReady, orderMarkUnclaimed, orderStartCooking } from '../../../utils/firebase'
+import UpdateRemarkDialog from './UpdateRemarkDialog'
 
 const StallOrderPreview = ({
     selectedOrder, setSelectedOrder,
@@ -25,10 +26,12 @@ const StallOrderPreview = ({
 
     const [openCancel, setOpenCancel] = useState(false)
     const [openIDDisplay, setOpenIDDisplay] = useState(false)
+    const [openUpdateRemark, setOpenUpdateRemark] = useState(false)
 
     useEffect(function closeDialogs() {
         setOpenCancel(false)
         setOpenIDDisplay(false)
+        setOpenUpdateRemark(false)
     }, [selectedOrder])
 
     function handleMarkClaimed() {
@@ -193,14 +196,18 @@ const StallOrderPreview = ({
                         <Divider />
 
                         <Box sx={{ m: 2 }}>
-                            <Stack>
+                            <Stack spacing={1}>
                                 <Typography variant="caption">
                                     Customer Remark: {remarkString(selectedOrder.data.remarkCustomer)}
                                 </Typography>
+
                                 <Typography variant="caption">
                                     Stall Remark: {remarkString(selectedOrder.data.remarkStall)}
                                 </Typography>
+
+                                <Button size="small" onClick={() => setOpenUpdateRemark(true)}>Update Remark</Button>
                             </Stack>
+
                         </Box>
 
                         <Divider />
@@ -260,6 +267,14 @@ const StallOrderPreview = ({
                         <OrderIDDisplay
                             orderID={selectedOrder.id}
                             openIDDisplay={openIDDisplay} setOpenIDDisplay={setOpenIDDisplay} />
+
+                        <UpdateRemarkDialog
+                            orderID={selectedOrder.id} currentRemark={selectedOrder.remarkStall}
+                            openUpdateRemark={openUpdateRemark} setOpenUpdateRemark={setOpenUpdateRemark}
+                            isValidating={isValidating} setIsValidating={setIsValidating}
+                            setOpenErrSnack={setOpenErrSnack} setErrMsgs={setErrMsgs}
+                            setOpenSucSnack={setOpenSucSnack} setSucMsg={setSucMsg}
+                        />
                     </>
                 }
             </Box>

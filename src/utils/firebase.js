@@ -151,6 +151,8 @@ export const orderStartCooking = httpsCallable(functions, 'stallFunctions-orderS
 
 export const orderEndCooking = httpsCallable(functions, 'stallFunctions-orderEndCooking')
 
+export const updateRemarkStall = httpsCallable(functions, 'stallFunctions-updateRemarkStall')
+
 //[END Stall functions]
 
 
