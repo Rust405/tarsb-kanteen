@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, updateDoc, connectFirestoreEmulator, deleteDoc, deleteField } from "firebase/firestore"
+import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, updateDoc, connectFirestoreEmulator, deleteDoc, arrayUnion, arrayRemove } from "firebase/firestore"
 import { getAuth, GoogleAuthProvider, signOut, signInWithRedirect } from "firebase/auth"
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions"
 import { getMessaging, getToken } from "firebase/messaging"
@@ -33,12 +33,15 @@ const messaging = getMessaging(app)
 
 export const requestFCMToken = async (setTokenFound, showRequestSnack) => {
   return getToken(messaging, { vapidKey: vapidKey })
-    .then(fcmToken => {
-      if (fcmToken) {
-        setTokenFound(true)
-
+    .then(currentToken => {
+      if (currentToken) {
+        //add current token to user doc
         const userRef = doc(db, "users", auth.currentUser.uid)
-        updateDoc(userRef, { fcmToken: fcmToken })
+        updateDoc(userRef, {
+          fcmTokens: arrayUnion(currentToken)
+        })
+
+        setTokenFound(true)
 
         return
       }
@@ -75,13 +78,18 @@ export const createUserIfNotExists = async (user) => {
   }
 }
 
-export const logout = () => {
-  const userRef = doc(db, "users", auth.currentUser.uid)
-  updateDoc(userRef, {
-    fcmToken: deleteField()
-  }).then(
-    signOut(auth)
-  )
+export const logout = async () => {
+  const currentToken = await getToken(messaging, { vapidKey: vapidKey })
+
+  //remove current fcm token from user doc
+  if (currentToken) {
+    const userRef = doc(db, "users", auth.currentUser.uid)
+    await updateDoc(userRef, {
+      fcmTokens: arrayRemove(currentToken)
+    })
+  }
+
+  signOut(auth)
 }
 
 //[START Stall functions]

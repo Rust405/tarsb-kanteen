@@ -535,18 +535,18 @@ exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async
 async function sendNotification(receiverUID, notificationData) {
     const userDoc = await usersRef.doc(receiverUID).get()
 
-    const fcmToken = userDoc.data().fcmToken
-    if (!fcmToken) {
-        console.log("fcmToken not found.")
+    const fcmTokens = userDoc.data().fcmTokens
+    if (!fcmTokens && fcmTokens.length < 0) {
+        console.log("fcmTokens not found.")
         return
     }
 
     const message = {
         data: notificationData,
-        token: fcmToken
+        tokens: fcmTokens
     }
 
-    getMessaging().send(message)
+    getMessaging().sendMulticast(message)
         .then((response) => {
             console.log('Successfully sent message:', response)
         })

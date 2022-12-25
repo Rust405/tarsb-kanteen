@@ -251,23 +251,28 @@ async function sendNotification(stallID, notificationData) {
     const ownerEmail = stallDoc.data().ownerEmail
     const staffEmails = stallDoc.data().staffEmails
 
-    const fcmTokens = []
+    let fcmTokens = []
 
     //add ownerEmail fcmToken
     const ownerSnap = await usersRef.where("email", "==", ownerEmail).get()
-    const ownerToken = ownerSnap.docs[0].data().fcmToken
-    if (ownerToken) {
-        fcmTokens.push(ownerToken)
+    const ownerTokens = ownerSnap.docs[0].data().fcmTokens
+    if (ownerTokens && staffTokens.length > 0) {
+        fcmTokens = fcmTokens.concat(ownerTokens)
     }
 
     //add staffEmails fcmToken
     const staffSnap = await usersRef.where("email", "in", staffEmails).get()
     staffSnap.forEach(user => {
-        const staffToken = user.data().fcmToken
-        if (staffToken) {
-            fcmTokens.push(staffToken)
+        const staffTokens = user.data().fcmTokens
+        if (staffTokens && staffTokens.length > 0) {
+            fcmTokens = fcmTokens.concat(staffTokens)
         }
     })
+
+    if (fcmTokens.length === 0) {
+        console.log("fcmTokens not found.")
+        return
+    }
 
     const message = {
         data: notificationData,
