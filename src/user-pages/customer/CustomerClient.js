@@ -85,8 +85,8 @@ const CustomerClient = ({ userInfo }) => {
         const unsubMsg = onMessage(messaging, payload => {
             toast.info(
                 <>
-                    <Typography sx={{ fontWeight: 'bold' }}>{payload.notification.title}</Typography>
-                    <Typography>{payload.notification.body}</Typography>
+                    <Typography sx={{ fontWeight: 'bold' }}>{payload.data.title}</Typography>
+                    <Typography>{payload.data.body}</Typography>
                 </>
             )
         })

@@ -448,11 +448,11 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
     if (isSuccess) {
         await ordersRef.doc(orderID).update({ orderStatus: 'Cancelled', remarkStall: remarkStall })
 
-        const notification = {
+        const notificationData = {
             title: `Your order has been cancelled by the stall.`,
             body: `Order #${orderID} has been cancelled.`
         }
-        sendNotification(orderDoc.data().customerID, notification)
+        sendNotification(orderDoc.data().customerID, notificationData)
     }
 
     return { success: isSuccess, message: messageArray }
@@ -470,11 +470,11 @@ exports.orderMarkReady = functions.region('asia-southeast1').https.onCall(async 
         orderStatus: 'Ready'
     })
 
-    const notification = {
+    const notificationData = {
         title: `Your order is ready.`,
         body: `Order #${orderID} is ready to claim.`
     }
-    sendNotification(orderDoc.data().customerID, notification)
+    sendNotification(orderDoc.data().customerID, notificationData)
 })
 
 exports.orderStartCooking = functions.region('asia-southeast1').https.onCall(async (data, context) => {
@@ -490,11 +490,11 @@ exports.orderStartCooking = functions.region('asia-southeast1').https.onCall(asy
         orderStatus: 'Cooking'
     })
 
-    const notification = {
+    const notificationData = {
         title: `Your order is in the kitchen.`,
         body: `Order #${orderID} has started cooking.`
     }
-    sendNotification(orderDoc.data().customerID, notification)
+    sendNotification(orderDoc.data().customerID, notificationData)
 })
 
 exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async (data, context) => {
@@ -524,30 +524,36 @@ exports.orderEndCooking = functions.region('asia-southeast1').https.onCall(async
         menuRef.doc(waitingItem.id).update({ estWaitTime: newEstWaitTime })
     }
 
-    const notification = {
+    const notificationData = {
         title: `Your order is ready to claim.`,
         body: `Order #${orderID} is ready to claim.`
     }
-    sendNotification(orderDoc.data().customerID, notification)
+    sendNotification(orderDoc.data().customerID, notificationData)
 })
 
-async function sendNotification(receiverUID, notification) {
+async function sendNotification(receiverUID, notificationData) {
     const userDoc = await usersRef.doc(receiverUID).get()
-
-    if (userDoc.exists) {
-        const fcmToken = userDoc.data().fcmToken
-
-        const message = {
-            notification: notification,
-            token: fcmToken
-        }
-
-        getMessaging().send(message)
-            .then((response) => {
-                console.log('Successfully sent message:', response)
-            })
-            .catch((error) => {
-                console.log('Error sending message:', error)
-            })
+    if (!userDoc.exists) {
+        console.log("User does not exist!")
+        return
     }
+
+    const fcmToken = userDoc.data().fcmToken
+    if (!fcmToken) {
+        console.log("fcmToken not found.")
+        return
+    }
+
+    const message = {
+        data: notificationData,
+        token: fcmToken
+    }
+
+    getMessaging().send(message)
+        .then((response) => {
+            console.log('Successfully sent message:', response)
+        })
+        .catch((error) => {
+            console.log('Error sending message:', error)
+        })
 }
