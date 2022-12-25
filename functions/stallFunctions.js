@@ -246,9 +246,10 @@ exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async
     await stallsRef.doc(stallID).delete()
 
     //delete subcollections
-    await deleteCollection(`/stalls/${stallID}/menu`)
+    deleteCollection(`/stalls/${stallID}/menu`)
 
-    //TODO: delete orders related to stall?
+    //delete stall related orders
+    ordersRef.where("stallID", "==", stallID).delete()
 })
 
 exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (data, context) => {
