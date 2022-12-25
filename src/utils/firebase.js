@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, updateDoc, connectFirestoreEmulator, deleteDoc } from "firebase/firestore"
+import { getFirestore, setDoc, doc, getDoc, query, collection, where, getDocs, updateDoc, connectFirestoreEmulator, deleteDoc, deleteField } from "firebase/firestore"
 import { getAuth, GoogleAuthProvider, signOut, signInWithRedirect } from "firebase/auth"
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions"
 import { getMessaging, getToken } from "firebase/messaging"
@@ -75,7 +75,14 @@ export const createUserIfNotExists = async (user) => {
   }
 }
 
-export const logout = () => signOut(auth)
+export const logout = () => {
+  const userRef = doc(db, "users", auth.currentUser.uid)
+  updateDoc(userRef, {
+    fcmToken: deleteField()
+  }).then(
+    signOut(auth)
+  )
+}
 
 //[START Stall functions]
 export const findStallUser = async (email) => {
