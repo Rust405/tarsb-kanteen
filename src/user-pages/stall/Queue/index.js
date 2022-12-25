@@ -322,6 +322,8 @@ const Queue = ({
                                     ))
                                 }
 
+                                <Typography align="center" variant="caption" display="block">Completed orders can be viewed at 'Generate Summary'. The order queue is cleaned every weekday around midnight.</Typography>
+
                             </List>
                         }
 

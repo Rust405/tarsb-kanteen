@@ -277,6 +277,9 @@ const MyOrders = ({
                                         </ListItem>
                                     ))
                                 }
+
+                                <Typography align="center" variant="caption" display="block">'My Orders' is cleaned every weekday around midnight.</Typography>
+
                             </List>
                         }
                     </>
