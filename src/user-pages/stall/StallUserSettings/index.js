@@ -14,7 +14,18 @@ const StallUserSettings = ({ isTokenFound, isFetchingToken }) => {
                 <Typography variant="h6">Settings</Typography>
 
                 {!isFetchingToken &&
-                    <Typography>{`Notifications are ${isTokenFound ? 'enabled' : 'disabled'}.`}</Typography>
+                    <Box sx={{ m: 2 }}>
+                        {isTokenFound &&
+                            <Typography>
+                                Notifications are <strong>enabled</strong>.<br />For pre-orders, you will receive a remidner notification 10 minutes before the specified pickup.
+                            </Typography>
+                        }
+                        {!isTokenFound &&
+                            <Typography>
+                                Notifications are <strong>disabled</strong>.<br />Please allow notifications to receive push notifications on orders.
+                            </Typography>
+                        }
+                    </Box>
                 }
 
                 <Typography variant="h6">Info</Typography>
@@ -36,6 +47,23 @@ const StallUserSettings = ({ isTokenFound, isFetchingToken }) => {
                             <ListItem sx={{ display: 'list-item' }}><Typography>If a menu item is made unavailable, it will be automatically removed only from any existing customers' order creation.</Typography></ListItem>
                         </List>
                         <Typography variant="caption">The information above is subject to change*</Typography>
+                    </AccordionDetails>
+                </Accordion>
+
+                <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />} >
+                        <Typography>Installation</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Typography paragraph>TARSB Kanteeen can be installed on most of your devices!</Typography>
+
+                        <Typography paragraph>On desktop Google Chrome, you can find the "Install TARSB Kanteen" button in the address bar.</Typography>
+
+                        <Typography paragraph>On Android Google Chrome, click on '⋮' and select "Install app".</Typography>
+
+                        <Typography paragraph>For other browsers and devices, you may look up "How to install PWA on (your device/browser)".</Typography>
+
+                        <Typography paragraph>Once installed, you may access TARSB Kanteen on your device like any other application!</Typography>
                     </AccordionDetails>
                 </Accordion>
 
