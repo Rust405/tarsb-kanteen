@@ -17,3 +17,5 @@
 9. estWaitTime doesn't update if order in queue is cancelled. (Ignored, estWaitTime is worst case scenario so acceptable.)
 
 10. Fixed 10 minutes pre-order reminder (Unable to implement custom timings within deadline.)
+
+11. Unlikely case, if pre-order is completed before pickup timestamp, then reminder is not deleted (Ignored, unlikely case to occur, minimal impact on experience.)
