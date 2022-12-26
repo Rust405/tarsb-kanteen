@@ -63,8 +63,6 @@ exports.registerStall = functions.region('asia-southeast1').https.onCall(async (
     newStall.lowercaseStallName = newStall.stallName.trim().toLowerCase()
     newStall.ownerEmail = context.auth.token.email
     newStall.status = "closed"
-    newStall.orderQueue = []
-    newStall.preOrderList = []
 
     let isSuccess = true
     let messageArray = []
