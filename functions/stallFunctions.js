@@ -248,7 +248,20 @@ exports.unregisterStall = functions.region('asia-southeast1').https.onCall(async
     deleteCollection(`/stalls/${stallID}/menu`)
 
     //delete stall related orders
-    ordersRef.where("stallID", "==", stallID).delete()
+    ordersRef.where("stallID", "==", stallID).get()
+        .then(orders => {
+            orders.forEach(order => {
+                ordersRef.doc(order.id).delete()
+            })
+        })
+
+    //delete stall related reminders
+    remindersRef.where("stallID", "==", stallID).get()
+        .then(reminders => {
+            reminders.forEach(reminder => {
+                remindersRef.doc(reminder.id).delete()
+            })
+        })
 })
 
 exports.addMenuItem = functions.region('asia-southeast1').https.onCall(async (data, context) => {

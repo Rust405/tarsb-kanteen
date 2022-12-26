@@ -23,6 +23,7 @@ const CancelOrderDialog = ({
     const handleCloseCancel = () => {
         if (isValidating) return
 
+        setRemarkStall('')
         setOpenCancel(false)
     }
 
