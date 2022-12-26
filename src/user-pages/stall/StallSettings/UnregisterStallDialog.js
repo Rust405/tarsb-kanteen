@@ -44,7 +44,7 @@ const UnregisterStallDialog = ({ openDialog, setOpenDialog, stallName, stallID, 
                 <DialogContent>
                     <DialogContentText>
                         Before your proceed, please note that all users
-                        associated with the stall (incluyding yourself) will be automatically logged out.
+                        associated with the stall (including yourself) will be automatically logged out. All existing orders will also be deleted.
                         This process cannot be undone.
                     </DialogContentText>
 

@@ -456,12 +456,7 @@ exports.cancelOrder = functions.region('asia-southeast1').https.onCall(async (da
 
         //IF Preorder, remove reminder
         if (orderDoc.data().isPreOrder) {
-            remindersRef.where("orderID", "==", orderID).get()
-                .then(reminders => {
-                    reminders.forEach(reminder => {
-                        remindersRef.doc(reminder.id).delete()
-                    })
-                })
+            remindersRef.where("orderID", "==", orderID).delete()
         }
     }
 

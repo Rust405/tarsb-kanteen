@@ -127,10 +127,6 @@ const StallSettings = ({
             errMsgs.push('Please ensure the stall is closed before proceeding.')
             hasErrs = true
         }
-        if (stallSnapshot.orderQueue.length !== 0 || stallSnapshot.preOrderList.length !== 0) {
-            errMsgs.push('Please fulfill or cancel any unfulfilled orders before proceeding.')
-            hasErrs = true
-        }
 
         if (!hasErrs) {
             setOpenDialog(true)
