@@ -152,7 +152,7 @@ const StallClient = ({ staffRole, stallID, userInfo }) => {
                                 />
                             } />
                             <Route path={ROUTE.STALL.MENU} element={<Menu stallID={stallID} selectedItem={selectedItem} setSelectedItem={setSelectedItem} isValidating={isValidating} />} />
-                            <Route path={ROUTE.STALL.GENERATESUMMARY} element={<GenerateSummary />} />
+                            <Route path={ROUTE.STALL.GENERATESUMMARY} element={<GenerateSummary stallID={stallID} />} />
                             <Route path={ROUTE.STALL.USERSETTINGS} element={<StallUserSettings isTokenFound={isTokenFound} isFetchingToken={isFetchingToken} />} />
                             {staffRole === 'owner' &&
                                 <Route

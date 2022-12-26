@@ -21,7 +21,7 @@ const StallUserSettings = ({ isTokenFound, isFetchingToken }) => {
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />} >
-                        <Typography>Rules</Typography>
+                        <Typography>Rules/Restrictions</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <List sx={{ listStyleType: 'disc', pl: 4 }} >

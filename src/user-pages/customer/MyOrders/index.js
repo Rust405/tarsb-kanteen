@@ -10,6 +10,8 @@ import CircularProgress from '@mui/material/CircularProgress'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { auth, db } from '../../../utils/firebase'
+import { shortOrderString } from '../../../utils/tools'
+
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 
 import { CUSTOMSTYLE } from '../../../constants'
@@ -71,16 +73,6 @@ const MyOrders = ({
             }
         }
     }, [deletedOrders])
-
-    const shortOrderString = (orderItems) => {
-        let orderString = orderItems[0].data.menuItemName
-
-        if (orderItems.length > 1) {
-            orderString += ` + ${orderItems.length - 1} other item(s)`
-        }
-
-        return orderString
-    }
 
     const orderStatusString = (estCmpltDateTime, stallName) => {
         return dayjs().diff(estCmpltDateTime, 'minute') < overdueTrigger ?

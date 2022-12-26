@@ -16,6 +16,7 @@ import { useTheme } from '@mui/material/styles'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { db } from '../../../utils/firebase'
+import { shortOrderString } from '../../../utils/tools'
 import { CUSTOMSTYLE } from '../../../constants'
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import ReportCustomerDialog from './ReportCustomerDialog'
@@ -85,16 +86,6 @@ const Queue = ({
             }
         }
     }, [deletedOrders])
-
-    const shortOrderString = (orderItems) => {
-        let orderString = orderItems[0].data.menuItemName
-
-        if (orderItems.length > 1) {
-            orderString += ` + ${orderItems.length - 1} other item(s)`
-        }
-
-        return orderString
-    }
 
     const handleSelect = (doc) => {
         if (selectedOrder && selectedOrder.id === doc.id) {
