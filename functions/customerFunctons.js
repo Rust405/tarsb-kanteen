@@ -350,13 +350,13 @@ exports.sendReminderNotification = functions.region('asia-southeast1').pubsub.sc
         unsentReminders.forEach(async unsentReminder => {
             const stallReminder = {
                 title: `Reminder: Cook Pre-order #${unsentReminder.data().orderID}.`,
-                body: `Scheduled for pickup at ${dayjs(unsentReminder.data().reminderTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}.`
+                body: `Scheduled for pickup at ${dayjs.tz(unsentReminder.data().pickupTimestamp.toDate(), tz).format('DD/MM/YYYY (ddd) HH:mm')}.`
             }
             sendToStall(unsentReminder.data().stallID, stallReminder)
 
             const customerReminder = {
                 title: `Reminder: Pick up Pre-order #${unsentReminder.data().orderID}.`,
-                body: `Scheduled for pickup at ${dayjs(unsentReminder.data().reminderTimestamp.toDate()).format('DD/MM/YYYY (ddd) HH:mm')}.`
+                body: `Scheduled for pickup at ${dayjs.tz(unsentReminder.data().pickupTimestamp.toDate(), tz).format('DD/MM/YYYY (ddd) HH:mm')}.`
             }
             sendToCustomer(unsentReminder.data().customerID, customerReminder)
 
