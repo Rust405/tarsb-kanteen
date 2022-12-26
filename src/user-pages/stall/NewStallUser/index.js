@@ -43,8 +43,11 @@ const NewStallUser = ({ setIsNewStallUser, email }) => {
 
     return (
         <div className="new-stall-user">
-            <Box sx={{ width: '100%' }} display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
-                <Stack sx={{ m: 2 }} spacing={4}>
+            <Box sx={{
+                position: 'absolute', left: '50%', top: '50%',
+                transform: 'translate(-50%, -50%)'
+            }}>
+                <Stack sx={{ m: 2 }} alignItems="center" spacing={4}>
                     {/* Are you a stall staff? */}
                     <CUSTOMCOMPONENT.Item>
                         <Typography variant="h5" sx={{ fontWeight: 'bold' }} gutterBottom>Are you a stall staff?</Typography>
