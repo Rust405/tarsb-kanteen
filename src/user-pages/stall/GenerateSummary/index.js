@@ -9,17 +9,29 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import CircularProgress from '@mui/material/CircularProgress'
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import PrintIcon from '@mui/icons-material/Print'
+import Stack from '@mui/material/Stack'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import { db } from '../../../utils/firebase'
 import { shortOrderString } from '../../../utils/tools'
 import currency from 'currency.js'
 
+import dayjs from 'dayjs'
+import 'dayjs/locale/en-sg'
+
+import { useReactToPrint } from 'react-to-print'
+
 const GenerateSumamry = ({
     stallID
 }) => {
+    const componentRef = useRef()
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    })
 
     const [cmpltOrders, setCmpltOrders] = useState(null)
 
@@ -46,9 +58,18 @@ const GenerateSumamry = ({
         return currency(orderItems.reduce((acc, cur) => acc + cur.data.price, 0)).format({ symbol: 'RM ' })
     }
 
+    const totalString = (orders) => {
+        let total = 0
+        orders.forEach(doc => {
+            total += doc.data().orderItems.reduce((acc, cur) => acc + cur.data.price, 0)
+        })
+
+        return currency(total).format({ symbol: 'RM ' })
+    }
+
     return (
         <div className="generate-summary">
-            <Box sx={{ p: 2 }}>
+            <Box sx={{ p: 2 }} ref={componentRef}>
                 {!cmpltOrders && <Box display="flex" justifyContent="center"><CircularProgress /></Box>}
 
                 {cmpltOrders &&
@@ -59,7 +80,10 @@ const GenerateSumamry = ({
                         {/* Completed Orders */}
                         {cmpltOrders.length > 0 &&
                             <>
-                                <Typography variant="h6">Completed Order Summary</Typography>
+                                <Stack direction="row" alignItems="center" spacing={1}>
+                                    <Typography variant="h6">Completed Order Summary ({dayjs().format('DD/MM/YYYY')})</Typography>
+                                    <IconButton onClick={handlePrint}><PrintIcon /></IconButton>
+                                </Stack>
 
                                 <TableContainer component={Paper}>
                                     <Table sx={{ minWidth: 650 }}>
@@ -68,7 +92,7 @@ const GenerateSumamry = ({
                                                 <TableCell>ID</TableCell>
                                                 <TableCell align="right">Type</TableCell>
                                                 <TableCell align="center">Menu Items</TableCell>
-                                                <TableCell align="right">Subtotal</TableCell>
+                                                <TableCell align="center">Subtotal</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -93,6 +117,10 @@ const GenerateSumamry = ({
                                                         <TableCell align="right">{subTotalString(doc.data().orderItems)}</TableCell>
                                                     </TableRow>
                                                 ))}
+                                            <TableRow>
+                                                <TableCell colSpan={3} align="right" sx={{ fontWeight: 'bold' }}>Total</TableCell>
+                                                <TableCell align="right">{totalString(cmpltOrders)}</TableCell>
+                                            </TableRow>
                                         </TableBody>
                                     </Table>
                                 </TableContainer>

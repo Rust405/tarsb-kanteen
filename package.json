@@ -21,6 +21,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-router-dom": "^6.4.5",
     "react-scripts": "^5.0.1",
+    "react-to-print": "^2.14.10",
     "react-toastify": "^9.1.1",
     "workbox-background-sync": "^6.5.4",
     "workbox-broadcast-update": "^6.5.4",

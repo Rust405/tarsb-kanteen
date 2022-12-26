@@ -15,3 +15,5 @@
 8. When a menu item is made unavailable, it is not removed from existing orders. (Ignored, although useful it will take longer to implement, orders can still be manually cancelled by stall users and menu items are removed from order creation automatically.)
 
 9. estWaitTime doesn't update if order in queue is cancelled. (Ignored, estWaitTime is worst case scenario so acceptable.)
+
+10. Fixed 10 minutes pre-order reminder (Unable to implement custom timings within deadline.)
