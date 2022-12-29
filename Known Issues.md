@@ -19,3 +19,5 @@
 10. Fixed 10 minutes pre-order reminder (Unable to implement custom timings within deadline.)
 
 11. Unlikely case, if pre-order is completed before pickup timestamp, then reminder is not deleted (Ignored, unlikely case to occur, minimal impact on experience.)
+
+12. Currently no code to remove stale/unregistered FCM tokens.
