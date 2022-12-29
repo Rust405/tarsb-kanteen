@@ -310,10 +310,17 @@ async function sendToStall(stallID, notificationData) {
 
     getMessaging().sendMulticast(message)
         .then((response) => {
-            console.log('Successfully sent message:', response)
-        })
-        .catch((error) => {
-            console.log('Error sending message:', error)
+            if (response.failureCount > 0) {
+                const failedTokens = []
+                response.responses.forEach((resp, idx) => {
+                    if (!resp.success) {
+                        failedTokens.push(registrationTokens[idx])
+                    }
+                })
+                console.log('List of tokens that caused failures: ' + failedTokens)
+            } else {
+                console.log('Successfully sent message:', response)
+            }
         })
 }
 
@@ -333,10 +340,17 @@ async function sendToCustomer(receiverUID, notificationData) {
 
     getMessaging().sendMulticast(message)
         .then((response) => {
-            console.log('Successfully sent message:', response)
-        })
-        .catch((error) => {
-            console.log('Error sending message:', error)
+            if (response.failureCount > 0) {
+                const failedTokens = []
+                response.responses.forEach((resp, idx) => {
+                    if (!resp.success) {
+                        failedTokens.push(registrationTokens[idx])
+                    }
+                })
+                console.log('List of tokens that caused failures: ' + failedTokens)
+            } else {
+                console.log('Successfully sent message:', response)
+            }
         })
 }
 
