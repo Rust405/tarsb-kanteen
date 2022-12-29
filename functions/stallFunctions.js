@@ -608,7 +608,7 @@ async function sendToCustomer(receiverUID, notificationData) {
                 const failedTokens = []
                 response.responses.forEach((resp, idx) => {
                     if (!resp.success) {
-                        failedTokens.push(registrationTokens[idx])
+                        failedTokens.push(message.tokens[idx])
                     }
                 })
                 console.log('List of tokens that caused failures: ' + failedTokens)
