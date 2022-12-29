@@ -286,18 +286,15 @@ async function sendToStall(stallID, notificationData) {
     //add ownerEmail fcmToken
     const ownerSnap = await usersRef.where("email", "==", ownerEmail).get()
     const ownerTokens = ownerSnap.docs[0].data().fcmTokens
-    if (ownerTokens && ownerTokens.length > 0) {
-        fcmTokens = fcmTokens.concat(ownerTokens)
-    }
+    if (ownerTokens && ownerTokens.length > 0) fcmTokens = fcmTokens.concat(ownerTokens)
+
 
     //add staffEmails fcmToken
-    if (staffEmails.length > 0) {
+    if (staffEmails.length) {
         const staffSnap = await usersRef.where("email", "in", staffEmails).get()
         staffSnap.forEach(user => {
             const staffTokens = user.data().fcmTokens
-            if (staffTokens && staffTokens.length > 0) {
-                fcmTokens = fcmTokens.concat(staffTokens)
-            }
+            if (staffTokens && staffTokens.length > 0) fcmTokens = fcmTokens.concat(staffTokens)
         })
     }
 
