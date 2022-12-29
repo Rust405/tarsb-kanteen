@@ -291,13 +291,15 @@ async function sendToStall(stallID, notificationData) {
     }
 
     //add staffEmails fcmToken
-    const staffSnap = await usersRef.where("email", "in", staffEmails).get()
-    staffSnap.forEach(user => {
-        const staffTokens = user.data().fcmTokens
-        if (staffTokens && staffTokens.length > 0) {
-            fcmTokens = fcmTokens.concat(staffTokens)
-        }
-    })
+    if (staffEmails.length > 0) {
+        const staffSnap = await usersRef.where("email", "in", staffEmails).get()
+        staffSnap.forEach(user => {
+            const staffTokens = user.data().fcmTokens
+            if (staffTokens && staffTokens.length > 0) {
+                fcmTokens = fcmTokens.concat(staffTokens)
+            }
+        })
+    }
 
     if (fcmTokens.length === 0) {
         console.log("fcmTokens not found.")
